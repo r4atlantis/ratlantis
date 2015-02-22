@@ -1,7 +1,8 @@
 Package: ratlantis
 Title: R code for interfacing with and developing Atlantis ecosystem models
 Version: 0.1
-Authors@R: "J. Stepphen Gosnell <stephen.gosnell@baruch.cuny.edu> [aut, cre]"
+Authors@R: person("J. Stephen", "Gosnell", email = "stephen.gosnell@baruch.cuny.edu",
+  role = c("aut", "cre"))"
 Description: An R interface to the C++ program Atlantis, this package aids in model development by automating development of model map, collection of species data and functional group selection, running, calibrating, and comparing models. 
 Depends: R (>= 3.1.2)
 VignetteBuilder: knitr
