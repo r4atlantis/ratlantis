@@ -1,21 +1,18 @@
 
 =======
-[![Build Status](https://travis-ci.org/ropensci/rglobi.svg?branch=master)](https://travis-ci.org/ropensci/rglobi)
+[![Build Status](https://travis-ci.org/jsgosnell/ratlantis.svg?branch=master)](https://travis-ci.org/jsgosnell/ratlantis)
+
+https://travis-ci.org/jsgosnell/ratlantis.svg?branch=master
 
 R code for interfacing with Atlantis ecosystem modeling software
 
-To install ```rglobi``` from [CRAN](http://cran.r-project.org/web/packages/rglobi/):
-```R
-install.packages("rglobi")
-```
-
-Or install development version:
+To install development version:
 ```R
 install.packages("devtools")
-devtools::install_github("ropensci/rglobi")
+devtools::install_github("jsgosnell/ratlantis")
 ```
 
-## Getting Data
+## Creating a map
 
 ```R
 library(rglobi)
