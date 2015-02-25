@@ -2,7 +2,7 @@
 =======
 [![Build Status](https://travis-ci.org/ropensci/rglobi.svg?branch=master)](https://travis-ci.org/ropensci/rglobi)
 
-R library to access species interaction data of http://globalbioticinteractions.org
+R code for interfacing with Atlantis ecosystem modeling software
 
 To install ```rglobi``` from [CRAN](http://cran.r-project.org/web/packages/rglobi/):
 ```R
