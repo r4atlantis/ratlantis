@@ -2,8 +2,6 @@
 =======
 [![Build Status](https://travis-ci.org/jsgosnell/ratlantis.svg?branch=master)](https://travis-ci.org/jsgosnell/ratlantis)
 
-https://travis-ci.org/jsgosnell/ratlantis.svg?branch=master
-
 R code for interfacing with Atlantis ecosystem modeling software
 
 To install development version:
