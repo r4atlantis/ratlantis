@@ -17,7 +17,8 @@ VignetteBuilder: knitr
 License: MIT + file LICENSE
 LazyData: true
 Imports:
-  rgeos
+  rgeos,
+  rgdal
 Suggests:
   testthat,
   knitr

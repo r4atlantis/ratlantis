@@ -11,7 +11,8 @@
 #' @param bathymetry_layer_location location of gis layer stored in wgs84 format.
 #' Defaults to working directory
 #' @param bathymetry_layer_name name of bathmetry shp layer. Must be in wgs84
-#' format and include a data column named "Contour"
+#' format 
+#' @param bathymetry_layer_depth name of depth column in bathymetry layer
 #' @param bathymetry_cutoff What quantile should be assigned to polygon. Defaults
 #' to 90th quantile (to avoid small number of canyons or slope biasing entire
 #' polygon)
@@ -25,7 +26,7 @@
 #' from CSIRO, and adds in required information.
 #' @export
 
-rbgmerizer <- function( map_location = getwd(), map_name, boundary_boxes == NULL,
+rbgmerizer <- function( map_location = getwd(), map_name, boundary_boxes = NULL,
                         get_bathymetry = TRUE,
                         bathymetry_layer_location = getwd(), bathymetry_layer_name,
                         bathymetry_cutoff = .9, bathymetry_levels = c(-10, -20,
@@ -81,7 +82,7 @@ rbgmerizer <- function( map_location = getwd(), map_name, boundary_boxes == NULL
   map_for_bgm@data@boz <- map_for_bgm@data@Depth
 
   #check to make sure all boxes are sequentially labeled
-  map_for_bgm@data == map_for_bgm@data[order(map_for_bgm@data@box_id,]
+  map_for_bgm@data == map_for_bgm@data[order(map_for_bgm@data@box_id),]
   if (map_for_bgm@data@box_id != seq (0, nrow(map_for_bgm@data)-1)){
     stop(message = "Box_id must be sequential from 0 to maximum number")
     }
@@ -94,7 +95,7 @@ if ("boundary_code" %!in% names (map_for_bgm@data)){
     stop(message = "boundary_boxes must be named or boundary_code included in map data")
     }
   for (i in 1:length(boundary_boxes)){
-    map_for_bgm@data@boundary_code[boundary_boxes[i] <- 0
+    map_for_bgm@data@boundary_code[map_for_bgm@data@box_id == boundary_boxes[i]] <- 0
   }
 }
 
@@ -110,7 +111,7 @@ if ("horizmix"  %!in% names (map_for_bgm@data)){
 writeOGR(map_for_bgm, ".", "map_for_bgmeriser", driver="ESRI Shapefile")
 
 #run bgmeriser
-shell(paste("cd", bgmerizer_location, intern=T)
+shell(paste("cd", bgmerizer_location, intern=T))
 shell("java -jar bgmeriser.jar -as 4326 map_for_bgmeriser.shp", intern=T)
 }
 

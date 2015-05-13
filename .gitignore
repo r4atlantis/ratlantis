@@ -11,3 +11,5 @@
 #vignette files besides source
 vignette/*.html
 vignette/*.md
+
+
