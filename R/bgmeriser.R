@@ -4,7 +4,7 @@
 #' @param map_location location of gis layer stored in wgs84 format.  Defaults
 #'  to working directory
 #' @param map_name name of map to be used for bgm creation. Must incude "box_id"
-#' column. Other columns may be included
+#' column. Other columns may be included (horizmix, vertmix,boundary_code)
 #' @param boundary_boxes a list of boxes that boundary boxes in the model
 #' @param get_bathmetry Should function automatically add depths (T(rue) or
 #' F(alse)
@@ -21,13 +21,13 @@
 #' @keywords bgm
 #' @details This function creates bgm file format needed for Atlantis by calling
 #' java program. It also adds in depth data (if desired) using provided
-#' bathymetry layer.
-#' layer.
+#' bathymetry layer.  This functions as a wrapper for bgmerizer.jar, available
+#' from CSIRO, and adds in required information.
 #' @export
 
-rbgmerizer <- function( map_location = getwd(), map_name, boundary_boxes,
+rbgmerizer <- function( map_location = getwd(), map_name, boundary_boxes == NULL,
                         get_bathymetry = TRUE,
-                        bathymetry_layer_location = getwd(), bathymetry_layer,
+                        bathymetry_layer_location = getwd(), bathymetry_layer_name,
                         bathymetry_cutoff = .9, bathymetry_levels = c(-10, -20,
                                                                       -50, -200,
                                                                       -1000, -2000,
@@ -45,7 +45,7 @@ rbgmerizer <- function( map_location = getwd(), map_name, boundary_boxes,
   #get depth stats for each polygon by overlaying bathymetry layer on map layer
 
   if (get_bathymetry == T){
-    bathymetry <- readOGR(bathymetry_layer_location, layer = bathymetry_layer)
+    bathymetry <- readOGR(bathymetry_layer_location, layer = bathymetry_layer_name)
     if (bathymetry@proj4string@projargs != "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"){
       stop(message = "Bathymetry layer map must be in wgs84 format")
     }
@@ -72,42 +72,46 @@ rbgmerizer <- function( map_location = getwd(), map_name, boundary_boxes,
     for (i in 1:nrow(map_for_bgm@data)){
          x <- map_for_bgm@data@Depth[i] - bathymetry_levels
          x <- which(x>0)
-         map_for_bgm@Depth[i] <- max(bathymetry_levels[x])
+         map_for_bgm@data$Depth[i] <- max(bathymetry_levels[x])
     }
 
 
    }
 
+  map_for_bgm@data@boz <- map_for_bgm@data@Depth
 
+  #check to make sure all boxes are sequentially labeled
+  map_for_bgm@data == map_for_bgm@data[order(map_for_bgm@data@box_id,]
+  if (map_for_bgm@data@box_id != seq (0, nrow(map_for_bgm@data)-1)){
+    stop(message = "Box_id must be sequential from 0 to maximum number")
+    }
+
+#set boundary boxes if boundary_code not included
+if ("boundary_code" %!in% names (map_for_bgm@data)){
+  #default to 1
+  map_for_bgm@data@boundary_code <-
+  if(length(boundary_boxes)<2 | is.null(boundary_boxes)){
+    stop(message = "boundary_boxes must be named or boundary_code included in map data")
+    }
+  for (i in 1:length(boundary_boxes)){
+    map_for_bgm@data@boundary_code[boundary_boxes[i] <- 0
   }
+}
+
+if ("vertmix"  %!in% names (map_for_bgm@data)){
+  map_for_bgm@data@vertmix <- .00001
+}
+
+if ("horizmix"  %!in% names (map_for_bgm@data)){
+  map_for_bgm@data@horizmix <- 1
+}
+
+#write map for future viewing
+writeOGR(map_for_bgm, ".", "map_for_bgmeriser", driver="ESRI Shapefile")
+
+#run bgmeriser
+shell(paste("cd", bgmerizer_location, intern=T)
+shell("java -jar bgmeriser.jar -as 4326 map_for_bgmeriser.shp", intern=T)
+}
 
 
-
-
-
-
-
-# mymapdata=mymapdata[order(mymapdata$box_id),]
-# mymapdata$box_id==seq(0,nrow(mymapdata)-1)# should go 0 to (max) with no breaks
-# #make sure boundary boxes are set to boundary=1, others to 0
-# #FOR THIS MAP ONLY, TWO BOUNDARY BOX
-# #1 is for most boxes (dynamic)
-# mymap@data$boundary=0
-# #0 and 52 are boundaries (set to 0)
-# mymap@data[mymap$box_id==0,"boundary"]=1
-# mymap@data[mymap$box_id==52,"boundary"]=1
-# #change botz to new dcdepthcolumn
-# mymap@data$botz=mymap@data$Depth
-# #just make all vertmix .00001
-# mymap@data$vertmix=.00001
-# #just make all horizmix 1
-# mymap@data$horizmix=1
-# #rewrite as new shapefile
-# unlink("mapforbgmeriser*")
-# writeOGR(mymap, ".", "mapforbgmeriser", driver="ESRI Shapefile")
-#
-# #code to run bgmerizer
-# shell(paste("cd", getwd()), intern=T)
-# shell("java -jar bgmeriser.jar", intern=T)
-# shell("java -jar bgmeriser.jar -as 4326 mapforbgmeriser.shp", intern=T)
-#
