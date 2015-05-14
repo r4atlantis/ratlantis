@@ -12,6 +12,6 @@ x \%!in\% table
 \item{table}{}
 }
 \description{
-This function allows you to check if an element is in a larger group
+This function allows you to check if an element is not in a larger group
 }
 

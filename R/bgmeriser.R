@@ -11,7 +11,7 @@
 #' @param bathymetry_layer_location location of gis layer stored in wgs84 format.
 #' Defaults to working directory
 #' @param bathymetry_layer_name name of bathmetry shp layer. Must be in wgs84
-#' format 
+#' format
 #' @param bathymetry_layer_depth name of depth column in bathymetry layer
 #' @param bathymetry_cutoff What quantile should be assigned to polygon. Defaults
 #' to 90th quantile (to avoid small number of canyons or slope biasing entire
@@ -57,7 +57,7 @@ rbgmerizer <- function( map_location = getwd(), map_name, boundary_boxes = NULL,
     if ("Contour" %!in% colnames(bathymetry@data)){
       stop(message = "Bathymetry data must incluce Contour column")
     }
-    if (bathymetry_levels < 0){
+    if (max(bathymetry_levels) > 0){
       stop(message = "Bathymetry levels must all be negative")
     }
 
@@ -65,13 +65,11 @@ rbgmerizer <- function( map_location = getwd(), map_name, boundary_boxes = NULL,
     #measurements as set by bathymety_cutoff
     bathymetry_cutoff_quant <- function(x){quantile(x, c(1 - bathymetry_cutoff))}
     depth <- over(map_for_bgm, bathymetry, fn=bathymetry_cutoff_quant)
-    depth$Depth <- depth$Contour
-    map_for_bgm@data$Depth <- depth$Depth
-    map_for_bgm@data$Depth2 <- depth$Depth
+    map_for_bgm@data$Depth <- depth$Contour
 
     #cut to noted levels
     for (i in 1:nrow(map_for_bgm@data)){
-         x <- map_for_bgm@data@Depth[i] - bathymetry_levels
+         x <- map_for_bgm@data$Depth[i] - bathymetry_levels
          x <- which(x>0)
          map_for_bgm@data$Depth[i] <- max(bathymetry_levels[x])
     }
@@ -79,39 +77,41 @@ rbgmerizer <- function( map_location = getwd(), map_name, boundary_boxes = NULL,
 
    }
 
-  map_for_bgm@data@boz <- map_for_bgm@data@Depth
+  map_for_bgm@data$botz <- map_for_bgm@data$Depth
 
   #check to make sure all boxes are sequentially labeled
-  map_for_bgm@data == map_for_bgm@data[order(map_for_bgm@data@box_id),]
-  if (map_for_bgm@data@box_id != seq (0, nrow(map_for_bgm@data)-1)){
+  map_for_bgm@data == map_for_bgm@data[order(map_for_bgm@data$box_id),]
+  for ( i in 1:nrow(map_for_bgm@data)){
+  if (map_for_bgm@data$box_id[i] != seq (0, nrow(map_for_bgm@data)-1)[i]){
     stop(message = "Box_id must be sequential from 0 to maximum number")
     }
+}
 
-#set boundary boxes if boundary_code not included
-if ("boundary_code" %!in% names (map_for_bgm@data)){
-  #default to 1
-  map_for_bgm@data@boundary_code <-
+#set boundary boxes if boundary not included
+if ("boundary" %!in% names (map_for_bgm@data)){
+  #default to 0
+  map_for_bgm@data$boundary <- 0
   if(length(boundary_boxes)<2 | is.null(boundary_boxes)){
-    stop(message = "boundary_boxes must be named or boundary_code included in map data")
+    stop(message = "boundary_boxes must be named or boundary included in map data")
     }
   for (i in 1:length(boundary_boxes)){
-    map_for_bgm@data@boundary_code[map_for_bgm@data@box_id == boundary_boxes[i]] <- 0
+    map_for_bgm@data$boundary[map_for_bgm@data$box_id == boundary_boxes[i]] <- 1
   }
 }
 
 if ("vertmix"  %!in% names (map_for_bgm@data)){
-  map_for_bgm@data@vertmix <- .00001
+  map_for_bgm@data$vertmix <- .00001
 }
 
 if ("horizmix"  %!in% names (map_for_bgm@data)){
-  map_for_bgm@data@horizmix <- 1
+  map_for_bgm@data$horizmix <- 1
 }
 
 #write map for future viewing
 writeOGR(map_for_bgm, ".", "map_for_bgmeriser", driver="ESRI Shapefile")
 
 #run bgmeriser
-shell(paste("cd", bgmerizer_location, intern=T))
+shell(paste("cd", bgmerizer_location), intern=T)
 shell("java -jar bgmeriser.jar -as 4326 map_for_bgmeriser.shp", intern=T)
 }
 
