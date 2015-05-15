@@ -12,8 +12,8 @@
 #' Points to Polygon function
 #'
 #' This function allows you to change points to polygons
-#' @param x
-#' @param table
+#' @param df
+#' @param data
 #' @export
 #define not in function
 points2polygons <- function(df,data) {

@@ -4,20 +4,37 @@
 \alias{rbgmerizer}
 \title{bgmerizer function}
 \usage{
-rbgmerizer(map_location = getwd(), map_name, boundary_boxes,
-  bgmerizer_location = getwd())
+rbgmerizer(map_location, map_name, boundary_boxes = NULL,
+  get_bathymetry = TRUE, bathymetry_layer_location, bathymetry_layer_name,
+  bathymetry_cutoff = 0.9, bathymetry_levels = c(-10, -20, -50, -200, -1000,
+  -2000, -4000), bgmerizer_location)
 }
 \arguments{
-\item{map_location}{location of gis layer stored in wgs84 format.  Defaults
-to working directory}
+\item{map_location}{location of gis layer stored in wgs84 format}
 
-\item{map_name}{name of map to be used for bgm creation. Must incude box_id
-column and boundary column. Other columns may be included}
+\item{map_name}{name of map to be used for bgm creation. Must incude "box_id"
+column. Other columns may be included (horizmix, vertmix,boundary_code)}
 
 \item{boundary_boxes}{a list of boxes that boundary boxes in the model}
 
-\item{bgmerizer_location}{location of bgmerizer.jar file, assumed to be in
-working directory along with java.exe file}
+\item{bathymetry_layer_location}{location of gis layer stored in wgs84 format.}
+
+\item{bathymetry_layer_name}{name of bathmetry shp layer. Must be in wgs84
+format}
+
+\item{bathymetry_cutoff}{What quantile should be assigned to polygon. Defaults
+to 90th quantile (to avoid small number of canyons or slope biasing entire
+polygon)}
+
+\item{bgmerizer_location}{location of bgmerizer.jar file (location also must
+include java.exe file and may not have spaces (e.g. not C:/Desktop/John Doe/bgm))}
+
+\item{get_bathmetry}{Should function automatically add depths (T(rue) or
+F(alse)}
+
+\item{bathymetry_layer_depth}{name of depth column in bathymetry layer}
+
+\item{bathmetry_levels}{Depth layers for final Atlantis polygons}
 }
 \description{
 This function creates bgm file format needed for Atlantis
@@ -25,8 +42,8 @@ This function creates bgm file format needed for Atlantis
 \details{
 This function creates bgm file format needed for Atlantis by calling
 java program. It also adds in depth data (if desired) using provided
-bathymetry layer.
-layer.
+bathymetry layer.  This functions as a wrapper for bgmerizer.jar, available
+from CSIRO, and adds in required information.
 }
 \keyword{bgm}
 

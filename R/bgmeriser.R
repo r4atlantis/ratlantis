@@ -1,15 +1,13 @@
 #' bgmerizer function
 #'
 #' This function creates bgm file format needed for Atlantis
-#' @param map_location location of gis layer stored in wgs84 format.  Defaults
-#'  to working directory
+#' @param map_location location of gis layer stored in wgs84 format
 #' @param map_name name of map to be used for bgm creation. Must incude "box_id"
 #' column. Other columns may be included (horizmix, vertmix,boundary_code)
 #' @param boundary_boxes a list of boxes that boundary boxes in the model
 #' @param get_bathmetry Should function automatically add depths (T(rue) or
 #' F(alse)
 #' @param bathymetry_layer_location location of gis layer stored in wgs84 format.
-#' Defaults to working directory
 #' @param bathymetry_layer_name name of bathmetry shp layer. Must be in wgs84
 #' format
 #' @param bathymetry_layer_depth name of depth column in bathymetry layer
@@ -17,8 +15,8 @@
 #' to 90th quantile (to avoid small number of canyons or slope biasing entire
 #' polygon)
 #' @param bathmetry_levels Depth layers for final Atlantis polygons
-#' @param bgmerizer_location location of bgmerizer.jar file, assumed to be in
-#' working directory along with java.exe file
+#' @param bgmerizer_location location of bgmerizer.jar file (location also must
+#' include java.exe file and may not have spaces (e.g. not C:/Desktop/John Doe/bgm))
 #' @keywords bgm
 #' @details This function creates bgm file format needed for Atlantis by calling
 #' java program. It also adds in depth data (if desired) using provided
@@ -26,19 +24,23 @@
 #' from CSIRO, and adds in required information.
 #' @export
 
-rbgmerizer <- function( map_location = getwd(), map_name, boundary_boxes = NULL,
+rbgmerizer <- function( map_location, map_name, boundary_boxes = NULL,
                         get_bathymetry = TRUE,
-                        bathymetry_layer_location = getwd(), bathymetry_layer_name,
+                        bathymetry_layer_location, bathymetry_layer_name,
                         bathymetry_cutoff = .9, bathymetry_levels = c(-10, -20,
                                                                       -50, -200,
                                                                       -1000, -2000,
                                                                       -4000),
-                        bgmerizer_location = getwd()){
+                        bgmerizer_location){
   #read in the map and check for wgs84 format
-  map_for_bgm <- readOGR(map_location, layer=map_name)
+  map_for_bgm <- rgdal::readOGR(map_location, layer=map_name)
   if (map_for_bgm@proj4string@projargs != "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"){
       stop(message = "Map must be in wgs84 format")
       }
+
+  "%!in%" <- function(x,table) match(x,table, nomatch = 0) == 0
+
+
   if ("box_id" %!in% colnames(map_for_bgm@data)){
       stop(message = "Map data must incluce box_id column")
   }
@@ -107,12 +109,13 @@ if ("horizmix"  %!in% names (map_for_bgm@data)){
   map_for_bgm@data$horizmix <- 1
 }
 
-#write map for future viewing
-writeOGR(map_for_bgm, ".", "map_for_bgmeriser", driver="ESRI Shapefile")
+#write map for future viewing and use by java applet
+writeOGR(map_for_bgm, dsn=bgmerizer_location, layer="map_for_bgmeriser", driver="ESRI Shapefile",
+         overwrite_layer=T)
 
 #run bgmeriser
-shell(paste("cd", bgmerizer_location), intern=T)
-shell("java -jar bgmeriser.jar -as 4326 map_for_bgmeriser.shp", intern=T)
+shell(paste("java -jar ", bgmerizer_location,"/bgmeriser.jar -as 4326 ", bgmerizer_location, "/map_for_bgmeriser.shp ", bgmerizer_location,"/map_for_bgmeriser.bgm", sep=""), intern=T)
+
 }
 
 

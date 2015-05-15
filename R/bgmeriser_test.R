@@ -7,8 +7,11 @@ rbgmerizer( map_location = paste("C:/Dropbox/", user, "/Experiments/FSU Projects
             bathymetry_layer_name = "gom bath wgs84",
             bathymetry_cutoff = .9,
             bathymetry_levels = c(-10, -20,-50, -200,-1000, -2000,-4000),
-            bgmerizer_location = paste("C:/Dropbox/", user, "/Experiments/FSU Projects/Atlantis Model/Deep C Atlantis Model", sep=""))
+            bgmerizer_location ="C:/Users/SGosnell/Desktop/bgm"
+)
 
+bgmerizer_location ="C:/Users/Sgosnell/Desktop/bgm"
+bgmerizer_location = paste("C:/Dropbox/", user, "/Experiments/FSU Projects/Atlantis Model/Deep C Atlantis Model", sep="")
 
 #source file or use profile to set library, etc
 source("C:/Repositories/r_starter_code/R_starter.R")
