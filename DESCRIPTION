@@ -18,7 +18,8 @@ License: MIT + file LICENSE
 LazyData: true
 Imports:
   rgeos,
-  rgdal
+  rgdal,
+  sp
 Suggests:
   testthat,
   knitr

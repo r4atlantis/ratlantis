@@ -17,6 +17,9 @@ column. Other columns may be included (horizmix, vertmix,boundary_code)}
 
 \item{boundary_boxes}{a list of boxes that boundary boxes in the model}
 
+\item{get_bathymetry}{Should function automatically add depths (T(rue) or
+F(alse)}
+
 \item{bathymetry_layer_location}{location of gis layer stored in wgs84 format.}
 
 \item{bathymetry_layer_name}{name of bathmetry shp layer. Must be in wgs84
@@ -26,15 +29,10 @@ format}
 to 90th quantile (to avoid small number of canyons or slope biasing entire
 polygon)}
 
+\item{bathymetry_levels}{Depth layers for final Atlantis polygons}
+
 \item{bgmerizer_location}{location of bgmerizer.jar file (location also must
 include java.exe file and may not have spaces (e.g. not C:/Desktop/John Doe/bgm))}
-
-\item{get_bathmetry}{Should function automatically add depths (T(rue) or
-F(alse)}
-
-\item{bathymetry_layer_depth}{name of depth column in bathymetry layer}
-
-\item{bathmetry_levels}{Depth layers for final Atlantis polygons}
 }
 \description{
 This function creates bgm file format needed for Atlantis

@@ -7,9 +7,9 @@
 x \%!in\% table
 }
 \arguments{
-\item{x}{}
+\item{x}{object you are trying to check for}
 
-\item{table}{}
+\item{table}{group you are checking against}
 }
 \description{
 This function allows you to check if an element is not in a larger group
