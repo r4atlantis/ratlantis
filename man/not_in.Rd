@@ -2,7 +2,7 @@
 % Please edit documentation in R/helper_functions_ratlantis.R
 \name{not_in}
 \alias{not_in}
-\title{"not in" function}
+\title{not_in function}
 \usage{
 not_in(x, table)
 }
@@ -13,5 +13,8 @@ not_in(x, table)
 }
 \description{
 This function allows you to check if an element is not in a larger group
+}
+\details{
+Also allows uses of "%!in%"
 }
 
