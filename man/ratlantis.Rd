@@ -6,6 +6,7 @@
 \alias{ratlantis-package}
 \title{ratlantis.}
 \description{
-ratlantis.
+The ratlantis package provides a way to develop Atlantis
+models in the R environment.
 }
 

@@ -1,4 +1,4 @@
-#' bgmerizer function
+#' bgmeriser function
 #'
 #' This function creates bgm file format needed for Atlantis
 #' @param map_location location of gis layer stored in wgs84 format
@@ -14,23 +14,23 @@
 #' to 90th quantile (to avoid small number of canyons or slope biasing entire
 #' polygon)
 #' @param bathymetry_levels Depth layers for final Atlantis polygons
-#' @param bgmerizer_location location of bgmerizer.jar file (location also must
+#' @param bgmeriser_location location of bgmeriser.jar file (location also must
 #' include java.exe file and may not have spaces (e.g. not C:/Desktop/John Doe/bgm))
 #' @keywords bgm
 #' @details This function creates bgm file format needed for Atlantis by calling
 #' java program. It also adds in depth data (if desired) using provided
-#' bathymetry layer.  This functions as a wrapper for bgmerizer.jar, available
+#' bathymetry layer.  This functions as a wrapper for bgmeriser.jar, available
 #' from CSIRO, and adds in required information.
 #' @export
 
-rbgmerizer <- function( map_location, map_name, boundary_boxes = NULL,
+rbgmeriser <- function( map_location, map_name, boundary_boxes = NULL,
                         get_bathymetry = TRUE,
                         bathymetry_layer_location, bathymetry_layer_name,
                         bathymetry_cutoff = .9, bathymetry_levels = c(-10, -20,
                                                                       -50, -200,
                                                                       -1000, -2000,
                                                                       -4000),
-                        bgmerizer_location){
+                        bgmeriser_location){
   #read in the map and check for wgs84 format
   map_for_bgm <- rgdal::readOGR(map_location, layer=map_name)
   if (map_for_bgm@proj4string@projargs != "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"){
@@ -75,7 +75,9 @@ rbgmerizer <- function( map_location, map_name, boundary_boxes = NULL,
 
    }
 
-  map_for_bgm@data$botz <- map_for_bgm@data$Depth
+  if ("botz" %!in% names (map_for_bgm@data)){
+      map_for_bgm@data$botz <- map_for_bgm@data$Depth
+  }
 
   #check to make sure all boxes are sequentially labeled
   map_for_bgm@data == map_for_bgm@data[order(map_for_bgm@data$box_id),]
@@ -106,12 +108,12 @@ rbgmerizer <- function( map_location, map_name, boundary_boxes = NULL,
   }
 
   #write map for future viewing and use by java applet
-  rgdal::writeOGR(map_for_bgm, dsn=bgmerizer_location, layer="map_for_bgmeriser"
+  rgdal::writeOGR(map_for_bgm, dsn=bgmeriser_location, layer="map_for_bgmeriser"
                   , driver="ESRI Shapefile", overwrite_layer=T)
 
   #run bgmeriser
-  shell(paste("java -jar ", bgmerizer_location,"/bgmeriser.jar -as 4326 ",
-              bgmerizer_location, "/map_for_bgmeriser.shp ",bgmerizer_location,
+  shell(paste("java -jar ", bgmeriser_location,"/bgmeriser.jar -as 4326 ",
+              bgmeriser_location, "/map_for_bgmeriser.shp ",bgmeriser_location,
               "/map_for_bgmeriser.bgm", sep=""), intern=T)
 
   }

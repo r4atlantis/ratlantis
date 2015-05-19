@@ -1,0 +1,130 @@
+---
+title: "Using ratlantis to develop, use, and compare Atlantis 
+  ecosytem models"
+author: "J. Stephen Gosnell"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using ratlantis to develop, use, and compare Atlantis 
+  ecosytem models}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+Ecoystem modeling is a growing areas of specialization. Multiple models (e.g., 
+Ecopath w/ Ecosim and Ecospace, INVITRO) exist, each having their own set of strengths 
+and weaknesses. However, a shared issue among these models is the the time, data,
+and software needed to complete them.  These models, by their very nature, are data-
+and computationally-intensive, with development times often leading to model construction
+taking years to complete.  To begin to address this issue, we have developed ratlantis.
+
+The ratlantis package is designed to allow Atlantis ecosystem models to be developed
+rapidly (3-6 months is the goal, vs the 2 years projected in other documents).
+It does this by
+-providing access to software already designed by the Atlantis community via R, 
+removing a learning curve and offering a single environment to design, execute, and 
+analyze models
+-using existing R packages that can pull biological, geographic, and other types of data
+from public repositories to provide data needed for Atlantis models
+-offering a clear framework for developing a new model or modifying an existing 
+one, where users supply data, modify output, and continue model development as needed
+
+Atlantis, originally developed by Elizabeth Fulton at CSCIRO, is an ecosystem model 
+designed to simulate long-term dynamics in marine systems.  The model is spatially-
+and temporally-explicit, following the dynamics of numerous ecological groups in 
+irregulary-shaped polygons of various depth.  Groupings of organisms, polygon shapes, 
+and depth levels are all determined by the user, and we leave the discussion of the 
+implication of these decisions for other times.    Here we will go through the basic 
+use and development of an Atlantis model using the ratlantis package.  While all 
+steps could be completed in R, we will assume other pieces of software (table editors 
+such as Excel or Sheets, GIS programs such as QGIS) are being used in the development 
+workflow due to their common application.  R users interested in fully developing models
+in this environment should be able to make small changes as needed.
+
+This vignette and guide builds heavily on existing Atlantis documentation developed
+by Isaac Kaplan, Elizabeth Fulton, and Cameron Ainsworth ^[How to Build an Atlantis Model:
+A living document].  The CSIRO Atlantis wiki has also proved invaluable in model 
+and package development.
+
+## Atlantis Steps: Model Development
+
+Atlantis model development consists of several key task:
+-map construction
+-group assignment
+-procuring and formatting environmental data
+-creating input for files for C++ Atlantis software
+
+###Map Development
+
+####Short version
+Provide 
+-a wgs84 formatted shape file with the area you wish to model carved into 
+polygons.  The only other attribute/data you need is for each polygon to be labelled
+(box_id); start at 0 and go as high as needed.  
+-Download bgmeriser.jar
+-Download a bathymetry file that includes your map area and make sure the depths are 
+    -negative
+    -in a column named "Contour"
+-provide locations and names of shape files, depths you want to be used for Atlantis polygons,
+and location of bgmeriser software
+
+Function should return a .bgm file to be used in Atlantis models.
+
+#### Example
+
+```r
+rbgmeriser( map_location = paste("C:/Dropbox/", user, "/Experiments/FSU Projects/Atlantis Model/Deep C Atlantis Model", sep=""),
+            map_name = "DeepCmap",
+            boundary_boxes = c(0,52),
+            get_bathymetry = TRUE,
+            bathymetry_layer_location = paste("C:/Dropbox/", user, "/Experiments/FSU Projects/Atlantis Model/Deep C Atlantis Model/New Shape files I downloaded/GCOOS/w98e78n31s18_isobath_selected_5-4000m", sep=""),
+            bathymetry_layer_name = "gom bath wgs84",
+            bathymetry_cutoff = .9,
+            bathymetry_levels = c(-10, -20,-50, -200,-1000, -2000,-4000),
+            bgmeriser_location ="C:/Users/SGosnell/Desktop/bgm"
+)
+```
+
+####Longer version with explanations
+Map development is handled via the rbgmeriser function, which assumes you have downloaded
+the java applet bgmeriser.jar.  BGM (box geometry model) is the specific format used 
+to delineate areas in Atlantis models.  
+
+To create a .bgm file (the final product), rbgmeriser requires wgs84 formatted shape file
+(created in QGIS, ArcGIS,etc) that shows the desired polygons.  Polygons can be of any shape, 
+but limiting sides and angles will help with computational time. Similarly, keeping 
+polygons close to the same size is useful.  Polygons can follow similar habitat areas,
+geographies, or areas of protection (reserves or fishing zones).  Once developed 
+in a mapping program, you must include a box_id column (going from 0 to the maximum
+number needed to number all boxes without skipping any numbers).  You MAY also include
+a botz (set to the desired Atlantis depth for each polygon), horizmix, vertmix, and boundary column
+- all depths should be negative (below sea level) and boundary columns should be 
+set to 1 unless a box is a adjacent to open water not included in the model (in which case it is set to 0).
+
+If Depth is not set, you must provide the downloaded location of a bathymetry shape file
+that has a depth labeled as Contour (again, must be negative numbers), set 
+get_bathymetry = T (default value), and list the desired depths for final model polygons 
+(4-8 depths is recommended, for example in the Gulf of Mexico we set the max depth
+for each polygon to -10, -20,-50, -200,-1000, -2000,-4000 meters).  The function
+overlays your polygon map on the bathymetry map to get depths for each site, and the
+bathymetry_cutoff functions instructs which quantile to take as the depth for each
+polygon (defaults to .9 to avoid a canyon overly influencing depths).  The code then 
+creates a botz column.  
+
+
+If boundary is not included, you must list the box_id values of the boundary boxes 
+so a boundary column can be created.  
+
+If vertmix and horizmix are not defined, they are set to 0..00001 and 1, respectively,
+by default (standard for Atlantis models).
+
+
+
+## Atlantis Steps: Model Calibration
+
+Work in progress planned for completion fall 2015
+
+## Atlantis Steps:  Model Application and Analysis
+
+Work in progress planned for completion fall 2015
+
