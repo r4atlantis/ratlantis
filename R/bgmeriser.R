@@ -68,7 +68,7 @@ rbgmeriser <- function( map_location, map_name, boundary_boxes = NULL,
     #cut to noted levels
     for (i in 1:nrow(map_for_bgm@data)){
          x <- map_for_bgm@data$Depth[i] - bathymetry_levels
-         x <- which(x>0)
+         x <- which(x>=0)
          map_for_bgm@data$Depth[i] <- max(bathymetry_levels[x])
     }
 
