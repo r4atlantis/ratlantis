@@ -29,4 +29,4 @@ Vignettes are generated using ```knitr``` and ```markdown``` packages.
 
 ## Meta
 
-Please [report any issues or bugs](https://github.com/ropensci/ratlantis/issues).
+Please [report any issues or bugs](https://github.com/jsgosnell/ratlantis/issues).
