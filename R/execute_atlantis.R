@@ -1,0 +1,39 @@
+#' execute_atlantis function
+#'
+#' This function calls the terminal and executes an Atlantis model
+#' @param atlantis_location location of atlantis file (location may not
+#' have spaces (e.g. not C:/Desktop/John Doe/bgm))
+#' @param biology_nc name of biology initial conditions file (needs to be in same
+#' location as the atlantis exe file)
+#' @param output_file_nc desired name for output file
+#' @param run_file_prm name of initial conditions run file (needs to be in same
+#' location as the atlantis exe file)
+#' @param forcing_time_series_prm name of file detailing initial forcings (needs
+#'  to be in same location as the atlantis exe file)
+#' @param physics_prm name of initial physics file detailing eddies and scaling
+#' (needs to be in same location as the atlantis exe file)
+#' @param biology_prm name of biology parameter file (needs to be in same
+#' location as the atlantis exe file)
+#' @param harvest_prm name of harvest file (needs to be in same
+#' location as the atlantis exe file)
+#' @param functional_group_csv list of functional groups (needs to be in same
+#' location as the atlantis exe file)
+#' @param fisheries_csv list delimiting targeted fisheries (needs to be in same
+#' location as the atlantis exe file)
+#' @param output_folder where should results be stored?
+#' @keywords atlantis
+#' @details This function acts as a wrapper for the Atlantis C++ program.
+#' @export
+
+execute_atlantis <- function (atlantis_location, biology_nc, output_file_nc,
+                              run_file_prm, forcing_time_series_prm,physics_prm,
+                              biology_prm, harvest_prm, functional_group_csv,
+                              fisheries_csv, output_folder
+                              ){
+
+  shell(paste("cd ", atlantis_location, "&& atlantismain", " -i ", biology_nc," 0 -o ",
+              output_file_nc, " -r ", run_file_prm, " -f ", forcing_time_series_prm, " -p ",
+              physics_prm, " -b ", biology_prm, " -h  ", harvest_prm, " -s ", functional_group_csv,
+              " -q ", fisheries_csv, " ", " -d ", output_folder, sep=""), intern=T)
+
+}
