@@ -4,13 +4,16 @@
 \alias{execute_atlantis}
 \title{execute_atlantis function}
 \usage{
-execute_atlantis(atlantis_location, biology_nc, output_file_nc, run_file_prm,
-  forcing_time_series_prm, physics_prm, biology_prm, harvest_prm,
+execute_atlantis(atlantis_location, atlantis_exe, biology_nc, output_file_nc,
+  run_file_prm, forcing_time_series_prm, physics_prm, biology_prm, harvest_prm,
   functional_group_csv, fisheries_csv, output_folder)
 }
 \arguments{
 \item{atlantis_location}{location of atlantis file (location may not
 have spaces (e.g. not C:/Desktop/John Doe/bgm))}
+
+\item{atlantis_exe}{name of Atlantis executable file (typically atlantismain but
+may differ based on build)}
 
 \item{biology_nc}{name of biology initial conditions file (needs to be in same
 location as the atlantis exe file)}
@@ -45,6 +48,9 @@ This function calls the terminal and executes an Atlantis model
 }
 \details{
 This function acts as a wrapper for the Atlantis C++ program.
+}
+\seealso{
+rbgmeriser
 }
 \keyword{atlantis}
 

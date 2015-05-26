@@ -124,7 +124,53 @@ by default (standard for Atlantis models).
 
 Work in progress planned for completion fall 2015
 
-## Atlantis Steps:  Model Application and Analysis
+## Atlantis Steps:  Model Execution
+
+####Short version
+Provide 
+-This code assumes you have downloaded and compiled the C++ Atlantis code and requires
+--the location of the compliled Atlantis code
+--the name of the .exe file created by Atlanits code (e.g., atlantismain)
+--the names of files you have created to run Atlantis (which are stored in same 
+folder at the .exe file)
+---biology_nc, the biology initial conditions file 
+---run_file_prm, the initial conditions run file 
+---forcing_time_series_prm, the file detailing initial forcings 
+---physics_prm, the initial physics file detailing eddies and scaling
+---biology_prm, the biology parameter file
+---harvest_prm, the harvest file
+---functional_group_csv, the list of functional groups
+---fisheries_csv, the list delimiting targeted fisheries 
+
+The above are all created via code in ratlantis.  You must also provide
+-output_file_nc, desired name for output file
+-output_folder, folder where should results be stored
+
+Function will call the system shell and execute Atlantis
+
+#### Example
+
+```r
+execute_atlantis(atlantis_location = "C:/exampleatlantis", atlantis_exe = "atlantismain",
+                              biology_nc ="init_VMPA_setas_25032013.nc",
+                              output_file_nc = "outputSETAS.nc", run_file_prm =
+                                "VMPA_setas_run_fishing_F_New.prm",
+                              forcing_time_series_prm = "VMPA_setas_force_fish.prm",
+                              physics_prm = "VMPA_setas_physics.prm", biology_prm
+                              = "VMPA_setas_biol_fishing_New.prm",harvest_prm =
+                                "VMPA_setas_harvest_F_New.prm",
+                              functional_group_csv = "SETasGroups.csv",
+                              fisheries_csv = "SETasFisheries.csv",
+                              output_folder = "Outputfoldertest")
+
+```
+
+####Longer version with explanations
+
+Atlantis is a C++ program.  This code does not recreate Atlantis in R, it simply 
+acts as a wrapper for the program.
+
+## Atlantis Steps:  Model Analysis
 
 Work in progress planned for completion fall 2015
 
