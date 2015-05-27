@@ -41,7 +41,8 @@ location as the atlantis exe file)}
 \item{fisheries_csv}{list delimiting targeted fisheries (needs to be in same
 location as the atlantis exe file)}
 
-\item{output_folder}{where should results be stored?}
+\item{output_folder,}{name of folder (in same directory as atlantis.exe file)
+where should results be stored?}
 }
 \description{
 This function calls the terminal and executes an Atlantis model
