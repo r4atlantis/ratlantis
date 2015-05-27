@@ -1,4 +1,4 @@
-#' bgmeriser function
+#' rbgmeriser function
 #'
 #' This function creates bgm file format needed for Atlantis
 #' @param map_location location of gis layer stored in wgs84 format
