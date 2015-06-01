@@ -18,7 +18,12 @@ License: MIT + file LICENSE
 LazyData: true
 Imports:
   rgdal,
-  sp
+  sp,
+  XML,
+  rglobi,
+  rfishbase,
+  reshape,
+  stringr
 Suggests:
   testthat,
   knitr

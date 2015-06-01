@@ -10,7 +10,7 @@
 
 <meta name="author" content="J. Stephen Gosnell" />
 
-<meta name="date" content="2015-05-27" />
+<meta name="date" content="2015-06-01" />
 
 <title>Using ratlantis to develop, use, and compare Atlantis ecosytem models</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Using ratlantis to develop, use, and compare Atlantis ecosytem models</h1>
 <h4 class="author"><em>J. Stephen Gosnell</em></h4>
-<h4 class="date"><em>2015-05-27</em></h4>
+<h4 class="date"><em>2015-06-01</em></h4>
 </div>
 
 
@@ -65,11 +65,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="atlantis-steps-model-development" class="section level2">
 <h2>Atlantis Steps: Model Development</h2>
 <p>Atlantis model development consists of several key task: -map construction -group assignment -procuring and formatting environmental data -creating input for files for C++ Atlantis software</p>
+<p>The following guide walks users through these steps using the general setup -short version: just what you need to provide the function -example: example R code; files used here are available by emailing the author (<a href="mailto:stephen.gosnell@baruch.cuny.edu">stephen.gosnell@baruch.cuny.edu</a>) -longer version and explanations: lenghthier overview of what Atlantis is doing and how the functoin works</p>
 <div id="map-development" class="section level3">
 <h3>Map Development</h3>
 <div id="short-version" class="section level4">
 <h4>Short version</h4>
-<p>Provide -a wgs84 formatted shape file with the area you wish to model carved into polygons. The only other attribute/data you need is for each polygon to be labelled (box_id); start at 0 and go as high as needed.<br />-Download bgmeriser.jar -Download a bathymetry file that includes your map area and make sure the depths are -negative -in a column named “Contour” -provide locations and names of shape files, depths you want to be used for Atlantis polygons, and location of bgmeriser software</p>
+<p>Map development is handled in ratlantis by the rbgmeriser function, to which users provide -name of a wgs84 formatted shape file with the area you wish to model carved into polygons. The only other attribute/data you need is for each polygon to be labelled (box_id); start at 0 and go as high as needed.<br />-location of bgmeriser.jar, downloaded from Atlantis wiki -name of a bathymetry file in wgs84 format that includes your map area and negative depths in a column named “Contour” -depths you want to be used for Atlantis polygons (if Depth column not included in shape file) -locations of all files</p>
 <p>Function should return a .bgm file to be used in Atlantis models.</p>
 </div>
 <div id="example" class="section level4">
@@ -87,11 +88,50 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="longer-version-with-explanations" class="section level4">
 <h4>Longer version with explanations</h4>
-<p>Map development is handled via the rbgmeriser function, which assumes you have downloaded the java applet bgmeriser.jar. BGM (box geometry model) is the specific format used to delineate areas in Atlantis models.</p>
-<p>To create a .bgm file (the final product), rbgmeriser requires wgs84 formatted shape file (created in QGIS, ArcGIS,etc) that shows the desired polygons. Polygons can be of any shape, but limiting sides and angles will help with computational time. Similarly, keeping polygons close to the same size is useful. Polygons can follow similar habitat areas, geographies, or areas of protection (reserves or fishing zones). Once developed in a mapping program, you must include a box_id column (going from 0 to the maximum number needed to number all boxes without skipping any numbers). You MAY also include a botz (set to the desired Atlantis depth for each polygon), horizmix, vertmix, and boundary column - all depths should be negative (below sea level) and boundary columns should be set to 1 unless a box is a adjacent to open water not included in the model (in which case it is set to 0).</p>
+<p>As previously noted, Atlantis models are spatially-explicit. Resolution depends on the size of the area being noted, but in general Atlantis most models have kept the number of areas (polygons) under 75. Polygons can be of any shape, but limiting sides and angles will help with computational time. Similarly, keeping polygons close to the same size is useful. Polygons can follow similar habitat areas, geographies, or areas of protection (reserves or fishing zones). Once developed in a mapping program, you must include a box_id column (going from 0 to the maximum number needed to number all boxes without skipping any numbers). You MAY also include a botz (set to the desired Atlantis depth for each polygon), horizmix, vertmix, and boundary column - all depths should be negative (below sea level) and boundary columns should be set to 1 unless a box is a adjacent to open water not included in the model (in which case it is set to 0).</p>
 <p>If Depth is not set, you must provide the downloaded location of a bathymetry shape file that has a depth labeled as Contour (again, must be negative numbers), set get_bathymetry = T (default value), and list the desired depths for final model polygons (4-8 depths is recommended, for example in the Gulf of Mexico we set the max depth for each polygon to -10, -20,-50, -200,-1000, -2000,-4000 meters). The function overlays your polygon map on the bathymetry map to get depths for each site, and the bathymetry_cutoff functions instructs which quantile to take as the depth for each polygon (defaults to .9 to avoid a canyon overly influencing depths). The code then creates a botz column.</p>
 <p>If boundary is not included, you must list the box_id values of the boundary boxes so a boundary column can be created.</p>
 <p>If vertmix and horizmix are not defined, they are set to 0..00001 and 1, respectively, by default (standard for Atlantis models).</p>
+<p>Atlantis input requires a .shp polygon file to be transformed to a .bgm format.<br />Map development is handled via the rbgmeriser function, which assumes you have downloaded the java applet bgmeriser.jar.</p>
+</div>
+</div>
+<div id="group-assignment-and-biology-prm-nc-development" class="section level3">
+<h3>Group Assignment and Biology PRM, NC development</h3>
+<p>Atlantis models consider a variety of marine life, moving from bacterial pools to fish and large marine mammals. However, this scale means that in order to make simulations tractable (both due to computing time and information needs) organisms are divied into functional (or focal) groups. These groups may range from single species to larger feeding or functional groups. Atlantis requires a .prm file giving data and an .nc file giving initial conditions (where they start in map) for each group. ratlantis helps create these groups and files using the following functions: -Group creation –gather_data_for_species –gather_interactions_for_species _create_functional_groups -biology.prm creation –create_biology_prm</p>
+<div id="gather_data_for_species" class="section level4">
+<h4>gather_data_for_species</h4>
+<div id="short-version-1" class="section level5">
+<h5>Short version</h5>
+<p>Provide -name and location of a .csv file that has a list of species to be included. File needs to have columns labelled “Genus”, “species”, and “common_name”- these may be blank for some species but column must be included</p>
+<p>Function should return a .csv file with information on species pulled from online sources (Fishbase currently, expanding to other sources)</p>
+</div>
+<div id="example-1" class="section level5">
+<h5>Example</h5>
+<pre class="sourceCode r"><code class="sourceCode r">testdata &lt;-<span class="st"> </span><span class="kw">gather_data_for_species</span> (<span class="dt">species_list_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
+                         <span class="dt">species_list_csv =</span> <span class="st">&quot;species_test.csv&quot;</span>)</code></pre>
+</div>
+<div id="longer-version-with-explanations-1" class="section level5">
+<h5>Longer version with explanations</h5>
+<p>Atlantis requires a variety of data for each group, including</p>
+</div>
+</div>
+<div id="gather_interactions_for_species" class="section level4">
+<h4>gather_interactions_for_species</h4>
+<div id="short-version-2" class="section level5">
+<h5>Short version</h5>
+<p>Provide -name and location of a .csv file that has a list of species to be included. File needs to have columns labelled “Genus”, “species”, and “common_name”- these may be blank for some species but column must be included. A “functional_group” column may also be included -name and location of a .shp file that was used to build the .bgm file for Atlantis OR a bounding box for where interactions should be returned</p>
+<p>Function should return a .csv file with information on species interactions pulled from online sources (Global Biotic Interaction database currently, expanding to other sources)</p>
+</div>
+<div id="example-2" class="section level5">
+<h5>Example</h5>
+<pre class="sourceCode r"><code class="sourceCode r">testinteractions &lt;-<span class="st"> </span><span class="kw">gather_interactions_for_species</span> (<span class="dt">species_list_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
+                         <span class="dt">species_list_csv =</span> <span class="st">&quot;species_list.csv&quot;</span>, <span class="dt">map_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
+                         <span class="dt">map_name =</span> <span class="st">&quot;map_for_bgmeriser&quot;</span>)</code></pre>
+</div>
+<div id="longer-version-with-explanations-2" class="section level5">
+<h5>Longer version with explanations</h5>
+<p>Atlantis requires a trophic model for all included functional groups (i.e., who eats who and how often). This function can be used to construct or check functional groups by ensuring major trophic pathways are included appropriately</p>
+</div>
 </div>
 </div>
 </div>
@@ -101,13 +141,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="atlantis-steps-model-execution" class="section level2">
 <h2>Atlantis Steps: Model Execution</h2>
-<div id="short-version-1" class="section level4">
+<div id="short-version-3" class="section level4">
 <h4>Short version</h4>
 <p>Provide -This code assumes you have downloaded and compiled the C++ Atlantis code and requires –the location of the compliled Atlantis code –the name of the .exe file created by Atlanits code (e.g., atlantismain) –the names of files you have created to run Atlantis (which are stored in same folder at the .exe file) —biology_nc, the biology initial conditions file —run_file_prm, the initial conditions run file —forcing_time_series_prm, the file detailing initial forcings —physics_prm, the initial physics file detailing eddies and scaling —biology_prm, the biology parameter file —harvest_prm, the harvest file —functional_group_csv, the list of functional groups —fisheries_csv, the list delimiting targeted fisheries</p>
 <p>The above are all created via code in ratlantis. You must also provide -output_file_nc, desired name for output file -output_folder, folder where should results be stored</p>
 <p>Function will call the system shell and execute Atlantis</p>
 </div>
-<div id="example-1" class="section level4">
+<div id="example-3" class="section level4">
 <h4>Example</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">execute_atlantis</span>(<span class="dt">atlantis_location =</span> <span class="st">&quot;C:/exampleatlantis&quot;</span>, <span class="dt">atlantis_exe =</span> <span class="st">&quot;atlantismain&quot;</span>,
                               <span class="dt">biology_nc =</span><span class="st">&quot;init_VMPA_setas_25032013.nc&quot;</span>,
@@ -121,7 +161,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
                               <span class="dt">fisheries_csv =</span> <span class="st">&quot;SETasFisheries.csv&quot;</span>,
                               <span class="dt">output_folder =</span> <span class="st">&quot;Outputfoldertest&quot;</span>)</code></pre>
 </div>
-<div id="longer-version-with-explanations-1" class="section level4">
+<div id="longer-version-with-explanations-3" class="section level4">
 <h4>Longer version with explanations</h4>
 <p>Atlantis is a C++ program. This code does not recreate Atlantis in R, it simply acts as a wrapper for the program.</p>
 </div>

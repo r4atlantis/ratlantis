@@ -54,19 +54,28 @@ Atlantis model development consists of several key task:
 -procuring and formatting environmental data
 -creating input for files for C++ Atlantis software
 
+The following guide walks users through these steps using the general setup
+-short version:  just what you need to provide the function
+-example: example R code; files used here are available by emailing the author 
+(stephen.gosnell@baruch.cuny.edu)
+-longer version and explanations: lenghthier overview of what Atlantis is doing
+and how the functoin works
+
+
 ###Map Development
 
 ####Short version
-Provide 
--a wgs84 formatted shape file with the area you wish to model carved into 
+Map development is handled in ratlantis by the rbgmeriser function, to which users
+provide 
+-name of a wgs84 formatted shape file with the area you wish to model carved into 
 polygons.  The only other attribute/data you need is for each polygon to be labelled
 (box_id); start at 0 and go as high as needed.  
--Download bgmeriser.jar
--Download a bathymetry file that includes your map area and make sure the depths are 
-    -negative
-    -in a column named "Contour"
--provide locations and names of shape files, depths you want to be used for Atlantis polygons,
-and location of bgmeriser software
+-location of bgmeriser.jar, downloaded from Atlantis wiki
+-name of a bathymetry file in wgs84 format that includes your map area and negative depths
+in a column named "Contour"
+-depths you want to be used for Atlantis polygons (if Depth column not included in 
+shape file)
+-locations of all files
 
 Function should return a .bgm file to be used in Atlantis models.
 
@@ -86,12 +95,9 @@ rbgmeriser( map_location = paste("C:/Dropbox/", user, "/Experiments/FSU Projects
 ```
 
 ####Longer version with explanations
-Map development is handled via the rbgmeriser function, which assumes you have downloaded
-the java applet bgmeriser.jar.  BGM (box geometry model) is the specific format used 
-to delineate areas in Atlantis models.  
-
-To create a .bgm file (the final product), rbgmeriser requires wgs84 formatted shape file
-(created in QGIS, ArcGIS,etc) that shows the desired polygons.  Polygons can be of any shape, 
+As previously noted, Atlantis models are spatially-explicit.  Resolution depends on 
+the size of the area being noted, but in general Atlantis most models have kept the number
+of areas (polygons) under 75.   Polygons can be of any shape, 
 but limiting sides and angles will help with computational time. Similarly, keeping 
 polygons close to the same size is useful.  Polygons can follow similar habitat areas,
 geographies, or areas of protection (reserves or fishing zones).  Once developed 
@@ -118,6 +124,70 @@ so a boundary column can be created.
 If vertmix and horizmix are not defined, they are set to 0..00001 and 1, respectively,
 by default (standard for Atlantis models).
 
+Atlantis input requires a .shp polygon file to be transformed to a .bgm format.  
+Map development is handled via the rbgmeriser function, which assumes you have downloaded
+the java applet bgmeriser.jar.   
+
+###Group Assignment and Biology PRM, NC development
+
+Atlantis models consider a variety of marine life, moving from bacterial pools to fish
+and large marine mammals.  However, this scale means that in order to make simulations 
+tractable (both due to computing time and information needs) organisms are divied into
+functional (or focal) groups.  These groups may range from single species to larger
+feeding or functional groups. Atlantis requires a .prm file giving data and an .nc 
+file giving initial conditions (where they start in map) for each group. ratlantis
+helps create these groups and files using the following functions:
+-Group creation
+  --gather_data_for_species
+  --gather_interactions_for_species
+  _create_functional_groups
+-biology.prm creation
+--create_biology_prm
+
+####gather_data_for_species
+#####Short version
+Provide 
+-name and location of a .csv file that has a list of species to be included. File needs to have columns
+labelled "Genus", "species", and "common_name"- these may be blank for some species
+but column must be included
+
+Function should return a .csv file with information on species pulled from online
+sources (Fishbase currently, expanding to other sources)
+
+##### Example
+
+```r
+testdata <- gather_data_for_species (species_list_location = "C:/Users/SGosnell/Desktop/bgm",
+                         species_list_csv = "species_test.csv")
+```
+
+#####Longer version with explanations
+Atlantis requires a variety of data for each group, including
+
+####gather_interactions_for_species
+#####Short version
+Provide 
+-name and location of a .csv file that has a list of species to be included. File needs to have columns
+labelled "Genus", "species", and "common_name"- these may be blank for some species
+but column must be included.  A "functional_group" column may also be included
+-name and location of a .shp file that was used to build the .bgm file for Atlantis
+OR a bounding box for where interactions should be returned
+
+Function should return a .csv file with information on species interactions pulled 
+from online sources (Global Biotic Interaction database currently, expanding to other sources)
+
+##### Example
+
+```r
+testinteractions <- gather_interactions_for_species (species_list_location = "C:/Users/SGosnell/Desktop/bgm",
+                         species_list_csv = "species_list.csv", map_location = "C:/Users/SGosnell/Desktop/bgm",
+                         map_name = "map_for_bgmeriser")
+```
+
+#####Longer version with explanations
+Atlantis requires a trophic model for all included functional groups (i.e., who
+eats who and how often).   This function can be used to construct or check functional
+groups by ensuring major trophic pathways are included appropriately
 
 
 ## Atlantis Steps: Model Calibration
