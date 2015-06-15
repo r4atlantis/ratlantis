@@ -140,9 +140,26 @@ helps create these groups and files using the following functions:
 -Group creation
   --gather_data_for_species
   --gather_interactions_for_species
-  _create_functional_groups
--biology.prm creation
+  --gather_habitat_for_species
+  --create_functional_groups
+-File creation
+--biology.prm creation
 --create_biology_prm
+
+####Group creation
+
+IN order to assign organisms to appropriate groups, we'd ideally like to use as much
+data as possible.  However, we are always missing data and the time needed to find 
+it  For those reason, ratlantis automates 3 basic types of data that may be used 
+iteratively to create functional groups.
+
+gather_data_for_species pulls data on basic life history and ecological traits 
+(age, size, trophic level, harvested)
+
+gather_interactions_for_species uses rglobi to pull species interaction data from
+the Global Biotic Interaction Database
+
+gather_habitat_for_species provides occurence data and notes on preferrered habitats
 
 ####gather_data_for_species
 #####Short version
