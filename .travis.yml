@@ -17,6 +17,9 @@ before_install:
     libgdal1h
   - ./travis-tool.sh bootstrap
 
+r_binary_packages:
+  - rgdal
+
 install:
   - ./travis-tool.sh install_deps
 
