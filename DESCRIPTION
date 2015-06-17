@@ -23,7 +23,8 @@ Imports:
   rglobi,
   rfishbase,
   reshape,
-  stringr
+  stringr,
+  spocc
 Suggests:
   testthat,
   knitr

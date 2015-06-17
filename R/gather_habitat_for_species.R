@@ -19,7 +19,7 @@
 
 gather_habitat_for_species <- function(species_list_location, species_list_csv,
                                             map_location = "empty",map_name = "empty",
-                                            bbox_coordinates = "empty", habitat_list=
+                                            habitat_list=
                                             c("estuaries", "mangrove", "intertidal",
                                            "soft", "rocky", "marine", "oceanic",
                                            "neritic", "coral reefs", "soft bottom",
@@ -60,30 +60,51 @@ gather_habitat_for_species <- function(species_list_location, species_list_csv,
     species <- cbind(species, in_habitat)
   }
 
+  back <- species
+
   #get occurrence data using spocc
 
-  df <- spocc::occ(query = species$scientific_name[1], limit = 1000)
-  df <- spocc::occ2df(df)
-  df <- na.omit(df)
-  coordinates(df) <- ~longitude+latitude
-  crs.geo <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84")  # geographical, datum WGS84
-  proj4string(df) <- crs.geo  # define projection system of our data
-  summary(df)
+  map_area <- rgdal::readOGR(map_location, layer = map_name)
+  max_polygons <- max(map_area@data$box_id)
+  column_box_names <- c("scientific_name", paste("box", 0:max_polygons, sep = "_"))
+  box_occurrence <- as.data.frame(matrix (nrow = 0, ncol = length(column_box_names)))
+  names(box_occurrence) <- column_box_names
+  order_box_occurrence <-box_occurrence
 
+  for (i in 1:length(species$scientific_name)){
+  #for (i in 1:3){
 
-  #put over each polygon somehow and count occurences?
-  map_area <- rgdal::readOGR(map_location, layer=map_name)
-  x=over(map_area,df)
+    df <- spocc::occ(query = species$scientific_name[i], limit = 1000)
+    df <- spocc::occ2df(df)
+    df <- na.omit(df)
+    sp::coordinates(df) <- ~longitude+latitude
+    crs.geo <- CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +
+                   towgs84=0,0,0")  # geographical, datum WGS84
+    proj4string(df) <- crs.geo  # define projection system of our data
+    summary(df)
 
+    #put over each polygon and count occurences
+    #http://gis.stackexchange.com/questions/110117/counts-the-number-of-points-in-a-polygon-in-r
+    #http://r-sig-geo.2731867.n2.nabble.com/Counting-points-within-polygons-td6904827.html
 
- return (species)
+    x <- table(over(df, map_area)$box_id)
+    if (length(x) > 0){
+      z <- as.data.frame(t(as.matrix(x)))
+      colnames(z)=paste("box", colnames(z), sep="_")
+      z$scientific_name <- species$scientific_name[i]
+      box_occurrence <- merge(box_occurrence,z, all.x=T, all.y=T)
+    }
+  }
+
+  box_occurrence <- box_occurrence[,names(order_box_occurrence)]
+
+  order_species <- species
+
+  species <- merge(species, box_occurrence)
+
+  return (species)
 
 }
-
-Pp = findSpecies("Pristis_pristis")
-habitat <- as.data.frame(which_fish( "demersal", "habitat", fish.data[Pp]))
-all <-    as.data.frame(which_fish( "demersal", "all", fish.data[Pp]))
-
 
 
 

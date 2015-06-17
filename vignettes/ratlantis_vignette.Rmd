@@ -206,6 +206,33 @@ Atlantis requires a trophic model for all included functional groups (i.e., who
 eats who and how often).   This function can be used to construct or check functional
 groups by ensuring major trophic pathways are included appropriately
 
+####gather_habitat_for_species
+#####Short version
+Provide 
+-name and location of a .csv file that has a list of species to be included. File needs to have columns
+labelled "Genus", "species", and "common_name"- these may be blank for some species
+but column must be included.  A "functional_group" column may also be included
+-name and location of a .shp file that was used to build the .bgm file for Atlantis
+-(optional) list of key words to search for in Fishbase description
+
+Function should return a .csv file with information on species occurrences pulled 
+from online sources, including which species met certain depth parameters, keyword
+searches, and had been geotagged in each of your map polygons.  
+
+##### Example
+
+```r
+testhabitat <- gather_habitat_for_species(species_list_location = "C:/Users/SGosnell/Desktop/bgm",
+                                                      species_list_csv = "species_test_10.csv",
+                                                      map_location = "C:/Users/SGosnell/Desktop/bgm",
+                                                      map_name = "map_for_bgmeriser")
+```
+
+#####Longer version with explanations
+Understanding where each species occurs (depth and location) can be useful in determining
+functional groups and initial biomass starting locations.  This function currently 
+queries FishBase and several online sources of location data (gbif, iNaturalist 
+and more using the spocc package).  
 
 ## Atlantis Steps: Model Calibration
 
