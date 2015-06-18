@@ -18,13 +18,15 @@ License: MIT + file LICENSE
 LazyData: true
 Imports:
   rgdal,
+  rgbif,
   sp,
   XML,
   rglobi,
   rfishbase,
   reshape,
   stringr,
-  spocc
+  spocc,
+  V8
 Suggests:
   testthat,
   knitr
