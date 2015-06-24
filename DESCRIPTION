@@ -17,6 +17,7 @@ VignetteBuilder: knitr
 License: MIT + file LICENSE
 LazyData: true
 Imports:
+  ncdf,
   rgdal,
   rgbif,
   sp,
