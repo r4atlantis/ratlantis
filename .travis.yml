@@ -4,3 +4,5 @@ warnings_are_errors: false
 r_binary_packages:
   - rgdal
   - ncdf
+r_github_packages:
+  -v8/v8
