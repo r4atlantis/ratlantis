@@ -28,6 +28,7 @@ Imports:
   stringr,
   spocc,
   V8
+
 Suggests:
   testthat,
   knitr
