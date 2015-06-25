@@ -27,8 +27,7 @@ Imports:
   reshape,
   stringr,
   spocc,
-  v8
-
+  V8
 Suggests:
   testthat,
   knitr
