@@ -10,14 +10,6 @@ install.packages("devtools")
 devtools::install_github("jsgosnell/ratlantis")
 ```
 
-## Tests
-Tests can be executed using devtools package.
-```R
-# workdir should be rglobi repo root directory (check with getwd())
-devtools::test()
-```
-This should reload the library, executes the test_that testcases and show test reports.
-
 ## Documentation
 roxygen2 is used to generate .Rd and NAMESPACE by running:
 ```R

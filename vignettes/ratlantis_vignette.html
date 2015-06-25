@@ -10,7 +10,7 @@
 
 <meta name="author" content="J. Stephen Gosnell" />
 
-<meta name="date" content="2015-06-17" />
+<meta name="date" content="2015-06-25" />
 
 <title>Using ratlantis to develop, use, and compare Atlantis ecosytem models</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Using ratlantis to develop, use, and compare Atlantis ecosytem models</h1>
 <h4 class="author"><em>J. Stephen Gosnell</em></h4>
-<h4 class="date"><em>2015-06-17</em></h4>
+<h4 class="date"><em>2015-06-25</em></h4>
 </div>
 
 
@@ -97,66 +97,91 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="group-assignment-and-biology-prm-nc-development" class="section level3">
 <h3>Group Assignment and Biology PRM, NC development</h3>
-<p>Atlantis models consider a variety of marine life, moving from bacterial pools to fish and large marine mammals. However, this scale means that in order to make simulations tractable (both due to computing time and information needs) organisms are divied into functional (or focal) groups. These groups may range from single species to larger feeding or functional groups. Atlantis requires a .prm file giving data and an .nc file giving initial conditions (where they start in map) for each group. ratlantis helps create these groups and files using the following functions: -Group creation –gather_data_for_species –gather_interactions_for_species –gather_habitat_for_species –create_functional_groups -File creation –biology.prm creation –create_biology_prm</p>
+<p>Atlantis models consider a variety of marine life, moving from bacterial pools to fish and large marine mammals. However, this scale means that in order to make simulations tractable (both due to computing time and information needs) organisms are divied into functional (or focal) groups. These groups may range from single species to larger feeding or functional groups (e.g., reef sharks, large reef fish). Atlantis requires a .prm file giving data and an .nc file giving initial conditions (where they start in map) for each group. ratlantis helps create these groups and files using the following functions: -Group creation –gather_data_for_species –gather_interactions_for_species –gather_habitat_for_species –create_functional_groups -File creation –biology.prm creation –create_biology_prm</p>
 <div id="group-creation" class="section level4">
 <h4>Group creation</h4>
-<p>IN order to assign organisms to appropriate groups, we’d ideally like to use as much data as possible. However, we are always missing data and the time needed to find it For those reason, ratlantis automates 3 basic types of data that may be used iteratively to create functional groups.</p>
-<p>gather_data_for_species pulls data on basic life history and ecological traits (age, size, trophic level, harvested)</p>
-<p>gather_interactions_for_species uses rglobi to pull species interaction data from the Global Biotic Interaction Database</p>
-<p>gather_habitat_for_species provides occurence data and notes on preferrered habitats</p>
-</div>
-<div id="gather_data_for_species" class="section level4">
-<h4>gather_data_for_species</h4>
-<div id="short-version-1" class="section level5">
-<h5>Short version</h5>
+<p>In order to assign organisms to appropriate groups, we’d ideally like to use as much data as possible. However, we are always missing data and the time needed to find it For those reason, ratlantis automates 3 basic types of data that may be used iteratively to create functional groups.</p>
+<p>gather_data_for_species pulls data on basic life history and ecological traits (age, size, trophic level, harvested).</p>
+<p>gather_interactions_for_species uses rglobi to pull species interaction data from the Global Biotic Interaction Database.</p>
+<p>gather_habitat_for_species provides occurence data and notes on preferrered habitats.</p>
+<div id="gather_data_for_species" class="section level5">
+<h5>gather_data_for_species</h5>
+<div id="short-version-1" class="section level6">
+<h6>Short version</h6>
 <p>Provide -name and location of a .csv file that has a list of species to be included. File needs to have columns labelled “Genus”, “species”, and “common_name”- these may be blank for some species but column must be included</p>
 <p>Function should return a .csv file with information on species pulled from online sources (Fishbase currently, expanding to other sources)</p>
 </div>
-<div id="example-1" class="section level5">
-<h5>Example</h5>
+<div id="example-1" class="section level6">
+<h6>Example</h6>
 <pre class="sourceCode r"><code class="sourceCode r">testdata &lt;-<span class="st"> </span><span class="kw">gather_data_for_species</span> (<span class="dt">species_list_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
                          <span class="dt">species_list_csv =</span> <span class="st">&quot;species_test.csv&quot;</span>)</code></pre>
 </div>
-<div id="longer-version-with-explanations-1" class="section level5">
-<h5>Longer version with explanations</h5>
+<div id="longer-version-with-explanations-1" class="section level6">
+<h6>Longer version with explanations</h6>
 <p>Atlantis requires a variety of data for each group, including</p>
 </div>
 </div>
-<div id="gather_interactions_for_species" class="section level4">
-<h4>gather_interactions_for_species</h4>
-<div id="short-version-2" class="section level5">
-<h5>Short version</h5>
+<div id="gather_interactions_for_species" class="section level5">
+<h5>gather_interactions_for_species</h5>
+<div id="short-version-2" class="section level6">
+<h6>Short version</h6>
 <p>Provide -name and location of a .csv file that has a list of species to be included. File needs to have columns labelled “Genus”, “species”, and “common_name”- these may be blank for some species but column must be included. A “functional_group” column may also be included -name and location of a .shp file that was used to build the .bgm file for Atlantis OR a bounding box for where interactions should be returned</p>
 <p>Function should return a .csv file with information on species interactions pulled from online sources (Global Biotic Interaction database currently, expanding to other sources)</p>
 </div>
-<div id="example-2" class="section level5">
-<h5>Example</h5>
+<div id="example-2" class="section level6">
+<h6>Example</h6>
 <pre class="sourceCode r"><code class="sourceCode r">testinteractions &lt;-<span class="st"> </span><span class="kw">gather_interactions_for_species</span> (<span class="dt">species_list_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
                          <span class="dt">species_list_csv =</span> <span class="st">&quot;species_list.csv&quot;</span>, <span class="dt">map_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
                          <span class="dt">map_name =</span> <span class="st">&quot;map_for_bgmeriser&quot;</span>)</code></pre>
 </div>
-<div id="longer-version-with-explanations-2" class="section level5">
-<h5>Longer version with explanations</h5>
+<div id="longer-version-with-explanations-2" class="section level6">
+<h6>Longer version with explanations</h6>
 <p>Atlantis requires a trophic model for all included functional groups (i.e., who eats who and how often). This function can be used to construct or check functional groups by ensuring major trophic pathways are included appropriately</p>
 </div>
 </div>
-<div id="gather_habitat_for_species" class="section level4">
-<h4>gather_habitat_for_species</h4>
-<div id="short-version-3" class="section level5">
-<h5>Short version</h5>
+<div id="gather_habitat_for_species" class="section level5">
+<h5>gather_habitat_for_species</h5>
+<div id="short-version-3" class="section level6">
+<h6>Short version</h6>
 <p>Provide -name and location of a .csv file that has a list of species to be included. File needs to have columns labelled “Genus”, “species”, and “common_name”- these may be blank for some species but column must be included. A “functional_group” column may also be included -name and location of a .shp file that was used to build the .bgm file for Atlantis -(optional) list of key words to search for in Fishbase description</p>
 <p>Function should return a .csv file with information on species occurrences pulled from online sources, including which species met certain depth parameters, keyword searches, and had been geotagged in each of your map polygons.</p>
 </div>
-<div id="example-3" class="section level5">
-<h5>Example</h5>
+<div id="example-3" class="section level6">
+<h6>Example</h6>
 <pre class="sourceCode r"><code class="sourceCode r">testhabitat &lt;-<span class="st"> </span><span class="kw">gather_habitat_for_species</span>(<span class="dt">species_list_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
                                                       <span class="dt">species_list_csv =</span> <span class="st">&quot;species_test_10.csv&quot;</span>,
                                                       <span class="dt">map_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
                                                       <span class="dt">map_name =</span> <span class="st">&quot;map_for_bgmeriser&quot;</span>)</code></pre>
 </div>
-<div id="longer-version-with-explanations-3" class="section level5">
-<h5>Longer version with explanations</h5>
+<div id="longer-version-with-explanations-3" class="section level6">
+<h6>Longer version with explanations</h6>
 <p>Understanding where each species occurs (depth and location) can be useful in determining functional groups and initial biomass starting locations. This function currently queries FishBase and several online sources of location data (gbif, iNaturalist and more using the spocc package).</p>
+</div>
+</div>
+<div id="file-creation" class="section level5">
+<h5>File Creation</h5>
+<p>Like any ecosystem model, Atlantis must balance simplicity and the need for details. While multiple traits may be important to include in an ecosystem model (and indeed may be using extensions), the main traits models tend to focus on are those needed to model population growth and interactions. These include:</p>
+<ul>
+<li>Trophic level and consumption rate</li>
+<li>Diet composition</li>
+<li>Mortality rates (natural and fishing may be needed)</li>
+<li>Growth parameters (k, relationship between length and weight)</li>
+<li>Size and age parameters (maximum length, maximum age)</li>
+<li>developmental information (age/size at maturity)</li>
+</ul>
+<p>Much of this data is collected via surveys (e.g., diet composition, maximum size) or provided through models. Key models and related assumptions that are commonly used include the Von Bertalannfy Growth Equation:</p>
+<p><span class="math">\(Length_t = Length_{max}^{(1-e^k(t-t_0))}\)</span></p>
+<p>and related weight equation, and the relationship between length and weight</p>
+<p><span class="math">\(W=aL^b\)</span></p>
+<p>Mortality can be hard to calculate, so a few simplifiying assumptions allow us to get:</p>
+<p><span class="math">\[M = {ln(.01)\over-{T_{max}}}\]</span></p>
+<p>where <span class="math">\(T_{max}\)</span> is the age of oldest individual.</p>
+<p>All of this data may be entirely provided by the user or (much more commonly) pulled from existing datasets and amended as needed. The suite of functions we just documented (gather_data_for_species, gather_habitat_for species, gather_interactions_for_data) all pull together this data, BUT IT IS UP TO THE USER TO VERIFY IT AND DETERMINE HOW TO USE IT. We recommend a workflow of: * initial classification of species into focal groups based on model needs * this may be assisted using the create_functional_groups code below, which creates groups based on trophic level, basic biological group, and depth usage * review this initial list by considering interactions and habitat usage <em>this can be considered by merging data you’ve acquired by focus group to make sure the groups make sense </em> reiterate this process (create groups, check) until you are pleased</p>
+<p>One of the major (under development) benefits of the ratlanis package will be the ability to consider multiple focus group considerations for one model (since much of the calibration and model creation will be automated), allowing models to be quickly reconfigured. The same perspective should apply for changing model areas (downscaling a model or changing polygons)</p>
+<div id="atlantis-notes" class="section level6">
+<h6>Atlantis notes</h6>
+<p>Before setting groups, a few specific Atlantis properties should be understood. Focal groups are either composed of singe pools or some number of structured size classes. Groups are also categorized as:</p>
+</div>
 </div>
 </div>
 </div>

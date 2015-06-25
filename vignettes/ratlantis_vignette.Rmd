@@ -117,7 +117,6 @@ bathymetry_cutoff functions instructs which quantile to take as the depth for ea
 polygon (defaults to .9 to avoid a canyon overly influencing depths).  The code then 
 creates a botz column.  
 
-
 If boundary is not included, you must list the box_id values of the boundary boxes 
 so a boundary column can be created.  
 
@@ -134,9 +133,10 @@ Atlantis models consider a variety of marine life, moving from bacterial pools t
 and large marine mammals.  However, this scale means that in order to make simulations 
 tractable (both due to computing time and information needs) organisms are divied into
 functional (or focal) groups.  These groups may range from single species to larger
-feeding or functional groups. Atlantis requires a .prm file giving data and an .nc 
-file giving initial conditions (where they start in map) for each group. ratlantis
-helps create these groups and files using the following functions:
+feeding or functional groups (e.g., reef sharks, large reef fish). Atlantis requires 
+a .prm file giving data and an .nc file giving initial conditions (where they 
+start in map) for each group. ratlantis helps create these groups and files using 
+the following functions:
 -Group creation
   --gather_data_for_species
   --gather_interactions_for_species
@@ -148,21 +148,21 @@ helps create these groups and files using the following functions:
 
 ####Group creation
 
-IN order to assign organisms to appropriate groups, we'd ideally like to use as much
+In order to assign organisms to appropriate groups, we'd ideally like to use as much
 data as possible.  However, we are always missing data and the time needed to find 
 it  For those reason, ratlantis automates 3 basic types of data that may be used 
 iteratively to create functional groups.
 
 gather_data_for_species pulls data on basic life history and ecological traits 
-(age, size, trophic level, harvested)
+(age, size, trophic level, harvested).
 
 gather_interactions_for_species uses rglobi to pull species interaction data from
-the Global Biotic Interaction Database
+the Global Biotic Interaction Database.
 
-gather_habitat_for_species provides occurence data and notes on preferrered habitats
+gather_habitat_for_species provides occurence data and notes on preferrered habitats.
 
-####gather_data_for_species
-#####Short version
+#####gather_data_for_species
+######Short version
 Provide 
 -name and location of a .csv file that has a list of species to be included. File needs to have columns
 labelled "Genus", "species", and "common_name"- these may be blank for some species
@@ -171,18 +171,18 @@ but column must be included
 Function should return a .csv file with information on species pulled from online
 sources (Fishbase currently, expanding to other sources)
 
-##### Example
+###### Example
 
 ```r
 testdata <- gather_data_for_species (species_list_location = "C:/Users/SGosnell/Desktop/bgm",
                          species_list_csv = "species_test.csv")
 ```
 
-#####Longer version with explanations
+######Longer version with explanations
 Atlantis requires a variety of data for each group, including
 
-####gather_interactions_for_species
-#####Short version
+#####gather_interactions_for_species
+######Short version
 Provide 
 -name and location of a .csv file that has a list of species to be included. File needs to have columns
 labelled "Genus", "species", and "common_name"- these may be blank for some species
@@ -193,7 +193,7 @@ OR a bounding box for where interactions should be returned
 Function should return a .csv file with information on species interactions pulled 
 from online sources (Global Biotic Interaction database currently, expanding to other sources)
 
-##### Example
+###### Example
 
 ```r
 testinteractions <- gather_interactions_for_species (species_list_location = "C:/Users/SGosnell/Desktop/bgm",
@@ -201,13 +201,13 @@ testinteractions <- gather_interactions_for_species (species_list_location = "C:
                          map_name = "map_for_bgmeriser")
 ```
 
-#####Longer version with explanations
+######Longer version with explanations
 Atlantis requires a trophic model for all included functional groups (i.e., who
 eats who and how often).   This function can be used to construct or check functional
 groups by ensuring major trophic pathways are included appropriately
 
-####gather_habitat_for_species
-#####Short version
+#####gather_habitat_for_species
+######Short version
 Provide 
 -name and location of a .csv file that has a list of species to be included. File needs to have columns
 labelled "Genus", "species", and "common_name"- these may be blank for some species
@@ -219,7 +219,7 @@ Function should return a .csv file with information on species occurrences pulle
 from online sources, including which species met certain depth parameters, keyword
 searches, and had been geotagged in each of your map polygons.  
 
-##### Example
+###### Example
 
 ```r
 testhabitat <- gather_habitat_for_species(species_list_location = "C:/Users/SGosnell/Desktop/bgm",
@@ -228,11 +228,91 @@ testhabitat <- gather_habitat_for_species(species_list_location = "C:/Users/SGos
                                                       map_name = "map_for_bgmeriser")
 ```
 
-#####Longer version with explanations
+######Longer version with explanations
 Understanding where each species occurs (depth and location) can be useful in determining
 functional groups and initial biomass starting locations.  This function currently 
 queries FishBase and several online sources of location data (gbif, iNaturalist 
-and more using the spocc package).  
+and more using the spocc package). 
+
+#####File Creation
+Like any ecosystem model, Atlantis must balance simplicity and the need for details.
+While multiple traits may be important to include in an ecosystem model (and indeed
+may be using extensions), the main traits models tend to focus on are those needed
+to model population growth and interactions.  These include:
+
+* Trophic level and consumption rate
+* Diet composition
+* Mortality rates (natural and fishing may be needed)
+* Growth parameters (k, relationship between length and weight)
+* Size and age parameters (maximum length, maximum age)
+* developmental information (age/size at maturity)
+
+Much of this data is collected via surveys (e.g., diet composition, maximum size)
+or provided through models.  Key models and related assumptions that are commonly 
+used include the Von Bertalannfy Growth Equation:
+
+$Length_t = Length_{max}^{(1-e^k(t-t_0))}$
+
+and related weight equation, and the relationship between length and weight
+
+$W=aL^b$
+
+Mortality can be hard to calculate, so a few simplifiying assumptions allow us to 
+get:
+
+$$M = {ln(.01)\over-{T_{max}}}$$
+
+where $T_{max}$ is the age of oldest individual.  
+
+All of this data may be entirely provided by the user or (much more commonly) pulled
+from existing datasets and amended as needed. The suite of functions we just documented
+(gather_data_for_species, gather_habitat_for species, gather_interactions_for_data)
+all pull together this data, BUT IT IS UP TO THE USER TO VERIFY IT AND DETERMINE
+HOW TO USE IT. We recommend a workflow of:
+* initial classification of species into focal groups based on model needs
+  * this may be assisted using the create_functional_groups code below, which 
+  creates groups based on trophic level, basic biological group, and depth usage
+* review this initial list by considering interactions and habitat usage
+  *this can be considered by merging data you've acquired by focus group to make 
+  sure the groups make sense
+* reiterate this process (create groups, check) until you are pleased
+
+One of the major (under development) benefits of the ratlanis package will be the 
+ability to consider multiple focus group considerations for one model (since much 
+of the calibration and model creation will be automated), allowing models to be 
+quickly reconfigured.  The same perspective should apply for changing model areas
+(downscaling a model or changing polygons)
+
+######Atlantis notes
+
+Before setting groups, a few specific Atlantis model properties should be understood. 
+Groups are categorized as:
+*Vertebrates
+ *FISH
+ *BIRD
+ *MAMMAL
+ *SHARK
+*Invertebrates
+  *a long list that can be found at https://wiki.csiro.au/display/Atlantis/AtlantisGroupTypes
+  
+Group type determines where organisms are found (in sediment, in water column, epibenthic)
+and how often they are processed.  Focal groups are also either composed of singe 
+pools or some number of structured size classes. These two concepts are tied together
+in the model code; vertebrates can have multiple (unlimited, formerly 10) age classes,
+while invertebrates can only have pools or two age classes.  FOR THIS REASON, YOU MAY
+SEE INVERTEBRATES CLASSIFIED AS VERTEBRATS IN THE MODEL (e.g., if you need to model
+3+ size classes for shrimp, crabs, etc, you'll have to tell the model they are a 
+vertebrate).  ratlantis deals with this by asking how many cohorts you want to include 
+for a species and then attempting to classify it into the right Atlantis group for you.
+You should note you are required to have one (and only one) of the following groups
+in each model:
+*CARRION, carrion
+*LAB_DET, labile detritus
+*REF_DET, refractory detritus
+*PL_BACT - Pelagic Bacteria
+*SED_BACT - Sediment Bacteria
+
+These respresent the detrital and bacterial food chain.  
 
 ## Atlantis Steps: Model Calibration
 

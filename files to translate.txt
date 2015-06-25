@@ -1,0 +1,10 @@
+Files to translate
+
+obtaining values for functional groups
+gulf species to focus groups
+generating atlantis parameters
+write the bio prm
+
+important pages to cite
+https://wiki.csiro.au/display/Atlantis/Functional+Group+Definition+File
+https://wiki.csiro.au/display/Atlantis/groupAgeType
