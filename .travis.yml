@@ -1,8 +1,13 @@
 language: r
 sudo: required
-warnings_are_errors: false
+
+before_install:
+- sudo apt-get install libv8-dev
+
 r_binary_packages:
   - rgdal
   - ncdf
-r_github_packages:
-  -v8/v8
+
+warnings_are_errors: false
+
+
