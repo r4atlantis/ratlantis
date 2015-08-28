@@ -127,6 +127,11 @@ Atlantis input requires a .shp polygon file to be transformed to a .bgm format.
 Map development is handled via the rbgmeriser function, which assumes you have downloaded
 the java applet bgmeriser.jar.   
 
+####Comments
+
+A common error following this function is that "java is not recognized as an internal
+command", etc.  This means your workstation needs to have java added to it's PATH
+
 ###Group Assignment and Biology PRM, NC development
 
 Atlantis models consider a variety of marine life, moving from bacterial pools to fish
@@ -277,7 +282,7 @@ HOW TO USE IT. We recommend a workflow of:
   sure the groups make sense
 * reiterate this process (create groups, check) until you are pleased
 
-One of the major (under development) benefits of the ratlanis package will be the 
+One of the major (under development) benefits of the ratlantis package will be the 
 ability to consider multiple focus group considerations for one model (since much 
 of the calibration and model creation will be automated), allowing models to be 
 quickly reconfigured.  The same perspective should apply for changing model areas
@@ -318,9 +323,23 @@ in each model:
 
 These respresent the detrital and bacterial components of the ecosystem.  
 
-## Atlantis Steps: Model Calibration
+#### create_functional_groups
+######Short version
+Provide 
+-
+###### Example
 
-Work in progress planned for completion fall 2015
+```r
+testhabitat <- gather_habitat_for_species(species_list_location = "C:/Users/SGosnell/Desktop/bgm",
+                                                      species_list_csv = "species_test_10.csv",
+                                                      map_location = "C:/Users/SGosnell/Desktop/bgm",
+                                                      map_name = "map_for_bgmeriser")
+```
+
+######Longer version with explanations
+After compiling data on each species to possibly be included in the model
+
+
 
 ## Atlantis Steps:  Model Execution
 
@@ -367,6 +386,11 @@ execute_atlantis(atlantis_location = "C:/exampleatlantis", atlantis_exe = "atlan
 
 Atlantis is a C++ program.  This code does not recreate Atlantis in R, it simply 
 acts as a wrapper for the program.
+
+## Atlantis Steps: Model Calibration
+
+Work in progress planned for completion fall 2015
+
 
 ## Atlantis Steps:  Model Analysis
 

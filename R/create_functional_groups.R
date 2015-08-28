@@ -1,14 +1,14 @@
 #' create_functional_groups function
 #'
 #' This function creates the biology prm file needed for Atlantis
-#' @param map_location location of gis layer stored in wgs84 format
+#' @param species_list_location where species list is located
+#' @param species_info_csv name of csv file with the following column headers:
+#' Genus, species,common_name
 #' @keywords biology prm
-#' @details This function creates the biology prm file needed by Atlantis. User
-#' submits a list of potential species to be included in the model. The code gathers
-#' data on species from cloud-based, public data sources and offers potential functional
-#' groupings.
+#' @details This function uses provided information to suggest functional group
+#' classification for Atlantis models
 #' @export
 
-create_functional_groups <- function( ){}
+create_functional_groups <- function(species_list_location, species_info_csv){}
 
 

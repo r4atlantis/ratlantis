@@ -10,7 +10,7 @@
 
 <meta name="author" content="J. Stephen Gosnell" />
 
-<meta name="date" content="2015-06-25" />
+<meta name="date" content="2015-08-18" />
 
 <title>Using ratlantis to develop, use, and compare Atlantis ecosytem models</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Using ratlantis to develop, use, and compare Atlantis ecosytem models</h1>
 <h4 class="author"><em>J. Stephen Gosnell</em></h4>
-<h4 class="date"><em>2015-06-25</em></h4>
+<h4 class="date"><em>2015-08-18</em></h4>
 </div>
 
 
@@ -177,18 +177,17 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p><span class="math">\[M = {ln(.01)\over-{T_{max}}}\]</span></p>
 <p>where <span class="math">\(T_{max}\)</span> is the age of oldest individual.</p>
 <p>All of this data may be entirely provided by the user or (much more commonly) pulled from existing datasets and amended as needed. The suite of functions we just documented (gather_data_for_species, gather_habitat_for species, gather_interactions_for_data) all pull together this data, BUT IT IS UP TO THE USER TO VERIFY IT AND DETERMINE HOW TO USE IT. We recommend a workflow of: * initial classification of species into focal groups based on model needs * this may be assisted using the create_functional_groups code below, which creates groups based on trophic level, basic biological group, and depth usage * review this initial list by considering interactions and habitat usage <em>this can be considered by merging data you’ve acquired by focus group to make sure the groups make sense </em> reiterate this process (create groups, check) until you are pleased</p>
-<p>One of the major (under development) benefits of the ratlanis package will be the ability to consider multiple focus group considerations for one model (since much of the calibration and model creation will be automated), allowing models to be quickly reconfigured. The same perspective should apply for changing model areas (downscaling a model or changing polygons)</p>
+<p>One of the major (under development) benefits of the ratlantis package will be the ability to consider multiple focus group considerations for one model (since much of the calibration and model creation will be automated), allowing models to be quickly reconfigured. The same perspective should apply for changing model areas (downscaling a model or changing polygons)</p>
 <div id="atlantis-notes" class="section level6">
 <h6>Atlantis notes</h6>
-<p>Before setting groups, a few specific Atlantis properties should be understood. Focal groups are either composed of singe pools or some number of structured size classes. Groups are also categorized as:</p>
+<p>Before setting groups, a few specific Atlantis model properties should be understood. Groups are categorized as: <em>Vertebrates </em>FISH <em>BIRD </em>MAMMAL <em>SHARK </em>Invertebrates *a long list that can be found at <a href="https://wiki.csiro.au/display/Atlantis/AtlantisGroupTypes" class="uri">https://wiki.csiro.au/display/Atlantis/AtlantisGroupTypes</a></p>
+<p>Group type determines where organisms are found (in sediment, in water column, epibenthic) and how often they are processed. Focal groups are also either composed of singe pools or some number of structured size classes. These two concepts are tied together in the model code; vertebrates can have multiple (unlimited, formerly 10) age classes, while invertebrates can only have pools or two age classes. FOR THIS REASON, YOU MAY SEE INVERTEBRATES CLASSIFIED AS VERTEBRATS IN THE MODEL (e.g., if you need to model 3+ size classes for shrimp, crabs, etc, you’ll have to tell the model they are a vertebrate). Similarly, the group.csv file (one of the required input files) has an invert_type column where you label the group type (so some rows will say FISH or other non-invertebrate groups).</p>
+<p>ratlantis deals with this by asking how many cohorts you want to include for a species and then attempting to classify it into the right Atlantis group for you. You should note you are required to have one (and only one) of the following groups in each model: <em>CARRION, carrion </em>LAB_DET, labile detritus <em>REF_DET, refractory detritus </em>PL_BACT - Pelagic Bacteria *SED_BACT - Sediment Bacteria</p>
+<p>These respresent the detrital and bacterial components of the ecosystem.</p>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div id="atlantis-steps-model-calibration" class="section level2">
-<h2>Atlantis Steps: Model Calibration</h2>
-<p>Work in progress planned for completion fall 2015</p>
 </div>
 <div id="atlantis-steps-model-execution" class="section level2">
 <h2>Atlantis Steps: Model Execution</h2>
@@ -216,6 +215,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h4>Longer version with explanations</h4>
 <p>Atlantis is a C++ program. This code does not recreate Atlantis in R, it simply acts as a wrapper for the program.</p>
 </div>
+</div>
+<div id="atlantis-steps-model-calibration" class="section level2">
+<h2>Atlantis Steps: Model Calibration</h2>
+<p>Work in progress planned for completion fall 2015</p>
 </div>
 <div id="atlantis-steps-model-analysis" class="section level2">
 <h2>Atlantis Steps: Model Analysis</h2>
