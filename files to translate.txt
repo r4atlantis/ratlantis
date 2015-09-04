@@ -1,7 +1,7 @@
 Files to translate
 
-obtaining values for functional groups
 gulf species to focus groups
+obtaining values for functional groups
 generating atlantis parameters
 write the bio prm
 
