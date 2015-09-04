@@ -173,7 +173,7 @@ labelled "Genus", "species", and "common_name"- these may be blank for some spec
 but column must be included
 
 Function should return a .csv file with information on species pulled from online
-sources (Fishbase currently, expanding to other sources)
+sources (Fishbase and Sealifebase currently, expanding to other sources)
 
 ###### Example
 
