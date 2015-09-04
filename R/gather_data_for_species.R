@@ -33,9 +33,9 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   #progresses to minimize chance of "low memory" errors
 
 
-  species$scientific_name_validated <- validate_names(fish$scientific_name)
+  species$scientific_name_validated <- rfishbase::validate_names(species$scientific_name)
 
-  trophic_info <- ecology(species$scientific_name_validated,
+  trophic_info <- rfishbase::ecology(species$scientific_name_validated,
           fields=c("SpecCode", "FoodTroph", "FoodSeTroph", "DietTroph", "DietSeTroph"))
 
   #make sciname match column in species name
@@ -45,7 +45,7 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   #maturity information
 
-  maturity_info <- maturity(species$scientific_name_validated)
+  maturity_info <- rfishbase::maturity(species$scientific_name_validated)
   names(maturity_info)[names(maturity_info) == 'Speccode'] <- 'SpecCode'
 
   maturity_info_AgeMatMin <- cast (SpecCode~., value="AgeMatMin", data = maturity_info, minnona)
