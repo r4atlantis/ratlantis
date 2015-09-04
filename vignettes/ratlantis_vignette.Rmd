@@ -178,8 +178,7 @@ sources (Fishbase currently, expanding to other sources)
 ###### Example
 
 ```r
-testdata <- gather_data_for_species (species_list_location = "C:/Users/SGosnell/Desktop/bgm",
-                         species_list_csv = "species_test.csv")
+testdata <- gather_data_for_species (species_list_csv = "species_test.csv")
 ```
 
 ######Longer version with explanations

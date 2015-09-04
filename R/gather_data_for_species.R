@@ -3,7 +3,7 @@
 #' This function aids in gathering the species needed to create functional groups
 #' and prm files in Atlantis
 #' @param species_list_location where species list is located; defaults to working
-#' director
+#' directory
 #' @param species_list_csv name of csv file with the following column headers:
 #' Genus, species,common_name
 #' @keywords biology prm, functional groups,
