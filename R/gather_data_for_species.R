@@ -92,13 +92,9 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
                              meannona)
   names( pop_growth_info_M)[names( pop_growth_info_M) == '(all)'] <- 'Mean_M'
 
-  pop_growth_info_TL <- reshape::cast (SpecCode~., value="TL", data = pop_growth_info,
-                             meannona)
-  names( pop_growth_info_TL)[names( pop_growth_info_TL) == '(all)'] <- 'Mean_TL'
-
-  pop_growth_info_to <- reshape::cast (SpecCode~., value="to", data = pop_growth_info,
+   pop_growth_info_to <- reshape::cast (SpecCode~., value="to", data = pop_growth_info,
                               meannona)
-  names( pop_growth_info_to)[names( pop_growth_info_TL) == '(all)'] <- 'Mean_to'
+  names( pop_growth_info_to)[names( pop_growth_info_to) == '(all)'] <- 'Mean_to'
 
   #Length max
   pop_growth_info_Lm <- reshape::cast (SpecCode~., value="Lm", data = pop_growth_info,
@@ -107,7 +103,6 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   species <- merge(species, pop_growth_info_M, all.x = T)
   species <- merge(species, pop_growth_info_Lm, all.x = T)
-  species <- merge(species, pop_growth_info_TL, all.x = T)
   species <- merge(species, pop_growth_info_K, all.x = T)
   species <- merge(species, pop_growth_info_Loo, all.x = T)
   species <- merge(species, pop_growth_info_to, all.x = T)
@@ -130,6 +125,20 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   species <- merge(species, species_info_DepthRangeDeep, all.x = T)
   species <- merge(species, species_info_DepthRangeShallow, all.x = T)
 
+
+  #length-weight
+  length_weight_info <- rfishbase::length_weight(species$scientific_name_validated)
+
+  length_weight_info_a <- reshape::cast (SpecCode~., value="a", data = length_weight_info,
+                                                   meannona)
+  names(length_weight_info_a)[names( length_weight_info_a) == '(all)'] <- 'Mean_a'
+
+  length_weight_info_b <- reshape::cast (SpecCode~., value="b", data = length_weight_info,
+                                         meannona)
+  names(length_weight_info_b)[names( length_weight_info_b) == '(all)'] <- 'Mean_b'
+
+  species <- merge(species, length_weight_info_b, all.x = T)
+  species <- merge(species, length_weight_info_a, all.x = T)
 
   return (species)
 
