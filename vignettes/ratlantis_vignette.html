@@ -75,15 +75,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="example" class="section level4">
 <h4>Example</h4>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbgmeriser</span>( <span class="dt">map_location =</span> <span class="kw">paste</span>(<span class="st">&quot;C:/Dropbox/&quot;</span>, user, <span class="st">&quot;/Experiments/FSU Projects/Atlantis Model/Deep C Atlantis Model&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>),
-            <span class="dt">map_name =</span> <span class="st">&quot;DeepCmap&quot;</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbgmeriser</span>( <span class="dt">map_name =</span> <span class="st">&quot;DeepCmap&quot;</span>,
             <span class="dt">boundary_boxes =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">52</span>),
             <span class="dt">get_bathymetry =</span> <span class="ot">TRUE</span>,
-            <span class="dt">bathymetry_layer_location =</span> <span class="kw">paste</span>(<span class="st">&quot;C:/Dropbox/&quot;</span>, user, <span class="st">&quot;/Experiments/FSU Projects/Atlantis Model/Deep C Atlantis Model/New Shape files I downloaded/GCOOS/w98e78n31s18_isobath_selected_5-4000m&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>),
             <span class="dt">bathymetry_layer_name =</span> <span class="st">&quot;gom bath wgs84&quot;</span>,
             <span class="dt">bathymetry_cutoff =</span> .<span class="dv">9</span>,
             <span class="dt">bathymetry_levels =</span> <span class="kw">c</span>(-<span class="dv">10</span>, -<span class="dv">20</span>,-<span class="dv">50</span>, -<span class="dv">200</span>,-<span class="dv">1000</span>, -<span class="dv">2000</span>,-<span class="dv">4000</span>),
-            <span class="dt">bgmeriser_location =</span><span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>
 )</code></pre>
 </div>
 <div id="longer-version-with-explanations" class="section level4">
@@ -101,7 +98,22 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="group-assignment-and-biology-prm-nc-development" class="section level3">
 <h3>Group Assignment and Biology PRM, NC development</h3>
-<p>Atlantis models consider a variety of marine life, moving from bacterial pools to fish and large marine mammals. However, this scale means that in order to make simulations tractable (both due to computing time and information needs) organisms are divied into functional (or focal) groups. These groups may range from single species to larger feeding or functional groups (e.g., reef sharks, large reef fish). Atlantis requires a .prm file giving data and an .nc file giving initial conditions (where they start in map) for each group. ratlantis helps create these groups and files using the following functions: -Group creation –gather_data_for_species –gather_interactions_for_species –gather_habitat_for_species –create_functional_groups -File creation –biology.prm creation –create_biology_prm</p>
+<p>Atlantis models consider a variety of marine life, moving from bacterial pools to fish and large marine mammals. However, this scale means that in order to make simulations tractable (both due to computing time and information needs) organisms are divied into functional (or focal) groups. These groups may range from single species to larger feeding or functional groups (e.g., reef sharks, large reef fish). Atlantis requires a .prm file giving data and an .nc file giving initial conditions (where they start in map) for each group. ratlantis helps create these groups and files using the following functions:</p>
+<ul>
+<li>Group creation
+<ul>
+<li>gather_data_for_species</li>
+<li>gather_interactions_for_species</li>
+<li>gather_habitat_for_species</li>
+<li>create_functional_groups</li>
+</ul></li>
+<li>Parameter creation</li>
+<li>create_atlantis_parameters</li>
+<li>Writing the prm
+<ul>
+<li>create_biology_prm</li>
+</ul></li>
+</ul>
 <div id="group-creation" class="section level4">
 <h4>Group creation</h4>
 <p>In order to assign organisms to appropriate groups, we’d ideally like to use as much data as possible. However, we are always missing data and the time needed to find it For those reason, ratlantis automates 3 basic types of data that may be used iteratively to create functional groups.</p>
@@ -184,13 +196,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <ul>
 <li>initial classification of species into focal groups based on model needs
 <ul>
-<li>this may be assisted using the create_functional_groups code below, which creates groups based on trophic level, basic biological group, and depth usage</li>
+<li>this may be assisted using the create_functional_groups function, which creates groups based on trophic level, basic biological group, and depth usage</li>
 </ul></li>
 <li>review this initial list by considering interactions and habitat usage *this can be considered by merging data you’ve acquired by focus group to make sure the groups make sense</li>
-<li></li>
-<li>reiterate this process (create groups, check) until you are pleased</li>
+<li>generate the averaged traits for each functional groups and actual parameters used in Atlantis bio.prm file
+<ul>
+<li>the create_atlantis_parameters function carries out this task</li>
+</ul></li>
+<li>reiterate this process (create groups, check values) until you are pleased</li>
+<li>create the bio.prm and groups.csv input files
+<ul>
+<li>the create_biology_prm function carries out both these tasks</li>
+</ul></li>
 </ul>
-<p>One of the major (under development) benefits of the ratlantis package will be the ability to consider multiple focus group considerations for one model (since much of the calibration and model creation will be automated), allowing models to be quickly reconfigured. The same perspective should apply for changing model areas (downscaling a model or changing polygons)</p>
+<p>One of the major benefits of the ratlantis package will be the ability to consider multiple focus group considerations for one model (since much of the calibration and model creation will be automated), allowing models to be quickly reconfigured. The same perspective should apply for changing model areas (downscaling a model or changing polygons).</p>
 <div id="atlantis-notes" class="section level6">
 <h6>Atlantis notes</h6>
 <p>Before setting groups, a few specific Atlantis model properties should be understood. Groups are categorized as: <em>Vertebrates </em>FISH <em>BIRD </em>MAMMAL <em>SHARK </em>Invertebrates *a long list that can be found at <a href="https://wiki.csiro.au/display/Atlantis/AtlantisGroupTypes" class="uri">https://wiki.csiro.au/display/Atlantis/AtlantisGroupTypes</a></p>

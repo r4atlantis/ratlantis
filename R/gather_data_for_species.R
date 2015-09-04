@@ -2,7 +2,8 @@
 #'
 #' This function aids in gathering the species needed to create functional groups
 #' and prm files in Atlantis
-#' @param species_list_location where species list is located
+#' @param species_list_location where species list is located; defaults to working
+#' director
 #' @param species_list_csv name of csv file with the following column headers:
 #' Genus, species,common_name
 #' @keywords biology prm, functional groups,
@@ -12,7 +13,7 @@
 #'  public data sources and offers potential functional groupings.
 #' @export
 
-gather_data_for_species <- function(species_list_location, species_list_csv){
+gather_data_for_species <- function(species_list_location = getwd(), species_list_csv){
   #read in the species_list
   species <- read.csv(paste(species_list_location, "/", species_list_csv, sep=""),
                                  header=T)

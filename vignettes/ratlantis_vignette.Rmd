@@ -82,15 +82,12 @@ Function should return a .bgm file to be used in Atlantis models.
 #### Example
 
 ```r
-rbgmeriser( map_location = paste("C:/Dropbox/", user, "/Experiments/FSU Projects/Atlantis Model/Deep C Atlantis Model", sep=""),
-            map_name = "DeepCmap",
+rbgmeriser( map_name = "DeepCmap",
             boundary_boxes = c(0,52),
             get_bathymetry = TRUE,
-            bathymetry_layer_location = paste("C:/Dropbox/", user, "/Experiments/FSU Projects/Atlantis Model/Deep C Atlantis Model/New Shape files I downloaded/GCOOS/w98e78n31s18_isobath_selected_5-4000m", sep=""),
             bathymetry_layer_name = "gom bath wgs84",
             bathymetry_cutoff = .9,
             bathymetry_levels = c(-10, -20,-50, -200,-1000, -2000,-4000),
-            bgmeriser_location ="C:/Users/SGosnell/Desktop/bgm"
 )
 ```
 
@@ -142,14 +139,16 @@ feeding or functional groups (e.g., reef sharks, large reef fish). Atlantis requ
 a .prm file giving data and an .nc file giving initial conditions (where they 
 start in map) for each group. ratlantis helps create these groups and files using 
 the following functions:
--Group creation
-  --gather_data_for_species
-  --gather_interactions_for_species
-  --gather_habitat_for_species
-  --create_functional_groups
--File creation
---biology.prm creation
---create_biology_prm
+
+* Group creation
+    * gather_data_for_species
+    * gather_interactions_for_species
+    * gather_habitat_for_species
+    * create_functional_groups
+* Parameter creation
+   * create_atlantis_parameters 
+* Writing the prm
+    * create_biology_prm
 
 ####Group creation
 
