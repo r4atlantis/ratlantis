@@ -4,10 +4,11 @@
 \alias{gather_data_for_species}
 \title{gather_data_for_species function}
 \usage{
-gather_data_for_species(species_list_location, species_list_csv)
+gather_data_for_species(species_list_location = getwd(), species_list_csv)
 }
 \arguments{
-\item{species_list_location}{where is species list located}
+\item{species_list_location}{where species list is located; defaults to working
+directory}
 
 \item{species_list_csv}{name of csv file with the following column headers:
 Genus, species,common_name}

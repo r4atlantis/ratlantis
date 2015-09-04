@@ -4,13 +4,14 @@
 \alias{rbgmeriser}
 \title{rbgmeriser function}
 \usage{
-rbgmeriser(map_location, map_name, boundary_boxes = NULL,
-  get_bathymetry = TRUE, bathymetry_layer_location, bathymetry_layer_name,
-  bathymetry_cutoff = 0.9, bathymetry_levels = c(-10, -20, -50, -200, -1000,
-  -2000, -4000), bgmeriser_location)
+rbgmeriser(map_location = getwd(), map_name, boundary_boxes = NULL,
+  get_bathymetry = TRUE, bathymetry_layer_location = getwd(),
+  bathymetry_layer_name, bathymetry_cutoff = 0.9, bathymetry_levels = c(-10,
+  -20, -50, -200, -1000, -2000, -4000), bgmeriser_location = getwd())
 }
 \arguments{
-\item{map_location}{location of gis layer stored in wgs84 format}
+\item{map_location}{location of gis layer stored in wgs84 format; defaults to
+working directory}
 
 \item{map_name}{name of map to be used for bgm creation. Must incude "box_id"
 column. Other columns may be included (horizmix, vertmix,boundary_code)}
@@ -20,7 +21,8 @@ column. Other columns may be included (horizmix, vertmix,boundary_code)}
 \item{get_bathymetry}{Should function automatically add depths (T(rue) or
 F(alse)}
 
-\item{bathymetry_layer_location}{location of gis layer stored in wgs84 format.}
+\item{bathymetry_layer_location}{location of gis layer stored in wgs84 format;
+defaults to working directory.}
 
 \item{bathymetry_layer_name}{name of bathmetry shp layer. Must be in wgs84
 format}

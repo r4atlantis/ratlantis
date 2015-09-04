@@ -2,7 +2,7 @@
 % Please edit documentation in R/helper_functions_ratlantis.R
 \name{\%!in\%}
 \alias{\%!in\%}
-\title{%!in% function}
+\title{"%!in%" function}
 \usage{
 x \%!in\% table
 }
