@@ -20,6 +20,7 @@ Imports:
   ncdf,
   rgdal,
   rgbif,
+  rgeos,
   sp,
   XML,
   rglobi,

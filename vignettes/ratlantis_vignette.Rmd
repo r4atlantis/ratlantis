@@ -274,19 +274,25 @@ from existing datasets and amended as needed. The suite of functions we just doc
 (gather_data_for_species, gather_habitat_for species, gather_interactions_for_data)
 all pull together this data, BUT IT IS UP TO THE USER TO VERIFY IT AND DETERMINE
 HOW TO USE IT. We recommend a workflow of:
+
 * initial classification of species into focal groups based on model needs
-  * this may be assisted using the create_functional_groups code below, which 
+    * this may be assisted using the create_functional_groups function, which 
   creates groups based on trophic level, basic biological group, and depth usage
 * review this initial list by considering interactions and habitat usage
   *this can be considered by merging data you've acquired by focus group to make 
   sure the groups make sense
-* reiterate this process (create groups, check) until you are pleased
+* generate the averaged traits for each functional groups and actual parameters 
+used in Atlantis bio.prm file
+    * the create_atlantis_parameters function carries out this task
+* reiterate this process (create groups, check values) until you are pleased
+* create the bio.prm and groups.csv input files
+    * the create_biology_prm function carries out both these tasks
 
-One of the major (under development) benefits of the ratlantis package will be the 
+One of the major benefits of the ratlantis package will be the 
 ability to consider multiple focus group considerations for one model (since much 
 of the calibration and model creation will be automated), allowing models to be 
 quickly reconfigured.  The same perspective should apply for changing model areas
-(downscaling a model or changing polygons)
+(downscaling a model or changing polygons).
 
 ######Atlantis notes
 

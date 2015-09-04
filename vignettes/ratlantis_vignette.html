@@ -10,7 +10,7 @@
 
 <meta name="author" content="J. Stephen Gosnell" />
 
-<meta name="date" content="2015-08-18" />
+<meta name="date" content="2015-09-04" />
 
 <title>Using ratlantis to develop, use, and compare Atlantis ecosytem models</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Using ratlantis to develop, use, and compare Atlantis ecosytem models</h1>
 <h4 class="author"><em>J. Stephen Gosnell</em></h4>
-<h4 class="date"><em>2015-08-18</em></h4>
+<h4 class="date"><em>2015-09-04</em></h4>
 </div>
 
 
@@ -93,6 +93,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>If boundary is not included, you must list the box_id values of the boundary boxes so a boundary column can be created.</p>
 <p>If vertmix and horizmix are not defined, they are set to 0..00001 and 1, respectively, by default (standard for Atlantis models).</p>
 <p>Atlantis input requires a .shp polygon file to be transformed to a .bgm format.<br />Map development is handled via the rbgmeriser function, which assumes you have downloaded the java applet bgmeriser.jar.</p>
+</div>
+<div id="comments" class="section level4">
+<h4>Comments</h4>
+<p>A common error following this function is that “java is not recognized as an internal command”, etc. This means your workstation needs to have java added to it’s PATH</p>
 </div>
 </div>
 <div id="group-assignment-and-biology-prm-nc-development" class="section level3">
@@ -176,7 +180,16 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Mortality can be hard to calculate, so a few simplifiying assumptions allow us to get:</p>
 <p><span class="math">\[M = {ln(.01)\over-{T_{max}}}\]</span></p>
 <p>where <span class="math">\(T_{max}\)</span> is the age of oldest individual.</p>
-<p>All of this data may be entirely provided by the user or (much more commonly) pulled from existing datasets and amended as needed. The suite of functions we just documented (gather_data_for_species, gather_habitat_for species, gather_interactions_for_data) all pull together this data, BUT IT IS UP TO THE USER TO VERIFY IT AND DETERMINE HOW TO USE IT. We recommend a workflow of: * initial classification of species into focal groups based on model needs * this may be assisted using the create_functional_groups code below, which creates groups based on trophic level, basic biological group, and depth usage * review this initial list by considering interactions and habitat usage <em>this can be considered by merging data you’ve acquired by focus group to make sure the groups make sense </em> reiterate this process (create groups, check) until you are pleased</p>
+<p>All of this data may be entirely provided by the user or (much more commonly) pulled from existing datasets and amended as needed. The suite of functions we just documented (gather_data_for_species, gather_habitat_for species, gather_interactions_for_data) all pull together this data, BUT IT IS UP TO THE USER TO VERIFY IT AND DETERMINE HOW TO USE IT. We recommend a workflow of:</p>
+<ul>
+<li>initial classification of species into focal groups based on model needs
+<ul>
+<li>this may be assisted using the create_functional_groups code below, which creates groups based on trophic level, basic biological group, and depth usage</li>
+</ul></li>
+<li>review this initial list by considering interactions and habitat usage *this can be considered by merging data you’ve acquired by focus group to make sure the groups make sense</li>
+<li></li>
+<li>reiterate this process (create groups, check) until you are pleased</li>
+</ul>
 <p>One of the major (under development) benefits of the ratlantis package will be the ability to consider multiple focus group considerations for one model (since much of the calibration and model creation will be automated), allowing models to be quickly reconfigured. The same perspective should apply for changing model areas (downscaling a model or changing polygons)</p>
 <div id="atlantis-notes" class="section level6">
 <h6>Atlantis notes</h6>
@@ -187,17 +200,37 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 </div>
 </div>
+<div id="create_functional_groups" class="section level4">
+<h4>create_functional_groups</h4>
+<div id="short-version-4" class="section level6">
+<h6>Short version</h6>
+</div>
+</div>
+</div>
+</div>
+<div id="provide" class="section level2">
+<h2>Provide</h2>
+<div id="example-4" class="section level6">
+<h6>Example</h6>
+<pre class="sourceCode r"><code class="sourceCode r">testhabitat &lt;-<span class="st"> </span><span class="kw">gather_habitat_for_species</span>(<span class="dt">species_list_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
+                                                      <span class="dt">species_list_csv =</span> <span class="st">&quot;species_test_10.csv&quot;</span>,
+                                                      <span class="dt">map_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
+                                                      <span class="dt">map_name =</span> <span class="st">&quot;map_for_bgmeriser&quot;</span>)</code></pre>
+</div>
+<div id="longer-version-with-explanations-4" class="section level6">
+<h6>Longer version with explanations</h6>
+<p>After compiling data on each species to possibly be included in the model</p>
 </div>
 </div>
 <div id="atlantis-steps-model-execution" class="section level2">
 <h2>Atlantis Steps: Model Execution</h2>
-<div id="short-version-4" class="section level4">
+<div id="short-version-5" class="section level4">
 <h4>Short version</h4>
 <p>Provide -This code assumes you have downloaded and compiled the C++ Atlantis code and requires –the location of the compliled Atlantis code –the name of the .exe file created by Atlanits code (e.g., atlantismain) –the names of files you have created to run Atlantis (which are stored in same folder at the .exe file) —biology_nc, the biology initial conditions file —run_file_prm, the initial conditions run file —forcing_time_series_prm, the file detailing initial forcings —physics_prm, the initial physics file detailing eddies and scaling —biology_prm, the biology parameter file —harvest_prm, the harvest file —functional_group_csv, the list of functional groups —fisheries_csv, the list delimiting targeted fisheries</p>
 <p>The above are all created via code in ratlantis. You must also provide -output_file_nc, desired name for output file -output_folder, folder where should results be stored</p>
 <p>Function will call the system shell and execute Atlantis</p>
 </div>
-<div id="example-4" class="section level4">
+<div id="example-5" class="section level4">
 <h4>Example</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">execute_atlantis</span>(<span class="dt">atlantis_location =</span> <span class="st">&quot;C:/exampleatlantis&quot;</span>, <span class="dt">atlantis_exe =</span> <span class="st">&quot;atlantismain&quot;</span>,
                               <span class="dt">biology_nc =</span><span class="st">&quot;init_VMPA_setas_25032013.nc&quot;</span>,
@@ -211,7 +244,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
                               <span class="dt">fisheries_csv =</span> <span class="st">&quot;SETasFisheries.csv&quot;</span>,
                               <span class="dt">output_folder =</span> <span class="st">&quot;Outputfoldertest&quot;</span>)</code></pre>
 </div>
-<div id="longer-version-with-explanations-4" class="section level4">
+<div id="longer-version-with-explanations-5" class="section level4">
 <h4>Longer version with explanations</h4>
 <p>Atlantis is a C++ program. This code does not recreate Atlantis in R, it simply acts as a wrapper for the program.</p>
 </div>

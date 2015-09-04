@@ -1,9 +1,23 @@
 Files to translate
 
-gulf species to focus groups
-obtaining values for functional groups
-generating atlantis parameters
-write the bio prm
+*Completed
+  *rbgmeriser
+  *gather_data_for_species
+  *gather_habitat_for_species
+  *gather_interactions_for_species
+  *execute_atlantis
+
+*To Do (in shell form)
+  *create_functional_groups
+    *from gulf species to focus groups
+  *create_atlantis_parameters
+    *from obtaining values for functional groups& generating atlantis parameters
+  *create_biology_prm
+    *from write the bio prim
+
+*Consider adding
+  *file to handle habitat creation
+  *fishery related files
 
 important pages to cite
 https://wiki.csiro.au/display/Atlantis/Functional+Group+Definition+File

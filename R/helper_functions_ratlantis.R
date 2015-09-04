@@ -1,6 +1,6 @@
 #helper functions for ratlantis
 
-#' %!in% function
+#' "%!in%" function
 #'
 #' This function allows you to check if an element is not in a larger group
 #' @param x object you are trying to check for

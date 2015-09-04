@@ -1,13 +1,15 @@
 #' rbgmeriser function
 #'
 #' This function creates bgm file format needed for Atlantis
-#' @param map_location location of gis layer stored in wgs84 format
+#' @param map_location location of gis layer stored in wgs84 format; defaults to
+#' working directory
 #' @param map_name name of map to be used for bgm creation. Must incude "box_id"
 #' column. Other columns may be included (horizmix, vertmix,boundary_code)
 #' @param boundary_boxes a list of boxes that boundary boxes in the model
 #' @param get_bathymetry Should function automatically add depths (T(rue) or
 #' F(alse)
-#' @param bathymetry_layer_location location of gis layer stored in wgs84 format.
+#' @param bathymetry_layer_location location of gis layer stored in wgs84 format;
+#' defaults to working directory.
 #' @param bathymetry_layer_name name of bathmetry shp layer. Must be in wgs84
 #' format
 #' @param bathymetry_cutoff What quantile should be assigned to polygon. Defaults
@@ -23,14 +25,18 @@
 #' from CSIRO, and adds in required information.
 #' @export
 
-rbgmeriser <- function( map_location, map_name, boundary_boxes = NULL,
+rbgmeriser <- function( map_location = getwd(), map_name, boundary_boxes = NULL,
                         get_bathymetry = TRUE,
-                        bathymetry_layer_location, bathymetry_layer_name,
+                        bathymetry_layer_location = getwd(), bathymetry_layer_name,
                         bathymetry_cutoff = .9, bathymetry_levels = c(-10, -20,
                                                                       -50, -200,
                                                                       -1000, -2000,
                                                                       -4000),
-                        bgmeriser_location){
+                        bgmeriser_location = getwd()){
+
+  #define %!in% function
+  #"%!in%" <- function(x,table) match(x,table, nomatch = 0) == 0
+
   #read in the map and check for wgs84 format
   map_for_bgm <- rgdal::readOGR(map_location, layer=map_name)
   if (map_for_bgm@proj4string@projargs != "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"){
