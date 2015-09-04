@@ -60,7 +60,7 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   #population characteristics
 
-  pop_char_info <- popchar(species$scientific_name_validated)
+  pop_char_info <- rfishbase::popchar(species$scientific_name_validated)
   names(pop_char_info)[names(pop_char_info) == 'Speccode'] <- 'SpecCode'
 
   pop_char_Wmax <- cast (SpecCode~., value="Wmax", data = pop_char_info, maxnona)
@@ -77,7 +77,7 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   species <- merge(species, pop_char_Lmax, all.x = T)
 
   #population growth
-  pop_growth_info <- popgrowth(species$scientific_name_validated)
+  pop_growth_info <- rfishbase::popgrowth(species$scientific_name_validated)
 
 
   pop_growth_info_Loo <- cast (SpecCode~., value="Loo", data = pop_growth_info,
@@ -114,10 +114,10 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
 
   #morphology (not currently used)
-  morphology_info <- morphology(species$scientific_name_validated)
+  morphology_info <- rfishbase::morphology(species$scientific_name_validated)
 
   #species info
-  species_info <- species(species$scientific_name_validated)
+  species_info <- rfishbase::species(species$scientific_name_validated)
 
   species_info_DepthRangeShallow <- cast (SpecCode~., value="DepthRangeShallow", data = species_info,
                               meannona)
