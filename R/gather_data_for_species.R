@@ -48,10 +48,10 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   maturity_info <- rfishbase::maturity(species$scientific_name_validated)
   names(maturity_info)[names(maturity_info) == 'Speccode'] <- 'SpecCode'
 
-  maturity_info_AgeMatMin <- cast (SpecCode~., value="AgeMatMin", data = maturity_info, minnona)
+  maturity_info_AgeMatMin <- reshape::cast (SpecCode~., value="AgeMatMin", data = maturity_info, minnona)
   names(maturity_info_AgeMatMin)[names(maturity_info_AgeMatMin) == '(all)'] <- 'Min_age_reprod'
 
-  maturity_info_LengthMatMin <- cast (SpecCode~., value="LengthMatMin", data = maturity_info, minnona)
+  maturity_info_LengthMatMin <- reshape::cast (SpecCode~., value="LengthMatMin", data = maturity_info, minnona)
   names(maturity_info_LengthMatMin)[names(maturity_info_LengthMatMin) == '(all)'] <- 'Min_length_reprod'
 
 
@@ -63,13 +63,13 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   pop_char_info <- rfishbase::popchar(species$scientific_name_validated)
   names(pop_char_info)[names(pop_char_info) == 'Speccode'] <- 'SpecCode'
 
-  pop_char_Wmax <- cast (SpecCode~., value="Wmax", data = pop_char_info, maxnona)
+  pop_char_Wmax <- reshape::cast (SpecCode~., value="Wmax", data = pop_char_info, maxnona)
   names(pop_char_Wmax)[names(pop_char_Wmax) == '(all)'] <- 'Max_weight'
 
-  pop_char_Lmax <- cast (SpecCode~., value="Lmax", data = pop_char_info, maxnona)
+  pop_char_Lmax <- reshape::cast (SpecCode~., value="Lmax", data = pop_char_info, maxnona)
   names(pop_char_Lmax)[names(pop_char_Lmax) == '(all)'] <- 'Max_length'
 
-  pop_char_tmax <- cast (SpecCode~., value="tmax", data = pop_char_info, maxnona)
+  pop_char_tmax <- reshape::cast (SpecCode~., value="tmax", data = pop_char_info, maxnona)
   names(pop_char_tmax)[names(pop_char_tmax) == '(all)'] <- 'Max_age'
 
   species <- merge(species, pop_char_Wmax, all.x = T)
@@ -80,28 +80,28 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   pop_growth_info <- rfishbase::popgrowth(species$scientific_name_validated)
 
 
-  pop_growth_info_Loo <- cast (SpecCode~., value="Loo", data = pop_growth_info,
+  pop_growth_info_Loo <- reshape::cast (SpecCode~., value="Loo", data = pop_growth_info,
                                meannona)
   names( pop_growth_info_Loo)[names( pop_growth_info_Loo) == '(all)'] <- 'Mean_Loo'
 
-  pop_growth_info_K <- cast (SpecCode~., value="K", data = pop_growth_info,
+  pop_growth_info_K <- reshape::cast (SpecCode~., value="K", data = pop_growth_info,
                                meannona)
   names( pop_growth_info_K)[names( pop_growth_info_K) == '(all)'] <- 'Mean_K'
 
-  pop_growth_info_M <- cast (SpecCode~., value="M", data = pop_growth_info,
+  pop_growth_info_M <- reshape::cast (SpecCode~., value="M", data = pop_growth_info,
                              meannona)
   names( pop_growth_info_M)[names( pop_growth_info_M) == '(all)'] <- 'Mean_M'
 
-  pop_growth_info_TL <- cast (SpecCode~., value="TL", data = pop_growth_info,
+  pop_growth_info_TL <- reshape::cast (SpecCode~., value="TL", data = pop_growth_info,
                              meannona)
   names( pop_growth_info_TL)[names( pop_growth_info_TL) == '(all)'] <- 'Mean_TL'
 
-  pop_growth_info_to <- cast (SpecCode~., value="to", data = pop_growth_info,
+  pop_growth_info_to <- reshape::cast (SpecCode~., value="to", data = pop_growth_info,
                               meannona)
   names( pop_growth_info_to)[names( pop_growth_info_TL) == '(all)'] <- 'Mean_to'
 
   #Length max
-  pop_growth_info_Lm <- cast (SpecCode~., value="Lm", data = pop_growth_info,
+  pop_growth_info_Lm <- reshape::cast (SpecCode~., value="Lm", data = pop_growth_info,
                               meannona)
   names( pop_growth_info_Lm)[names( pop_growth_info_Lm) == '(all)'] <- 'Mean_Lm'
 
@@ -119,11 +119,11 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   #species info
   species_info <- rfishbase::species(species$scientific_name_validated)
 
-  species_info_DepthRangeShallow <- cast (SpecCode~., value="DepthRangeShallow", data = species_info,
+  species_info_DepthRangeShallow <- reshape::cast (SpecCode~., value="DepthRangeShallow", data = species_info,
                               meannona)
   names(species_info_DepthRangeShallow)[names( species_info_DepthRangeShallow) == '(all)'] <- 'Min_depth'
 
-  species_info_DepthRangeDeep <- cast (SpecCode~., value="DepthRangeDeep", data = species_info,
+  species_info_DepthRangeDeep <- reshape::cast (SpecCode~., value="DepthRangeDeep", data = species_info,
                                           meannona)
   names(species_info_DepthRangeDeep)[names( species_info_DepthRangeDeep) == '(all)'] <- 'Max_depth'
 
