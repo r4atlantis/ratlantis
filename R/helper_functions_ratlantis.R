@@ -15,7 +15,29 @@
 #' @param ... list for which you seeking a mean
 meannona=function(...){
   mean(..., na.rm=T)
+
 }
+
+#' maxnona function
+#'
+#' This function allows you to calculate the max value of a set while excluuding
+#' NA's
+#' @param ... list for which you seeking a maximum
+maxnona=function(...){
+  max(..., na.rm=T)
+}
+
+#' minnona function
+#'
+#' This function allows you to calculate the mean value of a set while excluuding
+#' NA's
+#' @param ... list for which you seeking a minimum
+minnona=function(...){
+  min(..., na.rm=T)
+}
+
+
+
 
 #Below are modified files from Jorge Cornejo for accessing fishbase
 
