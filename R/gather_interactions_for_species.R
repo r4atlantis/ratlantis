@@ -2,12 +2,13 @@
 #'
 #' This function aids in gathering data on species interactions that may be useful
 #' in constructing functional groups and diet matrices
-#' @param species_list_location where is species list located
+#' @param species_list_location where is species list located,defaults to working directory
 #' @param species_list_csv name of csv file with the following column headers:
 #' Genus, species,common_name.  functional_group may also be included.
-#' @param map_location location of shape file used to create bgm
+#' @param map_location location of shape file used to create bgm, defaults to working
+#' directory
 #' @param map_name name of map used for bgm creation; can be produced by rbgmeriser
-#' function or created manually
+#' function or created manually, defaults to file created by rbgmeriser
 #' @param bbox_coordinates bounding box (in EPSG:4326 decimal degrees, defining
 #' "left, bottom, right, top" of bounding box) in which you wish for information
 #' on interactions
@@ -18,8 +19,8 @@
 #' functional groupings). The code gathers data on species from rglobi.
 #' @export
 
-gather_interactions_for_species <- function(species_list_location, species_list_csv,
-                                            map_location = "empty",map_name = "empty",
+gather_interactions_for_species <- function(species_list_location = getwd(), species_list_csv,
+                                            map_location =  getwd(), map_name = "map_for_bgmeriser",
                                             bbox_coordinates = "empty"){
   #read in the species_list
   species <- read.csv(paste(species_list_location, "/", species_list_csv, sep=""),
@@ -36,10 +37,7 @@ gather_interactions_for_species <- function(species_list_location, species_list_
                                     sep = "_")
 
   #species interactions using rglobi
-  if ((bbox_coordinates == "empty") & (map_name == "empty")){
-    print ("Interactions not returned; map coordinates or shape file must be
-           supplied")
-  } else if (bbox_coordinates == "empty"){
+  if (bbox_coordinates == "empty"){
     map_area <- rgdal::readOGR(map_location, layer=map_name)
     bbox_coordinates <- c(map_area@bbox[1,1], map_area@bbox[2,1], map_area@bbox[1,2],
                           map_area@bbox[2,2])

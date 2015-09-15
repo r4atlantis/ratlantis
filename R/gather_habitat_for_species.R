@@ -2,12 +2,15 @@
 #'
 #' This function aids in gathering data on species occurence that may be useful
 #' in constructing functional groups and diet matrices
-#' @param species_list_location where is species list located
+#' @param species_list_location where is species list located; defaults to working
+#' director
 #' @param species_list_csv name of csv file with the following column headers:
 #' Genus, species,common_name.  functional_group may also be included.
-#' @param map_location location of shape file used to create bgm
+#' @param map_location location of shape file used to create bgm; defaults to working
+#' directory
 #' @param map_name name of map used for bgm creation; can be produced by rbgmeriser
-#' function or created manually
+#' function or created manually; defaults to map_for_bgmeriser (produced by
+#' rbgmeriser function)
 #' @param habitat_list list of potential habitat types to be included in the
 #' model
 #' @keywords biology prm, functional groups,
@@ -17,14 +20,9 @@
 #' functional groupings). The code gathers data on species from rgbif and rfishbase.
 #' @export
 
-gather_habitat_for_species <- function(species_list_location, species_list_csv,
-                                            map_location = "empty",map_name = "empty",
-                                            habitat_list=
-                                            c("estuaries", "mangrove", "intertidal",
-                                           "soft", "rocky", "marine", "oceanic",
-                                           "neritic", "coral reefs", "soft bottom",
-                                           "hard bottom", "seagrass beds", "reef",
-                                           "sand", "benthic", "slope"))
+gather_habitat_for_species <- function(species_list_location = getwd(), species_list_csv,
+                                            map_location = getwd() ,map_name = "map_for_bgmeriser"
+                                            )
 {
   #read in the species_list
   species <- read.csv(paste(species_list_location, "/", species_list_csv, sep=""),
@@ -40,27 +38,41 @@ gather_habitat_for_species <- function(species_list_location, species_list_csv,
   species$scientific_name_underscore <- paste (species$Genus, species$species,
                                     sep = "_")
 
-  #habitat information from fishbase
+  #habitat information from fishbase using new fishbase api
   #find species
-  data(fishbase)
-  myfish <- rfishbase::findSpecies(species$scientific_name)
 
-  for (i in 1:length(habitat_list)){
-    in_habitat <- as.data.frame(rfishbase::which_fish( habitat_list[i], "habitat", fish.data[myfish]))
-    names(in_habitat)[1] <- habitat_list[i]
-    species <- cbind(species, in_habitat)
-  }
+  species$scientific_name_validated <- rfishbase::validate_names(species$scientific_name)
 
-  depth_list <- c("bathydemersal", "bathypelagic", "benthopelagic", "reef-associated",
-                  "demersal", "pelagic")
+  #depth info
+  depth_info <- rfishbase::species(species$scientific_name_validated,
+                                     fields=species_fields$habitat)
 
-  for (i in 1:length(depth_list)){
-    in_habitat <- as.data.frame(rfishbase::which_fish( depth_list[i], "habitat", fish.data[myfish]))
-    names(in_habitat)[1] <- depth_list[i]
-    species <- cbind(species, in_habitat)
-  }
+  #make sciname match column in species name
+  names(depth_info)[names(depth_info) == 'sciname'] <- 'scientific_name_validated'
 
-  back <- species
+  species <- merge(species, depth_info, all.x = T)
+
+  #habitat info
+
+  habitat_info <- rfishbase::ecology(species$scientific_name_validated,
+                                     fields=c("Intertidal", "Sublittoral",
+                                              "Caves", "Oceanic", "Epipelagic",
+                                              "Mesopelagic", "Bathypelagic",
+                                              "Abyssopelagic", "Hadopelagic",
+                                              "Estuaries", "Mangroves", "MarshesSwamps",
+                                              "Stream", "Lakes", "Benthos","Sessile",
+                                              "Demersal", "Pelagic", "Endofauna",
+                                              "Megabenthos", "Meiobenthos", "SoftBottom",
+                                              "Sand", "Coarse", "Fine", "Level",
+                                              "Sloping", "Silt", "Mud", "Ooze", "HardBottom",
+                                              "Rocky", "Rubble", "SeaGrassBeds",
+                                              "BedsBivalve", "BedsRock", "CoralReefs",
+                                              "DropOffs", "ReefFlats", "Lagoons",
+                                              "DeepWaterCorals"))
+  habitat_info[,names(habitat_info) %!in% c("sciname", "SpecCode")] <- abs(habitat_info[,
+              names(habitat_info) %!in% c("sciname", "SpecCode")])
+
+  species <- merge(species, habitat_info, all.x = T)
 
   #get occurrence data using spocc
 

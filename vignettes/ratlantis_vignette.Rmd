@@ -199,9 +199,8 @@ from online sources (Global Biotic Interaction database currently, expanding to 
 ###### Example
 
 ```r
-testinteractions <- gather_interactions_for_species (species_list_location = "C:/Users/SGosnell/Desktop/bgm",
-                         species_list_csv = "species_list.csv", map_location = "C:/Users/SGosnell/Desktop/bgm",
-                         map_name = "map_for_bgmeriser")
+testinteractions <- gather_interactions_for_species (species_list_csv = "species_test.csv")
+
 ```
 
 ######Longer version with explanations
@@ -225,10 +224,7 @@ searches, and had been geotagged in each of your map polygons.
 ###### Example
 
 ```r
-testhabitat <- gather_habitat_for_species(species_list_location = "C:/Users/SGosnell/Desktop/bgm",
-                                                      species_list_csv = "species_test_10.csv",
-                                                      map_location = "C:/Users/SGosnell/Desktop/bgm",
-                                                      map_name = "map_for_bgmeriser")
+testhabitat <- gather_habitat_for_species(species_list_csv = "species_test.csv")
 ```
 
 ######Longer version with explanations
