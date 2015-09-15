@@ -92,14 +92,14 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
     sp::coordinates(df) <- ~longitude+latitude
     crs.geo <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +
                    towgs84=0,0,0")  # geographical, datum WGS84
-    proj4string(df) <- crs.geo  # define projection system of our data
+    sp::proj4string(df) <- crs.geo  # define projection system of our data
     summary(df)
 
     #put over each polygon and count occurences
     #http://gis.stackexchange.com/questions/110117/counts-the-number-of-points-in-a-polygon-in-r
     #http://r-sig-geo.2731867.n2.nabble.com/Counting-points-within-polygons-td6904827.html
 
-    x <- table(over(df, map_area)$box_id)
+    x <- table(sp::over(df, map_area)$box_id)
     if (length(x) > 0){
       z <- as.data.frame(t(as.matrix(x)))
       colnames(z)=paste("box", colnames(z), sep="_")

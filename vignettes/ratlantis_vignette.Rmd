@@ -87,7 +87,7 @@ rbgmeriser( map_name = "DeepCmap",
             get_bathymetry = TRUE,
             bathymetry_layer_name = "gom bath wgs84",
             bathymetry_cutoff = .9,
-            bathymetry_levels = c(-10, -20,-50, -200,-1000, -2000,-4000),
+            bathymetry_levels = c(-10, -20,-50, -200,-1000, -2000,-4000)
 )
 ```
 
