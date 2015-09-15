@@ -90,7 +90,7 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
     df <- spocc::occ2df(df)
     df <- na.omit(df)
     sp::coordinates(df) <- ~longitude+latitude
-    crs.geo <- CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +
+    crs.geo <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +
                    towgs84=0,0,0")  # geographical, datum WGS84
     proj4string(df) <- crs.geo  # define projection system of our data
     summary(df)
