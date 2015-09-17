@@ -112,7 +112,7 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
 
   order_species <- species
 
-  species <- merge(species, box_occurrence)
+  species <- merge(species, box_occurrence, all.x = T)
 
   return (species)
 
