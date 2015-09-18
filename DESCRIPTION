@@ -28,6 +28,7 @@ Imports:
   reshape,
   stringr,
   spocc,
+  taxize,
   V8
 Suggests:
   testthat,

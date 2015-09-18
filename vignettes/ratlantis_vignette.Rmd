@@ -141,6 +141,7 @@ start in map) for each group. ratlantis helps create these groups and files usin
 the following functions:
 
 * Group creation
+    * gather_group_for_species
     * gather_data_for_species
     * gather_interactions_for_species
     * gather_habitat_for_species
@@ -157,6 +158,10 @@ data as possible.  However, we are always missing data and the time needed to fi
 it  For those reason, ratlantis automates 3 basic types of data that may be used 
 iteratively to create functional groups.
 
+gather_group_for_species takes a basic scientific name (Genus species) and compiles
+data on higher classifications.  These can be used to look for missing information 
+needed for model or to supply Atlantis group types
+
 gather_data_for_species pulls data on basic life history and ecological traits 
 (age, size, trophic level, harvested).
 
@@ -164,6 +169,33 @@ gather_interactions_for_species uses rglobi to pull species interaction data fro
 the Global Biotic Interaction Database.
 
 gather_habitat_for_species provides occurence data and notes on preferrered habitats.
+
+These functions are separated as they have slightly different requirements and may 
+be best run in different orders depending on existing data.  If an external species
+list is present, you can use them in the order stated above.  However, if an external list
+is not present, one option may be to run the gather_interactions_for_species function, 
+which returns information on interactions (and thus species) documented for the area,
+and then use this list to run the gather_data and gather_habitat functions.
+
+#####gather_group_for_species
+######Short version
+Provide 
+-name and location of a .csv file that has a list of species to be included. File needs to have columns
+labelled "Genus", "species", and "common_name"- these may be blank for some species
+but column must be included
+
+Function should return a .csv file with information on species pulled from online
+sources.
+
+###### Example
+
+```r
+testgroup <- gather_group_for_species (species_list_csv = "species_test.csv")
+```
+
+######Longer version with explanations
+Knowing higher order groupings may aid in finding needed data (e.g., averaging 
+trophic level across genus for missing species) or to build functional groupings.
 
 #####gather_data_for_species
 ######Short version
@@ -182,7 +214,16 @@ testdata <- gather_data_for_species (species_list_csv = "species_test.csv")
 ```
 
 ######Longer version with explanations
-Atlantis requires a variety of data for each group, including
+Atlantis requires a variety of data for each group.  The main traits models tend 
+to focus on are those needed to model population growth and interactions.  These include:
+
+* Trophic level and consumption rate
+* Diet composition
+* Mortality rates (natural and fishing may be needed)
+* Growth parameters (k, relationship between length and weight)
+* Size and age parameters (maximum length, maximum age)
+* developmental information (age/size at maturity)
+
 
 #####gather_interactions_for_species
 ######Short version
@@ -235,19 +276,10 @@ and more using the spocc package).
 
 #####File Creation
 Like any ecosystem model, Atlantis must balance simplicity and the need for details.
-While multiple traits may be important to include in an ecosystem model (and indeed
-may be using extensions), the main traits models tend to focus on are those needed
-to model population growth and interactions.  These include:
+Once collected, species trait, interaction, and habitat data are used to divied species
+into groups with appropriate parameter (often averaged for the group).
 
-* Trophic level and consumption rate
-* Diet composition
-* Mortality rates (natural and fishing may be needed)
-* Growth parameters (k, relationship between length and weight)
-* Size and age parameters (maximum length, maximum age)
-* developmental information (age/size at maturity)
-
-Much of this data is collected via surveys (e.g., diet composition, maximum size)
-or provided through models.  Key models and related assumptions that are commonly 
+Key models and related assumptions that are commonly 
 used include the Von Bertalannfy Growth Equation:
 
 $Length_t = Length_{max}^{(1-e^k(t-t_0))}$
