@@ -4,22 +4,22 @@
 \alias{gather_habitat_for_species}
 \title{gather_habitat_for_species function}
 \usage{
-gather_habitat_for_species(species_list_location, species_list_csv,
-  map_location = "empty", map_name = "empty",
-  habitat_list = c("estuaries", "mangrove", "intertidal", "soft", "rocky",
-  "marine", "oceanic", "neritic", "coral reefs", "soft bottom", "hard bottom",
-  "seagrass beds", "reef", "sand", "benthic", "slope"))
+gather_habitat_for_species(species_list_location = getwd(), species_list_csv,
+  map_location = getwd(), map_name = "map_for_bgmeriser")
 }
 \arguments{
-\item{species_list_location}{where is species list located}
+\item{species_list_location}{where is species list located; defaults to working
+director}
 
 \item{species_list_csv}{name of csv file with the following column headers:
 Genus, species,common_name.  functional_group may also be included.}
 
-\item{map_location}{location of shape file used to create bgm}
+\item{map_location}{location of shape file used to create bgm; defaults to working
+directory}
 
 \item{map_name}{name of map used for bgm creation; can be produced by rbgmeriser
-function or created manually}
+function or created manually; defaults to map_for_bgmeriser (produced by
+rbgmeriser function)}
 
 \item{habitat_list}{list of potential habitat types to be included in the
 model}

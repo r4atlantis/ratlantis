@@ -1,22 +1,22 @@
 Package: ratlantis
-Type:  Package
+Type: Package
 Title: R code for interfacing with and developing Atlantis ecosystem models
 Description: An R interface to the C++ program Atlantis, this package aids in
   model development by automating development of model map, collection of
   speciesdata and functional group selection, running, calibrating, and
   comparing models.
 Version: 0.1
-Date:  2015-04-19
+Date: 2015-04-19
 Authors@R: person("J. Stephen", "Gosnell",
   email = "stephen.gosnell@baruch.cuny.edu",
   role = c("aut", "cre"))
-URL:  https://github.com/jsgosnell/ratlantis
+URL: https://github.com/jsgosnell/ratlantis
 BugReports: https://github.com/jsgosnell/ratlantis/issues
 Depends: R (>= 3.1.2)
 VignetteBuilder: knitr
 License: MIT + file LICENSE
 LazyData: true
-Imports:
+Imports: 
   ncdf,
   rgdal,
   rgbif,
@@ -30,6 +30,7 @@ Imports:
   spocc,
   taxize,
   V8
-Suggests:
+Suggests: 
   testthat,
-  knitr
+  knitr,
+    rmarkdown
