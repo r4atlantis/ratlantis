@@ -25,36 +25,36 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
                                             )
 {
   #read in the species_list
-  species <- read.csv(paste(species_list_location, "/", species_list_csv, sep=""),
+  species_input <- read.csv(paste(species_list_location, "/", species_list_csv, sep=""),
                                  header=T)
-  if ("Genus" %!in% names(species) |
-        "species" %!in% names(species) |
-        "common_name" %!in% names(species)){
+  if ("Genus" %!in% names(species_input) |
+        "species" %!in% names(species_input) |
+        "common_name" %!in% names(species_input)){
       stop(message = "Species list needs all of the following columns: Genus,  species, common_name")
       }
   #add scientific name for matching
-  species$scientific_name <- paste (species$Genus, species$species,
+  species_input$scientific_name <- paste (species_input$Genus, species_input$species,
                                          sep = " ")
-  species$scientific_name_underscore <- paste (species$Genus, species$species,
+  species_input$scientific_name_underscore <- paste (species_input$Genus, species_input$species,
                                     sep = "_")
 
   #habitat information from fishbase using new fishbase api
   #find species
 
-  species$scientific_name_validated <- rfishbase::validate_names(species$scientific_name)
+  species_input$scientific_name_validated <- rfishbase::validate_names(species_input$scientific_name)
 
   #depth info
-  depth_info <- rfishbase::species(species$scientific_name_validated,
-                                     fields=species_fields$habitat)
+  depth_info <- rfishbase::species(species_input$scientific_name_validated,
+                                   fields = species_fields$habitat)
 
   #make sciname match column in species name
   names(depth_info)[names(depth_info) == 'sciname'] <- 'scientific_name_validated'
 
-  species <- merge(species, depth_info, all.x = T)
+  species_input <- merge(species_input, depth_info, all.x = T)
 
   #habitat info
 
-  habitat_info <- rfishbase::ecology(species$scientific_name_validated,
+  habitat_info <- rfishbase::ecology(species_input$scientific_name_validated,
                                      fields=c("Intertidal", "Sublittoral",
                                               "Caves", "Oceanic", "Epipelagic",
                                               "Mesopelagic", "Bathypelagic",
@@ -72,7 +72,7 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
   habitat_info[,names(habitat_info) %!in% c("sciname", "SpecCode")] <- abs(habitat_info[,
               names(habitat_info) %!in% c("sciname", "SpecCode")])
 
-  species <- merge(species, habitat_info, all.x = T)
+  species_input <- merge(species_input, habitat_info, all.x = T)
 
   #get occurrence data using spocc
 
@@ -83,10 +83,10 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
   names(box_occurrence) <- column_box_names
   order_box_occurrence <-box_occurrence
 
-  for (i in 1:length(species$scientific_name)){
+  for (i in 1:length(species_input$scientific_name)){
   #for (i in 1:3){
 
-    df <- spocc::occ(query = species$scientific_name[i], limit = 1000)
+    df <- spocc::occ(query = species_input$scientific_name[i], limit = 1000)
     df <- spocc::occ2df(df)
     df <- na.omit(df)
     sp::coordinates(df) <- ~longitude+latitude
@@ -103,16 +103,14 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
     if (length(x) > 0){
       z <- as.data.frame(t(as.matrix(x)))
       colnames(z)=paste("box", colnames(z), sep="_")
-      z$scientific_name <- species$scientific_name[i]
+      z$scientific_name <- species_input$scientific_name[i]
       box_occurrence <- merge(box_occurrence,z, all.x=T, all.y=T)
     }
   }
 
   box_occurrence <- box_occurrence[,names(order_box_occurrence)]
 
-  order_species <- species
-
-  species <- merge(species, box_occurrence, all.x = T)
+  species_input <- merge(species_input, box_occurrence, all.x = T)
 
   return (species)
 
