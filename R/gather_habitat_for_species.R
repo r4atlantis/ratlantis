@@ -84,8 +84,6 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
   order_box_occurrence <-box_occurrence
 
   for (i in 1:length(species_input$scientific_name)){
-  #for (i in 1:3){
-
     df <- spocc::occ(query = species_input$scientific_name[i], limit = 1000)
     df <- spocc::occ2df(df)
     df <- na.omit(df)
@@ -112,7 +110,7 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
 
   species_input <- merge(species_input, box_occurrence, all.x = T)
 
-  return (species)
+  return (species_input)
 
 }
 

@@ -10,7 +10,7 @@
 
 <meta name="author" content="J. Stephen Gosnell" />
 
-<meta name="date" content="2015-09-04" />
+<meta name="date" content="2015-09-21" />
 
 <title>Using ratlantis to develop, use, and compare Atlantis ecosytem models</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Using ratlantis to develop, use, and compare Atlantis ecosytem models</h1>
 <h4 class="author"><em>J. Stephen Gosnell</em></h4>
-<h4 class="date"><em>2015-09-04</em></h4>
+<h4 class="date"><em>2015-09-21</em></h4>
 </div>
 
 
@@ -80,7 +80,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
             <span class="dt">get_bathymetry =</span> <span class="ot">TRUE</span>,
             <span class="dt">bathymetry_layer_name =</span> <span class="st">&quot;gom bath wgs84&quot;</span>,
             <span class="dt">bathymetry_cutoff =</span> .<span class="dv">9</span>,
-            <span class="dt">bathymetry_levels =</span> <span class="kw">c</span>(-<span class="dv">10</span>, -<span class="dv">20</span>,-<span class="dv">50</span>, -<span class="dv">200</span>,-<span class="dv">1000</span>, -<span class="dv">2000</span>,-<span class="dv">4000</span>),
+            <span class="dt">bathymetry_levels =</span> <span class="kw">c</span>(-<span class="dv">10</span>, -<span class="dv">20</span>,-<span class="dv">50</span>, -<span class="dv">200</span>,-<span class="dv">1000</span>, -<span class="dv">2000</span>,-<span class="dv">4000</span>)
 )</code></pre>
 </div>
 <div id="longer-version-with-explanations" class="section level4">
@@ -93,7 +93,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="comments" class="section level4">
 <h4>Comments</h4>
-<p>A common error following this function is that “java is not recognized as an internal command”, etc. This means your workstation needs to have java added to it’s PATH</p>
+<p>A common error following this function is that “java is not recognized as an internal command”, etc. This means your workstation needs to have java added to it’s PATH.<br />Also remember that the java path can’t have any spaces in it.</p>
 </div>
 </div>
 <div id="group-assignment-and-biology-prm-nc-development" class="section level3">
@@ -102,6 +102,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <ul>
 <li>Group creation
 <ul>
+<li>gather_group_for_species</li>
 <li>gather_data_for_species</li>
 <li>gather_interactions_for_species</li>
 <li>gather_habitat_for_species</li>
@@ -117,66 +118,41 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="group-creation" class="section level4">
 <h4>Group creation</h4>
 <p>In order to assign organisms to appropriate groups, we’d ideally like to use as much data as possible. However, we are always missing data and the time needed to find it For those reason, ratlantis automates 3 basic types of data that may be used iteratively to create functional groups.</p>
+<p>gather_group_for_species takes a basic scientific name (Genus species) and compiles data on higher classifications. These can be used to look for missing information needed for model or to supply Atlantis group types</p>
 <p>gather_data_for_species pulls data on basic life history and ecological traits (age, size, trophic level, harvested).</p>
 <p>gather_interactions_for_species uses rglobi to pull species interaction data from the Global Biotic Interaction Database.</p>
 <p>gather_habitat_for_species provides occurence data and notes on preferrered habitats.</p>
-<div id="gather_data_for_species" class="section level5">
-<h5>gather_data_for_species</h5>
+<p>These functions are separated as they have slightly different requirements and may be best run in different orders depending on existing data. If an external species list is present, you can use them in the order stated above. However, if an external list is not present, one option may be to run the gather_interactions_for_species function, which returns information on interactions (and thus species) documented for the area, and then use this list to run the gather_data and gather_habitat functions.</p>
+<div id="gather_group_for_species" class="section level5">
+<h5>gather_group_for_species</h5>
 <div id="short-version-1" class="section level6">
 <h6>Short version</h6>
 <p>Provide -name and location of a .csv file that has a list of species to be included. File needs to have columns labelled “Genus”, “species”, and “common_name”- these may be blank for some species but column must be included</p>
-<p>Function should return a .csv file with information on species pulled from online sources (Fishbase currently, expanding to other sources)</p>
+<p>Function should return a .csv file with information on species pulled from online sources.</p>
 </div>
 <div id="example-1" class="section level6">
 <h6>Example</h6>
-<pre class="sourceCode r"><code class="sourceCode r">testdata &lt;-<span class="st"> </span><span class="kw">gather_data_for_species</span> (<span class="dt">species_list_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
-                         <span class="dt">species_list_csv =</span> <span class="st">&quot;species_test.csv&quot;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">testgroup &lt;-<span class="st"> </span><span class="kw">gather_group_for_species</span> (<span class="dt">species_list_csv =</span> <span class="st">&quot;species_test.csv&quot;</span>)</code></pre>
 </div>
 <div id="longer-version-with-explanations-1" class="section level6">
 <h6>Longer version with explanations</h6>
-<p>Atlantis requires a variety of data for each group, including</p>
+<p>Knowing higher order groupings may aid in finding needed data (e.g., averaging trophic level across genus for missing species) or to build functional groupings.</p>
 </div>
 </div>
-<div id="gather_interactions_for_species" class="section level5">
-<h5>gather_interactions_for_species</h5>
+<div id="gather_data_for_species" class="section level5">
+<h5>gather_data_for_species</h5>
 <div id="short-version-2" class="section level6">
 <h6>Short version</h6>
-<p>Provide -name and location of a .csv file that has a list of species to be included. File needs to have columns labelled “Genus”, “species”, and “common_name”- these may be blank for some species but column must be included. A “functional_group” column may also be included -name and location of a .shp file that was used to build the .bgm file for Atlantis OR a bounding box for where interactions should be returned</p>
-<p>Function should return a .csv file with information on species interactions pulled from online sources (Global Biotic Interaction database currently, expanding to other sources)</p>
+<p>Provide -name and location of a .csv file that has a list of species to be included. File needs to have columns labelled “Genus”, “species”, and “common_name”- these may be blank for some species but column must be included</p>
+<p>Function should return a .csv file with information on species pulled from online sources (Fishbase and Sealifebase currently, expanding to other sources)</p>
 </div>
 <div id="example-2" class="section level6">
 <h6>Example</h6>
-<pre class="sourceCode r"><code class="sourceCode r">testinteractions &lt;-<span class="st"> </span><span class="kw">gather_interactions_for_species</span> (<span class="dt">species_list_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
-                         <span class="dt">species_list_csv =</span> <span class="st">&quot;species_list.csv&quot;</span>, <span class="dt">map_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
-                         <span class="dt">map_name =</span> <span class="st">&quot;map_for_bgmeriser&quot;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">testdata &lt;-<span class="st"> </span><span class="kw">gather_data_for_species</span> (<span class="dt">species_list_csv =</span> <span class="st">&quot;species_test.csv&quot;</span>)</code></pre>
 </div>
 <div id="longer-version-with-explanations-2" class="section level6">
 <h6>Longer version with explanations</h6>
-<p>Atlantis requires a trophic model for all included functional groups (i.e., who eats who and how often). This function can be used to construct or check functional groups by ensuring major trophic pathways are included appropriately</p>
-</div>
-</div>
-<div id="gather_habitat_for_species" class="section level5">
-<h5>gather_habitat_for_species</h5>
-<div id="short-version-3" class="section level6">
-<h6>Short version</h6>
-<p>Provide -name and location of a .csv file that has a list of species to be included. File needs to have columns labelled “Genus”, “species”, and “common_name”- these may be blank for some species but column must be included. A “functional_group” column may also be included -name and location of a .shp file that was used to build the .bgm file for Atlantis -(optional) list of key words to search for in Fishbase description</p>
-<p>Function should return a .csv file with information on species occurrences pulled from online sources, including which species met certain depth parameters, keyword searches, and had been geotagged in each of your map polygons.</p>
-</div>
-<div id="example-3" class="section level6">
-<h6>Example</h6>
-<pre class="sourceCode r"><code class="sourceCode r">testhabitat &lt;-<span class="st"> </span><span class="kw">gather_habitat_for_species</span>(<span class="dt">species_list_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
-                                                      <span class="dt">species_list_csv =</span> <span class="st">&quot;species_test_10.csv&quot;</span>,
-                                                      <span class="dt">map_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
-                                                      <span class="dt">map_name =</span> <span class="st">&quot;map_for_bgmeriser&quot;</span>)</code></pre>
-</div>
-<div id="longer-version-with-explanations-3" class="section level6">
-<h6>Longer version with explanations</h6>
-<p>Understanding where each species occurs (depth and location) can be useful in determining functional groups and initial biomass starting locations. This function currently queries FishBase and several online sources of location data (gbif, iNaturalist and more using the spocc package).</p>
-</div>
-</div>
-<div id="file-creation" class="section level5">
-<h5>File Creation</h5>
-<p>Like any ecosystem model, Atlantis must balance simplicity and the need for details. While multiple traits may be important to include in an ecosystem model (and indeed may be using extensions), the main traits models tend to focus on are those needed to model population growth and interactions. These include:</p>
+<p>Atlantis requires a variety of data for each group. The main traits models tend to focus on are those needed to model population growth and interactions. These include:</p>
 <ul>
 <li>Trophic level and consumption rate</li>
 <li>Diet composition</li>
@@ -185,7 +161,50 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Size and age parameters (maximum length, maximum age)</li>
 <li>developmental information (age/size at maturity)</li>
 </ul>
-<p>Much of this data is collected via surveys (e.g., diet composition, maximum size) or provided through models. Key models and related assumptions that are commonly used include the Von Bertalannfy Growth Equation:</p>
+</div>
+</div>
+<div id="gather_interactions_for_species" class="section level5">
+<h5>gather_interactions_for_species</h5>
+<div id="short-version-3" class="section level6">
+<h6>Short version</h6>
+<p>Provide -name and location of a .csv file that has a list of species to be included. File needs to have columns labelled “Genus”, “species”, and “common_name”- these may be blank for some species but column must be included. A “functional_group” column may also be included -name and location of a .shp file that was used to build the .bgm file for Atlantis OR a bounding box for where interactions should be returned</p>
+<p>Function should return a .csv file with information on species interactions pulled from online sources (Global Biotic Interaction database currently, expanding to other sources)</p>
+</div>
+<div id="example-3" class="section level6">
+<h6>Example</h6>
+<pre class="sourceCode r"><code class="sourceCode r">testinteractions &lt;-<span class="st"> </span><span class="kw">gather_interactions_for_species</span> (<span class="dt">species_list_csv =</span> <span class="st">&quot;species_test.csv&quot;</span>)</code></pre>
+</div>
+<div id="longer-version-with-explanations-3" class="section level6">
+<h6>Longer version with explanations</h6>
+<p>Atlantis requires a trophic model for all included functional groups (i.e., who eats who and how often). This function can be used to construct or check functional groups by ensuring major trophic pathways are included appropriately</p>
+</div>
+</div>
+<div id="gather_habitat_for_species" class="section level5">
+<h5>gather_habitat_for_species</h5>
+<div id="short-version-4" class="section level6">
+<h6>Short version</h6>
+<p>Provide -name and location of a .csv file that has a list of species to be included. File needs to have columns labelled “Genus”, “species”, and “common_name”- these may be blank for some species but column must be included. A “functional_group” column may also be included -name and location of a .shp file that was used to build the .bgm file for Atlantis -(optional) list of key words to search for in Fishbase description</p>
+<p>Function should return a .csv file with information on species occurrences pulled from online sources, including which species met certain depth parameters, keyword searches, and had been geotagged in each of your map polygons.</p>
+</div>
+<div id="example-4" class="section level6">
+<h6>Example</h6>
+<pre class="sourceCode r"><code class="sourceCode r">testhabitat &lt;-<span class="st"> </span><span class="kw">gather_habitat_for_species</span>(<span class="dt">species_list_csv =</span> <span class="st">&quot;species_test.csv&quot;</span>)</code></pre>
+</div>
+<div id="longer-version-with-explanations-4" class="section level6">
+<h6>Longer version with explanations</h6>
+<p>Understanding where each species occurs (depth and location) can be useful in determining functional groups and initial biomass starting locations. This function currently queries FishBase and several online sources of location data (gbif, iNaturalist and more using the spocc package).</p>
+</div>
+<div id="comments-1" class="section level6">
+<h6>Comments</h6>
+<p>The data.table package need to be installed independently (needed when message</p>
+<pre class="sourceCode r"><code class="sourceCode r">there is no package called <span class="st">'data.table'</span></code></pre>
+<p>appears)</p>
+</div>
+</div>
+<div id="file-creation" class="section level5">
+<h5>File Creation</h5>
+<p>Like any ecosystem model, Atlantis must balance simplicity and the need for details. Once collected, species trait, interaction, and habitat data are used to divied species into groups with appropriate parameter (often averaged for the group).</p>
+<p>Key models and related assumptions that are commonly used include the Von Bertalannfy Growth Equation:</p>
 <p><span class="math">\(Length_t = Length_{max}^{(1-e^k(t-t_0))}\)</span></p>
 <p>and related weight equation, and the relationship between length and weight</p>
 <p><span class="math">\(W=aL^b\)</span></p>
@@ -221,7 +240,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="create_functional_groups" class="section level4">
 <h4>create_functional_groups</h4>
-<div id="short-version-4" class="section level6">
+<div id="short-version-5" class="section level6">
 <h6>Short version</h6>
 </div>
 </div>
@@ -229,27 +248,27 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="provide" class="section level2">
 <h2>Provide</h2>
-<div id="example-4" class="section level6">
+<div id="example-5" class="section level6">
 <h6>Example</h6>
 <pre class="sourceCode r"><code class="sourceCode r">testhabitat &lt;-<span class="st"> </span><span class="kw">gather_habitat_for_species</span>(<span class="dt">species_list_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
                                                       <span class="dt">species_list_csv =</span> <span class="st">&quot;species_test_10.csv&quot;</span>,
                                                       <span class="dt">map_location =</span> <span class="st">&quot;C:/Users/SGosnell/Desktop/bgm&quot;</span>,
                                                       <span class="dt">map_name =</span> <span class="st">&quot;map_for_bgmeriser&quot;</span>)</code></pre>
 </div>
-<div id="longer-version-with-explanations-4" class="section level6">
+<div id="longer-version-with-explanations-5" class="section level6">
 <h6>Longer version with explanations</h6>
 <p>After compiling data on each species to possibly be included in the model</p>
 </div>
 </div>
 <div id="atlantis-steps-model-execution" class="section level2">
 <h2>Atlantis Steps: Model Execution</h2>
-<div id="short-version-5" class="section level4">
+<div id="short-version-6" class="section level4">
 <h4>Short version</h4>
 <p>Provide -This code assumes you have downloaded and compiled the C++ Atlantis code and requires –the location of the compliled Atlantis code –the name of the .exe file created by Atlanits code (e.g., atlantismain) –the names of files you have created to run Atlantis (which are stored in same folder at the .exe file) —biology_nc, the biology initial conditions file —run_file_prm, the initial conditions run file —forcing_time_series_prm, the file detailing initial forcings —physics_prm, the initial physics file detailing eddies and scaling —biology_prm, the biology parameter file —harvest_prm, the harvest file —functional_group_csv, the list of functional groups —fisheries_csv, the list delimiting targeted fisheries</p>
 <p>The above are all created via code in ratlantis. You must also provide -output_file_nc, desired name for output file -output_folder, folder where should results be stored</p>
 <p>Function will call the system shell and execute Atlantis</p>
 </div>
-<div id="example-5" class="section level4">
+<div id="example-6" class="section level4">
 <h4>Example</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">execute_atlantis</span>(<span class="dt">atlantis_location =</span> <span class="st">&quot;C:/exampleatlantis&quot;</span>, <span class="dt">atlantis_exe =</span> <span class="st">&quot;atlantismain&quot;</span>,
                               <span class="dt">biology_nc =</span><span class="st">&quot;init_VMPA_setas_25032013.nc&quot;</span>,
@@ -263,7 +282,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
                               <span class="dt">fisheries_csv =</span> <span class="st">&quot;SETasFisheries.csv&quot;</span>,
                               <span class="dt">output_folder =</span> <span class="st">&quot;Outputfoldertest&quot;</span>)</code></pre>
 </div>
-<div id="longer-version-with-explanations-5" class="section level4">
+<div id="longer-version-with-explanations-6" class="section level4">
 <h4>Longer version with explanations</h4>
 <p>Atlantis is a C++ program. This code does not recreate Atlantis in R, it simply acts as a wrapper for the program.</p>
 </div>

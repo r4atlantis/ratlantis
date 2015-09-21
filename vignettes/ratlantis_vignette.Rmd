@@ -127,7 +127,8 @@ the java applet bgmeriser.jar.
 ####Comments
 
 A common error following this function is that "java is not recognized as an internal
-command", etc.  This means your workstation needs to have java added to it's PATH
+command", etc.  This means your workstation needs to have java added to it's PATH.  
+Also remember that the java path can't have any spaces in it.
 
 ###Group Assignment and Biology PRM, NC development
 
@@ -273,6 +274,13 @@ Understanding where each species occurs (depth and location) can be useful in de
 functional groups and initial biomass starting locations.  This function currently 
 queries FishBase and several online sources of location data (gbif, iNaturalist 
 and more using the spocc package). 
+
+######Comments
+The data.table package need to be installed independently (needed when message
+```r
+there is no package called 'data.table'
+```
+appears)
 
 #####File Creation
 Like any ecosystem model, Atlantis must balance simplicity and the need for details.
