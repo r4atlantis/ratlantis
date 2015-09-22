@@ -41,7 +41,14 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
   #habitat information from fishbase using new fishbase api
   #find species
 
-  species_input$scientific_name_validated <- rfishbase::validate_names(species_input$scientific_name)
+  species_input$scientific_name_validated <- NA
+
+  for (i in 1:nrow(species_input)){
+    scientific_name_validated <- rfishbase::validate_names(species_input$scientific_name[i])
+    if (!is.null(scientific_name_validated)){
+      species_input$scientific_name_validated[i] <- scientific_name_validated
+    }
+  }
 
   #depth info
   depth_info <- rfishbase::species(species_input$scientific_name_validated,
