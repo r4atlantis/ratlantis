@@ -44,7 +44,8 @@ gather_group_for_species <- function(species_list_location = getwd(), species_li
     #for now, just take the first one that matches
     temp_single <- temp_single[temp_single$score == max(temp_single$score),][1,2]
     species$matched_name[i] <- temp_single
-    a <- taxize::tax_name(query = species$matched_name[i], get = c("family", "order", "phylum",
+    a <- taxize::tax_name(query = species$matched_name[i], get = c("family", "order",
+                                                                   "superclass", "class", "phylum",
                                                            "kingdom"), db = "ncbi")
     species$family[i] <- a[1,names(a) == "family"]
     species$order[i] <- a[1,names(a) == "order"]
