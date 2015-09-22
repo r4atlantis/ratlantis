@@ -36,6 +36,8 @@ gather_group_for_species <- function(species_list_location = getwd(), species_li
   species$matched_name <- NA
   species$family <- NA
   species$order <- NA
+  species$class <- NA
+  speices$superclass <- NA
   species$phylum <- NA
   species$kingdom <- NA
 
@@ -49,6 +51,8 @@ gather_group_for_species <- function(species_list_location = getwd(), species_li
                                                            "kingdom"), db = "ncbi")
     species$family[i] <- a[1,names(a) == "family"]
     species$order[i] <- a[1,names(a) == "order"]
+    species$class[i] <- a[1,names(a) == "class"]
+    species$superclass[i] <- a[1,names(a) == "superclass"]
     species$phylum[i] <- a[1,names(a) == "phylum"]
     species$kingdom[i] <- a[1,names(a) == "kingdom"]
   }
