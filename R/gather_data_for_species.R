@@ -15,17 +15,17 @@
 
 gather_data_for_species <- function(species_list_location = getwd(), species_list_csv){
   #read in the species_list
-  species <- read.csv(paste(species_list_location, "/", species_list_csv, sep=""),
+  species_input <- read.csv(paste(species_list_location, "/", species_list_csv, sep=""),
                                  header=T)
-  if ("Genus" %!in% names(species) |
-        "species" %!in% names(species) |
-        "common_name" %!in% names(species)){
+  if ("Genus" %!in% names(species_input) |
+        "species" %!in% names(species_input) |
+        "common_name" %!in% names(species_input)){
       stop(message = "Species list needs all of the following columns: Genus,  species, common_name")
       }
   #add scientific name for matching
-  species$scientific_name <- paste (species$Genus, species$species,
+  species_input$scientific_name <- paste (species_input$Genus, species_input$species,
                                          sep = " ")
-  species$scientific_name_underscore <- paste (species$Genus, species$species,
+  species_input$scientific_name_underscore <- paste (species_input$Genus, species_input$species,
                                     sep = "_")
 
   #gather data from Fishbase using new fishbase R api (as of 9.4.2015)
@@ -33,19 +33,40 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   #progresses to minimize chance of "low memory" errors
 
 
-  species$scientific_name_validated <- rfishbase::validate_names(species$scientific_name)
+  species_input$scientific_name_validated <- rfishbase::validate_names(species_input$scientific_name)
 
-  trophic_info <- rfishbase::ecology(species$scientific_name_validated,
-          fields=c("SpecCode", "FoodTroph", "FoodSeTroph", "DietTroph", "DietSeTroph"))
 
-  #make sciname match column in species name
-  names(trophic_info)[names(trophic_info) == 'sciname'] <- 'scientific_name_validated'
+  #species info, do this first to get SpecCode since all other tables may not exist,
+  #leading to NA SpecCode
+  species_info <- rfishbase::species(species_input$scientific_name_validated)
+  names(species_info)[names(species_info) == 'sciname'] <- 'scientific_name_validated'
 
-  species <- merge(species, trophic_info, all.x = T)
+  species_input <- merge(species_input, species_info[, c("scientific_name_validated",
+                                                         "SpecCode")], all.x = T)
+
+  species_info_DepthRangeShallow <- reshape::cast (SpecCode~., value="DepthRangeShallow", data = species_info,
+                                                   meannona)
+  names(species_info_DepthRangeShallow)[names( species_info_DepthRangeShallow) == '(all)'] <- 'Min_depth'
+
+  species_info_DepthRangeDeep <- reshape::cast (SpecCode~., value="DepthRangeDeep", data = species_info,
+                                                meannona)
+  names(species_info_DepthRangeDeep)[names( species_info_DepthRangeDeep) == '(all)'] <- 'Max_depth'
+
+  species_input <- merge(species_input, species_info_DepthRangeDeep, all.x = T)
+  species_input <- merge(species_input, species_info_DepthRangeShallow, all.x = T)
+
+
+  #get trophic info
+
+  trophic_info <- rfishbase::ecology(species_input$scientific_name_validated,
+          fields=c("FoodTroph", "FoodSeTroph", "DietTroph", "DietSeTroph"))
+
+  #include all.x = T in case no ecology table
+  species_input <- merge(species_input, trophic_info, all.x = T)
 
   #maturity information
 
-  maturity_info <- rfishbase::maturity(species$scientific_name_validated)
+  maturity_info <- rfishbase::maturity(species_input$scientific_name_validated)
   names(maturity_info)[names(maturity_info) == 'Speccode'] <- 'SpecCode'
 
   maturity_info_AgeMatMin <- reshape::cast (SpecCode~., value="AgeMatMin", data = maturity_info, minnona)
@@ -55,12 +76,12 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   names(maturity_info_LengthMatMin)[names(maturity_info_LengthMatMin) == '(all)'] <- 'Min_length_reprod'
 
 
-  species <- merge(species, maturity_info_AgeMatMin, all.x = T)
-    species <- merge(species, maturity_info_LengthMatMin, all.x = T)
+  species_input <- merge(species_input, maturity_info_AgeMatMin, all.x = T)
+    species_input <- merge(species_input, maturity_info_LengthMatMin, all.x = T)
 
   #population characteristics
 
-  pop_char_info <- rfishbase::popchar(species$scientific_name_validated)
+  pop_char_info <- rfishbase::popchar(species_input$scientific_name_validated)
   names(pop_char_info)[names(pop_char_info) == 'Speccode'] <- 'SpecCode'
 
   pop_char_Wmax <- reshape::cast (SpecCode~., value="Wmax", data = pop_char_info, maxnona)
@@ -72,12 +93,12 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   pop_char_tmax <- reshape::cast (SpecCode~., value="tmax", data = pop_char_info, maxnona)
   names(pop_char_tmax)[names(pop_char_tmax) == '(all)'] <- 'Max_age'
 
-  species <- merge(species, pop_char_Wmax, all.x = T)
-  species <- merge(species, pop_char_tmax, all.x = T)
-  species <- merge(species, pop_char_Lmax, all.x = T)
+  species_input <- merge(species_input, pop_char_Wmax, all.x = T)
+  species_input <- merge(species_input, pop_char_tmax, all.x = T)
+  species_input <- merge(species_input, pop_char_Lmax, all.x = T)
 
   #population growth
-  pop_growth_info <- rfishbase::popgrowth(species$scientific_name_validated)
+  pop_growth_info <- rfishbase::popgrowth(species_input$scientific_name_validated)
 
 
   pop_growth_info_Loo <- reshape::cast (SpecCode~., value="Loo", data = pop_growth_info,
@@ -101,18 +122,18 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
                               meannona)
   names( pop_growth_info_Lm)[names( pop_growth_info_Lm) == '(all)'] <- 'Mean_Lm'
 
-  species <- merge(species, pop_growth_info_M, all.x = T)
-  species <- merge(species, pop_growth_info_Lm, all.x = T)
-  species <- merge(species, pop_growth_info_K, all.x = T)
-  species <- merge(species, pop_growth_info_Loo, all.x = T)
-  species <- merge(species, pop_growth_info_to, all.x = T)
+  species_input <- merge(species_input, pop_growth_info_M, all.x = T)
+  species_input <- merge(species_input, pop_growth_info_Lm, all.x = T)
+  species_input <- merge(species_input, pop_growth_info_K, all.x = T)
+  species_input <- merge(species_input, pop_growth_info_Loo, all.x = T)
+  species_input <- merge(species_input, pop_growth_info_to, all.x = T)
 
 
   #morphology (not currently used)
-  morphology_info <- rfishbase::morphology(species$scientific_name_validated)
+  morphology_info <- rfishbase::morphology(species_input$scientific_name_validated)
 
   #species info
-  species_info <- rfishbase::species(species$scientific_name_validated)
+  species_info <- rfishbase::species(species_input$scientific_name_validated)
 
   species_info_DepthRangeShallow <- reshape::cast (SpecCode~., value="DepthRangeShallow", data = species_info,
                               meannona)
@@ -122,12 +143,12 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
                                           meannona)
   names(species_info_DepthRangeDeep)[names( species_info_DepthRangeDeep) == '(all)'] <- 'Max_depth'
 
-  species <- merge(species, species_info_DepthRangeDeep, all.x = T)
-  species <- merge(species, species_info_DepthRangeShallow, all.x = T)
+  species_input <- merge(species_input, species_info_DepthRangeDeep, all.x = T)
+  species_input <- merge(species_input, species_info_DepthRangeShallow, all.x = T)
 
 
   #length-weight
-  length_weight_info <- rfishbase::length_weight(species$scientific_name_validated)
+  length_weight_info <- rfishbase::length_weight(species_input$scientific_name_validated)
 
   length_weight_info_a <- reshape::cast (SpecCode~., value="a", data = length_weight_info,
                                                    meannona)
@@ -137,10 +158,10 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
                                          meannona)
   names(length_weight_info_b)[names( length_weight_info_b) == '(all)'] <- 'Mean_b'
 
-  species <- merge(species, length_weight_info_b, all.x = T)
-  species <- merge(species, length_weight_info_a, all.x = T)
+  species_input <- merge(species_input, length_weight_info_b, all.x = T)
+  species_input <- merge(species_input, length_weight_info_a, all.x = T)
 
-  return (species)
+  return (species_input)
 
 }
 
