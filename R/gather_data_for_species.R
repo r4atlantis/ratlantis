@@ -32,10 +32,13 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   #merge with main species list and remove specific traits from memory as function
   #progresses to minimize chance of "low memory" errors
 
-  species_input$scientific_name_validated < NA
+  species_input$scientific_name_validated <- NA
 
   for (i in 1:nrow(species_input)){
-    species_input$scientific_name_validated <- rfishbase::validate_names(species_input$scientific_name[i])
+    scientific_name_validated <- rfishbase::validate_names(species_input$scientific_name[i])
+    if (!is.null(scientific_name_validated)){
+    species_input$scientific_name_validated[i] <- scientific_name_validated
+    }
     }
 
   #species info, do this first to get SpecCode since all other tables may not exist,
@@ -133,21 +136,6 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   #morphology (not currently used)
   morphology_info <- rfishbase::morphology(species_input$scientific_name_validated)
-
-  #species info
-  species_info <- rfishbase::species(species_input$scientific_name_validated)
-
-  species_info_DepthRangeShallow <- reshape::cast (SpecCode~., value="DepthRangeShallow", data = species_info,
-                              meannona)
-  names(species_info_DepthRangeShallow)[names( species_info_DepthRangeShallow) == '(all)'] <- 'Min_depth'
-
-  species_info_DepthRangeDeep <- reshape::cast (SpecCode~., value="DepthRangeDeep", data = species_info,
-                                          meannona)
-  names(species_info_DepthRangeDeep)[names( species_info_DepthRangeDeep) == '(all)'] <- 'Max_depth'
-
-  species_input <- merge(species_input, species_info_DepthRangeDeep, all.x = T)
-  species_input <- merge(species_input, species_info_DepthRangeShallow, all.x = T)
-
 
   #length-weight
   length_weight_info <- rfishbase::length_weight(species_input$scientific_name_validated)
