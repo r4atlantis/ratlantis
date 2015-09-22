@@ -32,9 +32,11 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   #merge with main species list and remove specific traits from memory as function
   #progresses to minimize chance of "low memory" errors
 
+  species_input$scientific_name_validated < NA
 
-  species_input$scientific_name_validated <- rfishbase::validate_names(species_input$scientific_name)
-
+  for (i in 1:nrow(species_input)){
+    species_input$scientific_name_validated <- rfishbase::validate_names(species_input$scientific_name[i])
+    }
 
   #species info, do this first to get SpecCode since all other tables may not exist,
   #leading to NA SpecCode
