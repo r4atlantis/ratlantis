@@ -37,7 +37,7 @@ gather_group_for_species <- function(species_list_location = getwd(), species_li
   species$family <- NA
   species$order <- NA
   species$class <- NA
-  speices$superclass <- NA
+  species$superclass <- NA
   species$phylum <- NA
   species$kingdom <- NA
 
