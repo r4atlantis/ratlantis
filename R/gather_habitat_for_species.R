@@ -35,7 +35,7 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
                                                              "Rocky", "Rubble", "SeaGrassBeds",
                                                              "BedsBivalve", "BedsRock", "CoralReefs",
                                                              "DropOffs", "ReefFlats", "Lagoons",
-                                                             "DeepWaterCorals"))
+                                                             "DeepWaterCorals")
                                             )
 {
   #read in the species_list
