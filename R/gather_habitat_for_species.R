@@ -21,7 +21,21 @@
 #' @export
 
 gather_habitat_for_species <- function(species_list_location = getwd(), species_list_csv,
-                                            map_location = getwd() ,map_name = "map_for_bgmeriser"
+                                            map_location = getwd() ,map_name = "map_for_bgmeriser",
+                                            habitat_list = c("Intertidal", "Sublittoral",
+                                                             "Caves", "Oceanic", "Epipelagic",
+                                                             "Mesopelagic", "Bathypelagic",
+                                                             "Abyssopelagic", "Hadopelagic",
+                                                             "Estuaries", "Mangroves", "MarshesSwamps",
+                                                             "Stream", "Lakes", "Benthos","Sessile",
+                                                             "Demersal", "Pelagic", "Endofauna",
+                                                             "Megabenthos", "Meiobenthos", "SoftBottom",
+                                                             "Sand", "Coarse", "Fine", "Level",
+                                                             "Sloping", "Silt", "Mud", "Ooze", "HardBottom",
+                                                             "Rocky", "Rubble", "SeaGrassBeds",
+                                                             "BedsBivalve", "BedsRock", "CoralReefs",
+                                                             "DropOffs", "ReefFlats", "Lagoons",
+                                                             "DeepWaterCorals"))
                                             )
 {
   #read in the species_list
@@ -62,20 +76,7 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
   #habitat info
 
   habitat_info <- rfishbase::ecology(species_input$scientific_name_validated,
-                                     fields=c("Intertidal", "Sublittoral",
-                                              "Caves", "Oceanic", "Epipelagic",
-                                              "Mesopelagic", "Bathypelagic",
-                                              "Abyssopelagic", "Hadopelagic",
-                                              "Estuaries", "Mangroves", "MarshesSwamps",
-                                              "Stream", "Lakes", "Benthos","Sessile",
-                                              "Demersal", "Pelagic", "Endofauna",
-                                              "Megabenthos", "Meiobenthos", "SoftBottom",
-                                              "Sand", "Coarse", "Fine", "Level",
-                                              "Sloping", "Silt", "Mud", "Ooze", "HardBottom",
-                                              "Rocky", "Rubble", "SeaGrassBeds",
-                                              "BedsBivalve", "BedsRock", "CoralReefs",
-                                              "DropOffs", "ReefFlats", "Lagoons",
-                                              "DeepWaterCorals"))
+                                     fields=habitat_list)
   habitat_info[,names(habitat_info) %!in% c("sciname", "SpecCode")] <- abs(habitat_info[,
               names(habitat_info) %!in% c("sciname", "SpecCode")])
 

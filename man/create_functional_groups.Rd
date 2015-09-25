@@ -8,22 +8,19 @@ create_functional_groups(species_list_location, species_info_csv)
 }
 \arguments{
 \item{species_info_csv}{name of csv file with the following column headers:
-Genus, species,common_name}
-
-\item{species_data_location}{where csv file with species data is located (defaults to
-working directory).  This file must contain the following columns:
 \itemize{
  \item{"Genus"}
  \item{"species"}
+ \item{"common name}
  \item{"Trophic level information"}{one of the following for trophic level:
  TrophicLevel (developed by user),FoodTroph (from gather_data_for_species), or
  DietTroph (from gather_data_for_species).  These will be averaged.}
  \
  \item{"parameter 2"}{Stuff}
-}
-Genus, species,
-one of the following for trophic level (TrophicLevel (developed by user),
-FoodTroph (from gather_data_for_species), DietTroph (from gather_data_for_species);}
+}}
+
+\item{species_data_location}{where csv file with species data is located (defaults to
+working directory).}
 }
 \description{
 This function uses data to create functional (focus) groups for an Atlantis model
