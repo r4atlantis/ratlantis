@@ -113,7 +113,6 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
      species_input_fish$tlbyfamily[is.na( species_input_fish$TLfinal) == T & is.na( species_input_fish$tlbyfamily) == F]
    species_input_fish$TLcode[is.na( species_input_fish$TLfinal) == T & is.na( species_input_fish$tlbyfamily) == F] <-
     3
-  summary( species_input_fish$TLfinal)
 
   #for trophic level, do 1, 2, 3, 4, 5 bins
    species_input_fish$TLbin <- round( species_input_fish$TLfinal)
@@ -213,20 +212,22 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
 
     names(auto_groups_number)[names(auto_groups_number) %in% c("(all)")] <- "Total"
 
-    if (habitat_list %!in% names(species_input_combined)){
+    if (all(habitat_list %!in% names(species_input_combined))){
       print ("Habitat associations not returned since data is not present.  Please
              change groups to those found species_info_csv input file")
       write.csv(auto_groups_number, "recommended groups and totals.csv")
 
       return(species_input_combined)
     }else{
-    auto_groups_habitat <- reshape::melt(species_input_combined,
+    auto_groups_habitat <- reshape2::melt(species_input_combined,
                                          id =  "group", measure = habitat_list)
-    auto_groups_habitat <- cast(auto_groups_habitat, group~variable, sum, value="value")
+    auto_groups_habitat <- reshape::cast(auto_groups_habitat, group~variable, sum, value="value")
 
     auto_groups <- merge(auto_groups_number,auto_groups_habitat)
 
     write.csv(auto_groups, "recommended groups, totals, and habitat associations.csv")
+
+    print("b")
 
     return(species_input)
     }
