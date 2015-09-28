@@ -225,8 +225,7 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
       return(species_input)
      }else{
 
-      print ("Habitat associations not returned since data is not present.  Please
-             change groups to those found species_info_csv input file")
+      print ("Habitat associations not returned since data is not present.  Please change groups to those found in species_info_csv input file")
       write.csv(auto_groups_number, "recommended groups and totals.csv")
 
       return(species_input_combined)
