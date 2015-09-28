@@ -212,26 +212,25 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
 
     names(auto_groups_number)[names(auto_groups_number) %in% c("(all)")] <- "Total"
 
-    if (all(habitat_list %!in% names(species_input_combined))){
+    if (all(habitat_list %in% names(species_input_combined))){
+
+      auto_groups_habitat <- reshape2::melt(species_input_combined,
+                                            id =  "group", measure = habitat_list)
+      auto_groups_habitat <- reshape::cast(auto_groups_habitat, group~variable, sum, value="value")
+
+      auto_groups <- merge(auto_groups_number,auto_groups_habitat)
+
+      write.csv(auto_groups, "recommended groups, totals, and habitat associations.csv")
+
+      return(species_input)
+     }else{
+
       print ("Habitat associations not returned since data is not present.  Please
              change groups to those found species_info_csv input file")
       write.csv(auto_groups_number, "recommended groups and totals.csv")
 
       return(species_input_combined)
-    }else{
-    auto_groups_habitat <- reshape2::melt(species_input_combined,
-                                         id =  "group", measure = habitat_list)
-    auto_groups_habitat <- reshape::cast(auto_groups_habitat, group~variable, sum, value="value")
-
-    auto_groups <- merge(auto_groups_number,auto_groups_habitat)
-
-    write.csv(auto_groups, "recommended groups, totals, and habitat associations.csv")
-
-    print("b")
-
-    return(species_input)
     }
-
 }
 
 
