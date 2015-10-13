@@ -21,12 +21,13 @@ taking years to complete.  To begin to address this issue, we have developed rat
 The ratlantis package is designed to allow Atlantis ecosystem models to be developed
 rapidly (3-6 months is the goal, vs the 2 years projected in other documents).
 It does this by
--providing access to software already designed by the Atlantis community via R, 
+
+* providing access to software already designed by the Atlantis community via R, 
 removing a learning curve and offering a single environment to design, execute, and 
 analyze models
--using existing R packages that can pull biological, geographic, and other types of data
+* using existing R packages that can pull biological, geographic, and other types of data
 from public repositories to provide data needed for Atlantis models
--offering a clear framework for developing a new model or modifying an existing 
+* offering a clear framework for developing a new model or modifying an existing 
 one, where users supply data, modify output, and continue model development as needed
 
 Atlantis, originally developed by Elizabeth Fulton at CSCIRO, is an ecosystem model 
@@ -49,33 +50,36 @@ and package development.
 ## Atlantis Steps: Model Development
 
 Atlantis model development consists of several key task:
--map construction
--group assignment
--procuring and formatting environmental data
--creating input for files for C++ Atlantis software
+
+* map construction
+* group assignment
+* procuring and formatting environmental data
+* creating input for files for C++ Atlantis software
 
 The following guide walks users through these steps using the general setup
--short version:  just what you need to provide the function
--example: example R code; files used here are available by emailing the author 
+
+* short version:  just what you need to provide the function
+* example: example R code; files used here are available by emailing the author 
 (stephen.gosnell@baruch.cuny.edu)
--longer version and explanations: lenghthier overview of what Atlantis is doing
+* longer version and explanations: lengthier overview of what Atlantis is doing
 and how the functoin works
 
 
-###Map Development
+###Map Development with rbgmeriser
 
 ####Short version
 Map development is handled in ratlantis by the rbgmeriser function, to which users
 provide 
--name of a wgs84 formatted shape file with the area you wish to model carved into 
+
+* name of a wgs84 formatted shape file with the area you wish to model carved into 
 polygons.  The only other attribute/data you need is for each polygon to be labelled
 (box_id); start at 0 and go as high as needed.  
--location of bgmeriser.jar, downloaded from Atlantis wiki
--name of a bathymetry file in wgs84 format that includes your map area and negative depths
+* location of bgmeriser.jar, downloaded from Atlantis wiki; defaults to working directory
+* name of a bathymetry file in wgs84 format that includes your map area and negative depths
 in a column named "Contour"
--depths you want to be used for Atlantis polygons (if Depth column not included in 
+* depths you want to be used for Atlantis polygons (if Depth column not included in 
 shape file)
--locations of all files
+* locations of all files; defaults to working directory
 
 Function should return a .bgm file to be used in Atlantis models.
 
@@ -159,17 +163,19 @@ data as possible.  However, we are always missing data and the time needed to fi
 it  For those reason, ratlantis automates 3 basic types of data that may be used 
 iteratively to create functional groups.
 
-gather_group_for_species takes a basic scientific name (Genus species) and compiles
+* gather_group_for_species takes a basic scientific name (Genus species) and compiles
 data on higher classifications.  These can be used to look for missing information 
 needed for model or to supply Atlantis group types
 
-gather_data_for_species pulls data on basic life history and ecological traits 
+* gather_data_for_species pulls data on basic life history and ecological traits 
 (age, size, trophic level, harvested).
 
-gather_interactions_for_species uses rglobi to pull species interaction data from
+* gather_interactions_for_species uses rglobi to pull species interaction data from
 the Global Biotic Interaction Database.
 
-gather_habitat_for_species provides occurence data and notes on preferrered habitats.
+* gather_habitat_for_species provides occurence data and notes on preferrered habitats.
+
+* create_functional_groups uses data provided by user (via gather_ functions if needed)
 
 These functions are separated as they have slightly different requirements and may 
 be best run in different orders depending on existing data.  If an external species
@@ -181,9 +187,12 @@ and then use this list to run the gather_data and gather_habitat functions.
 #####gather_group_for_species
 ######Short version
 Provide 
--name and location of a .csv file that has a list of species to be included. File needs to have columns
-labelled "Genus", "species", and "common_name"- these may be blank for some species
-but column must be included
+
+* name and location (defaults to working directory) of a .csv file that has a list of species to be included. File needs to have columns labelled
+    * Genus
+    * species
+    * common_name
+    These may be blank for some speciesbut column must be included
 
 Function should return a .csv file with information on species pulled from online
 sources.
@@ -201,9 +210,12 @@ trophic level across genus for missing species) or to build functional groupings
 #####gather_data_for_species
 ######Short version
 Provide 
--name and location of a .csv file that has a list of species to be included. File needs to have columns
-labelled "Genus", "species", and "common_name"- these may be blank for some species
-but column must be included
+
+* name and location (defaults to working directory) of a .csv file that has a list of species to be included. File needs to have columns labelled
+    * Genus
+    * species
+    * common_name
+    These may be blank for some speciesbut column must be included
 
 Function should return a .csv file with information on species pulled from online
 sources (Fishbase and Sealifebase currently, expanding to other sources)
@@ -229,10 +241,12 @@ to focus on are those needed to model population growth and interactions.  These
 #####gather_interactions_for_species
 ######Short version
 Provide 
--name and location of a .csv file that has a list of species to be included. File needs to have columns
-labelled "Genus", "species", and "common_name"- these may be blank for some species
-but column must be included.  A "functional_group" column may also be included
--name and location of a .shp file that was used to build the .bgm file for Atlantis
+* name and location (defaults to working directory) of a .csv file that has a list of species to be included. File needs to have columns labelled
+    * Genus
+    * species
+    * common_name
+    These may be blank for some speciesbut column must be included.  A "functional_group" column may also be included
+* name and location(defaults to working directory) of a .shp file that was used to build the .bgm file for Atlantis
 OR a bounding box for where interactions should be returned
 
 Function should return a .csv file with information on species interactions pulled 
@@ -253,11 +267,13 @@ groups by ensuring major trophic pathways are included appropriately
 #####gather_habitat_for_species
 ######Short version
 Provide 
--name and location of a .csv file that has a list of species to be included. File needs to have columns
-labelled "Genus", "species", and "common_name"- these may be blank for some species
-but column must be included.  A "functional_group" column may also be included
--name and location of a .shp file that was used to build the .bgm file for Atlantis
--(optional) list of key words to search for in Fishbase description
+* name and location (defaults to working directory) of a .csv file that has a list of species to be included. File needs to have columns labelled
+    * Genus
+    * species
+    * common_name
+    These may be blank for some speciesbut column must be included. A "functional_group" column may also be included
+* name and location of a .shp file that was used to build the .bgm file for Atlantis
+* (optional) list of key words to search for in Fishbase description
 
 Function should return a .csv file with information on species occurrences pulled 
 from online sources, including which species met certain depth parameters, keyword
@@ -282,10 +298,85 @@ there is no package called 'data.table'
 ```
 appears)
 
-#####File Creation
+#####create_functional_groups
+
+######Short version
+Provide 
+
+* name and location (defaults to working directory) of a .csv file that has a list of species to be included and 
+basic information.  Columns that must be included are:
+    * Phylogenetic information, specifically
+        * Genus
+        * species
+        * family
+        * order
+        * class
+        * superclass
+        * phylum
+    * Tropic level information, specifically at least one of the following
+        * TrophicLevel
+        * FoodTroph
+        * DietTroph
+    * Data on depth associations, specifically
+        * Min_Depth
+        * Max_Depth
+* Information on bathymetry levels used in the Atlantis model. These can be directly
+provided (via bathymetry_levels argument) or pulled from an Atlantis model shape file
+for which users specify the location (map_location) and name (map_name)
+* list of habitat types (habitat_list) to be included in the model 
+
+###### Example
+
+```r
+test_groups <- create_functional_groups(species_info_csv = "test_combined.csv",
+                          habitat_list = c("a", "CoralReefs", "Sand", "Mud" ))
+```
+
+######Longer version with explanations
 Like any ecosystem model, Atlantis must balance simplicity and the need for details.
 Once collected, species trait, interaction, and habitat data are used to divied species
-into groups with appropriate parameter (often averaged for the group).
+into groups with appropriate parameter (often averaged for the group).  This function
+uses data on taxonomy, trophic level, and habitat and depth associations to suggest 
+groupings.
+
+###File creation
+
+####Short version
+
+File creation is handled in ratlantis by the create_biology_prm function, to which users
+provide:
+
+* name and location (defaults to working directory) of a .csv file that has a list of species to be included and 
+basic information.  Columns that must be included are:
+    * Phylogenetic information, specifically
+        * Genus
+        * species
+        * family
+        * order
+        * class
+        * superclass
+        * phylum
+    * Tropic level information, specifically at least one of the following
+        * TrophicLevel
+        * FoodTroph
+        * DietTroph
+    * Data on depth associations, specifically
+        * Min_Depth
+        * Max_Depth
+    * Atlantis_group_type
+    * Group_name
+
+
+#### Example
+
+```r
+
+```
+
+####Longer version with explanations
+
+
+####Comments
 
 Key models and related assumptions that are commonly 
 used include the Von Bertalannfy Growth Equation:
@@ -316,11 +407,9 @@ HOW TO USE IT. We recommend a workflow of:
   *this can be considered by merging data you've acquired by focus group to make 
   sure the groups make sense
 * generate the averaged traits for each functional groups and actual parameters 
-used in Atlantis bio.prm file
-    * the create_atlantis_parameters function carries out this task
-* reiterate this process (create groups, check values) until you are pleased
-* create the bio.prm and groups.csv input files
+used in Atlantis bio.prm file and create the bio.prm and groups.csv input files
     * the create_biology_prm function carries out both these tasks
+* reiterate this process (create groups, check values) until you are pleased
 
 One of the major benefits of the ratlantis package will be the 
 ability to consider multiple focus group considerations for one model (since much 
@@ -362,22 +451,6 @@ in each model:
 *SED_BACT - Sediment Bacteria
 
 These respresent the detrital and bacterial components of the ecosystem.  
-
-#### create_functional_groups
-######Short version
-Provide 
--
-###### Example
-
-```r
-testhabitat <- gather_habitat_for_species(species_list_location = "C:/Users/SGosnell/Desktop/bgm",
-                                                      species_list_csv = "species_test_10.csv",
-                                                      map_location = "C:/Users/SGosnell/Desktop/bgm",
-                                                      map_name = "map_for_bgmeriser")
-```
-
-######Longer version with explanations
-After compiling data on each species to possibly be included in the model
 
 
 

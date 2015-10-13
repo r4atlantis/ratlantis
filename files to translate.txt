@@ -6,10 +6,10 @@ Files to translate
   *gather_habitat_for_species
   *gather_interactions_for_species
   *execute_atlantis
+  *create_functional_groups
+
 
 *To Do (in shell form)
-  *create_functional_groups
-    *from gulf species to focus groups
   *create_atlantis_parameters
     *from obtaining values for functional groups& generating atlantis parameters
   *create_biology_prm
