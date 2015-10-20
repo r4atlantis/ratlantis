@@ -31,7 +31,7 @@ gather_group_for_species <- function(species_list_location = getwd(), species_li
   #determine general grouping (e.g., fish, mammal)
 
   temp <- taxize::gnr_resolve(names = species$scientific_name)
-  temp <- as.data.frame (temp$results)
+  temp <- as.data.frame (temp)
 
   species$matched_name <- NA
   species$family <- NA
