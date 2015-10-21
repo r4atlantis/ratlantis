@@ -66,7 +66,7 @@ gather_habitat_for_species <- function(species_list_location = getwd(), species_
 
   #depth info
   depth_info <- rfishbase::species(species_input$scientific_name_validated,
-                                   fields = species_fields$habitat)
+                                   fields = rfishbase::species_fields$habitat)
 
   #make sciname match column in species name
   names(depth_info)[names(depth_info) == 'sciname'] <- 'scientific_name_validated'
