@@ -4,11 +4,10 @@
 \alias{create_biology_prm}
 \title{create_biology_prm function}
 \usage{
-create_biology_prm()
+create_biology_prm(species_file)
 }
 \arguments{
-\item{map_name}{name of map to be used for bgm creation. Must incude "box_id"
-column. Other columns may be included (horizmix, vertmix,boundary_code)}
+\item{species_file}{}
 }
 \description{
 This function creates the biology prm file needed for Atlantis

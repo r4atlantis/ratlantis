@@ -5,7 +5,15 @@
 \title{gather_habitat_for_species function}
 \usage{
 gather_habitat_for_species(species_list_location = getwd(), species_list_csv,
-  map_location = getwd(), map_name = "map_for_bgmeriser")
+  map_location = getwd(), map_name = "map_for_bgmeriser",
+  habitat_list = c("Intertidal", "Sublittoral", "Caves", "Oceanic",
+  "Epipelagic", "Mesopelagic", "Bathypelagic", "Abyssopelagic", "Hadopelagic",
+  "Estuaries", "Mangroves", "MarshesSwamps", "Stream", "Lakes", "Benthos",
+  "Sessile", "Demersal", "Pelagic", "Endofauna", "Megabenthos", "Meiobenthos",
+  "SoftBottom", "Sand", "Coarse", "Fine", "Level", "Sloping", "Silt", "Mud",
+  "Ooze", "HardBottom", "Rocky", "Rubble", "SeaGrassBeds", "BedsBivalve",
+  "BedsRock", "CoralReefs", "DropOffs", "ReefFlats", "Lagoons",
+  "DeepWaterCorals"))
 }
 \arguments{
 \item{species_list_location}{where is species list located; defaults to working

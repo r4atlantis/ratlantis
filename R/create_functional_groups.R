@@ -14,13 +14,13 @@
 #'  \item{"class"}
 #'  \item{"superclass"}
 #'  \item{"phylum"}
-#'  \item{"Trophic level information"}(One of the following for trophic level:
+#'  \item{"Trophic level information"}{One of the following for trophic level:
 #'  TrophicLevel (developed by user),FoodTroph (from gather_data_for_species), or
-#'  DietTroph (from gather_data_for_species).  These will be averaged.)
-#'  \item{Min_Depth}(highest depth at which a species is found; assumes fishbase style,
-#'  with depths positive)
-#'  \item{Max_Depth}(lowest depth at which a species is found; assumes fishbase style,
-#'  with depths positive)
+#'  DietTroph (from gather_data_for_species).  These will be averaged.}
+#'  \item{Min_Depth}{highest depth at which a species is found; assumes fishbase style,
+#'  with depths positive}
+#'  \item{Max_Depth}{lowest depth at which a species is found; assumes fishbase style,
+#'  with depths positive}
 #'  }
 #'  @param bathymetry_levels (also used in rbgmeriser function)
 #'  @param map_location location of shape file used to create bgm; defaults to working

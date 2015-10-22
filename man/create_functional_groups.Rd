@@ -4,32 +4,62 @@
 \alias{create_functional_groups}
 \title{create_functional_groups function}
 \usage{
-create_functional_groups(species_list_location, species_info_csv)
+create_functional_groups(species_data_location = getwd(), species_info_csv,
+  bathymetry_levels, map_location = getwd(), map_name = "map_for_bgmeriser",
+  habitat_list = c("Intertidal", "Sublittoral", "Caves", "Oceanic",
+  "Epipelagic", "Mesopelagic", "Bathypelagic", "Abyssopelagic", "Hadopelagic",
+  "Estuaries", "Mangroves", "MarshesSwamps", "Stream", "Lakes", "Benthos",
+  "Sessile", "Demersal", "Pelagic", "Endofauna", "Megabenthos", "Meiobenthos",
+  "SoftBottom", "Sand", "Coarse", "Fine", "Level", "Sloping", "Silt", "Mud",
+  "Ooze", "HardBottom", "Rocky", "Rubble", "SeaGrassBeds", "BedsBivalve",
+  "BedsRock", "CoralReefs", "DropOffs", "ReefFlats", "Lagoons",
+  "DeepWaterCorals"))
 }
 \arguments{
-\item{species_info_csv}{name of csv file with the following column headers:
+\item{species_data_location}{where csv file with species data is located (defaults to
+working directory).}
+
+\item{bathymetry_levels}{(also used in rbgmeriser function)}
+
+\item{map_location}{location of shape file used to create bgm; defaults to working
+directory}
+
+\item{map_name}{name of map used for bgm creation; can be produced by rbgmeriser
+function or created manually; defaults to map_for_bgmeriser (produced by
+rbgmeriser function)}
+
+\item{habitat_list}{list of habitat types to be included in the model (see
+gather_habitat_for_species for default list and potential options)#'}
+
+\item{species_input_csv}{name of csv file with the following column headers
+(all provided by merging "gather" functions (gather_groups_for_species, gather_data_for_species,
+gather_habitat_for_species):
 \itemize{
  \item{"Genus"}
  \item{"species"}
- \item{"common name}
- \item{"Trophic level information"}{one of the following for trophic level:
+ \item{"family"}
+ \item{"order"}
+ \item{"class"}
+ \item{"superclass"}
+ \item{"phylum"}
+ \item{"Trophic level information"}{One of the following for trophic level:
  TrophicLevel (developed by user),FoodTroph (from gather_data_for_species), or
  DietTroph (from gather_data_for_species).  These will be averaged.}
- \
- \item{"parameter 2"}{Stuff}
-}}
-
-\item{species_data_location}{where csv file with species data is located (defaults to
-working directory).}
+ \item{Min_Depth}{highest depth at which a species is found; assumes fishbase style,
+ with depths positive}
+ \item{Max_Depth}{lowest depth at which a species is found; assumes fishbase style,
+ with depths positive}
+ }}
 }
 \description{
-This function uses data to create functional (focus) groups for an Atlantis model
+This function uses data to suggest functional (focus) groups for an Atlantis model
 }
 \details{
 This function uses provided information to suggest functional group
 classification for Atlantis models.  Species are separated based on taxonomy,
 depth, habitat, and trophic-level groupings.  Given the available information,
-this focuses mostly on fish
+this focuses mostly on fish.  For depth placement, one of the following must be provided:
+bathymetry_levels OR map_location and map_name
 }
 \keyword{biology}
 \keyword{prm}
