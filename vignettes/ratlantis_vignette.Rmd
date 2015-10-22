@@ -329,7 +329,7 @@ for which users specify the location (map_location) and name (map_name)
 
 ```r
 test_groups <- create_functional_groups(species_info_csv = "test_combined.csv",
-                          habitat_list = c("a", "CoralReefs", "Sand", "Mud" ))
+                          habitat_list = c("SeaGrassBeds", "CoralReefs", "Sand", "Mud" ))
 ```
 
 ######Longer version with explanations

@@ -14,9 +14,9 @@
 #'  \item{"class"}
 #'  \item{"superclass"}
 #'  \item{"phylum"}
-#'  \item{"Trophic level information"}{one of the following for trophic level:
+#'  \item{"Trophic level information"}(One of the following for trophic level:
 #'  TrophicLevel (developed by user),FoodTroph (from gather_data_for_species), or
-#'  DietTroph (from gather_data_for_species).  These will be averaged.}
+#'  DietTroph (from gather_data_for_species).  These will be averaged.)
 #'  \item{Min_Depth}(highest depth at which a species is found; assumes fishbase style,
 #'  with depths positive)
 #'  \item{Max_Depth}(lowest depth at which a species is found; assumes fishbase style,
@@ -222,14 +222,14 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
 
       write.csv(auto_groups, "recommended groups, totals, and habitat associations.csv")
 
-      return(species_input)
      }else{
 
       print ("Habitat associations not returned since data is not present.  Please change groups to those found in species_info_csv input file")
       write.csv(auto_groups_number, "recommended groups and totals.csv")
+     }
 
       return(species_input_combined)
-    }
+
 }
 
 
