@@ -3,7 +3,7 @@
 #' This function uses data to suggest functional (focus) groups for an Atlantis model
 #' @param species_data_location where csv file with species data is located (defaults to
 #' working directory).
-#' @param  species_input_csv name of csv file with the following column headers
+#' @param  species_info_csv name of csv file with the following column headers
 #' (all provided by merging "gather" functions (gather_groups_for_species, gather_data_for_species,
 #' gather_habitat_for_species):
 #' \itemize{
@@ -14,12 +14,12 @@
 #'  \item{"class"}
 #'  \item{"superclass"}
 #'  \item{"phylum"}
-#'  \item{"Trophic level information"}{One of the following for trophic level:
+#'  \item{"Trophic level information"}{ One of the following for trophic level:
 #'  TrophicLevel (developed by user),FoodTroph (from gather_data_for_species), or
 #'  DietTroph (from gather_data_for_species).  These will be averaged.}
-#'  \item{Min_Depth}{highest depth at which a species is found; assumes fishbase style,
+#'  \item{Min_Depth}{ highest depth at which a species is found; assumes fishbase style,
 #'  with depths positive}
-#'  \item{Max_Depth}{lowest depth at which a species is found; assumes fishbase style,
+#'  \item{Max_Depth}{ lowest depth at which a species is found; assumes fishbase style,
 #'  with depths positive}
 #'  }
 #'  @param bathymetry_levels (also used in rbgmeriser function)
@@ -29,7 +29,7 @@
 #' function or created manually; defaults to map_for_bgmeriser (produced by
 #' rbgmeriser function)
 #' @param habitat_list list of habitat types to be included in the model (see
-#'  gather_habitat_for_species for default list and potential options)#'
+#'  gather_habitat_for_species for default list and potential options)
 #' @keywords biology prm
 #' @details This function uses provided information to suggest functional group
 #' classification for Atlantis models.  Species are separated based on taxonomy,

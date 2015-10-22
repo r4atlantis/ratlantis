@@ -19,19 +19,7 @@ create_functional_groups(species_data_location = getwd(), species_info_csv,
 \item{species_data_location}{where csv file with species data is located (defaults to
 working directory).}
 
-\item{bathymetry_levels}{(also used in rbgmeriser function)}
-
-\item{map_location}{location of shape file used to create bgm; defaults to working
-directory}
-
-\item{map_name}{name of map used for bgm creation; can be produced by rbgmeriser
-function or created manually; defaults to map_for_bgmeriser (produced by
-rbgmeriser function)}
-
-\item{habitat_list}{list of habitat types to be included in the model (see
-gather_habitat_for_species for default list and potential options)#'}
-
-\item{species_input_csv}{name of csv file with the following column headers
+\item{species_info_csv}{name of csv file with the following column headers
 (all provided by merging "gather" functions (gather_groups_for_species, gather_data_for_species,
 gather_habitat_for_species):
 \itemize{
@@ -42,14 +30,26 @@ gather_habitat_for_species):
  \item{"class"}
  \item{"superclass"}
  \item{"phylum"}
- \item{"Trophic level information"}{One of the following for trophic level:
+ \item{"Trophic level information"}{ One of the following for trophic level:
  TrophicLevel (developed by user),FoodTroph (from gather_data_for_species), or
  DietTroph (from gather_data_for_species).  These will be averaged.}
- \item{Min_Depth}{highest depth at which a species is found; assumes fishbase style,
+ \item{Min_Depth}{ highest depth at which a species is found; assumes fishbase style,
  with depths positive}
- \item{Max_Depth}{lowest depth at which a species is found; assumes fishbase style,
+ \item{Max_Depth}{ lowest depth at which a species is found; assumes fishbase style,
  with depths positive}
  }}
+
+\item{bathymetry_levels}{(also used in rbgmeriser function)}
+
+\item{map_location}{location of shape file used to create bgm; defaults to working
+directory}
+
+\item{map_name}{name of map used for bgm creation; can be produced by rbgmeriser
+function or created manually; defaults to map_for_bgmeriser (produced by
+rbgmeriser function)}
+
+\item{habitat_list}{list of habitat types to be included in the model (see
+gather_habitat_for_species for default list and potential options)}
 }
 \description{
 This function uses data to suggest functional (focus) groups for an Atlantis model

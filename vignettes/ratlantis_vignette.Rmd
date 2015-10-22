@@ -363,8 +363,13 @@ basic information.  Columns that must be included are:
     * Data on depth associations, specifically
         * Min_Depth
         * Max_Depth
-    * Atlantis_group_type
-    * Group_name
+    * atlantis_type
+    * group_name
+    
+    
+ALL OF THE ABOVE ARE PROVIDED IN THE OUTPUT OF THE create_functional_group function
+except for group_name (this is a modified form of the "group" column returned by
+that function)
 
 
 #### Example

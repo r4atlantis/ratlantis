@@ -10,7 +10,7 @@
 
 <meta name="author" content="J. Stephen Gosnell" />
 
-<meta name="date" content="2015-10-19" />
+<meta name="date" content="2015-10-22" />
 
 <title>Using ratlantis to develop, use, and compare Atlantis ecosytem models</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Using ratlantis to develop, use, and compare Atlantis ecosytem models</h1>
 <h4 class="author"><em>J. Stephen Gosnell</em></h4>
-<h4 class="date"><em>2015-10-19</em></h4>
+<h4 class="date"><em>2015-10-22</em></h4>
 </div>
 
 
@@ -280,7 +280,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="example-5" class="section level6">
 <h6>Example</h6>
 <pre class="sourceCode r"><code class="sourceCode r">test_groups &lt;-<span class="st"> </span><span class="kw">create_functional_groups</span>(<span class="dt">species_info_csv =</span> <span class="st">&quot;test_combined.csv&quot;</span>,
-                          <span class="dt">habitat_list =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;CoralReefs&quot;</span>, <span class="st">&quot;Sand&quot;</span>, <span class="st">&quot;Mud&quot;</span> ))</code></pre>
+                          <span class="dt">habitat_list =</span> <span class="kw">c</span>(<span class="st">&quot;SeaGrassBeds&quot;</span>, <span class="st">&quot;CoralReefs&quot;</span>, <span class="st">&quot;Sand&quot;</span>, <span class="st">&quot;Mud&quot;</span> ))</code></pre>
 </div>
 <div id="longer-version-with-explanations-5" class="section level6">
 <h6>Longer version with explanations</h6>
@@ -318,10 +318,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Min_Depth</li>
 <li>Max_Depth</li>
 </ul></li>
-<li>Atlantis_group_type</li>
-<li>Group_name</li>
+<li>atlantis_type</li>
+<li>group_name</li>
 </ul></li>
 </ul>
+<p>ALL OF THE ABOVE ARE PROVIDED IN THE OUTPUT OF THE create_functional_group function except for group_name (this is a modified form of the “group” column returned by that function)</p>
 </div>
 <div id="example-6" class="section level4">
 <h4>Example</h4>
