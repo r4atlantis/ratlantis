@@ -76,9 +76,13 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   maturity_info_AgeMatMin <- reshape::cast (SpecCode~., value="AgeMatMin", data = maturity_info, minnona)
   names(maturity_info_AgeMatMin)[names(maturity_info_AgeMatMin) == '(all)'] <- 'Min_age_reprod'
+  maturity_info_AgeMatMin$Min_age_reprod[!is.finite(maturity_info_AgeMatMin$Min_age_reprod)] <- NA
+
 
   maturity_info_LengthMatMin <- reshape::cast (SpecCode~., value="LengthMatMin", data = maturity_info, minnona)
   names(maturity_info_LengthMatMin)[names(maturity_info_LengthMatMin) == '(all)'] <- 'Min_length_reprod'
+  maturity_info_LengthMatMin$Min_length_reprod[!is.finite(maturity_info_LengthMatMin$Min_length_reprod)] <- NA
+
 
 
   species_input <- merge(species_input, maturity_info_AgeMatMin, all.x = T)
@@ -96,11 +100,13 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   pop_char_Lmax <- reshape::cast (SpecCode~., value="Lmax", data = pop_char_info, maxnona)
   names(pop_char_Lmax)[names(pop_char_Lmax) == '(all)'] <- 'Max_length'
-  pop_char_Wmax$Lmax[!is.finite(pop_char_Wmax$Lmax)] <- NA
+  pop_char_Lmax$Max_length[!is.finite(pop_char_Wmax$Lmax)] <- NA
 
 
   pop_char_tmax <- reshape::cast (SpecCode~., value="tmax", data = pop_char_info, maxnona)
   names(pop_char_tmax)[names(pop_char_tmax) == '(all)'] <- 'Max_age'
+  pop_char_tmax$Max_age[!is.finite(pop_char_tmax$Max_age)] <- NA
+
 
   species_input <- merge(species_input, pop_char_Wmax, all.x = T)
   species_input <- merge(species_input, pop_char_tmax, all.x = T)
