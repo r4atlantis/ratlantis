@@ -91,9 +91,13 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   pop_char_Wmax <- reshape::cast (SpecCode~., value="Wmax", data = pop_char_info, maxnona)
   names(pop_char_Wmax)[names(pop_char_Wmax) == '(all)'] <- 'Max_weight'
+  pop_char_Wmax$Max_weight[!is.finite(pop_char_Wmax$Max_weight)] <- NA
+
 
   pop_char_Lmax <- reshape::cast (SpecCode~., value="Lmax", data = pop_char_info, maxnona)
   names(pop_char_Lmax)[names(pop_char_Lmax) == '(all)'] <- 'Max_length'
+  pop_char_Wmax$Lmax[!is.finite(pop_char_Wmax$Lmax)] <- NA
+
 
   pop_char_tmax <- reshape::cast (SpecCode~., value="tmax", data = pop_char_info, maxnona)
   names(pop_char_tmax)[names(pop_char_tmax) == '(all)'] <- 'Max_age'
