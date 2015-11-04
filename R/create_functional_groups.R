@@ -19,7 +19,7 @@
 #'  DietTroph (from gather_data_for_species).  These will be averaged.}
 #'  \item{min_depth}{ highest depth at which a species is found; assumes fishbase style,
 #'  with depths positive}
-#'  \item{max_Depth}{ lowest depth at which a species is found; assumes fishbase style,
+#'  \item{max_depth}{ lowest depth at which a species is found; assumes fishbase style,
 #'  with depths positive}
 #'  }
 #'  @param bathymetry_levels (also used in rbgmeriser function)
@@ -115,7 +115,7 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
     3
 
   #for trophic level, do 1, 2, 3, 4, 5 bins
-   species_input_fish$TLbin <- round( species_input_fish$TL_final)
+   species_input_fish$TL_bin <- round( species_input_fish$TL_final)
 
   #depth levels
   #make depths match up to Atlantis model cuts
@@ -151,7 +151,7 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
                                     species_input_fish$Max_depth <  bathymetry_levels[2]]   <-
       bathymetry_levels[2]
 
-    species_input_fish$Depth_range_bin <- paste(species_input_fish$min_depth_bin,
+    species_input_fish$depth_range_bin <- paste(species_input_fish$min_depth_bin,
                                              species_input_fish$max_depth_bin, sep=",")
 
   #start making groupings
@@ -180,8 +180,8 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
    #should be split. depth limits should fix some of these issues
 
    species_input_fish$group <- paste (species_input_fish$fish_type,
-                                      species_input_fish$Depth_range_bin,
-                                      species_input_fish$TLbin,
+                                      species_input_fish$depth_range_bin,
+                                      species_input_fish$TL_bin,
                                       sep = ",")
 
    #birds
