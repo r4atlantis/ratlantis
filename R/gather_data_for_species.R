@@ -51,7 +51,7 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   species_info_DepthRangeShallow <- reshape::cast (SpecCode~., value="DepthRangeShallow", data = species_info,
                                                    meannona)
-  names(species_info_DepthRangeShallow)[names( species_info_DepthRangeShallow) == '(all)'] <- ''
+  names(species_info_DepthRangeShallow)[names( species_info_DepthRangeShallow) == '(all)'] <- 'min_depth'
 
   species_info_DepthRangeDeep <- reshape::cast (SpecCode~., value="DepthRangeDeep", data = species_info,
                                                 meannona)
@@ -75,12 +75,12 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   names(maturity_info)[names(maturity_info) == 'Speccode'] <- 'SpecCode'
 
   maturity_info_AgeMatMin <- reshape::cast (SpecCode~., value="AgeMatMin", data = maturity_info, minnona)
-  names(maturity_info_AgeMatMin)[names(maturity_info_AgeMatMin) == '(all)'] <- 'Min_age_reprod'
-  maturity_info_AgeMatMin$Min_age_reprod[!is.finite(maturity_info_AgeMatMin$Min_age_reprod)] <- NA
+  names(maturity_info_AgeMatMin)[names(maturity_info_AgeMatMin) == '(all)'] <- 'min_age_reprod'
+  maturity_info_AgeMatMin$Min_age_reprod[!is.finite(maturity_info_AgeMatMin$min_age_reprod)] <- NA
 
 
   maturity_info_LengthMatMin <- reshape::cast (SpecCode~., value="LengthMatMin", data = maturity_info, minnona)
-  names(maturity_info_LengthMatMin)[names(maturity_info_LengthMatMin) == '(all)'] <- 'Min_length_reprod'
+  names(maturity_info_LengthMatMin)[names(maturity_info_LengthMatMin) == '(all)'] <- 'min_length_reprod'
   maturity_info_LengthMatMin$Min_length_reprod[!is.finite(maturity_info_LengthMatMin$Min_length_reprod)] <- NA
 
 
@@ -94,18 +94,18 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
   names(pop_char_info)[names(pop_char_info) == 'Speccode'] <- 'SpecCode'
 
   pop_char_Wmax <- reshape::cast (SpecCode~., value="Wmax", data = pop_char_info, maxnona)
-  names(pop_char_Wmax)[names(pop_char_Wmax) == '(all)'] <- 'Max_weight'
-  pop_char_Wmax$Max_weight[!is.finite(pop_char_Wmax$Max_weight)] <- NA
+  names(pop_char_Wmax)[names(pop_char_Wmax) == '(all)'] <- 'max_weight'
+  pop_char_Wmax$max_weight[!is.finite(pop_char_Wmax$max_weight)] <- NA
 
 
   pop_char_Lmax <- reshape::cast (SpecCode~., value="Lmax", data = pop_char_info, maxnona)
-  names(pop_char_Lmax)[names(pop_char_Lmax) == '(all)'] <- 'Max_length'
-  pop_char_Lmax$Max_length[!is.finite(pop_char_Wmax$Lmax)] <- NA
+  names(pop_char_Lmax)[names(pop_char_Lmax) == '(all)'] <- 'max_length'
+  pop_char_Lmax$max_length[!is.finite(pop_char_Wmax$Lmax)] <- NA
 
 
   pop_char_tmax <- reshape::cast (SpecCode~., value="tmax", data = pop_char_info, maxnona)
-  names(pop_char_tmax)[names(pop_char_tmax) == '(all)'] <- 'Max_age'
-  pop_char_tmax$Max_age[!is.finite(pop_char_tmax$Max_age)] <- NA
+  names(pop_char_tmax)[names(pop_char_tmax) == '(all)'] <- 'max_age'
+  pop_char_tmax$max_age[!is.finite(pop_char_tmax$max_age)] <- NA
 
 
   species_input <- merge(species_input, pop_char_Wmax, all.x = T)
@@ -118,24 +118,24 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   pop_growth_info_Loo <- reshape::cast (SpecCode~., value="Loo", data = pop_growth_info,
                                meannona)
-  names( pop_growth_info_Loo)[names( pop_growth_info_Loo) == '(all)'] <- 'Mean_Loo'
+  names( pop_growth_info_Loo)[names( pop_growth_info_Loo) == '(all)'] <- 'mean_Loo'
 
   pop_growth_info_K <- reshape::cast (SpecCode~., value="K", data = pop_growth_info,
                                meannona)
-  names( pop_growth_info_K)[names( pop_growth_info_K) == '(all)'] <- 'Mean_K'
+  names( pop_growth_info_K)[names( pop_growth_info_K) == '(all)'] <- 'mean_K'
 
   pop_growth_info_M <- reshape::cast (SpecCode~., value="M", data = pop_growth_info,
                              meannona)
-  names( pop_growth_info_M)[names( pop_growth_info_M) == '(all)'] <- 'Mean_M'
+  names( pop_growth_info_M)[names( pop_growth_info_M) == '(all)'] <- 'mean_M'
 
    pop_growth_info_to <- reshape::cast (SpecCode~., value="to", data = pop_growth_info,
                               meannona)
-  names( pop_growth_info_to)[names( pop_growth_info_to) == '(all)'] <- 'Mean_to'
+  names( pop_growth_info_to)[names( pop_growth_info_to) == '(all)'] <- 'mean_to'
 
   #Length max
   pop_growth_info_Lm <- reshape::cast (SpecCode~., value="Lm", data = pop_growth_info,
                               meannona)
-  names( pop_growth_info_Lm)[names( pop_growth_info_Lm) == '(all)'] <- 'Mean_Lm'
+  names( pop_growth_info_Lm)[names( pop_growth_info_Lm) == '(all)'] <- 'mean_Lm'
 
   species_input <- merge(species_input, pop_growth_info_M, all.x = T)
   species_input <- merge(species_input, pop_growth_info_Lm, all.x = T)
@@ -152,11 +152,11 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   length_weight_info_a <- reshape::cast (SpecCode~., value="a", data = length_weight_info,
                                                    meannona)
-  names(length_weight_info_a)[names( length_weight_info_a) == '(all)'] <- 'Mean_a'
+  names(length_weight_info_a)[names( length_weight_info_a) == '(all)'] <- 'mean_a'
 
   length_weight_info_b <- reshape::cast (SpecCode~., value="b", data = length_weight_info,
                                          meannona)
-  names(length_weight_info_b)[names( length_weight_info_b) == '(all)'] <- 'Mean_b'
+  names(length_weight_info_b)[names( length_weight_info_b) == '(all)'] <- 'mean_b'
 
   species_input <- merge(species_input, length_weight_info_b, all.x = T)
   species_input <- merge(species_input, length_weight_info_a, all.x = T)

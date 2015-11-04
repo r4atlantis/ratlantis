@@ -147,7 +147,7 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
     species_input_fish$max_depth_bin= bathymetry_levels[findInterval(species_input_fish$Max_depth,
                                                                    bathymetry_levels)]
     #assume we want to include all species, so move maximum depth ones to lowest level
-    species_input_fish$max_depth_bin[!is.na(species_input_fish$Max_depth) &
+    species_input_fish$max_depth_bin[!is.na(species_input_fish$max_depth) &
                                     species_input_fish$Max_depth <  bathymetry_levels[2]]   <-
       bathymetry_levels[2]
 
