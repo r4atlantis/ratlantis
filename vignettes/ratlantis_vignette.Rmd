@@ -360,31 +360,31 @@ basic information.  Columns that must be included are:
         * class
         * superclass
         * phylum
-    * TLfinal (Tropic level information supplied by create_functional_groups)
+        * kingdom
+    * TL_final (Tropic level information supplied by create_functional_groups)
     * Data on depth associations, specifically
-        * Min_Depth
-        * Max_Depth
+        * min_depth_bin
+        * max_depth_bin
     * Growth information, specifically  
-        * Mean_a
-        * Mean_b
-        * Mean_to
-        * Mean_K
-        * max_Age
+        * mean_a
+        * mean_b
+        * mean_to
+        * mean_K
+        * max_age 
+        * mean_M
         * at least one of the following
           * max_length
-          * Mean_Loo
+          * mean_Loo
     * atlantis_type
         *for vertebrates, these can be:
-            * Fish
-            * Bird
-            * Mammal
-            * Shark
+            * fish
+            * bird
+            * mammal
+            * shark
         * for invertebrates, a long list that can be found at 
         https://wiki.csiro.au/display/Atlantis/AtlantisGroupTypes
     * group_name
     * group_code
-    * Mortality information, denoted as
-        * Mean_M
 
 ALL OF THE ABOVE ARE PROVIDED IN THE OUTPUT OF THE create_functional_group function
 except for group_name and group_code (these are modified forms of the "group" column returned by
@@ -500,10 +500,10 @@ basic information.  Columns that must be included are:
         * Min_Depth
         * Max_Depth
     * Growth information, specifically  
-        * Mean_a
-        * Mean_b
-        * Mean_to
-        * Mean_K
+        * mean_a
+        * mean_b
+        * mean_to
+        * mean_K
         * at least one of the following
           * max_length
           * mean_Loo
@@ -518,7 +518,7 @@ basic information.  Columns that must be included are:
     * group_name
     * group_code
     * Mortality information, denoted as
-        * Mean_M
+        * mean_M
     * Length informatin, specifally at least one of the following
         * max_length
         * mean_Loo

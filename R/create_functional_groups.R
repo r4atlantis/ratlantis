@@ -144,7 +144,7 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
     species_input_fish$min_depth_bin <- bathymetry_levels[findInterval(species_input_fish$min_depth,
                                                                      bathymetry_levels,
                                                                      rightmost.closed = T)+1]
-    species_input_fish$max_depth_bin= bathymetry_levels[findInterval(species_input_fish$Max_depth,
+    species_input_fish$max_depth_bin= bathymetry_levels[findInterval(species_input_fish$max_depth,
                                                                    bathymetry_levels)]
     #assume we want to include all species, so move maximum depth ones to lowest level
     species_input_fish$max_depth_bin[!is.na(species_input_fish$max_depth) &
@@ -187,14 +187,14 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
    #birds
 
    species_input_birds <-  species_input[species_input$class %in% c("Aves"),]
-   species_input_birds$atlantis_type <- "Bird"
-   species_input_birds$group <- "Bird"
+   species_input_birds$atlantis_type <- "bird"
+   species_input_birds$group <- "bird"
 
    #mammals
 
    species_input_mammals <-  species_input[species_input$class %in% c("Mammalia"),]
-   species_input_mammals$atlantis_type <-  "Mammal"
-   species_input_mammals$group <- "Mammal"
+   species_input_mammals$atlantis_type <-  "mammal"
+   species_input_mammals$group <- "mammal"
 
    #invertebrates
 
@@ -204,7 +204,7 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
                                     all.x = T, all.y = T)
     species_input_combined <- merge(species_input_combined, species_input_mammals, all.x = T, all.y = T)
     species_input_combined <- merge(species_input, species_input_combined[,names(species_input_combined) %!in%
-                                                                    c("Max_depth", "min_depth")], all.x  = T, all.y = T)
+                                                                    c("max_depth", "min_depth")], all.x  = T, all.y = T)
 
         #write .csv file showing how many are in each group and each habitat of interest
     auto_groups_number <- reshape::cast (species_input_combined, group~., length)
