@@ -51,11 +51,11 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   species_info_DepthRangeShallow <- reshape::cast (SpecCode~., value="DepthRangeShallow", data = species_info,
                                                    meannona)
-  names(species_info_DepthRangeShallow)[names( species_info_DepthRangeShallow) == '(all)'] <- 'Min_depth'
+  names(species_info_DepthRangeShallow)[names( species_info_DepthRangeShallow) == '(all)'] <- ''
 
   species_info_DepthRangeDeep <- reshape::cast (SpecCode~., value="DepthRangeDeep", data = species_info,
                                                 meannona)
-  names(species_info_DepthRangeDeep)[names( species_info_DepthRangeDeep) == '(all)'] <- 'Max_depth'
+  names(species_info_DepthRangeDeep)[names( species_info_DepthRangeDeep) == '(all)'] <- 'max_depth'
 
   species_input <- merge(species_input, species_info_DepthRangeDeep, all.x = T)
   species_input <- merge(species_input, species_info_DepthRangeShallow, all.x = T)

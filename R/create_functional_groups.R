@@ -17,9 +17,9 @@
 #'  \item{"Trophic level information"}{ One of the following for trophic level:
 #'  TrophicLevel (developed by user),FoodTroph (from gather_data_for_species), or
 #'  DietTroph (from gather_data_for_species).  These will be averaged.}
-#'  \item{Min_Depth}{ highest depth at which a species is found; assumes fishbase style,
+#'  \item{min_depth}{ highest depth at which a species is found; assumes fishbase style,
 #'  with depths positive}
-#'  \item{Max_Depth}{ lowest depth at which a species is found; assumes fishbase style,
+#'  \item{max_Depth}{ lowest depth at which a species is found; assumes fishbase style,
 #'  with depths positive}
 #'  }
 #'  @param bathymetry_levels (also used in rbgmeriser function)
@@ -91,31 +91,31 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
 
 
   #fill in with average for genus,family, order in gulf
-  avgtlbygenus <- aggregate(TL~Genus,  species_input_fish, mean)
-  names(avgtlbygenus)[2] <- "tlbygenus"
-  avgtlbyfamily <- aggregate(TL~family,  species_input_fish, mean)
-  names(avgtlbyfamily)[2] <- "tlbyfamily"
-   species_input_fish <- merge( species_input_fish, avgtlbygenus, all.x = T)
-   species_input_fish <- merge( species_input_fish, avgtlbyfamily, all.x = T)
+  mean_TL_by_genus <- aggregate(TL~Genus,  species_input_fish, mean)
+  names(mean_TL_by_genus)[2] <- "TL_by_genus"
+  mean_TL_by_family <- aggregate(TL~family,  species_input_fish, mean)
+  names(mean_TL_by_family)[2] <- "TL_by_family"
+   species_input_fish <- merge( species_input_fish, mean_TL_by_genus, all.x = T)
+   species_input_fish <- merge( species_input_fish, mean_TL_by_family, all.x = T)
 
-   species_input_fish$TLfinal <-  species_input_fish$TL
+   species_input_fish$TL_final <-  species_input_fish$TL
    species_input_fish$TLcode <- NA
 
-   species_input_fish$TLcode[is.na( species_input_fish$TLfinal) == F] <- 1
+   species_input_fish$TLcode[is.na( species_input_fish$TL_final) == F] <- 1
 
-   species_input_fish$TLfinal[is.na( species_input_fish$TLfinal) == T &
-                              is.na( species_input_fish$tlbygenus)==F] <-
-     species_input_fish$tlbygenus[is.na( species_input_fish$TLfinal)==T & is.na( species_input_fish$tlbygenus)==F]
-   species_input_fish$TLcode[is.na( species_input_fish$TLfinal) == T & is.na( species_input_fish$tlbygenus) == F]<-
+   species_input_fish$TL_final[is.na( species_input_fish$TL_final) == T &
+                              is.na( species_input_fish$TL_by_genus)==F] <-
+     species_input_fish$TL_by_genus[is.na( species_input_fish$TL_final)==T & is.na( species_input_fish$TL_by_genus)==F]
+   species_input_fish$TLcode[is.na( species_input_fish$TL_final) == T & is.na( species_input_fish$TL_by_genus) == F]<-
     2
 
-   species_input_fish$TLfinal[is.na( species_input_fish$TLfinal) == T & is.na( species_input_fish$tlbyfamily) == F] <-
-     species_input_fish$tlbyfamily[is.na( species_input_fish$TLfinal) == T & is.na( species_input_fish$tlbyfamily) == F]
-   species_input_fish$TLcode[is.na( species_input_fish$TLfinal) == T & is.na( species_input_fish$tlbyfamily) == F] <-
+   species_input_fish$TL_final[is.na( species_input_fish$TL_final) == T & is.na( species_input_fish$TL_by_family) == F] <-
+     species_input_fish$TL_by_family[is.na( species_input_fish$TL_final) == T & is.na( species_input_fish$TL_by_family) == F]
+   species_input_fish$TLcode[is.na( species_input_fish$TL_final) == T & is.na( species_input_fish$TL_by_family) == F] <-
     3
 
   #for trophic level, do 1, 2, 3, 4, 5 bins
-   species_input_fish$TLbin <- round( species_input_fish$TLfinal)
+   species_input_fish$TLbin <- round( species_input_fish$TL_final)
 
   #depth levels
   #make depths match up to Atlantis model cuts
@@ -133,26 +133,26 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
   }
 
    #multiply fish base depths
-   species_input_fish$Min_depth <-  species_input_fish$Min_depth * -1
-   species_input_fish$Max_depth <-  species_input_fish$Max_depth * -1
+   species_input_fish$min_depth <-  species_input_fish$min_depth * -1
+   species_input_fish$max_depth <-  species_input_fish$max_depth * -1
 
 
   #get ranges for each species
    #subtract one here in case Minimum depth falls on cut point
-    species_input_fish$Min_depth [species_input_fish$Min_depth %in% bathymetry_levels] <-
-      species_input_fish$Min_depth [species_input_fish$Min_depth %in% bathymetry_levels] -1
-    species_input_fish$MinDepthbin <- bathymetry_levels[findInterval(species_input_fish$Min_depth,
+    species_input_fish$min_depth [species_input_fish$min_depth %in% bathymetry_levels] <-
+      species_input_fish$min_depth [species_input_fish$min_depth %in% bathymetry_levels] -1
+    species_input_fish$min_depth_bin <- bathymetry_levels[findInterval(species_input_fish$min_depth,
                                                                      bathymetry_levels,
                                                                      rightmost.closed = T)+1]
-    species_input_fish$MaxDepthbin= bathymetry_levels[findInterval(species_input_fish$Max_depth,
+    species_input_fish$max_depth_bin= bathymetry_levels[findInterval(species_input_fish$Max_depth,
                                                                    bathymetry_levels)]
     #assume we want to include all species, so move maximum depth ones to lowest level
-    species_input_fish$MaxDepthbin[!is.na(species_input_fish$Max_depth) &
+    species_input_fish$max_depth_bin[!is.na(species_input_fish$Max_depth) &
                                     species_input_fish$Max_depth <  bathymetry_levels[2]]   <-
       bathymetry_levels[2]
 
-    species_input_fish$DepthRangebin <- paste(species_input_fish$MinDepthbin,
-                                             species_input_fish$MaxDepthbin, sep=",")
+    species_input_fish$Depth_range_bin <- paste(species_input_fish$min_depth_bin,
+                                             species_input_fish$max_depth_bin, sep=",")
 
   #start making groupings
    species_input_fish$fish_type <- NA
@@ -180,7 +180,7 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
    #should be split. depth limits should fix some of these issues
 
    species_input_fish$group <- paste (species_input_fish$fish_type,
-                                      species_input_fish$DepthRangebin,
+                                      species_input_fish$Depth_range_bin,
                                       species_input_fish$TLbin,
                                       sep = ",")
 
@@ -204,7 +204,7 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
                                     all.x = T, all.y = T)
     species_input_combined <- merge(species_input_combined, species_input_mammals, all.x = T, all.y = T)
     species_input_combined <- merge(species_input, species_input_combined[,names(species_input_combined) %!in%
-                                                                    c("Max_depth", "Min_depth")], all.x  = T, all.y = T)
+                                                                    c("Max_depth", "min_depth")], all.x  = T, all.y = T)
 
         #write .csv file showing how many are in each group and each habitat of interest
     auto_groups_number <- reshape::cast (species_input_combined, group~., length)
