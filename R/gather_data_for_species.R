@@ -76,12 +76,12 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   maturity_info_AgeMatMin <- reshape::cast (SpecCode~., value="AgeMatMin", data = maturity_info, minnona)
   names(maturity_info_AgeMatMin)[names(maturity_info_AgeMatMin) == '(all)'] <- 'min_age_reprod'
-  maturity_info_AgeMatMin$Min_age_reprod[!is.finite(maturity_info_AgeMatMin$min_age_reprod)] <- NA
+  maturity_info_AgeMatMin$min_age_reprod[!is.finite(maturity_info_AgeMatMin$min_age_reprod)] <- NA
 
 
   maturity_info_LengthMatMin <- reshape::cast (SpecCode~., value="LengthMatMin", data = maturity_info, minnona)
   names(maturity_info_LengthMatMin)[names(maturity_info_LengthMatMin) == '(all)'] <- 'min_length_reprod'
-  maturity_info_LengthMatMin$Min_length_reprod[!is.finite(maturity_info_LengthMatMin$Min_length_reprod)] <- NA
+  maturity_info_LengthMatMin$min_length_reprod[!is.finite(maturity_info_LengthMatMin$min_length_reprod)] <- NA
 
 
 
