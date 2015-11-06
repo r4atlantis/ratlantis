@@ -1,0 +1,9 @@
+Tmax max_age
+M mean_M
+Agemat min_age_reprod
+NumAgeClasses num_of_age_classes
+averageindiviudalmorphology mean_individual_morphology
+
+if( "num_of_age_classes" %!in% names(species_input)){
+
+    if(species_input$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark"))

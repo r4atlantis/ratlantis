@@ -46,7 +46,7 @@
 #'  \item {group_name} {a name for the specific functional or focus group each organism
 #'  belongs in; these are suggested by create_functional_groups but may need to be
 #'  modified for readabilty (pick names you can remember and choose between!)}
-#'  \item {group_code} {a 3-letter abbreviation for group_name}
+#'  \item {group_code} {a 2 or 3-letter abbreviation for group_name}
 #'  }
 #' @keywords biology prm
 #' @details This function uses provided information to Atlantis parameters for each
@@ -70,25 +70,20 @@ generate_group_parameters <- function(species_data_location = getwd(),  species_
   species_input$scientific_name_underscore <- paste (species_input$Genus, species_input$species,
                                                      sep = "_")
 
-  species_input <- reshape2::melt(species_input, id.vars=c("atlantis_type",
-                                                          "group_name", "group_code",
-                                                          "scientific_name_underscore"))
+  species_input_groups <- reshape2::melt(species_input, id.vars=c("atlantis_type",
+    "group_name", "group_code",
+    "scientific_name_underscore"), 
+    measure.vars = c("TL_final", "mean_M", "max_age", "min_age_reprod", "mean_a", 
+      "mean_b", "mean_Loo", "mean_K"))
   #melting above allows us to remove all NA rows
-  species_input=reshape::cast(data=na.omit(species_input), atlantis_type + group_name +
-                       group_code ~ variable, mean)
-
-  #constant across all groups
-  Ntoall <- 0.175438596  #ratio of N to all other elements
-  drytowet=20  #ratio of wet to dry weight
-  sNtN=0.273972603	#ratio of structural N to total N
-  rNtN=0.726027397	#ratio of reserve N to total N
-  gtot=1000000	#ratio of metric tons to grams
-
-  #start making other columns in loop
-  species_input$TmaxfromM=log(.01)/-species_input$mean_M
-  species_input$MfromTmax=log(.01)/-species_input$mean_Tmax
-  species_input$ypa_FUNC=NA
+  species_input_groups=reshape::cast(data=na.omit(species_input_groups), atlantis_type + group_name +
+      group_code ~ variable, meannona)
   
+  #add in any groups that were missed due to all species missing all data
+  species_input <- merge (unique(species_input[,c("atlantis_type", "group_name", "group_code")]),
+    species_input_groups, all.x = T, all.y = T)
+  
+
   return(species_input)
 }
 

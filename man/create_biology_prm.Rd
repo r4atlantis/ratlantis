@@ -4,63 +4,33 @@
 \alias{create_biology_prm}
 \title{create_biology_prm function}
 \usage{
-create_biology_prm(species_data_location = getwd(), species_info_groups_csv)
+create_biology_prm(species_data_location = getwd(), group_data_csv)
 }
 \arguments{
 \item{species_data_location}{where csv file with species data is located (defaults to
 working directory).}
 
-\item{species_info_groups_csv}{name of csv file with the following column headers
-(all provided by merging "gather" functions (gather_groups_for_species, gather_data_for_species,
-gather_habitat_for_species):
+\item{species_info_groups_csv}{name of csv file that must contain the following column headers
+(all provided by merging generate_group_parameter function):
 \itemize{
- \item{Genus}
- \item{species}
- \item{family}
- \item{order}
- \item{class}
- \item{superclass}
- \item{phylum}
- \item{Trophic level information}{ One of the following for trophic level:
- TrophicLevel (developed by user),FoodTroph (from gather_data_for_species), or
- DietTroph (from gather_data_for_species).  These will be averaged.}
- \item{Min_Depth}{ highest depth at which a species is found; assumes fishbase style,
- with depths positive}
- \item{Max_Depth}{ lowest depth at which a species is found; assumes fishbase style,
- with depths positive}
- \item {atlantis_type} {classification for Atlantis group type.  For Vertebrates, these can be
+ \item{atlantis_type}
+ \item{group_name}
+ \item{group_code}
+ \item{TL_final}
+ \item{mean_M}
+ \item{max_age}
+ }
+ The following columns are optional (will be filled in by function if not
+ provided)
  \itemize{
- \item{Fish}
- \item{Bird}
- \item{Mammal}
- \item{Shark}
- }
- for invertebrates, see a long list at https://wiki.csiro.au/display/Atlantis/AtlantisGroupTypes
- }
+ \item{num_of_age_classes}
  }}
-
-\item{bathymetry_levels}{(also used in rbgmeriser function)}
-
-\item{map_location}{location of shape file used to create bgm; defaults to working
-directory}
-
-\item{map_name}{name of map used for bgm creation; can be produced by rbgmeriser
-function or created manually; defaults to map_for_bgmeriser (produced by
-rbgmeriser function)}
-
-\item{habitat_list}{list of habitat types to be included in the model (see
-gather_habitat_for_species for default list and potential options)}
 }
 \description{
 This function creates the biology prm file needed for Atlantis
 }
 \details{
-This function uses provided information to suggest functional group
-classification for Atlantis models.  Species are separated based on taxonomy,
-depth, habitat, and trophic-level groupings.  Given the available information,
-this focuses mostly on fish.  For depth placement, one of the following must be provided:
-bathymetry_levels OR map_location and map_name
-#'
+This function creates the biology prm file needed by Atlantis.
 }
 \keyword{biology}
 \keyword{prm}

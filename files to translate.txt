@@ -10,7 +10,7 @@ Files to translate
 
 
 *To Do (in shell form)
-  *create_atlantis_parameters
+  *generate_atlantis_parameters
     *from obtaining values for functional groups& generating atlantis parameters
   *create_biology_prm
     *from write the bio prim

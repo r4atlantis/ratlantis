@@ -33,9 +33,9 @@ gather_habitat_for_species):
  \item{"Trophic level information"}{ One of the following for trophic level:
  TrophicLevel (developed by user),FoodTroph (from gather_data_for_species), or
  DietTroph (from gather_data_for_species).  These will be averaged.}
- \item{Min_Depth}{ highest depth at which a species is found; assumes fishbase style,
+ \item{min_depth}{ highest depth at which a species is found; assumes fishbase style,
  with depths positive}
- \item{Max_Depth}{ lowest depth at which a species is found; assumes fishbase style,
+ \item{max_depth}{ lowest depth at which a species is found; assumes fishbase style,
  with depths positive}
  }}
 

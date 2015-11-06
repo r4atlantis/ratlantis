@@ -198,7 +198,6 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
 
    #invertebrates
 
-
     #merge files
     species_input_combined <- merge(species_input_birds, species_input_fish,
                                     all.x = T, all.y = T)
@@ -220,7 +219,7 @@ create_functional_groups <- function(species_data_location = getwd(),  species_i
 
       auto_groups <- merge(auto_groups_number,auto_groups_habitat)
 
-      write.csv(auto_groups, "recommended groups, totals, and habitat associations.csv")
+      write.csv(auto_groups, "recommended_groups,_totals,_and_habitat_associations.csv")
 
      }else{
 
