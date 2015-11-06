@@ -552,6 +552,20 @@ set using recruitRange and 0=only moderate variation in year class strength poss
 for top predators with few young per reproductive event, relative strength set using recruitRangeFlat).
 Defautlts to 1 for fish and sharks and 0 for all other vertebrates.
 
+Some flags only apply to vertebrates
+
+*{planktivore}
+*{bear_live_young}
+*{parental_care} 
+*{feed_while_spawning}
+            #flagq10 (vertsonly, default set to 1)
+            #flagtempsensitive (vertsonly, default set to 0)
+            #flaghabdepend (verts only, default set to 0)
+            #flagchannel (verts only, default set to 0)
+        
+#flagdem (default set to 1 for all living groups (not detritus)
+
+
 
 ####Longer version with explanations
 
