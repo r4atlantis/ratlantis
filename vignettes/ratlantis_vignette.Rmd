@@ -541,6 +541,9 @@ $S_{j}$ is assumed to be $$.3 * {growth rate\over{efficiency}}$$
 Local recruitment (1 = demersal and piscivorous fish recruit at parental locations, 0 = independent distribution) 
 defaults to 0 for all species.
 
+Proportion of each class spawning defaults to .2 for the last juvenile stage, .8
+for first adult, and 1 for all others.
+
 Vertebrate reproduction related flags. The flagrecruit entries refer to the recruitment function used.             
 1=const, 2=dependent on prim producers (Chla), 3=Beverton-Holt, 4=lognormal, 5=dependent on all plankton            groups not just Chla, 6=Bev-Holt with lognormal variation added, 7=Bev-Holt with encourage recovery              
 8=Bev-Holt with perscribed recovery, 9=Ricker, 10=Standard Bev-Holt (no explict use of spawn included)             

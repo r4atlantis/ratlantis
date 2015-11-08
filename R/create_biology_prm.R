@@ -20,7 +20,7 @@
 #'  \item{larval_duration}
 #'  \item{planktivore}
 #'  \item{bear_live_young}
-#'  \item{parental_care} 
+#'  \item{parental_care}
 #'  \item{feed_while_spawning}
 #'  \item{ext_reprod}{does group reproduce outside model area? 1 = yes, 0 = no}
 #'  \item{predator}{1 = yes, 0 = no}
@@ -28,9 +28,12 @@
 #'  \item{KS}
 #'  \item{KF}
 #'  \item{max}
-#'  \item{thresh}
+#'  \item{catch_grazer}
+#'  \item{assessed}
+#'  \item{cover}
+#'  \item{silicon_dep}
 #'  }
-#'  The following columns are optional (will be filled in by function if not 
+#'  The following columns are optional (will be filled in by function if not
 #'  provided)
 #'  \itemize{
 #'  \item{num_of_age_classes}
@@ -52,42 +55,129 @@
 #'  \item{active}{ 2 = no preference, 1 = day, 0 = night,defaults to 2}
 #'  \item{k_tur} {defaults to .1}
 #'  \item{k_irr} {defaults to 1}
+#'  \item{temp_coefft_a} {defaults to .851}
+#'  \item{q10}{defaults to 2}
+#'  \item{q10_method}`{default sto 0}
+#'  \item{q10_optimal_temp}{defaults to 0}
+#'  \item{q10_correction}{defaults to 0}
+#'  \item{wc}{defaults to .01}
+#'  \item{turned_on}{defaults to 1 (=yes, 0=no)  groups$IsTurnedOn=1
+#'  \item{overwinter}{defaults to 0}
+#'  \item{horiz_migrates}
+#'  \item{migrates_out_of_model}{defaults to 0}
+#'  \item{low}
+#'  \item{thresh}
+#'  \item{sat}
+#'  \item{Kcov_juv}{Exponent of refuge relationship with biogenic habitat, defaults to 3}
+#'  \item{Kcov_ad}{Exponent of refuge relationship with biogenic habitat, defaults to 3}
+#'  \item{Bcov_juv}{Coefficient of refuge relationship with biogenic habitat, defaults to .6}
+#'  \item{Bcov_ad}{Coefficient of refuge relationship with biogenic habitat, defaults to .6}
+#'  \item{Acov_juv}{scalar for relationship with biogenic habitat, defaults to 1}
+#'  \item{home_range}{defaults to 1}
+#'  \item{overlap}{defaults to 1}
+#'  \item{flag_X_migrate}{defaults to 0}
+#'  \item{migrate_times}{days entering and leaving models, separated by a space
+#'  (defaults to leave 364, enter 1)}
+#'  \item{migrate_times_juv}{days entering and leaving models, separated by a space
+#'  (defaults to leave 364, enter 1)}
+#'  \item{migrate_periods}{defaults to 0}
+#'  \item{return_stock}{defaults to 0}
+#'  \item{fsm}{Proportional increase in size  while outside model domain}
+#'  \item{p_stock}{verts only, scalars to determine, defaults to 1 assuming no
+#'  stocks considered (just one big group)}
+#'  \item{p_stock_juv}{verts only, scalars to determine, defaults to 1
+#'  assuming no stocks considered (just one big group)}
+#'  \item{kup}{defaults to 1 ,deals with gape limitations, required for all predators}
+#'  \item{klp}{defaults to .01, deals with gape limitations, required for all
+#'  predators}
+#'  \item{pr}{preference for rebuilding, defaults to 3 for fish and mammals,
+#'  5 for bird and fish}
+#'  \item{min_length_reprod}{defaults to 0}
+#'  \item{kdep}{depth organisms can dig into, not needed for primary producers,
+#'  defaults to .1}
+#'  \item{ka}{scaling of respiration vs weight, defaults .025 for fish, .021
+#'  for mammals, .024 for birds, .014 for all others}
+#'  \item{kb}{exponent of respiration vs weight, defaults to .8}
+#'  \item{klys}{only primary producers defaults to 0}
+#'  \item{m_L}{tuning parameter, defaults to 0}
+#'  \item{m_Q}{tuning parameter, needed for all living except primary producers,
+#'  defaults to 0}
+#'  \item{m_S}{tuning parameter for phytobenthos and seagrass,defaults to 0}
+#'  \item{m_Starve}{only for verts, defaults to 0}
+#'  \item{m_D}{tuning parameter, oxygen mortality due to ambient, inverts except
+#'  primary producers,tuning parameter, oxygen mortality due to depth, inverts except
+#'  primary producers,defaults to .001}
+#'  \item{m_O}{defaults to .01}
+#'  \item{k_02}{lethal oxgyen level, inverts except primary producers,defaults to .5}
+#'  \item{k_O2_lim}{defults to 10}
+#'  \item(min_02){verts only, defaults to 0}
+#'  \item{mS_FD}{verts only, defaults to 0 (mortatlity due to fish not included
+#'  in model), value for each season, separated by a space (defaults to 0)}
+#'  \item{mS_SB}{verts only, defaults to 0 (mortatlity due to birds and mammals
+#'  not included in model), value for each season, separated by a space}
+#'  \item{KSPA}{defaults to guild values, verts only}
+#'  \item{FSP}{ddefaults to guild values, verts only}
+#'  \item{rec_stock}{recruitment param for diffferent stocks of verts, defaults to 1 (no stocks)}
+#'  \item{min_spawn_temp}{defaults to minimum temp in model}
+#'  \item{max_spawn_temp}{defaults to maximum temp in model}
+#'  \item{stock_struct}{verts only, defaults to 1, input as number for each box separated by a space}
+#'  \item{vert_stock_struct}{verts only, defaults to 1,input as number for each box separated by a space}
+#'  \item{pop_ratio_stock}{defaults to 1}
+#'  \item{remin_contrib}{ for small_infaunal, defaults to 0}
+#'  \item{ddend}{is movement of group density-dependent, defaults to 0}
+#'  \item{in_WC}{defaults to 0}
+#'  \item{in_sed}{defaults to 0}
+#'  \item{epi}{default to 0}
+#'  \item{vertically_migrates}{defaults to 0}
+#'  \item{horizontally_migrates}{defaults to 0}
+#'  \item{fished}{defaults to 0, is it targeted in fisheries}
+#'  \item{impacted}{defaults to 0, is it impacted by fisheries}
+#'  \item{TAC}{defaults to 0, is it controlled by a TAC}
+#'  \item{predcase}
 #'  }
 #'  @param invert_mum_and_clearance_csv name of csv file that must contain the following column headers
 #'  \itemize{
 #'  \item{group_code}
 #'  \item{mum}
 #'  \item{clearance}
-
+#'  \item{KI}
+#'  \item{KN}
+#'  \item{KS}
+#'  \item{KF}
+#'
 #'  }
-#' @details This function creates the biology prm file needed by Atlantis. 
+#'  @param flag_data_csv
+#' @details This function creates the biology prm file needed by Atlantis.
 #' @keywords biology prm
 #' @export
 
-create_biology_prm <- function(species_data_location = getwd(),  group_data_csv){
-  
-  species_input <- read.csv(paste(species_data_location, "/", group_data_csv, sep=""),
-    header = T)  
-  
-  
+create_biology_prm <- function(species_data_location = getwd(),  species_input_csv){
+
+  species_input <- read.csv(paste(species_data_location, "/", species_input_csv, sep=""),
+    header = T)
+
+  flag_data <- read.csv(paste(species_data_location, "/",flag_data_csv, sep=""),
+                        header=T)
+
+
   #constant across all groups
   Ntoall <- 0.175438596  #ratio of N to all other elements
   drytowet <- 20  #ratio of wet to dry weight
   sNtN <- 0.273972603	#ratio of structural N to total N
   rNtN <- 0.726027397	#ratio of reserve N to total N
   gtot <- 1000000	#ratio of metric tons to grams
-  
+
   #start making other columns in loop
   species_input$T_max_from_M <- log(.01)/-species_input$mean_M
   species_input$M_from_T_max <- log(.01)/-species_input$max_age
   species_input$ypa_FUNC <- NA
   species_input$mat_FUNC <- NA
-  
-  
+
+
   #set number of age classes if not provided by user
     if( "num_of_age_classes" %!in% names(species_input)){
-    
-    for (i in 1:nrow(species_input)){  
+
+    for (i in 1:nrow(species_input)){
       if(species_input$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark")){
         species_input$num_of_age_classes[i] <- 10
       }else {species_input$num_of_age_classes[i] <- 1}
@@ -101,45 +191,45 @@ create_biology_prm <- function(species_data_location = getwd(),  group_data_csv)
         stop(message = "Provided number of age classes contains an NA")
       }
     }
-  
-  
+
+
   #use independent M estimate if it exists to calculate years per class
   # for vertebrate groups
-  for (i in 1:nrow(species_input)){  
+  for (i in 1:nrow(species_input)){
     if(species_input$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark")){
       if(is.na(species_input$mean_M[i]) == T){
         species_input$ypa_FUNC[i] <- species_input$max_age[i]/species_input$num_of_age_classes[i]
       }
-      
+
       else{species_input$ypa_FUNC[i] <- species_input$T_max_from_M[i]/species_input$num_of_age_classes[i]}
     }
   }
-  
+
   #for vertebrates, determine age class where starts
-  for (i in 1:nrow(species_input)){  
+  for (i in 1:nrow(species_input)){
     if(species_input$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark")){
       species_input$mat_FUNC[i]=ceiling(species_input$min_age_reprod[i]/species_input$ypa_FUNC[i])
     }
     #set maturity at 0 for inverts, other that are just pools
     else{species_input$mat_FUNC[i]=0}
   }
-  
+
   species_input$mat_FUNC[is.na(species_input$mat_FUNC)] <- 2
-  
-  
+
+
   #energetics from Hanson 1997 (Horne 2010)
   #maximum feeding rate (clearance) based on allometric relationships between weight and feeding
   #see Anderson 2010 for example
   cageneral <- .3
   cbgeneral <- .7
-  
+
   if( "ca" %!in% names(species_input)){
   species_input$ca <- cageneral
   }
   if( "cb" %!in% names(species_input)){
   species_input$cb <- cbgeneral
   }
-  
+
   #calculate mum and clearance for vertebrates, also need weights, all for average individual in each size class
 
   #for classes 1-10
@@ -148,7 +238,7 @@ create_biology_prm <- function(species_data_location = getwd(),  group_data_csv)
   to_be_included <- c("atlantis_type", "AgeClass", "ActualAge", "WetWeight",
     "StructN", "ResN", "mum", "clearance", "Decay", "PropAgeDist", "PropJuv", "PropAdults",
     "PropBiomass", "PropSpawning")
-  
+
   #make matrix to hold data
   #take number of ages classes plus a 0 class for all vertebrate
   mean_individual_morphology <- matrix(NA, sum(sum(species_input[species_input$atlantis_type
@@ -157,101 +247,101 @@ create_biology_prm <- function(species_data_location = getwd(),  group_data_csv)
     length(to_be_included)+1)
   mean_individual_morphology <- as.data.frame(mean_individual_morphology)
   names(mean_individual_morphology)=c("group_code", to_be_included)
-  
+
   #loop over species, variables, and age classes
   #consider recruits as 0 age class
-  
+
   #to create this, loop over group_code, age classes, and use counter
-  counter <- 1                                   
-  
+  counter <- 1
+
   for(i in 1:nlevels(species_input$group_code)){
     #add one for larvale group
     if(species_input$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark")){
-      for (j in 1:(species_input[species_input$group_code == 
+      for (j in 1:(species_input[species_input$group_code ==
           levels(species_input$group_code)[i], "num_of_age_classes"]+1)){
-        mean_individual_morphology$atlantis_type[counter] = 
-          as.character(species_input[species_input$group_code == 
+        mean_individual_morphology$atlantis_type[counter] =
+          as.character(species_input[species_input$group_code ==
               levels(species_input$group_code)[i], "atlantis_type"])
         mean_individual_morphology$group_code[counter]=levels(species_input$group_code)[i]
         mean_individual_morphology$AgeClass[counter]=j-1
         counter <- counter+1
       }}
   }
-  
+
   #fill in information with loops
-  
+
   #do age classes and wet weights for verts
-  #for each age class, this finds actual age, uses VB equation to estimate L, and 
+  #for each age class, this finds actual age, uses VB equation to estimate L, and
   #then use length-weight relationship to estimate wet weight
-  
+
   for (i in 1:nrow(mean_individual_morphology)){
     if(mean_individual_morphology$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark")){
       mean_individual_morphology$ActualAge[i] <- mean_individual_morphology$AgeClass[i]*
         species_input[species_input$group_code == mean_individual_morphology$group_code[i], "ypa_FUNC"]
       if(mean_individual_morphology$AgeClass[i] > 0){
-        mean_individual_morphology$WetWeight[i]  <- species_input[species_input$group_code == 
+        mean_individual_morphology$WetWeight[i]  <- species_input[species_input$group_code ==
             mean_individual_morphology$group_code[i], "mean_a"]*
-          (species_input[species_input$group_code == mean_individual_morphology$group_code[i], 
+          (species_input[species_input$group_code == mean_individual_morphology$group_code[i],
             "mean_Loo"]*(1-exp(-1
-            *species_input[species_input$group_code == mean_individual_morphology$group_code[i], 
+            *species_input[species_input$group_code == mean_individual_morphology$group_code[i],
               "mean_K"]*
               mean_individual_morphology$ActualAge[i]
-          )))^species_input[species_input$group_code == mean_individual_morphology$group_code[i], 
+          )))^species_input[species_input$group_code == mean_individual_morphology$group_code[i],
             "mean_b"]
-        
+
         if(mean_individual_morphology$atlantis_type[i] %in% c("fish", "shark")){
-          mean_individual_morphology$Decay[i]<- exp(-1*species_input[species_input$group_code 
+          mean_individual_morphology$Decay[i]<- exp(-1*species_input[species_input$group_code
             == mean_individual_morphology$group_code[i], "mean_M"]*
-              (mean_individual_morphology$AgeClass[i]-1)*species_input[species_input$group_code 
+              (mean_individual_morphology$AgeClass[i]-1)*species_input[species_input$group_code
                 == mean_individual_morphology$group_code[i], "ypa_FUNC"])
         } else if(mean_individual_morphology$atlantis_type[i] == "mammal"){
           #need to add silers group_code
-          mean_individual_morphology$Decay[i] <- exp(-1*species_input[species_input$group_code 
+          mean_individual_morphology$Decay[i] <- exp(-1*species_input[species_input$group_code
             == mean_individual_morphology$group_code[i], "mean_M"]*
-              (mean_individual_morphology$AgeClass[i]-1)*species_input[species_input$group_code 
+              (mean_individual_morphology$AgeClass[i]-1)*species_input[species_input$group_code
                 == mean_individual_morphology$group_code[i], "ypa_FUNC"])
         }else if(mean_individual_morphology$atlantis_type[i] == "bird"){
         #birds shoudl be constant
-          mean_individual_morphology$Decay[i] <- exp(-1*species_input[species_input$group_code == 
+          mean_individual_morphology$Decay[i] <- exp(-1*species_input[species_input$group_code ==
               mean_individual_morphology$group_code[i], "mean_M"]*
-              (mean_individual_morphology$AgeClass[i]-1)*species_input[species_input$group_code == 
+              (mean_individual_morphology$AgeClass[i]-1)*species_input[species_input$group_code ==
                   mean_individual_morphology$group_code[i], "ypa_FUNC"])
         }
-        
-        
+
+
       } else {
-        mean_individual_morphology$WetWeight[i] <- species_input[species_input$group_code == 
+        mean_individual_morphology$WetWeight[i] <- species_input[species_input$group_code ==
             mean_individual_morphology$group_code[i], "mean_a"] *
-          
-          (species_input[species_input$group_code == mean_individual_morphology$group_code[i], 
+
+          (species_input[species_input$group_code == mean_individual_morphology$group_code[i],
             "mean_Loo"]*(1-exp(-1
             *species_input[species_input$group_code == mean_individual_morphology$group_code[i], "mean_K"]*
-              species_input[species_input$group_code == mean_individual_morphology$group_code[i], 
+              species_input[species_input$group_code == mean_individual_morphology$group_code[i],
                 "larval_duration"]/365
-          )))^species_input[species_input$group_code == mean_individual_morphology$group_code[i], 
+          )))^species_input[species_input$group_code == mean_individual_morphology$group_code[i],
             "mean_b"]
       }
     }
   }
-  
-  
-  
+
+
+
   mean_individual_morphology$StructN <- mean_individual_morphology$WetWeight*Ntoall/drytowet*sNtN*1000
   mean_individual_morphology$ResN <- mean_individual_morphology$WetWeight*Ntoall/drytowet*rNtN*1000
-  
+
   #mum and clearance for verts, below will be NA for others due to lack of wetweights
-  
+
   for (i in 1:nrow(mean_individual_morphology)){
     if(mean_individual_morphology$AgeClass[i]>0){
       mean_individual_morphology$clearance[i]=species_input[species_input$group_code == mean_individual_morphology$group_code[i], "ca"]*(mean_individual_morphology$StructN[i]+
           mean_individual_morphology$ResN[i])^species_input[species_input$group_code == mean_individual_morphology$group_code[i], "cb"]*.8*3.3
       mean_individual_morphology$mum[i]=10 * mean_individual_morphology$clearance[i]
-      mean_individual_morphology$PropAgeDist[i]=mean_individual_morphology$Decay[i]/ 
+      mean_individual_morphology$PropAgeDist[i]=mean_individual_morphology$Decay[i]/
         sum(mean_individual_morphology[mean_individual_morphology$AgeClass>0 & mean_individual_morphology$group_code == mean_individual_morphology$group_code[i],
           "Decay"])
-      if(mean_individual_morphology$AgeClass[i] < species_input[species_input$group_code == 
+      if(mean_individual_morphology$AgeClass[i] < species_input[species_input$group_code ==
           mean_individual_morphology$group_code[i], "mat_FUNC"]){
-        mean_individual_morphology$PropJuv[i]=mean_individual_morphology$Decay[i]/ 
+        mean_individual_morphology$PropJuv[i]=mean_individual_morphology$Decay[i]/
           sum(mean_individual_morphology[mean_individual_morphology$AgeClass>0 & mean_individual_morphology$group_code == mean_individual_morphology$group_code[i]&
               mean_individual_morphology$AgeClass<species_input[species_input$group_code == mean_individual_morphology$group_code[i], "mat_FUNC"],
             "Decay"])
@@ -259,10 +349,10 @@ create_biology_prm <- function(species_data_location = getwd(),  group_data_csv)
         if(mean_individual_morphology$AgeClass[i]<(species_input[species_input$group_code == mean_individual_morphology$group_code[i], "mat_FUNC"]-1)){
           mean_individual_morphology$PropSpawning[i]=0}
         else{mean_individual_morphology$PropSpawning[i]=.2}
-        
+
       } else{
         mean_individual_morphology$PropJuv[i]=0
-        mean_individual_morphology$PropAdults[i]=mean_individual_morphology$Decay[i]/ 
+        mean_individual_morphology$PropAdults[i]=mean_individual_morphology$Decay[i]/
           sum(mean_individual_morphology[mean_individual_morphology$AgeClass>0 & mean_individual_morphology$group_code == mean_individual_morphology$group_code[i]&
               mean_individual_morphology$AgeClass>=species_input[species_input$group_code == mean_individual_morphology$group_code[i], "mat_FUNC"],
             "Decay"])
@@ -270,54 +360,54 @@ create_biology_prm <- function(species_data_location = getwd(),  group_data_csv)
           mean_individual_morphology$PropSpawning[i] = .8}
         else{mean_individual_morphology$PropSpawning[i]  =1}
       }
-      
-      
+
+
     } else{
       mean_individual_morphology$mum[i]=(mean_individual_morphology$StructN[i]+
           mean_individual_morphology$ResN[i])/(species_input[species_input$group_code == mean_individual_morphology$group_code[i], "larval_duration"]/365)/365
     }
   }
-  
-  
+
+
   #figure out invert mum and clearance formula
     #for now, use values from other models
   invert_mum_clearance <- read.csv("invert_mum_and_clearance.csv")
-  mean_individual_morphology <- merge (mean_individual_morphology, invert_mum_clearance, 
+  mean_individual_morphology <- merge (mean_individual_morphology, invert_mum_clearance,
     all.x=T, all.y=T)
-    
-#   
-  #parameters needed for availability calculator 
+
+#
+  #parameters needed for availability calculator
     if ("juv_eff" %in% names(species_input)) {species_input$juv_eff <- .1}
     if ("adult_eff" %in% names(species_input)) {species_input$adult_eff <- .1}
 
   for (i in 1:nrow(species_input)){
-    average_individual <- mean_individual_morphology[mean_individual_morphology$group_code == 
+    average_individual <- mean_individual_morphology[mean_individual_morphology$group_code ==
   species_input$group_code[i],]
-    average_juvenile=mean_individual_morphology[mean_individual_morphology$group_code == 
-        species_input$group_code[i] & 
-        mean_individual_morphology$AgeClass<species_input$mat_FUNC[i] 
+    average_juvenile=mean_individual_morphology[mean_individual_morphology$group_code ==
+        species_input$group_code[i] &
+        mean_individual_morphology$AgeClass<species_input$mat_FUNC[i]
       & mean_individual_morphology$AgeClass!=0,]
-    average_adult=mean_individual_morphology[mean_individual_morphology$group_code == 
-        species_input$group_code[i]& 
+    average_adult=mean_individual_morphology[mean_individual_morphology$group_code ==
+        species_input$group_code[i]&
         mean_individual_morphology$AgeClass>=species_input$mat_FUNC[i],]
-    
+
     #juvenile calculations
     species_input$avgjuvN[i] <- sum(average_juvenile$WetWeight*average_juvenile$PropJuv) *
       Ntoall * 1000/drytowet
     species_input$JuvGrowthRate[i] <- sum(average_juvenile$mum * average_juvenile$PropJuv) /
       species_input$avgjuvN[i]
     species_input$Juvclearance[i] <- sum(average_juvenile$clearance * average_juvenile$PropJuv)
-    
+
     #adult calculations
     species_input$avgadultN[i] <- sum(average_adult$WetWeight*average_adult$PropAdult)*Ntoall*1000/drytowet
     species_input$AdultGrowthRate[i] <- sum(average_adult$mum*average_adult$PropAdult)/species_input$avgadultN[i]
-    species_input$Adultclearance[i] <- sum(average_adult$clearance*average_adult$PropAdult) 
-    
+    species_input$Adultclearance[i] <- sum(average_adult$clearance*average_adult$PropAdult)
+
   }
-  
+
   species_input$JuvSj <- .3*species_input$JuvGrowthRate/species_input$juv_eff
   species_input$AdultSj <- .3*species_input$AdultGrowthRate/species_input$adult_eff
-  
+
   #make columns for  type of recruitment, local recruitment, and year class variation
   if ("recruit_code" %!in% names (species_input)){
     species_input$recruit_code <- NA
@@ -334,13 +424,13 @@ create_biology_prm <- function(species_data_location = getwd(),  group_data_csv)
     species_input$rep_strength[species$input$atlantis.type %in% c("bird", "mammal")] <- 0
     species_input$rep_strength[species$input$atlantis.type %in% c("fish", "shark")] <- 0
   }
-  
+
   for ( i in 1:nrow(species_input)){
-    
+
     if(species_input$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark")){
-      species_input$LocalRec[i] <- 0    
+      species_input$LocalRec[i] <- 0
       if(species_input$Vertebrate.Type[i] == "mammal"){
-        species_input$Recruitgroup_code[i] = 12; 
+        species_input$Recruitgroup_code[i] = 12;
       species_input$RepStrength[i]=0}
       else if(species_input$Vertebrate.Type[i]=="bird"){
         species_input$Recruitgroup_code[i] = 12
@@ -353,29 +443,33 @@ create_biology_prm <- function(species_data_location = getwd(),  group_data_csv)
       species_input$RepStrength[i]=1}
     }
   }
-  
+
   if( "predator" %!in% names(species_input)){
     species_input$predator <- NA
-    if (species_input$predator[species_input$TL_final > 2.5] <- 1
-    if (species_input$predator[is.na(species_input$predator)] <- 0
+    species_input$predator[species_input$TL_final > 2.5] <- 1
+    species_input$predator[is.na(species_input$predator)] <- 0
   }
-  
-  if( "jack_a" %!in% names(species_input)){
+
+  if( "pred_case" %!in% names(species_input)){
+    species_input$pred_case[species_input$predator == 1] <- 0
+  }
+
+   if( "jack_a" %!in% names(species_input)){
     species_input$jack_a <- 0
   }
-  
+
   if( "jack_b" %!in% names(species_input)){
     species_input$jack_b <- 0
   }
-  
+
   if( "recover_mult" %!in% names(species_input)){
     species_input$recover_mult <- 1
   }
-  
+
   if( "recover_start" %!in% names(species_input)){
     species_input$recover_mult <- 10000000
   }
-  
+
   if( "PP" %!in% names(species_input)){
     species_input$PP <-2000
   }
@@ -395,24 +489,23 @@ create_biology_prm <- function(species_data_location = getwd(),  group_data_csv)
   if( "flag_channel" %!in% names(species_input)){
     species_input$flag_channel <- 0
   }
-  
-  species_input$pred_case <- 0
+
 
   if( "flag_X_day" %!in% names(species_input)){
     species_input$flag_X_day <- 2
   }
-  
+
   if( "active" %!in% names(species_input)){
     species_input$active <- 2
   }
-  
+
   if( "k_tur" %!in% names(species_input)){
     species_input$k_tur <- .1
   }
   if( "k_irr" %!in% names(species_input)){
     species_input$k_irr <- 1
   }
-    
+
   if( "temp_coefft_a" %!in% names(species_input)){
       species_input$temp_coefft_a <- .851
   }
@@ -431,141 +524,256 @@ create_biology_prm <- function(species_data_location = getwd(),  group_data_csv)
   if( "wc" %!in% names(species_input)){
     species_input$wc <- 0.01
   }
- 
 
-#   #primary producer  requirments, needed for PHYTOBEN, MICROPHYTOBEN, LG_ AND SMALL_PHY, DINOFLAG, SEAGRASS, )
-#   #KI, KN, KS, KF (light, nutrients, silicon, micronutrients)
-#   #onlyneeds KS if IsSiliconDep=1
-#   #use midrange of suggested values if not supplied
-#   #PropSpawning (in average_individualmorpholgy, for verts, defaults to .2 of last juvenile, .8 of first adult, all thereafter)
-#   #max (maximum biomass for epibenthic and large inflaunal (SM_INF AND LG_INF, not plankton or detrisus) groups
-#   #_low and _thresh and _sat (filter feeders)
-#   #defaults to 500, 2500, 4000
-#   #habitat parameters for verts only
-#   #Kcov_juv and Kcov_ad Exponent of refuge relationship with biogenic habitat, defaults to 3 for adults and juveniles
-#   #Bcov-juv and Bcov_ad Coefficient of refuge relationship with biogenic habitat, defaults to .6 for fish and .3 for other inverts 
-#   #Acov_juv scalar for relationship with biogenic habitat, defaults to 1
-#   #min and max depth (can be pulled from specieslist data, defaults to 0 and maxdepth of model for all living species
-#   #except primary producer, PHYTOBEN, MICROPHYTOBEN, LG_ AND SMALL_PHY, DINOFLAG, SEAGRASS))
-#   #homerange (all except primary prodcuer, defaults to 1)
-#   #overlap (whether home ranges overlap, defaults to 0, all except primary producer)
-#   #swimspeed (vertsonly, defaults to 12500 for fish, 15000 for birds, 1000 for inverts, 20000 others
-#   #min and max move temp and salt (vertsonly, defaults to bounds outsdie of model to have no effect)
-#   #Migration parameters (for any speie you want to consider moving out of model and has HorizMigrates=1)
-#   #flagXMigrate(number of times leaving model domain ) (defaults to 0)
-#   #for no age class, just 1 (yes) or 0
-#   #for ages classes (Verts), max number of times adults or juveniles must leave the model area
-#   #Migrate_Times or Migrate_Times_Juv (verts)
-#   #days entering and leaving models, separated by a space (defaults to leave 364, enter 1)
-#   #Migrate_Returns
-#   #days returning to models, separated by a space
-#   #Migrate Periods
-#   #defaults to 0
-#   #ReturnStock 
-#   #defaults to 0
-#   #FSM (external migration survivorship)
-#   #defaults to 1
-#   #FSP (Proportional increase in size  while outside model domain)
-#   #pSTOCK and pSTOCK_j(verts only, scalars to determine, defaults to 1 assuming no stocks considered (just one big group) )
-#   #KUP and KLP (for all isPredator=1)
-#   #klp defaults to 0.01
-#   #kup defaults to 1    
-#   #these defaults effectively remove say you can eat anything smaller than you (I think)
-#   #pR (preference for rebuilding, verts only, defaults to 3 for fish and mammals and inverts, 5 for others)
-#   #min_li_mat (verts only, minimum length at maturity, defaults to 0)
-#   #KDEP (depth organisms can dig into, not needed for primary producers, defaults to .1 but see Beth's recommendations)
-#   #KA (scaling of resp vs weight, verts only, defaults to .025 for fish, .01 reptiles, .024 birds, .021 mammals, .014 inverts)
-#   #KB (expoent of resp vs weight, verts only, defaults to .8)
-#   #KLYS (only primary producers, defaults to 0)
-#   #mL (major tuning parameter, defaults to 0)
-#   #mQ (turnign parameter, all living except primary producers, set to 0)
-#   #mS (tuning parameter, phytobenthos and seagrass, set to 0)
-#   #mStarve (verts only, defaults to 0)
-#   #mD (tuning parameter, oxygen mortality due to depth, inverts except primary producers, defautls to .001)
-#   #mO (tuning parameter, oxygen mortality due to ambient, inverts except primary producers, defautls to .01)
-#   #KO2 (lethal oxgyen level, inverts except primary producers, defautls to .5, )
-#   #KO2lim (defaults to 10)
-#   #min_O2, verts only, defaults to 0
-#   #mS_FD, verts only, defaults to 0 (mortatlity due to fish not included in model)
-#   #value for each season, separated by a space (defaults to 0)
-#   #mS_SB, verts only, defaults to 0 (mortatlity due to birds and mammals not included in model)
-#   #value for each season, separated by a space (defaults to 0)
-#   #KSPA and FSP, defaults to guild values, verts only
-#   #recSTOCK, recruitment param for diffferent stocks of verts, defaults to 1 (no stocks)
-#   #min_spawn_temp, max_spawn_temp, verts, defaults to min and max temps
-#   #stock_struct and vert_stock_struct, vertsonly, defaults to 1 across all boxes or layers, 
-#   #input as number for each box separated by a space
-#   #popratioStock
-#   #group_code here assumes no stocks and uses dummy values here , all verts
-#   #remin_contrib, for small_infaunal, defautls to 0
-#   
-#   
-#   
-#   
-#   #is movement of group density dependendent?  
-#   #for now, use cimage 
-#   ddepend=read.csv("CIMAGE ddepend.csv")
-#   species_input=merge(species_input, ddepend, all.x=T)
-#   
-#   
-#   #add columsn needed for groups.csv file
-#   #notes here https://wiki.csiro.au/display/Atlantis/Functional+Group+Definition+File
-#   #first, order species_input so indexes make sense
-#   species_input=species_input[order(species_input$Vertebrate.Type, species_input$Invert.Type,species_input$group_code),]
-#   species_input$Index=seq(from=0, to=(nrow(species_input)-1))
-#   #for migration and sediment info, defaults to csv file that says no migration if in sediment or epibenthic or not alive (detritus)
-#   #columsn produced here:  inWC, inSed, Epi, VerticallyMigrates, HorizontallyMigrates
-#   
-#   invertdefaults=read.csv("Invert.types.csv")
-#   #this was added to put in defaults (such as in wc, epi, hmigrate, vmigrate), but I think some of these may be more precisely added earlier 
-#   #remove any already added
-#   invertdefaults=invertdefaults[,names(invertdefaults) %!in% names(cimageflagsforalloroddgroupsfinal)[2:dim(cimageflagsforalloroddgroupsfinal)[2]]]     
-#   species_input=merge(species_input,invertdefaults, all.x=T)
-#   
-#   #for isFished, eventually connect to list of fisheries directly
-#   species_input$isFished=0
-#   species_input$isImpacted=0
-#   species_input$isTAC=0
-#   #these can eventually be tied directly to trophic interactions
-#   #below sets predcase from isPredator and vice versa, assuming one is entered
-#   for (i in 1:nrow(species_input)){
-#     if("predcase" %in% colnames(species_input)){
-#       if( is.na (species_input$predcase[i])==F) species_input$isPredator[i]=1
-#       else species_input$isPredator[i]=0
-#     }
-#     
-#     else if ("isPredator" %in% colnames (species_input))
-#       if(species_input$isPredator[i]==1) species_input$predcase[i]=0
-#   }
-#   
-#   species_input$isCatchGrazer=0
-#   #these need to be corrected manually
-#   species_input$isAssessed=0
-#   species_input$isCover=0
-#   
-#   species_input$IsSiliconDep=0
-#   species_input[!is.na(species_input$KS)& species_input$KS>0,]$KS=1
-#   species_input$isOverWinter=0
-#   
-#   #make sure you have MigratesoutofModel value for all HorizMigrates=1
-#   for (i in 1:nrow(species_input)){
-#     if(species_input$HorizontallyMigrates[i]==1 & is.na(species_input$Migratesoutofmodel[i])==T) species_input$Migratesoutofmodel[i]=0
-#   }
-#   
-#   
-#   #write the output, then modify any columns as needed
-#   write.csv(species_input, "Biological parameters for focus groups.csv", row.names=F)
-#   write.csv(mean_individual_morphology, "Rates for individuals and age classes.csv", row.names=F)
-#   
-#   #also make habitat file
-#   #read in habitat file with invert.type, and other changes, (same as for species_input)
-  
-  
-  
-  
+  if("turned_on" %!in% names(species_input)){
+    species_input$turned_on <- 1
+  }
 
-  return(species_input)
-  
+  if("low" %!in% names(species_input)){
+    species_input$low <- 500
+  }
+  if("thresh" %!in% names(species_input)){
+    species_input$thresh <- 2500
+  }
+  if("sat" %!in% names(species_input)){
+    species_input$sat[species_input$atlantis.type %in% c("fish")] <- 4000
+  }
+
+  if("Kcov_juv" %!in% names(species_input)){
+    species_input$Kcov_juv[species_input$atlantis.type %in% c("fish", "mammal", "shark",
+                                                         "bird")] <- 3
+  }
+
+  if("Kcov_ad" %!in% names(species_input)){
+    species_input$Kcov_ad[species_input$atlantis.type %in% c("fish", "mammal", "shark",
+                                                         "bird")] <- 3
+  }
+
+  if("Bcov_juv" %!in% names(species_input)){
+    species_input$Bcov_juv[species_input$atlantis.type %in% c("fish", "mammal", "shark",
+                                                              "bird")] <- .6
+  }
+
+  if("Bcov_ad" %!in% names(species_input)){
+    species_input$Bcov_ad[species_input$atlantis.type %in% c("fish", "mammal", "shark",
+                                                             "bird")] <- .6
+  }
+  if("Acov_juv" %!in% names(species_input)){
+    species_input$Acov_juv[species_input$atlantis.type %in% c("fish", "mammal", "shark",
+                                                              "bird")] <- 1
+  }
+  if("home_range" %!in% names(species_input)){
+    species_input$home_range <- 1
+  }
+  if("overlap" %!in% names(species_input)){
+    species_input$overlap <- 1
+  }
+
+  if("flag_X_migrate" %!in% names(species_input)){
+    species_input$flag_X_migrate <- 0
+  }
+
+  if("migrates_times" %!in% names(species_input)){
+    species_input$migrates_times <- "364, 1"
+  }
+  if("migrates_times_juv" %!in% names(species_input)){
+    species_input$migrates_times_juv <- "364, 1"
+  }
+  if("migrates_returns" %!in% names(species_input)){
+    species_input$migrates_returns <- "364, 1"
+  }
+  if("migrate_periods" %!in% names(species_input)){
+    species_input$migrate_periods <- 0
+  }
+  if("return_stock" %!in% names(species_input)){
+    species_input$return_stock <- 0
+  }
+  if("fsm" %!in% names(species_input)){
+    species_input$fsm <- 0
+  }
+  if("fsp" %!in% names(species_input)){
+    species_input$fsp <- 0
+  }
+  if("p_stock" %!in% names(species_input)){
+    species_input$p_stock <- 1
+  }
+  if("p_stock_juv" %!in% names(species_input)){
+    species_input$p_stock_juv <- 1
+  }
+  if("kup" %!in% names(species_input)){
+    species_input$kup[species_input$predator == 1] <- 1
+  }
+  if("klp" %!in% names(species_input)){
+    species_input$klp[species_input$predator == 1] <- .01
+  }
+  if("pR" %!in% names(species_input)){
+    species_input$pr[species_input$atlantis.type %in% c("fish", "mammal")] <- 3
+    species_input$pr[species_input$atlantis.type %in% c("bird", "shark")] <- 5
+  }
+  if("min_length_reprod" %!in% names(species_input)){
+    species_input$min_length_reprod <- 0
+  }
+  if("kdep" %!in% names(species_input)){
+    species_input$kdep <- .1
+  }
+  if("ka" %!in% names(species_input)){
+    species_input$ka[species_input$atlantis.type == "fish"] <- .025
+    species_input$ka[species_input$atlantis.type == "mammal"] <- .021
+    species_input$ka[species_input$atlantis.type == "bird"] <- .024
+    species_input$ka[species_input$atlantis.type %!in% c("fish", "mammal", "bird")] <- .014
+  }
+  if("kb" %!in% names(species_input)){
+    species_input$kb <- .8
+  }
+  if("klys" %!in% names(species_input)){
+    species_input$klys <- 0
+  }
+  if("m_L" %!in% names(species_input)){
+    species_input$m_L <- 0
+  }
+  if("m_Q" %!in% names(species_input)){
+    species_input$m_Q <- 0
+  }
+  if("m_S" %!in% names(species_input)){
+    species_input$m_S <- 0
+  }
+  if("m_Starve" %!in% names(species_input)){
+    species_input$m_Starve <- 0
+  }
+  if("m_D" %!in% names(species_input)){
+    species_input$m_D <- 0.001
+  }
+  if("m_O" %!in% names(species_input)){
+    species_input$m_O <- .01
+  }
+  if("k_O2" %!in% names(species_input)){
+    species_input$k_O2 <- .5
+  }
+  if("k_O2_lim" %!in% names(species_input)){
+    species_input$k_O2_lim <- 10
+  }
+  if("min_O2" %!in% names(species_input)){
+    species_input$min_O2 <- 0
+  }
+  if("mS_FD" %!in% names(species_input)){
+    species_input$mS_FD <- c("0, 0, 0, 0")
+  }
+  if("mS_SB" %!in% names(species_input)){
+    species_input$mS_SB <-  c("0, 0, 0, 0")
+  }
+  if("KSPA" %!in% names(species_input)){
+    species_input$KSPA <- 0
+  }
+  if("FSP" %!in% names(species_input)){
+    species_input$FSP <- 0
+  }
+  if("rec_stock" %!in% names(species_input)){
+    species_input$rec_stock <- 1
+  }
+  if("min_spawn_temp" %!in% names(species_input)){
+    species_input$min_spawn_temp <- 0
+  }
+  if("max_spawn_temp" %!in% names(species_input)){
+    species_input$max_spawn_temp <- 100
+  }
+  if("stock_struct" %!in% names(species_input)){
+    species_input$stock_struct <- 1
+  }
+  if("vert_stock_struct" %!in% names(species_input)){
+    species_input$vert_stock_struct <- 1
+  }
+  if("pop_ratio_stock" %!in% names(species_input)){
+    species_input$pop_ratio_stock <- 1
+  }
+  if("remin_contrib" %!in% names(species_input)){
+    species_input$remin_contrib <- 0
+  }
+  if("ddepend" %!in% names(species_input)){
+    speciess_input$ddepend <- 0
+  }
+  if("in_WC" %!in% names(species_input)){
+    speciess_input$in_WC <- 0
+  }
+  if("in_sed" %!in% names(species_input)){
+    speciess_input$in_sed <- 0
+  }
+  if("epi" %!in% names(species_input)){
+    speciess_input$epi <- 0
+  }
+  if("vertically_migrates" %!in% names(species_input)){
+    speciess_input$vertically_migrates <- 0
+  }
+  if("horizonatally_migrates" %!in% names(species_input)){
+    speciess_input$horizontally_migrates <- 0
+  }
+  if("overwinter" %!in% names(species_input)){
+    species_input$overwinter <- 0
+  }
+
+  if("migrates_out_of_model" %!in% names(species_input)){
+    species_input$migrates_out_of_model[species_input$horizontally_migrates == 1] <- 0
+  }
+
+
+  #add index
+  species_input=species_input[order(species_input$atlantis_type, species_input$group_code),]
+  species_input$Index=seq(from=0, to=(nrow(species_input)-1))
+
+  #write files for eventual review
+
+  write.csv(species_input, "final_group_paramaters_used_in_model.csv")
+  write.csv(mean_individual_morphology, "parameters_for_age_classes_of_groups.csv")
+
+
+# start producing actual input files
+  #grab map info from flag_data
+  NumberofHabitats=as.numeric(as.character(flag_data[flag_data$Flag=="#NumberofHabitats","Value"]))
+  MaxDepth=as.numeric(as.character(flag_data[flag_data$Flag=="#MaxDepth","Value"]))
+  MinDepth=as.numeric(as.character(flag_data[flag_data$Flag=="#MinDepth","Value"]))
+  NumberofBoxes=as.numeric(as.character(flag_data[flag_data$Flag=="#NumberofBoxes","Value"]))
+  NumberofDepthLayers=as.numeric(as.character(flag_data[flag_data$Flag=="#NumberofDepthLayers","Value"]))
+  MinTemp=as.numeric(as.character(flag_data[flag_data$Flag=="#MinTemp","Value"]))
+  MaxTemp=as.numeric(as.character(flag_data[flag_data$Flag=="#MaxTemp","Value"]))
+  MinSalt=as.numeric(as.character(flag_data[flag_data$Flag=="#MinSalt","Value"]))
+  MaxSalt=as.numeric(as.character(flag_data[flag_data$Flag=="#MaxSalt","Value"]))
+
+  #PRODUCE GROUPS FILE
+  groups <- data.frame(GroupCode = species_input$group_code, Index = species_input$Index,
+                       IsTurnedOn = species_input$turned_on, Name = species_input$group_code,
+                       Long.Name = species_input$group_code, NumCohorts = species_input$num_of_age_classes,
+                       VerticallyMigrates = species_input$vertically_migrates,
+                       HorizontallyMigrates = species_input$horizontally_migrates,
+                       IsFished = species_input$fished,
+                       IsImpacted = species_input$impacted,
+                       isTAC = species_input$TAC, GroupType = species_input$atlantis_type,
+                       IsPredator = species_input$is_predator, IsCover = species_input$cover,
+                       IsSiliconDep = species_input$Is_silicon_dep,
+                       IsAssessed = species_input$assessed,
+                       IsCatchGrazer = species_input$catch_grazer,
+                       isOverWinter = species_input$overwinter)
+  write.csv(groups, "functionalgroups.csv")
+
+  #produce biology.prm file
+
+  sink("Biology_prm.prm")
+  cat("#Biology prm file for Deep-C model \n")
+  cat(paste("#",Sys.Date(), "\n"))
+  #codes for reference
+  cat("#list codes for reference \n")
+  for (i in 1:nrow(species_input)){cat(paste("#", as.character(species_input$group_name[i]),
+                                             as.character(species_input$group_code[i]), "\n"))}
+  #start adding flags, check https://wiki.csiro.au/display/Atlantis/Finding+all+the+options+for+the+flags
+
+  #read in file with general flags (not tied to groups), this has explanations on it
+  cat("\n")
+  #use default values for flags
+
+  for (i in 1:nrow(flag_data)){
+    cat(paste(as.character(flag_data[i,1]), as.character(flag_data[i,2]), sep=" "))
+    cat("\n")
+  }
+
+
 }
 
 
