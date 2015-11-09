@@ -23,10 +23,6 @@
 #'  \item{parental_care}
 #'  \item{feed_while_spawning}
 #'  \item{ext_reprod}{does group reproduce outside model area? 1 = yes, 0 = no}
-#'  \item{predator}{1 = yes, 0 = no}
-#'  \itme{KI}
-#'  \item{KS}
-#'  \item{KF}
 #'  \item{max}
 #'  \item{catch_grazer}
 #'  \item{assessed}
@@ -68,10 +64,14 @@
 #'  \item{low}
 #'  \item{thresh}
 #'  \item{sat}
-#'  \item{Kcov_juv}{Exponent of refuge relationship with biogenic habitat, defaults to 3}
-#'  \item{Kcov_ad}{Exponent of refuge relationship with biogenic habitat, defaults to 3}
-#'  \item{Bcov_juv}{Coefficient of refuge relationship with biogenic habitat, defaults to .6}
-#'  \item{Bcov_ad}{Coefficient of refuge relationship with biogenic habitat, defaults to .6}
+#'  \item{Kcov_juv}{Exponent of refuge relationship with biogenic habitat, defaults to
+#'  3}
+#'  \item{Kcov_ad}{Exponent of refuge relationship with biogenic habitat, defaults to
+#'  3}
+#'  \item{Bcov_juv}{Coefficient of refuge relationship with biogenic habitat, defaults
+#'  to .6}
+#'  \item{Bcov_ad}{Coefficient of refuge relationship with biogenic habitat, defaults
+#'  to .6}
 #'  \item{Acov_juv}{scalar for relationship with biogenic habitat, defaults to 1}
 #'  \item{home_range}{defaults to 1}
 #'  \item{overlap}{defaults to 1}
@@ -117,14 +117,17 @@
 #'  not included in model), value for each season, separated by a space}
 #'  \item{KSPA}{defaults to guild values, verts only}
 #'  \item{FSP}{ddefaults to guild values, verts only}
-#'  \item{rec_stock}{recruitment param for diffferent stocks of verts, defaults to 1 (no stocks)}
+#'  \item{rec_stock}{recruitment param for diffferent stocks of verts, defaults to 1
+#'  (no stocks)}
 #'  \item{min_spawn_temp}{defaults to minimum temp in model}
 #'  \item{max_spawn_temp}{defaults to maximum temp in model}
-#'  \item{stock_struct}{verts only, defaults to 1, input as number for each box separated by a space}
-#'  \item{vert_stock_struct}{verts only, defaults to 1,input as number for each box separated by a space}
+#'  \item{stock_struct}{verts only, defaults to 1, input as number for each box
+#'  separated by a space}
+#'  \item{vert_stock_struct}{verts only, defaults to 1,input as number for each box
+#'  separated by a space}
 #'  \item{pop_ratio_stock}{defaults to 1}
 #'  \item{remin_contrib}{ for small_infaunal, defaults to 0}
-#'  \item{ddend}{is movement of group density-dependent, defaults to 0}
+#'  \item{ddepend}{is movement of group density-dependent, defaults to 0}
 #'  \item{in_WC}{defaults to 0}
 #'  \item{in_sed}{defaults to 0}
 #'  \item{epi}{default to 0}
@@ -134,26 +137,41 @@
 #'  \item{impacted}{defaults to 0, is it impacted by fisheries}
 #'  \item{TAC}{defaults to 0, is it controlled by a TAC}
 #'  \item{predcase}
-#'  }
-#'  @param invert_mum_and_clearance_csv name of csv file that must contain the following column headers
-#'  \itemize{
-#'  \item{group_code}
-#'  \item{mum}
-#'  \item{clearance}
-#'  \item{KI}
-#'  \item{KN}
-#'  \item{KS}
-#'  \item{KF}
+#'  \item{KI}{default to 0}
+#'  \item{KS}{default to 0}
+#'  \item{KF}{default to 0}
+#'  \item{KN}{default to 0}
 #'
 #'  }
+#'
+#'
+#  need to add file here wiht mum, clearance, and other values. for now these just default
+#  to value in code to keep everything clean
+#  @param invert_mum_and_clearance_csv name of csv file that must contain the
+#  following column headers
+#  \itemize{
+#  \item{group_code}
+#  \item{mum}
+#  \item{clearance}
+#  \item{KI}
+#  \item{KN}
+#  \item{KS}
+#  \item{KF}
+#   \item{in_WC}{defaults to 0}
+#  \item{in_sed}{defaults to 0}
+#  \item{epi}{default to 0}
+#  \item{vertically_migrates}{defaults to 0}
+#  \item{horizontally_migrates}{defaults to 0}
+#  }
 #'  @param flag_data_csv
 #' @details This function creates the biology prm file needed by Atlantis.
 #' @keywords biology prm
 #' @export
 
-create_biology_prm <- function(species_data_location = getwd(),  species_input_csv){
+create_biology_prm <- function(species_data_location = getwd(),  species_info_groups_csv,
+                               flag_data_csv){
 
-  species_input <- read.csv(paste(species_data_location, "/", species_input_csv, sep=""),
+  species_input <- read.csv(paste(species_data_location, "/", species_info_groups_csv, sep=""),
     header = T)
 
   flag_data <- read.csv(paste(species_data_location, "/",flag_data_csv, sep=""),
@@ -205,7 +223,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_input_c
     }
   }
 
-  #for vertebrates, determine age class where starts
+  #for vertebrates, determine age class where maturity starts
   for (i in 1:nrow(species_input)){
     if(species_input$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark")){
       species_input$mat_FUNC[i]=ceiling(species_input$min_age_reprod[i]/species_input$ypa_FUNC[i])
@@ -213,9 +231,6 @@ create_biology_prm <- function(species_data_location = getwd(),  species_input_c
     #set maturity at 0 for inverts, other that are just pools
     else{species_input$mat_FUNC[i]=0}
   }
-
-  species_input$mat_FUNC[is.na(species_input$mat_FUNC)] <- 2
-
 
   #energetics from Hanson 1997 (Horne 2010)
   #maximum feeding rate (clearance) based on allometric relationships between weight and feeding
@@ -254,16 +269,16 @@ create_biology_prm <- function(species_data_location = getwd(),  species_input_c
   #to create this, loop over group_code, age classes, and use counter
   counter <- 1
 
-  for(i in 1:nlevels(species_input$group_code)){
-    #add one for larvale group
+  for(i in 1:nrow(species_input)){
+    #add one for larval group
     if(species_input$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark")){
       for (j in 1:(species_input[species_input$group_code ==
-          levels(species_input$group_code)[i], "num_of_age_classes"]+1)){
+          species_input$group_code[i], "num_of_age_classes"]+1)){
         mean_individual_morphology$atlantis_type[counter] =
           as.character(species_input[species_input$group_code ==
-              levels(species_input$group_code)[i], "atlantis_type"])
-        mean_individual_morphology$group_code[counter]=levels(species_input$group_code)[i]
-        mean_individual_morphology$AgeClass[counter]=j-1
+              species_input$group_code[i], "atlantis_type"])
+        mean_individual_morphology$group_code[counter] <- as.character(species_input$group_code[i])
+        mean_individual_morphology$AgeClass[counter] <- j-1
         counter <- counter+1
       }}
   }
@@ -276,8 +291,8 @@ create_biology_prm <- function(species_data_location = getwd(),  species_input_c
 
   for (i in 1:nrow(mean_individual_morphology)){
     if(mean_individual_morphology$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark")){
-      mean_individual_morphology$ActualAge[i] <- mean_individual_morphology$AgeClass[i]*
-        species_input[species_input$group_code == mean_individual_morphology$group_code[i], "ypa_FUNC"]
+      mean_individual_morphology$ActualAge[i] <- as.numeric(mean_individual_morphology$AgeClass[i]*
+        species_input[species_input$group_code == mean_individual_morphology$group_code[i], "ypa_FUNC"])
       if(mean_individual_morphology$AgeClass[i] > 0){
         mean_individual_morphology$WetWeight[i]  <- species_input[species_input$group_code ==
             mean_individual_morphology$group_code[i], "mean_a"]*
@@ -369,16 +384,21 @@ create_biology_prm <- function(species_data_location = getwd(),  species_input_c
   }
 
 
-  #figure out invert mum and clearance formula
-    #for now, use values from other models
-  invert_mum_clearance <- read.csv("invert_mum_and_clearance.csv")
-  mean_individual_morphology <- merge (mean_individual_morphology, invert_mum_clearance,
-    all.x=T, all.y=T)
+  #figure out invert mum and clearance formulas, KI, KN, KS, KF
+  #for now, use values from other models
+  #invert_mum_clearance <- read.csv("invert_mum_and_clearance.csv")
+#   mean_individual_morphology <- merge (mean_individual_morphology, invert_mum_clearance,
+#     all.x=T, all.y=T)
 
-#
+  mean_individual_morphology <- merge (unique(species_input[,c("group_code", "atlantis_type")]),
+                                              mean_individual_morphology,all.x = T,
+                                              all.y = T)
+  mean_individual_morphology$clearance[is.na(mean_individual_morphology$clearance)] <- 1
+  mean_individual_morphology$mum[is.na(mean_individual_morphology$mum)] <- 1
+
   #parameters needed for availability calculator
-    if ("juv_eff" %in% names(species_input)) {species_input$juv_eff <- .1}
-    if ("adult_eff" %in% names(species_input)) {species_input$adult_eff <- .1}
+    if ("juv_eff" %!in% names(species_input)) {species_input$juv_eff <- .1}
+    if ("adult_eff" %!in% names(species_input)) {species_input$adult_eff <- .1}
 
   for (i in 1:nrow(species_input)){
     average_individual <- mean_individual_morphology[mean_individual_morphology$group_code ==
@@ -423,25 +443,6 @@ create_biology_prm <- function(species_data_location = getwd(),  species_input_c
     species_input$rep_strength <- NA
     species_input$rep_strength[species$input$atlantis.type %in% c("bird", "mammal")] <- 0
     species_input$rep_strength[species$input$atlantis.type %in% c("fish", "shark")] <- 0
-  }
-
-  for ( i in 1:nrow(species_input)){
-
-    if(species_input$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark")){
-      species_input$LocalRec[i] <- 0
-      if(species_input$Vertebrate.Type[i] == "mammal"){
-        species_input$Recruitgroup_code[i] = 12;
-      species_input$RepStrength[i]=0}
-      else if(species_input$Vertebrate.Type[i]=="bird"){
-        species_input$Recruitgroup_code[i] = 12
-        species_input$RepStrength[i]=0}
-      else if(species_input$Vertebrate.Type[i]=="turtle"){
-        species_input$Recruitgroup_code[i] = 12
-        species_input$RepStrength[i]=0}
-      #else here catches fish and inverts with age classes
-      else {species_input$Recruitgroup_code[i]=10
-      species_input$RepStrength[i]=1}
-    }
   }
 
   if( "predator" %!in% names(species_input)){
@@ -689,22 +690,44 @@ create_biology_prm <- function(species_data_location = getwd(),  species_input_c
     species_input$remin_contrib <- 0
   }
   if("ddepend" %!in% names(species_input)){
-    speciess_input$ddepend <- 0
+    species_input$ddepend <- 0
   }
   if("in_WC" %!in% names(species_input)){
-    speciess_input$in_WC <- 0
+    species_input$in_WC <- 0
   }
   if("in_sed" %!in% names(species_input)){
-    speciess_input$in_sed <- 0
+    species_input$in_sed <- 0
   }
   if("epi" %!in% names(species_input)){
-    speciess_input$epi <- 0
+    species_input$epi <- 0
   }
   if("vertically_migrates" %!in% names(species_input)){
-    speciess_input$vertically_migrates <- 0
+    species_input$vertically_migrates <- 0
   }
   if("horizonatally_migrates" %!in% names(species_input)){
-    speciess_input$horizontally_migrates <- 0
+    species_input$horizontally_migrates <- 0
+
+  if("fished" %!in% names(species_input)){
+      species_input$fished <- 0
+  }
+    if("impacted" %!in% names(species_input)){
+      species_input$impacted <- 0
+    }
+    if("TAC" %!in% names(species_input)){
+      species_input$TAC <- 0
+    }
+
+  if("KI" %!in% names(species_input)){
+    species_input$KI <- 0
+  }
+  if("KS" %!in% names(species_input)){
+    species_input$KS <- 0
+  }
+  if("KF" %!in% names(species_input)){
+    species_input$KF <- 0
+  }
+  if("KN" %!in% names(species_input)){
+    species_input$KN <- 0
   }
   if("overwinter" %!in% names(species_input)){
     species_input$overwinter <- 0
@@ -717,7 +740,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_input_c
 
   #add index
   species_input=species_input[order(species_input$atlantis_type, species_input$group_code),]
-  species_input$Index=seq(from=0, to=(nrow(species_input)-1))
+  species_input$index=seq(from=0, to=(nrow(species_input)-1))
 
   #write files for eventual review
 
@@ -738,19 +761,24 @@ create_biology_prm <- function(species_data_location = getwd(),  species_input_c
   MaxSalt=as.numeric(as.character(flag_data[flag_data$Flag=="#MaxSalt","Value"]))
 
   #PRODUCE GROUPS FILE
-  groups <- data.frame(GroupCode = species_input$group_code, Index = species_input$Index,
-                       IsTurnedOn = species_input$turned_on, Name = species_input$group_code,
-                       Long.Name = species_input$group_code, NumCohorts = species_input$num_of_age_classes,
-                       VerticallyMigrates = species_input$vertically_migrates,
-                       HorizontallyMigrates = species_input$horizontally_migrates,
-                       IsFished = species_input$fished,
-                       IsImpacted = species_input$impacted,
-                       isTAC = species_input$TAC, GroupType = species_input$atlantis_type,
-                       IsPredator = species_input$is_predator, IsCover = species_input$cover,
-                       IsSiliconDep = species_input$Is_silicon_dep,
-                       IsAssessed = species_input$assessed,
-                       IsCatchGrazer = species_input$catch_grazer,
-                       isOverWinter = species_input$overwinter)
+  groups <- data.frame("GroupCode" = species_input$group_code,
+                       "Index" = species_input$index,
+                       "IsTurnedOn" = species_input$turned_on,
+                       "Name" = species_input$group_code,
+                       "Long.Name" = species_input$group_code,
+                       "NumCohorts" = species_input$num_of_age_classes,
+                       "VerticallyMigrates" = species_input$vertically_migrates,
+                       "HorizontallyMigrates" = species_input$horizontally_migrates,
+                       "IsFished" = species_input$fished,
+                       "IsImpacted" = species_input$impacted,
+                       "isTAC" = species_input$TAC,
+                       "GroupType" = species_input$atlantis_type,
+                       "IsPredator" = species_input$predator,
+                       "IsCover" = species_input$cover,
+                       "IsSiliconDep" = species_input$silicon_dep,
+                       "IsAssessed" = species_input$assessed,
+                       "IsCatchGrazer" = species_input$catch_grazer,
+                       "isOverWinter" = species_input$overwinter)
   write.csv(groups, "functionalgroups.csv")
 
   #produce biology.prm file
@@ -773,7 +801,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_input_c
     cat("\n")
   }
 
-
+  sink()
 }
 
 
