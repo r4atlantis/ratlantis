@@ -18,11 +18,10 @@
 #'  \item {mean_Loo}
 #'  \item {mean_K}
 #'  \item{larval_duration}
-#'  \item{planktivore}
+#'  \item{planktivore}{only used for vertebrates}
 #'  \item{bear_live_young}
 #'  \item{parental_care}
 #'  \item{feed_while_spawning}
-#'  \item{ext_reprod} {does group reproduce outside model area? 1 = yes, 0 = no}
 #'  \item{max}
 #'  \item{catch_grazer}
 #'  \item{assessed}
@@ -37,16 +36,43 @@
 #'  \item{cb}
 #'  \item{juv_eff}
 #'  \item{adult_eff}
-#'  \item{recruit_code} {flag recruit}
-#'  \item{reprod_stength}
-#'  \item{local_recruit}
+#'  \item{recruit_code} {flag recruit, needed for verts and stage structured invertebrates, 
+#' Vertebrate reproduction related flags. The flagrecruit entries refer to the recruitment function used.             
+#' 1=const, 2=dependent on prim producers (Chla), 3=Beverton-Holt, 4=lognormal, 5=dependent on all plankton              
+#' groups not just Chla, 6=Bev-Holt with lognormal variation added, 7=Bev-Holt with encourage recovery              
+#' 8=Bev-Holt with perscribed recovery, 9=Ricker, 10=Standard Bev-Holt (no explict use of spawn included)             
+#' 11=pupping/calving linearly dependent on maternal condition, 12=pupping/calving a fixed number per adult              
+#' spawning, 13=forced timeseries of recruitment, defaults to  }
 #'  \item{predator} {1 = yes, 0 = no}
 #'  \item{jack_a}
 #'  \item{jack_b}
 #'  \item{recover_mult}
 #'  \item{recover_start}
 #'  \item{PP}
-#'  \item{flag_dem}
+#'  \itemize{needed for all living
+#'  \item{flag_dem}{Preferred location trend (0 is top, 1 is demersal (?)));
+#'  whether to weight vertical distributions towards surface or bottom layers
+#'  when in depths where there were less than complete set of depth layers. defaults
+#'  to 1}
+#'  }
+#'  \itemize{needed for all stage structured inverts
+#'  \item{seperate}{1 = seperate groups (or single pool), 0 = age structured 
+#'  single group, defaults to 0; at this point can only handle one recruit type
+#'  for these groups}
+#'  }
+#'  \itemize{needed for all vertebrates
+#'  \item{reprod_strength}{# Vertebrate reproduction strength flags (1=very 
+#'  strong year classes possible, relative strength set using recruitRange and 
+#'  0=only moderate variation in year class strength possible, mainly for top 
+#'  predators with few young per reproductive event, relative strength set 
+#'  using recruitRangeFlat. defaults to 0)}
+#'  }
+#'  \itemize{needed for all vertebrates and stage structured inverts
+#'  \item{ext_reprod} {does group reproduce outside model area? 1 = yes, 0 = no,
+#'  required for all vertebrates and stage-structured invertebrates, defaults to 0}
+#'  \item{local_recruit} {defaults to 0,
+#'  1 = demersal and piscivorous fish recruit at parental locations, 0 = independent distribution}
+#'  }
 #'  \item{flag_X_day}
 #'  \item{active} { 2 = no preference, 1 = day, 0 = night,defaults to 2}
 #'  \item{k_tur} {defaults to .1}
@@ -141,6 +167,14 @@
 #'  \item{KS} {default to 0}
 #'  \item{KF} {default to 0}
 #'  \item{KN} {default to 0}
+#'  \item{num_of_genotypes}{defaults to 1}
+#'  \item{num_of_stages}{defaults to 2 for vertebrates, 1 for others}
+#'  \item{number_of_stocks}{defaults to 1}
+#'  \item{number_of_spawns}{{defaults to 1}}
+#'  \item{num_of_age_class_size}{set by internal function using maximum age and
+#'  number of cohorts}
+#'  \item{cultured}{defaults to 0}
+#'  \item{habitat_depend}{defaults to 0}
 #'  }
 #'
 #'
@@ -175,6 +209,18 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
 
   flag_data <- read.csv(paste(species_data_location, "/",flag_data_csv, sep=""),
                         header=T)
+  
+  #grab map info from flag_data
+  NumberofHabitats <- as.numeric(as.character(flag_data[flag_data$Flag == "#NumberofHabitats","Value"]))
+  MaxDepth <- as.numeric(as.character(flag_data[flag_data$Flag == "#MaxDepth","Value"]))
+  MinDepth <- as.numeric(as.character(flag_data[flag_data$Flag == "#MinDepth","Value"]))
+  NumberofBoxes <- as.numeric(as.character(flag_data[flag_data$Flag == "#NumberofBoxes","Value"]))
+  NumberofDepthLayers <- as.numeric(as.character(flag_data[flag_data$Flag == "#NumberofDepthLayers","Value"]))
+  MinTemp <- as.numeric(as.character(flag_data[flag_data$Flag == "#MinTemp","Value"]))
+  MaxTemp <- as.numeric(as.character(flag_data[flag_data$Flag == "#MaxTemp","Value"]))
+  MinSalt <- as.numeric(as.character(flag_data[flag_data$Flag == "#MinSalt","Value"]))
+  MaxSalt <- as.numeric(as.character(flag_data[flag_data$Flag == "#MaxSalt","Value"]))
+  
 
 
   #constant across all groups
@@ -430,18 +476,16 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   #make columns for  type of recruitment, local recruitment, and year class variation
   if ("recruit_code" %!in% names (species_input)){
     species_input$recruit_code <- NA
-    species_input$recruit_code[species_input$atlantis.type %in% c("bird", "mammal")] <- 12
-    species_input$recruit_code[species_input$atlantis.type %in% c("fish", "shark")] <- 10
+    species_input$recruit_code[species_input$atlantis_type %in% c("bird", "mammal")] <- 12
+    species_input$recruit_code[species_input$atlantis_type %in% c("fish", "shark")] <- 10
   }
   if ("local_recruit" %!in% names (species_input)){
-    species_input$local_recruit <- NA
-    species_input$local_recruit[species_input$atlantis.type %in% c("bird", "mammal",
-      "fish", "shark")] <- 0
+    species_input$local_recruit <- 0
   }
-  if ("rep_strength" %!in% names (species_input)){
-    species_input$rep_strength <- NA
-    species_input$rep_strength[species_input$atlantis.type %in% c("bird", "mammal")] <- 0
-    species_input$rep_strength[species_input$atlantis.type %in% c("fish", "shark")] <- 0
+  if ("reprod_strength" %!in% names (species_input)){
+    species_input$reprod_strength <- NA
+    species_input$reprod_strength[species_input$atlantis_type %in% c("bird", "mammal")] <- 0
+    species_input$reprod_strength[species_input$atlantis_type %in% c("fish", "shark")] <- 0
   }
 
   if( "predator" %!in% names(species_input)){
@@ -537,35 +581,35 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   }
   if("sat" %!in% names(species_input)){
     species_input$sat <- NA
-    species_input$sat[species_input$atlantis.type %in% c("fish")] <- 4000
+    species_input$sat[species_input$atlantis_type %in% c("fish")] <- 4000
   }
 
   if("Kcov_juv" %!in% names(species_input)){
     species_input$Kcov_juv <- NA
-    species_input$Kcov_juv[species_input$atlantis.type %in% c("fish", "mammal", "shark",
+    species_input$Kcov_juv[species_input$atlantis_type %in% c("fish", "mammal", "shark",
                                                          "bird")] <- 3
   }
 
   if("Kcov_ad" %!in% names(species_input)){
     species_input$Kcov_ad <- NA
-    species_input$Kcov_ad[species_input$atlantis.type %in% c("fish", "mammal", "shark",
+    species_input$Kcov_ad[species_input$atlantis_type %in% c("fish", "mammal", "shark",
                                                          "bird")] <- 3
   }
 
   if("Bcov_juv" %!in% names(species_input)){
     species_input$Bcov_juv <- NA
-    species_input$Bcov_juv[species_input$atlantis.type %in% c("fish", "mammal", "shark",
+    species_input$Bcov_juv[species_input$atlantis_type %in% c("fish", "mammal", "shark",
                                                               "bird")] <- .6
   }
 
   if("Bcov_ad" %!in% names(species_input)){
     species_input$Bcov_ad <- NA
-    species_input$Bcov_ad[species_input$atlantis.type %in% c("fish", "mammal", "shark",
+    species_input$Bcov_ad[species_input$atlantis_type %in% c("fish", "mammal", "shark",
                                                              "bird")] <- .6
   }
   if("Acov_juv" %!in% names(species_input)){
     species_input$Acov_juv <- NA
-    species_input$Acov_juv[species_input$atlantis.type %in% c("fish", "mammal", "shark",
+    species_input$Acov_juv[species_input$atlantis_type %in% c("fish", "mammal", "shark",
                                                               "bird")] <- 1
   }
   if("home_range" %!in% names(species_input)){
@@ -614,8 +658,8 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   }
   if("pr" %!in% names(species_input)){
     species_input$pr <- NA
-    species_input$pr[species_input$atlantis.type %in% c("fish", "mammal")] <- 3
-    species_input$pr[species_input$atlantis.type %in% c("bird", "shark")] <- 5
+    species_input$pr[species_input$atlantis_type %in% c("fish", "mammal")] <- 3
+    species_input$pr[species_input$atlantis_type %in% c("bird", "shark")] <- 5
   }
   if("min_length_reprod" %!in% names(species_input)){
     species_input$min_length_reprod <- 0
@@ -625,10 +669,10 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   }
   if("ka" %!in% names(species_input)){
     species_input$ka <- NA
-    species_input$ka[species_input$atlantis.type == "fish"] <- .025
-    species_input$ka[species_input$atlantis.type == "mammal"] <- .021
-    species_input$ka[species_input$atlantis.type == "bird"] <- .024
-    species_input$ka[species_input$atlantis.type %!in% c("fish", "mammal", "bird")] <- .014
+    species_input$ka[species_input$atlantis_type == "fish"] <- .025
+    species_input$ka[species_input$atlantis_type == "mammal"] <- .021
+    species_input$ka[species_input$atlantis_type == "bird"] <- .024
+    species_input$ka[species_input$atlantis_type %!in% c("fish", "mammal", "bird")] <- .014
   }
 
   if("kb" %!in% names(species_input)){
@@ -680,10 +724,10 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     species_input$rec_stock <- 1
   }
   if("min_spawn_temp" %!in% names(species_input)){
-    species_input$min_spawn_temp <- 0
+    species_input$min_spawn_temp <- MinTemp
   }
   if("max_spawn_temp" %!in% names(species_input)){
-    species_input$max_spawn_temp <- 100
+    species_input$max_spawn_temp <- MaxTemp
   }
   if("stock_struct" %!in% names(species_input)){
     species_input$stock_struct <- 1
@@ -718,6 +762,12 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("fished" %!in% names(species_input)){
       species_input$fished <- 0
   }
+  if("seperate" %!in% names(species_input)){
+    species_input$seperate <- 0
+  }
+  if("ext_reprod" %!in% names(species_input)){
+    species_input$ext_reprod <- 0
+  }
     if("impacted" %!in% names(species_input)){
       species_input$impacted <- 0
     }
@@ -744,8 +794,28 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("migrates_out_of_model" %!in% names(species_input)){
     species_input$migrates_out_of_model[species_input$horizontally_migrates == 1] <- 0
   }
-
-
+  if("num_of_genotypes" %!in% names(species_input)){
+    species_input$num_of_genotypes <- 1
+  }
+  if("num_of_stages" %!in% names(species_input)){
+    species_input$num_of_stages <- NA
+    species_input$num_of_stages[species_input$atlantis_type %in% c("fish","shark",
+      "mammal", "bird")] <- 2
+    species_input$num_of_stages[is.na(species_input$num_of_stages)] <- 1
+  }
+  if("num_of_stocks" %!in% names(species_input)){
+    species_input$num_of_stocks <- 1
+  }
+  if("num_of_spawns" %!in% names(species_input)){
+    species_input$num_of_spawns <- 1
+  }
+  if("cultured" %!in% names(species_input)){
+    species_input$cultured <- 0
+  }
+  if("habitat_depend" %!in% names(species_input)){
+    species_input$habitat_depend <- 0
+  }
+  
   #add index
   species_input=species_input[order(species_input$atlantis_type, species_input$group_code),]
   species_input$index=seq(from=0, to=(nrow(species_input)-1))
@@ -757,37 +827,35 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
 
 
 # start producing actual input files
-  #grab map info from flag_data
-  NumberofHabitats=as.numeric(as.character(flag_data[flag_data$Flag=="#NumberofHabitats","Value"]))
-  MaxDepth=as.numeric(as.character(flag_data[flag_data$Flag=="#MaxDepth","Value"]))
-  MinDepth=as.numeric(as.character(flag_data[flag_data$Flag=="#MinDepth","Value"]))
-  NumberofBoxes=as.numeric(as.character(flag_data[flag_data$Flag=="#NumberofBoxes","Value"]))
-  NumberofDepthLayers=as.numeric(as.character(flag_data[flag_data$Flag=="#NumberofDepthLayers","Value"]))
-  MinTemp=as.numeric(as.character(flag_data[flag_data$Flag=="#MinTemp","Value"]))
-  MaxTemp=as.numeric(as.character(flag_data[flag_data$Flag=="#MaxTemp","Value"]))
-  MinSalt=as.numeric(as.character(flag_data[flag_data$Flag=="#MinSalt","Value"]))
-  MaxSalt=as.numeric(as.character(flag_data[flag_data$Flag=="#MaxSalt","Value"]))
 
-  #PRODUCE GROUPS FILE
-  groups <- data.frame("GroupCode" = species_input$group_code,
+    #PRODUCE GROUPS FILE
+  groups <- data.frame("group_code" = toupper(species_input$group_code),
                        "Index" = species_input$index,
                        "IsTurnedOn" = species_input$turned_on,
                        "Name" = species_input$group_code,
-                       "Long.Name" = species_input$group_code,
+                       "LongName" = species_input$group_code,
                        "NumCohorts" = species_input$num_of_age_classes,
+                       "NumGeneTypes" = species_input$num_of_genotypes,
+                       "NumStages" = species_input$num_of_stages,
+                       "NumSpawns" = species_input$num_of_spawns,
+                       "NumAgeClassSize" = species_input$ypa_FUNC, 
+                       "NumStocks" = species_input$num_of_stocks,
                        "VerticallyMigrates" = species_input$vertically_migrates,
                        "HorizontallyMigrates" = species_input$horizontally_migrates,
                        "IsFished" = species_input$fished,
                        "IsImpacted" = species_input$impacted,
                        "isTAC" = species_input$TAC,
-                       "GroupType" = species_input$atlantis_type,
+                       "GroupType" = toupper(species_input$atlantis_type),
                        "IsPredator" = species_input$predator,
                        "IsCover" = species_input$cover,
                        "IsSiliconDep" = species_input$silicon_dep,
                        "IsAssessed" = species_input$assessed,
                        "IsCatchGrazer" = species_input$catch_grazer,
-                       "isOverWinter" = species_input$overwinter)
-  write.csv(groups, "functionalgroups.csv")
+                       "OverWinters" = species_input$overwinter,
+                       "isCultured" = species_input$cultured,
+                       "isHabDepend" = species_input$habitat_depend)
+  
+  write.csv(groups, "set_as_groups.csv", row.names = F)
 
   #produce biology.prm file
 
@@ -808,5 +876,81 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     cat(paste(as.character(flag_data[i,1]), as.character(flag_data[i,2]), sep=" "))
     cat("\n")
   }
+  
+  #Array indicating cells effected by coastal degradation (this assumes no degradation)
+  cat (paste ("Box_degraded", NumberofBoxes,"\n", sep=" "))
+  cat (rep(0,NumberofBoxes))
+  cat("\n")
+  
+  #Set option for regional reporting here, defaults to no regions
+  
+  cat(paste("regID ", NumberofBoxes, "\n", sep=" "))
+  cat(rep(0,NumberofBoxes))
+  
+  #start putting in flags for each group
+  #design is to make one block per group since comparisons easier to see 
+  #in excel
+  
+  for (i in 1:nrow(species_input)){
+    cat(paste("# parameters for ", species_input$group_code[i]), "\n")
+    
+    #for all living
+    
+    if (species_input$atlantis_type[i] %!in% c("lab_det", "carrion",
+      "ref_det")){
+      
+        #flagdem <- flag_dem
+      if(species_input$num_of_stages[i] > 1){
+      if (species_input$atlantis_type[i] %in% c("fish", "bird", "mammal",
+        "shark")){
+      cat(paste("flagdem",as.character(species_input$group_code[i]), " ",
+        species_input$flag_dem[i],"\n", sep=""))
+        } else {
+          cat(paste("flagdem",as.character(species_input$group_code[i]), " ",
+            species_input$flagdem[i],"\n", sep=""))
+          cat(paste("flagdem j",as.character(species_input$group_code[i]), " ",
+            species_input$flagdem[i],"\n", sep=""))
+        }} else {
+          cat(paste("flagdem",as.character(species_input$group_code[i]), " ",
+            species_input$flag_dem[i],"\n", sep=""))
+            }
+    }
+    
+    #for all vertebrates and stage structured inverts
+    if (species_input$atlantis_type[i] %in% c("fish", "mammal", "bird", "shark") |
+        species_input$num_of_stages[i] > 1){
+      
+      #flagrecruit <- flag_recruit
+      if (species_input$atlantis_type[i] %in% c("fish", "mammal", "bird", "shark")){
+      cat(paste("flagrecruit",as.character(species_input$group_code[i]), " ", 
+        species_input$Recruitcode[i], "\n", sep=""))
+      } else{
+        cat(paste("flagrecruit",as.character(species_input$group_code[i]), " ", 
+          species_input$Recruitcode[i], "\n", sep=""))
+        cat(paste("flagseperate",as.character(species_input$group_code[i]), " ", 
+          species_input$seperate[i], "\n", sep=""))
+      }
+      
+      #external reproduction
+      cat(paste("flagext_reprod",as.character(species_input$group_code[i]), " ", 
+        species_input$ext_reprod[i], "\n", sep=""))
+      
+      #local recruit
+      cat(paste("flaglocalrecruit",as.character(species_input$Code[i]), " ", species_input$local_recruit[i], "\n", sep=""))
+      
+    }
+    
+    
+    #for all vertebrates
+    
+    if (species_input$atlantis_type[i] %in% c("fish", "mammal", "bird", "shark")){
+      cat(paste("flagplankfish",as.character(species_input$group_code[i]), " ", species_input$planktivore[i], "\n", sep=""))
+    }
+    
+    cat(paste("flagrecpeak",as.character(species_input$group_code[i]), " ", species_input$reprod_strength[i], "\n", sep=""))
+    
+    cat("\n")
+  }
   sink()
+  
 }
