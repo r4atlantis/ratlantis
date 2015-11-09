@@ -4,7 +4,8 @@
 \alias{create_biology_prm}
 \title{create_biology_prm function}
 \usage{
-create_biology_prm(species_data_location = getwd(), group_data_csv)
+create_biology_prm(species_data_location = getwd(), species_info_groups_csv,
+  flag_data_csv)
 }
 \arguments{
 \item{species_data_location}{where csv file with species data is located (defaults to
@@ -19,12 +20,138 @@ working directory).}
  \item{TL_final}
  \item{mean_M}
  \item{max_age}
+ \item {min_age_reprod}
+ \item {mean_a}
+ \item {mean_b}
+ \item {mean_Loo}
+ \item {mean_K}
+ \item{larval_duration}
+ \item{planktivore}
+ \item{bear_live_young}
+ \item{parental_care}
+ \item{feed_while_spawning}
+ \item{ext_reprod} {does group reproduce outside model area? 1 = yes, 0 = no}
+ \item{max}
+ \item{catch_grazer}
+ \item{assessed}
+ \item{cover}
+ \item{silicon_dep}
  }
  The following columns are optional (will be filled in by function if not
  provided)
  \itemize{
  \item{num_of_age_classes}
+ \item{ca}
+ \item{cb}
+ \item{juv_eff}
+ \item{adult_eff}
+ \item{recruit_code} {flag recruit}
+ \item{reprod_stength}
+ \item{local_recruit}
+ \item{predator} {1 = yes, 0 = no}
+ \item{jack_a}
+ \item{jack_b}
+ \item{recover_mult}
+ \item{recover_start}
+ \item{PP}
+ \item{flag_dem}
+ \item{flag_X_day}
+ \item{active} { 2 = no preference, 1 = day, 0 = night,defaults to 2}
+ \item{k_tur} {defaults to .1}
+ \item{k_irr} {defaults to 1}
+ \item{temp_coefft_a} {defaults to .851}
+ \item{q10} {defaults to 2}
+ \item{q10_method} {default sto 0}
+ \item{q10_optimal_temp} {defaults to 0}
+ \item{q10_correction} {defaults to 0}
+ \item{wc} {defaults to .01}
+ \item{turned_on} {defaults to 1 (=yes, 0=no)  groups$IsTurnedOn=1}
+ \item{overwinter} {defaults to 0}
+ \item{horiz_migrates}
+ \item{migrates_out_of_model} {defaults to 0}
+ \item{low}
+ \item{thresh}
+ \item{sat}
+ \item{Kcov_juv} {Exponent of refuge relationship with biogenic habitat, defaults to
+ 3}
+ \item{Kcov_ad} {Exponent of refuge relationship with biogenic habitat, defaults to
+ 3}
+ \item{Bcov_juv} {Coefficient of refuge relationship with biogenic habitat, defaults
+ to .6}
+ \item{Bcov_ad} {Coefficient of refuge relationship with biogenic habitat, defaults
+ to .6}
+ \item{Acov_juv} {scalar for relationship with biogenic habitat, defaults to 1}
+ \item{home_range} {defaults to 1}
+ \item{overlap} {defaults to 1}
+ \item{flag_X_migrate} {defaults to 0}
+ \item{migrate_times} {days entering and leaving models, separated by a space
+ (defaults to leave 364, enter 1)}
+ \item{migrate_times_juv} {days entering and leaving models, separated by a space
+ (defaults to leave 364, enter 1)}
+ \item{migrate_periods} {defaults to 0}
+ \item{return_stock} {defaults to 0}
+ \item{fsm} {Proportional increase in size  while outside model domain}
+ \item{p_stock} {verts only, scalars to determine, defaults to 1 assuming no
+ stocks considered (just one big group)}
+ \item{p_stock_juv} {verts only, scalars to determine, defaults to 1
+ assuming no stocks considered (just one big group)}
+ \item{kup} {defaults to 1 ,deals with gape limitations, required for all predators}
+ \item{klp} {defaults to .01, deals with gape limitations, required for all
+ predators}
+ \item{pr} {preference for rebuilding, defaults to 3 for fish and mammals,
+ 5 for bird and fish}
+ \item{min_length_reprod} {defaults to 0}
+ \item{kdep} {depth organisms can dig into, not needed for primary producers,
+ defaults to .1}
+ \item{ka} {scaling of respiration vs weight, defaults .025 for fish, .021
+ for mammals, .024 for birds, .014 for all others}
+ \item{kb} {exponent of respiration vs weight, defaults to .8}
+ \item{klys} {only primary producers defaults to 0}
+ \item{m_L} {tuning parameter, defaults to 0}
+ \item{m_Q} {tuning parameter, needed for all living except primary producers,
+ defaults to 0}
+ \item{m_S} {tuning parameter for phytobenthos and seagrass,defaults to 0}
+ \item{m_Starve} {only for verts, defaults to 0}
+ \item{m_D} {tuning parameter, oxygen mortality due to ambient, inverts except
+ primary producers,tuning parameter, oxygen mortality due to depth, inverts except
+ primary producers,defaults to .001}
+ \item{m_O} {defaults to .01}
+ \item{k_02} {lethal oxgyen level, inverts except primary producers,defaults to .5}
+ \item{k_O2_lim} {defults to 10}
+ \item(min_02){verts only, defaults to 0}
+ \item{mS_FD} {verts only, defaults to 0 (mortatlity due to fish not included
+ in model), value for each season, separated by a space (defaults to 0)}
+ \item{mS_SB} {verts only, defaults to 0 (mortatlity due to birds and mammals
+ not included in model), value for each season, separated by a space}
+ \item{KSPA} {defaults to guild values, verts only}
+ \item{FSP} {ddefaults to guild values, verts only}
+ \item{rec_stock} {recruitment param for diffferent stocks of verts, defaults to 1
+ (no stocks)}
+ \item{min_spawn_temp} {defaults to minimum temp in model}
+ \item{max_spawn_temp} {defaults to maximum temp in model}
+ \item{stock_struct} {verts only, defaults to 1, input as number for each box
+ separated by a space}
+ \item{vert_stock_struct} {verts only, defaults to 1,input as number for each box
+ separated by a space}
+ \item{pop_ratio_stock} {defaults to 1}
+ \item{remin_contrib}{ for small_infaunal, defaults to 0}
+ \item{ddepend} {is movement of group density-dependent, defaults to 0}
+ \item{in_WC} {defaults to 0}
+ \item{in_sed} {defaults to 0}
+ \item{epi} {default to 0}
+ \item{vertically_migrates} {defaults to 0}
+ \item{horizontally_migrates} {defaults to 0}
+ \item{fished} {defaults to 0, is it targeted in fisheries}
+ \item{impacted} {defaults to 0, is it impacted by fisheries}
+ \item{TAC} {defaults to 0, is it controlled by a TAC}
+ \item{predcase}
+ \item{KI} {default to 0}
+ \item{KS} {default to 0}
+ \item{KF} {default to 0}
+ \item{KN} {default to 0}
  }}
+
+\item{flag_data_csv}{}
 }
 \description{
 This function creates the biology prm file needed for Atlantis

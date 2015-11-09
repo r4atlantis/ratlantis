@@ -123,5 +123,3 @@ rbgmeriser <- function( map_location = getwd(), map_name, boundary_boxes = NULL,
               "/map_for_bgmeriser.bgm", sep=""), intern=T)
 
   }
-
-

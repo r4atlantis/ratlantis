@@ -54,7 +54,7 @@ gather_habitat_for_species):
  \item {group_name} {a name for the specific functional or focus group each organism
  belongs in; these are suggested by create_functional_groups but may need to be
  modified for readabilty (pick names you can remember and choose between!)}
- \item {group_code} {a 3-letter abbreviation for group_name}
+ \item {group_code} {a 2 or 3-letter abbreviation for group_name}
  }}
 }
 \description{

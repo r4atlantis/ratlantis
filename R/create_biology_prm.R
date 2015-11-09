@@ -22,7 +22,7 @@
 #'  \item{bear_live_young}
 #'  \item{parental_care}
 #'  \item{feed_while_spawning}
-#'  \item{ext_reprod}{does group reproduce outside model area? 1 = yes, 0 = no}
+#'  \item{ext_reprod} {does group reproduce outside model area? 1 = yes, 0 = no}
 #'  \item{max}
 #'  \item{catch_grazer}
 #'  \item{assessed}
@@ -37,10 +37,10 @@
 #'  \item{cb}
 #'  \item{juv_eff}
 #'  \item{adult_eff}
-#'  \item{recruit_code}{flag recruit}
+#'  \item{recruit_code} {flag recruit}
 #'  \item{reprod_stength}
 #'  \item{local_recruit}
-#'  \item{predator}{1 = yes, 0 = no}
+#'  \item{predator} {1 = yes, 0 = no}
 #'  \item{jack_a}
 #'  \item{jack_b}
 #'  \item{recover_mult}
@@ -48,100 +48,99 @@
 #'  \item{PP}
 #'  \item{flag_dem}
 #'  \item{flag_X_day}
-#'  \item{active}{ 2 = no preference, 1 = day, 0 = night,defaults to 2}
+#'  \item{active} { 2 = no preference, 1 = day, 0 = night,defaults to 2}
 #'  \item{k_tur} {defaults to .1}
 #'  \item{k_irr} {defaults to 1}
 #'  \item{temp_coefft_a} {defaults to .851}
-#'  \item{q10}{defaults to 2}
-#'  \item{q10_method}`{default sto 0}
-#'  \item{q10_optimal_temp}{defaults to 0}
-#'  \item{q10_correction}{defaults to 0}
-#'  \item{wc}{defaults to .01}
-#'  \item{turned_on}{defaults to 1 (=yes, 0=no)  groups$IsTurnedOn=1
-#'  \item{overwinter}{defaults to 0}
+#'  \item{q10} {defaults to 2}
+#'  \item{q10_method} {default sto 0}
+#'  \item{q10_optimal_temp} {defaults to 0}
+#'  \item{q10_correction} {defaults to 0}
+#'  \item{wc} {defaults to .01}
+#'  \item{turned_on} {defaults to 1 (=yes, 0=no)  groups$IsTurnedOn=1}
+#'  \item{overwinter} {defaults to 0}
 #'  \item{horiz_migrates}
-#'  \item{migrates_out_of_model}{defaults to 0}
+#'  \item{migrates_out_of_model} {defaults to 0}
 #'  \item{low}
 #'  \item{thresh}
 #'  \item{sat}
-#'  \item{Kcov_juv}{Exponent of refuge relationship with biogenic habitat, defaults to
+#'  \item{Kcov_juv} {Exponent of refuge relationship with biogenic habitat, defaults to
 #'  3}
-#'  \item{Kcov_ad}{Exponent of refuge relationship with biogenic habitat, defaults to
+#'  \item{Kcov_ad} {Exponent of refuge relationship with biogenic habitat, defaults to
 #'  3}
-#'  \item{Bcov_juv}{Coefficient of refuge relationship with biogenic habitat, defaults
+#'  \item{Bcov_juv} {Coefficient of refuge relationship with biogenic habitat, defaults
 #'  to .6}
-#'  \item{Bcov_ad}{Coefficient of refuge relationship with biogenic habitat, defaults
+#'  \item{Bcov_ad} {Coefficient of refuge relationship with biogenic habitat, defaults
 #'  to .6}
-#'  \item{Acov_juv}{scalar for relationship with biogenic habitat, defaults to 1}
-#'  \item{home_range}{defaults to 1}
-#'  \item{overlap}{defaults to 1}
-#'  \item{flag_X_migrate}{defaults to 0}
-#'  \item{migrate_times}{days entering and leaving models, separated by a space
+#'  \item{Acov_juv} {scalar for relationship with biogenic habitat, defaults to 1}
+#'  \item{home_range} {defaults to 1}
+#'  \item{overlap} {defaults to 1}
+#'  \item{flag_X_migrate} {defaults to 0}
+#'  \item{migrate_times} {days entering and leaving models, separated by a space
 #'  (defaults to leave 364, enter 1)}
-#'  \item{migrate_times_juv}{days entering and leaving models, separated by a space
+#'  \item{migrate_times_juv} {days entering and leaving models, separated by a space
 #'  (defaults to leave 364, enter 1)}
-#'  \item{migrate_periods}{defaults to 0}
-#'  \item{return_stock}{defaults to 0}
-#'  \item{fsm}{Proportional increase in size  while outside model domain}
-#'  \item{p_stock}{verts only, scalars to determine, defaults to 1 assuming no
+#'  \item{migrate_periods} {defaults to 0}
+#'  \item{return_stock} {defaults to 0}
+#'  \item{fsm} {Proportional increase in size  while outside model domain}
+#'  \item{p_stock} {verts only, scalars to determine, defaults to 1 assuming no
 #'  stocks considered (just one big group)}
-#'  \item{p_stock_juv}{verts only, scalars to determine, defaults to 1
+#'  \item{p_stock_juv} {verts only, scalars to determine, defaults to 1
 #'  assuming no stocks considered (just one big group)}
-#'  \item{kup}{defaults to 1 ,deals with gape limitations, required for all predators}
-#'  \item{klp}{defaults to .01, deals with gape limitations, required for all
+#'  \item{kup} {defaults to 1 ,deals with gape limitations, required for all predators}
+#'  \item{klp} {defaults to .01, deals with gape limitations, required for all
 #'  predators}
-#'  \item{pr}{preference for rebuilding, defaults to 3 for fish and mammals,
+#'  \item{pr} {preference for rebuilding, defaults to 3 for fish and mammals,
 #'  5 for bird and fish}
-#'  \item{min_length_reprod}{defaults to 0}
-#'  \item{kdep}{depth organisms can dig into, not needed for primary producers,
+#'  \item{min_length_reprod} {defaults to 0}
+#'  \item{kdep} {depth organisms can dig into, not needed for primary producers,
 #'  defaults to .1}
-#'  \item{ka}{scaling of respiration vs weight, defaults .025 for fish, .021
+#'  \item{ka} {scaling of respiration vs weight, defaults .025 for fish, .021
 #'  for mammals, .024 for birds, .014 for all others}
-#'  \item{kb}{exponent of respiration vs weight, defaults to .8}
-#'  \item{klys}{only primary producers defaults to 0}
-#'  \item{m_L}{tuning parameter, defaults to 0}
-#'  \item{m_Q}{tuning parameter, needed for all living except primary producers,
+#'  \item{kb} {exponent of respiration vs weight, defaults to .8}
+#'  \item{klys} {only primary producers defaults to 0}
+#'  \item{m_L} {tuning parameter, defaults to 0}
+#'  \item{m_Q} {tuning parameter, needed for all living except primary producers,
 #'  defaults to 0}
-#'  \item{m_S}{tuning parameter for phytobenthos and seagrass,defaults to 0}
-#'  \item{m_Starve}{only for verts, defaults to 0}
-#'  \item{m_D}{tuning parameter, oxygen mortality due to ambient, inverts except
+#'  \item{m_S} {tuning parameter for phytobenthos and seagrass,defaults to 0}
+#'  \item{m_Starve} {only for verts, defaults to 0}
+#'  \item{m_D} {tuning parameter, oxygen mortality due to ambient, inverts except
 #'  primary producers,tuning parameter, oxygen mortality due to depth, inverts except
 #'  primary producers,defaults to .001}
-#'  \item{m_O}{defaults to .01}
-#'  \item{k_02}{lethal oxgyen level, inverts except primary producers,defaults to .5}
-#'  \item{k_O2_lim}{defults to 10}
+#'  \item{m_O} {defaults to .01}
+#'  \item{k_02} {lethal oxgyen level, inverts except primary producers,defaults to .5}
+#'  \item{k_O2_lim} {defults to 10}
 #'  \item(min_02){verts only, defaults to 0}
-#'  \item{mS_FD}{verts only, defaults to 0 (mortatlity due to fish not included
+#'  \item{mS_FD} {verts only, defaults to 0 (mortatlity due to fish not included
 #'  in model), value for each season, separated by a space (defaults to 0)}
-#'  \item{mS_SB}{verts only, defaults to 0 (mortatlity due to birds and mammals
+#'  \item{mS_SB} {verts only, defaults to 0 (mortatlity due to birds and mammals
 #'  not included in model), value for each season, separated by a space}
-#'  \item{KSPA}{defaults to guild values, verts only}
-#'  \item{FSP}{ddefaults to guild values, verts only}
-#'  \item{rec_stock}{recruitment param for diffferent stocks of verts, defaults to 1
+#'  \item{KSPA} {defaults to guild values, verts only}
+#'  \item{FSP} {ddefaults to guild values, verts only}
+#'  \item{rec_stock} {recruitment param for diffferent stocks of verts, defaults to 1
 #'  (no stocks)}
-#'  \item{min_spawn_temp}{defaults to minimum temp in model}
-#'  \item{max_spawn_temp}{defaults to maximum temp in model}
-#'  \item{stock_struct}{verts only, defaults to 1, input as number for each box
+#'  \item{min_spawn_temp} {defaults to minimum temp in model}
+#'  \item{max_spawn_temp} {defaults to maximum temp in model}
+#'  \item{stock_struct} {verts only, defaults to 1, input as number for each box
 #'  separated by a space}
-#'  \item{vert_stock_struct}{verts only, defaults to 1,input as number for each box
+#'  \item{vert_stock_struct} {verts only, defaults to 1,input as number for each box
 #'  separated by a space}
-#'  \item{pop_ratio_stock}{defaults to 1}
+#'  \item{pop_ratio_stock} {defaults to 1}
 #'  \item{remin_contrib}{ for small_infaunal, defaults to 0}
-#'  \item{ddepend}{is movement of group density-dependent, defaults to 0}
-#'  \item{in_WC}{defaults to 0}
-#'  \item{in_sed}{defaults to 0}
-#'  \item{epi}{default to 0}
-#'  \item{vertically_migrates}{defaults to 0}
-#'  \item{horizontally_migrates}{defaults to 0}
-#'  \item{fished}{defaults to 0, is it targeted in fisheries}
-#'  \item{impacted}{defaults to 0, is it impacted by fisheries}
-#'  \item{TAC}{defaults to 0, is it controlled by a TAC}
+#'  \item{ddepend} {is movement of group density-dependent, defaults to 0}
+#'  \item{in_WC} {defaults to 0}
+#'  \item{in_sed} {defaults to 0}
+#'  \item{epi} {default to 0}
+#'  \item{vertically_migrates} {defaults to 0}
+#'  \item{horizontally_migrates} {defaults to 0}
+#'  \item{fished} {defaults to 0, is it targeted in fisheries}
+#'  \item{impacted} {defaults to 0, is it impacted by fisheries}
+#'  \item{TAC} {defaults to 0, is it controlled by a TAC}
 #'  \item{predcase}
-#'  \item{KI}{default to 0}
-#'  \item{KS}{default to 0}
-#'  \item{KF}{default to 0}
-#'  \item{KN}{default to 0}
-#'
+#'  \item{KI} {default to 0}
+#'  \item{KS} {default to 0}
+#'  \item{KF} {default to 0}
+#'  \item{KN} {default to 0}
 #'  }
 #'
 #'
@@ -157,11 +156,11 @@
 #  \item{KN}
 #  \item{KS}
 #  \item{KF}
-#   \item{in_WC}{defaults to 0}
-#  \item{in_sed}{defaults to 0}
-#  \item{epi}{default to 0}
-#  \item{vertically_migrates}{defaults to 0}
-#  \item{horizontally_migrates}{defaults to 0}
+#   \item{in_WC} {defaults to 0}
+#  \item{in_sed} {defaults to 0}
+#  \item{epi} {default to 0}
+#  \item{vertically_migrates} {defaults to 0}
+#  \item{horizontally_migrates} {defaults to 0}
 #  }
 #'  @param flag_data_csv
 #' @details This function creates the biology prm file needed by Atlantis.
@@ -431,18 +430,18 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   #make columns for  type of recruitment, local recruitment, and year class variation
   if ("recruit_code" %!in% names (species_input)){
     species_input$recruit_code <- NA
-    species_input$recruit_code[species$input$atlantis.type %in% c("bird", "mammal")] <- 12
-    species_input$recruit_code[species$input$atlantis.type %in% c("fish", "shark")] <- 10
+    species_input$recruit_code[species_input$atlantis.type %in% c("bird", "mammal")] <- 12
+    species_input$recruit_code[species_input$atlantis.type %in% c("fish", "shark")] <- 10
   }
   if ("local_recruit" %!in% names (species_input)){
     species_input$local_recruit <- NA
-    species_input$local_recruit[species$input$atlantis.type %in% c("bird", "mammal",
+    species_input$local_recruit[species_input$atlantis.type %in% c("bird", "mammal",
       "fish", "shark")] <- 0
   }
   if ("rep_strength" %!in% names (species_input)){
     species_input$rep_strength <- NA
-    species_input$rep_strength[species$input$atlantis.type %in% c("bird", "mammal")] <- 0
-    species_input$rep_strength[species$input$atlantis.type %in% c("fish", "shark")] <- 0
+    species_input$rep_strength[species_input$atlantis.type %in% c("bird", "mammal")] <- 0
+    species_input$rep_strength[species_input$atlantis.type %in% c("fish", "shark")] <- 0
   }
 
   if( "predator" %!in% names(species_input)){
@@ -537,29 +536,35 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     species_input$thresh <- 2500
   }
   if("sat" %!in% names(species_input)){
+    species_input$sat <- NA
     species_input$sat[species_input$atlantis.type %in% c("fish")] <- 4000
   }
 
   if("Kcov_juv" %!in% names(species_input)){
+    species_input$Kcov_juv <- NA
     species_input$Kcov_juv[species_input$atlantis.type %in% c("fish", "mammal", "shark",
                                                          "bird")] <- 3
   }
 
   if("Kcov_ad" %!in% names(species_input)){
+    species_input$Kcov_ad <- NA
     species_input$Kcov_ad[species_input$atlantis.type %in% c("fish", "mammal", "shark",
                                                          "bird")] <- 3
   }
 
   if("Bcov_juv" %!in% names(species_input)){
+    species_input$Bcov_juv <- NA
     species_input$Bcov_juv[species_input$atlantis.type %in% c("fish", "mammal", "shark",
                                                               "bird")] <- .6
   }
 
   if("Bcov_ad" %!in% names(species_input)){
+    species_input$Bcov_ad <- NA
     species_input$Bcov_ad[species_input$atlantis.type %in% c("fish", "mammal", "shark",
                                                              "bird")] <- .6
   }
   if("Acov_juv" %!in% names(species_input)){
+    species_input$Acov_juv <- NA
     species_input$Acov_juv[species_input$atlantis.type %in% c("fish", "mammal", "shark",
                                                               "bird")] <- 1
   }
@@ -607,7 +612,8 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("klp" %!in% names(species_input)){
     species_input$klp[species_input$predator == 1] <- .01
   }
-  if("pR" %!in% names(species_input)){
+  if("pr" %!in% names(species_input)){
+    species_input$pr <- NA
     species_input$pr[species_input$atlantis.type %in% c("fish", "mammal")] <- 3
     species_input$pr[species_input$atlantis.type %in% c("bird", "shark")] <- 5
   }
@@ -618,11 +624,13 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     species_input$kdep <- .1
   }
   if("ka" %!in% names(species_input)){
+    species_input$ka <- NA
     species_input$ka[species_input$atlantis.type == "fish"] <- .025
     species_input$ka[species_input$atlantis.type == "mammal"] <- .021
     species_input$ka[species_input$atlantis.type == "bird"] <- .024
     species_input$ka[species_input$atlantis.type %!in% c("fish", "mammal", "bird")] <- .014
   }
+
   if("kb" %!in% names(species_input)){
     species_input$kb <- .8
   }
@@ -706,7 +714,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   }
   if("horizonatally_migrates" %!in% names(species_input)){
     species_input$horizontally_migrates <- 0
-
+  }
   if("fished" %!in% names(species_input)){
       species_input$fished <- 0
   }
@@ -800,10 +808,5 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     cat(paste(as.character(flag_data[i,1]), as.character(flag_data[i,2]), sep=" "))
     cat("\n")
   }
-
   sink()
 }
-
-
-
-
