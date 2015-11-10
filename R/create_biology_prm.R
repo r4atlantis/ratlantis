@@ -19,9 +19,10 @@
 #'  \item {mean_K}
 #'  \item{larval_duration}
 #'  \item{planktivore}{only used for vertebrates}
-#'  \item{bear_live_young}
-#'  \item{parental_care}
-#'  \item{feed_while_spawning}
+#'  \item{bear_live_young}{only used for vertebrates, (0 = no, 1 = yes) }
+#'  \item{parental_care} {does the vertebrate group provides parental care for
+#'   young until maturity; 0 = no, 1 = yes, -1 = semelparous so die after reproduction)   
+#'  \item{feed_while_spawning}{for vertebrates and age-structured inverts}
 #'  \item{max}
 #'  \item{catch_grazer}
 #'  \item{assessed}
@@ -49,6 +50,7 @@
 #'  \item{recover_mult}
 #'  \item{recover_start}
 #'  \item{PP}
+
 #'  \itemize{needed for all living
 #'  \item{flag_dem}{Preferred location trend (0 is top, 1 is demersal (?)));
 #'  whether to weight vertical distributions towards surface or bottom layers
@@ -66,12 +68,16 @@
 #'  0=only moderate variation in year class strength possible, mainly for top 
 #'  predators with few young per reproductive event, relative strength set 
 #'  using recruitRangeFlat. defaults to 0)}
-#'  }
+#'  \item{flag_q10}{Switch indicating whether or not efficiency of assimilation 
+#'  is temperature dependent, defaults 1; 0 = no (same efficiency regardless),
+#'   1 = poorer when cooler, 2 = poorer when warmer}
+#'   }
 #'  \itemize{needed for all vertebrates and stage structured inverts
 #'  \item{ext_reprod} {does group reproduce outside model area? 1 = yes, 0 = no,
 #'  required for all vertebrates and stage-structured invertebrates, defaults to 0}
 #'  \item{local_recruit} {defaults to 0,
 #'  1 = demersal and piscivorous fish recruit at parental locations, 0 = independent distribution}
+#'  item{flag_temp_sensitive}{Temperature sensitivty; defaults to 0 = no, 1 = yes}
 #'  }
 #'  \item{flag_X_day}
 #'  \item{active} { 2 = no preference, 1 = day, 0 = night,defaults to 2}
@@ -827,9 +833,12 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
 
 
 # start producing actual input files
+  
+  species_input$group_code <- toupper(species_input$group_code)
+  mean_individual_morphology$group_code <- toupper(mean_individual_morphology$group_code)
 
     #PRODUCE GROUPS FILE
-  groups <- data.frame("group_code" = toupper(species_input$group_code),
+  groups <- data.frame("group_code" = species_input$group_code,
                        "Index" = species_input$index,
                        "IsTurnedOn" = species_input$turned_on,
                        "Name" = species_input$group_code,
@@ -936,19 +945,30 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
         species_input$ext_reprod[i], "\n", sep=""))
       
       #local recruit
-      cat(paste("flaglocalrecruit",as.character(species_input$Code[i]), " ", species_input$local_recruit[i], "\n", sep=""))
+      cat(paste("flaglocalrecruit",as.character(species_input$group_code[i]), " ", species_input$local_recruit[i], "\n", sep=""))
       
-    }
+      cat(paste("feed_while_spawn",as.character(species_input$group_code[i]), " ", species_input$feed_while_spawning[i], "\n", sep=""))
+      
+      cat(paste("flagtempsensitive",as.character(species_input$group_code[i]), 
+        " ",species_input$flag_temp_sensitive[i],"\n", sep=""))      
+      }
     
     
     #for all vertebrates
     
     if (species_input$atlantis_type[i] %in% c("fish", "mammal", "bird", "shark")){
       cat(paste("flagplankfish",as.character(species_input$group_code[i]), " ", species_input$planktivore[i], "\n", sep=""))
-    }
     
     cat(paste("flagrecpeak",as.character(species_input$group_code[i]), " ", species_input$reprod_strength[i], "\n", sep=""))
     
+    cat(paste("flagbearlive",as.character(species_input$group_code[i]), " ", species_input$bear_live_young[i], "\n", sep=""))
+    
+    cat(paste("flagmother",as.character(species_input$group_code[i]), " ", species_input$parental_care[i], "\n", sep=""))
+    
+    cat(paste("flaq10eff",as.character(species_input$group_code[i]), " ",species_input$flag_q10[i],"\n", sep=""))
+    
+    
+    }
     cat("\n")
   }
   sink()
