@@ -71,7 +71,9 @@
 #'  \item{flag_q10}{Switch indicating whether or not efficiency of assimilation 
 #'  is temperature dependent, defaults 1; 0 = no (same efficiency regardless),
 #'   1 = poorer when cooler, 2 = poorer when warmer}
-#'   }
+#'  \item{habitat_depend}{defaults to 0, dependent on demersal habitat: 0 = no, 
+#'  1 = yes 0, defaults to 0}
+#'  }
 #'  \itemize{needed for all vertebrates and stage structured inverts
 #'  \item{ext_reprod} {does group reproduce outside model area? 1 = yes, 0 = no,
 #'  required for all vertebrates and stage-structured invertebrates, defaults to 0}
@@ -159,7 +161,9 @@
 #'  separated by a space}
 #'  \item{pop_ratio_stock} {defaults to 1}
 #'  \item{remin_contrib}{ for small_infaunal, defaults to 0}
-#'  \item{ddepend} {is movement of group density-dependent, defaults to 0}
+#'  \item{density_depend} {is movement of group density-dependent, 0 = off, 
+#'  1 = sedentary, 2 = on, 3 = sticky, 4 = no explicit movement, defaults to 0 for 
+#'  vertebrates, 4 for others; needed for all that horizontally migrate}
 #'  \item{in_WC} {defaults to 0}
 #'  \item{in_sed} {defaults to 0}
 #'  \item{epi} {default to 0}
@@ -180,7 +184,6 @@
 #'  \item{num_of_age_class_size}{set by internal function using maximum age and
 #'  number of cohorts}
 #'  \item{cultured}{defaults to 0}
-#'  \item{habitat_depend}{defaults to 0}
 #'  }
 #'
 #'
@@ -747,8 +750,19 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("remin_contrib" %!in% names(species_input)){
     species_input$remin_contrib <- 0
   }
-  if("ddepend" %!in% names(species_input)){
-    species_input$ddepend <- 0
+  if("vertically_migrates" %!in% names(species_input)){
+    species_input$vertically_migrates <- 0
+  }
+  if("horizontally_migrates" %!in% names(species_input)){
+    species_input$horizontally_migrates <- 0
+  }
+  if("density_depend" %!in% names(species_input)){
+    species_input$density_depend <- NA
+    species_input$density_depend[species_input$atlantis_type[i] %in% 
+        c("bird", "fish", "mammal", "shark")] <- 0
+    species_input$density_depend[species_input$atlantis_type[i] %!in% 
+        c("bird", "fish", "mammal", "shark") & species_input$horizontally_migrates ==
+        1] <- 4
   }
   if("in_WC" %!in% names(species_input)){
     species_input$in_WC <- 0
@@ -758,12 +772,6 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   }
   if("epi" %!in% names(species_input)){
     species_input$epi <- 0
-  }
-  if("vertically_migrates" %!in% names(species_input)){
-    species_input$vertically_migrates <- 0
-  }
-  if("horizonatally_migrates" %!in% names(species_input)){
-    species_input$horizontally_migrates <- 0
   }
   if("fished" %!in% names(species_input)){
       species_input$fished <- 0
@@ -967,6 +975,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     
     cat(paste("flaq10eff",as.character(species_input$group_code[i]), " ",species_input$flag_q10[i],"\n", sep=""))
     
+    cat(paste("flaghabdepend",as.character(species_input$group_code[i]), " ",species_input$habitat_depend[i],"\n", sep=""))
     
     }
     cat("\n")
