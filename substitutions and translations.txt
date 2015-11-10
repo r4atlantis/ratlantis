@@ -7,3 +7,8 @@ averageindiviudalmorphology mean_individual_morphology
 if( "num_of_age_classes" %!in% names(species_input)){
 
     if(species_input$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark"))
+
+  if("home_range" %!in% names(species_input)){
+    species_input$Acov_juv[species_input$atlantis.type %in% c("fish", "mammal", "shark",
+                                                              "bird")] <- 1
+  }
