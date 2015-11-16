@@ -18,8 +18,8 @@
 #'  \item{TL_final}
 #'  \item {Data on depth associations, specifically
 #'  \itemize{
-#'  \item {min_Depth}
-#'  \item {max_Depth}
+#'  \item {min_depth}
+#'  \item {max_depth}
 #'  }
 #'  }
 #'  \item {Growth information, specifically
@@ -50,7 +50,7 @@
 #'  }
 #' @keywords biology prm
 #' @details This function uses provided information to Atlantis parameters for each
-#' functional group 
+#' functional group
 #' @export
 
 generate_group_parameters <- function(species_data_location = getwd(),  species_info_groups_csv){
@@ -72,17 +72,17 @@ generate_group_parameters <- function(species_data_location = getwd(),  species_
 
   species_input_groups <- reshape2::melt(species_input, id.vars=c("atlantis_type",
     "group_name", "group_code",
-    "scientific_name_underscore"), 
-    measure.vars = c("TL_final", "mean_M", "max_age", "min_age_reprod", "mean_a", 
-      "mean_b", "mean_Loo", "mean_K"))
+    "scientific_name_underscore"),
+    measure.vars = c("TL_final", "mean_M", "max_age", "min_age_reprod", "mean_a",
+      "mean_b", "mean_Loo", "mean_K", "min_depth", "max_depth"))
   #melting above allows us to remove all NA rows
   species_input_groups=reshape::cast(data=na.omit(species_input_groups), atlantis_type + group_name +
       group_code ~ variable, meannona)
-  
+
   #add in any groups that were missed due to all species missing all data
   species_input <- merge (unique(species_input[,c("atlantis_type", "group_name", "group_code")]),
     species_input_groups, all.x = T, all.y = T)
-  
+
 
   return(species_input)
 }
