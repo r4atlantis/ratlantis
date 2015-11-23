@@ -22,9 +22,9 @@
 #' location as the atlantis exe file)
 #' @param fisheries_csv list delimiting targeted fisheries (needs to be in same
 #' location as the atlantis exe file)
-#' @param econ_prm name of econ file (needs to be in same location as the
+#' @param econ_prm (optional) name of econ file (needs to be in same location as the
 #' atlantis exe file)
-#' @param output_folder, name of folder (in same directory as atlantis.exe file)
+#' @param output_folder name of folder (in same directory as atlantis.exe file)
 #' where should results be stored?
 #' @keywords atlantis
 #' @details This function acts as a wrapper for the Atlantis C++ program.

@@ -23,7 +23,7 @@
 #'  \item{planktivore}{only used for vertebrates}
 #'  \item{bear_live_young}{only used for vertebrates, (0 = no, 1 = yes) }
 #'  \item{parental_care} {does the vertebrate group provides parental care for
-#'   young until maturity; 0 = no, 1 = yes, -1 = semelparous so die after reproduction)
+#'   young until maturity; 0 = no, 1 = yes, -1 = semelparous so die after reproduction}
 #'  \item{feed_while_spawning}{for vertebrates and age-structured inverts}
 #'  \item{catch_grazer}
 #'  \item{assessed}

@@ -26,8 +26,8 @@ gather_habitat_for_species):
  \item{TL_final}
  \item {Data on depth associations, specifically
  \itemize{
- \item {min_Depth}
- \item {max_Depth}
+ \item {min_depth}
+ \item {max_depth}
  }
  }
  \item {Growth information, specifically

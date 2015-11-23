@@ -32,7 +32,8 @@
 #' @export
 #' @seealso rbgmeriser
 #'
-#' execute_atlantis2 <- function (atlantis_location, atlantis_exe, biology_nc, output_file_nc,
+
+execute_atlantis2 <- function (atlantis_location, atlantis_exe, biology_nc, output_file_nc,
                               run_file_prm, forcing_time_series_prm,physics_prm,
                               biology_prm, harvest_prm, functional_group_csv,
                               fisheries_csv, output_folder, econ_prm
