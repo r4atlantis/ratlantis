@@ -26,6 +26,8 @@
 #' atlantis exe file)
 #' @param output_folder name of folder (in same directory as atlantis.exe file)
 #' where should results be stored?
+#' @param wait_for_response Should R wait for Atlantis to run before proceeding?
+#' Defaults to True
 #' @keywords atlantis
 #' @details This function acts as a wrapper for the Atlantis C++ program.
 #' @export
@@ -34,7 +36,7 @@
 execute_atlantis <- function (atlantis_location, atlantis_exe, biology_nc, output_file_nc,
                               run_file_prm, forcing_time_series_prm,physics_prm,
                               biology_prm, harvest_prm, functional_group_csv,
-                              fisheries_csv, econ_prm, output_folder
+                              fisheries_csv, econ_prm, output_folder, wait_for_response = T
                               ){
 
   #first do required commands
@@ -52,6 +54,6 @@ execute_atlantis <- function (atlantis_location, atlantis_exe, biology_nc, outpu
     command_argument <- paste(command_argument, " -e ", econ_prm, sep = "")
   }
 
-  shell(command_argument, intern = T)
+  shell(command_argument, wait = wait_for_response, intern = wait_for_response)
 
 }
