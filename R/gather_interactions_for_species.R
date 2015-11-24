@@ -24,17 +24,17 @@ gather_interactions_for_species <- function(species_list_location = getwd(), spe
                                             map_location =  getwd(), map_name = "map_for_bgmeriser",
                                             bbox_coordinates){
   #read in the species_list
-  species <- read.csv(paste(species_list_location, "/", species_list_csv, sep=""),
+  species_input <- read.csv(paste(species_list_location, "/", species_list_csv, sep=""),
                                  header=T)
-  if ("Genus" %!in% names(species) |
-        "species" %!in% names(species) |
-        "common_name" %!in% names(species)){
+  if ("Genus" %!in% names(species_input) |
+        "species" %!in% names(species_input) |
+        "common_name" %!in% names(species_input)){
       stop(message = "Species list needs all of the following columns: Genus,  species, common_name")
       }
   #add scientific name for matching
-  species$scientific_name <- paste (species$Genus, species$species,
+  species_input$scientific_name <- paste (species_input$Genus, species_input$species,
                                          sep = " ")
-  species$scientific_name_underscore <- paste (species$Genus, species$species,
+  species_input$scientific_name_underscore <- paste (species_input$Genus, species_input$species,
                                     sep = "_")
 
   #species interactions using rglobi
@@ -43,9 +43,9 @@ gather_interactions_for_species <- function(species_list_location = getwd(), spe
     bbox_coordinates <- c(map_area@bbox[1,1], map_area@bbox[2,1], map_area@bbox[1,2],
                           map_area@bbox[2,2])
   }
-  speciesinteractions <- rglobi::get_interactions_in_area( bbox=bbox_coordinates)
+  species_interactions <- rglobi::get_interactions_in_area( bbox=bbox_coordinates)
 
-  return (speciesinteractions)
+  return (species_interactions)
 
 }
 

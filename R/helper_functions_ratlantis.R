@@ -1,14 +1,11 @@
 #helper functions for ratlantis
 
-#' not_in function
+#' "%!in%" function
 #'
 #' This function allows you to check if an element is not in a larger group
 #' @param x object you are trying to check for
 #' @param table group you are checking against
-#' @usage x \%!in\% table
-#' @rdname not_in
-
-"%!in%" <- function(x,table) match(x,table, nomatch = 0) == 0
+"%!in%" <- function(x,table) match(x,table, nomatch = 0) ==
 
 
 #' meannona function
