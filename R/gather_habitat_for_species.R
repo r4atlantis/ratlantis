@@ -11,8 +11,8 @@
 #' @param map_name name of map used for bgm creation; can be produced by rbgmeriser
 #' function or created manually; defaults to map_for_bgmeriser (produced by
 #' rbgmeriser function)
-#' @param habitat_list list of potential habitat types to be included in the
-#' model
+#' @param habitat_list (optional)list of potential habitat types to be included in the
+#' model. defaults to full list avaialble from Fishbase
 #' @keywords biology prm, functional groups,
 #' @details This function aids in gathering data on species occurrence that may
 #' be useful in constructing functional groups and diet matrices.  User submits

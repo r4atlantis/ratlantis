@@ -29,8 +29,8 @@ directory}
 function or created manually; defaults to map_for_bgmeriser (produced by
 rbgmeriser function)}
 
-\item{habitat_list}{list of potential habitat types to be included in the
-model}
+\item{habitat_list}{(optional)list of potential habitat types to be included in the
+model. defaults to full list avaialble from Fishbase}
 }
 \description{
 This function aids in gathering data on species occurence that may be useful

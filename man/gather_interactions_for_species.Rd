@@ -6,7 +6,7 @@
 \usage{
 gather_interactions_for_species(species_list_location = getwd(),
   species_list_csv, map_location = getwd(), map_name = "map_for_bgmeriser",
-  bbox_coordinates = "empty")
+  bbox_coordinates)
 }
 \arguments{
 \item{species_list_location}{where is species list located,defaults to working directory}
@@ -20,9 +20,10 @@ directory}
 \item{map_name}{name of map used for bgm creation; can be produced by rbgmeriser
 function or created manually, defaults to file created by rbgmeriser}
 
-\item{bbox_coordinates}{bounding box (in EPSG:4326 decimal degrees, defining
+\item{(optional)}{bbox_coordinates bounding box (in EPSG:4326 decimal degrees, defining
 "left, bottom, right, top" of bounding box) in which you wish for information
-on interactions}
+on interactions.  If these are not supplied code uses provided map to determine
+bounding boxes}
 }
 \description{
 This function aids in gathering data on species interactions that may be useful

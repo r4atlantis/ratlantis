@@ -6,7 +6,8 @@
 \usage{
 execute_atlantis(atlantis_location, atlantis_exe, biology_nc, output_file_nc,
   run_file_prm, forcing_time_series_prm, physics_prm, biology_prm, harvest_prm,
-  functional_group_csv, fisheries_csv, econ_prm, output_folder)
+  functional_group_csv, fisheries_csv, econ_prm, output_folder,
+  wait_for_response = T)
 }
 \arguments{
 \item{atlantis_location}{location of atlantis file (location may not
@@ -46,6 +47,9 @@ atlantis exe file)}
 
 \item{output_folder}{name of folder (in same directory as atlantis.exe file)
 where should results be stored?}
+
+\item{wait_for_response}{Should R wait for Atlantis to run before proceeding?
+Defaults to True}
 }
 \description{
 This function calls the terminal and executes an Atlantis model

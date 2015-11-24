@@ -48,7 +48,7 @@ directory}
 function or created manually; defaults to map_for_bgmeriser (produced by
 rbgmeriser function)}
 
-\item{habitat_list}{list of habitat types to be included in the model (see
+\item{habitat_list}{(optional) list of habitat types to be included in the model (see
 gather_habitat_for_species for default list and potential options)}
 }
 \description{

@@ -28,7 +28,7 @@
 #' @param map_name name of map used for bgm creation; can be produced by rbgmeriser
 #' function or created manually; defaults to map_for_bgmeriser (produced by
 #' rbgmeriser function)
-#' @param habitat_list list of habitat types to be included in the model (see
+#' @param habitat_list (optional) list of habitat types to be included in the model (see
 #'  gather_habitat_for_species for default list and potential options)
 #' @keywords biology prm
 #' @details This function uses provided information to suggest functional group

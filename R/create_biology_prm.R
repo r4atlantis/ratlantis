@@ -3,7 +3,9 @@
 #' This function creates the biology prm file needed for Atlantis
 #' @param species_data_location where csv file with species data is located (defaults to
 #' working directory).
-#' @param  species_info_groups_csv name of csv file that must contain the following column headers
+#' @param  species_info_groups_csv name of csv file with species data.
+#' \itemize{
+#' \item {The following column headers are required
 #' (all provided by merging generate_group_parameter function):
 #' \itemize{
 #'  \item{atlantis_type}
@@ -29,11 +31,10 @@
 #'  \item{assessed}
 #'  \item{cover}
 #'  \item{silicon_dep}
-#'  \item{}
-#'  \item{}
 #'  }
-#'  The following columns are optional (will be filled in by function if not
-#'  provided)
+#'  }
+#'  \item {The following columns are optional (will be filled in by function if not
+#'  provided):
 #'  \itemize{
 #'  \item{num_of_age_classes}
 #'  \item{ca}
@@ -54,7 +55,6 @@
 #'  \item{recover_mult}
 #'  \item{recover_start}
 #'  \item{PP}
-
 #'  \itemize{needed for all living
 #'  \item{flag_dem}{Preferred location trend (0 is top, 1 is demersal (?)));
 #'  whether to weight vertical distributions towards surface or bottom layers
@@ -62,9 +62,9 @@
 #'  to 1}
 #'  \item{ph_sensitive}{is species growth or non predation mortality is sensitive
 #'   to pH, defaults to 0}
-#'   \item{ph_sensitive_fecund}{is species fecundity sensitive to pH, defaults
+#'  \item{ph_sensitive_fecund}{is species fecundity sensitive to pH, defaults
 #'   to 0}
-#'   \item{salinity_impacts_nutrition}{Whether the species nutritional value is
+#'  \item{salinity_impacts_nutrition}{Whether the species nutritional value is
 #'    sensitive to salinity or pH (mainly an issue for phytoplankton), default to
 #'    0}
 #'  \item{ph_impacts_availablity}{# Whether the species availability to
@@ -88,7 +88,8 @@
 #'  \item{salinity_correction_scalar}{# Correction scalar salt for nonlinear salinity
 #'   impact function, defaults to 1}
 #'  }
-#'  \itemize{needed for all that horizontally migrate
+#'  \item{needed for all that horizontally migrate
+#'  \itemize{
 #'  \item{migrates_out_of_model} {defaults to 0, needed for all that horizontally
 #'  migrate.  Maximum number of times juvenile OR adult stages must leave the
 #'  model domain). For example if juvenile FVT leave once,but adults leave 3
@@ -113,7 +114,6 @@
 #'  are in the migrates_out_model entry for that group, separated by a space. Note
 #'  an entry of 0 for the flag still requires a single entry for the array (defaults
 #'  to 0)}
-#'  }
 #'  \item{migrate_times_juv} {days entering and leaving models, separated by a space
 #'  (defaults to leave 364, enter 1)}
 #'  \item{migrate_period_ad} {defaults to 1 for those with horizontal migration, period of time adults of groups wiht stages of pools exit or enter model over;
@@ -134,12 +134,16 @@
 #'  1 = sedentary, 2 = on, 3 = sticky, 4 = no explicit movement, defaults to 0 for
 #'  vertebrates, 4 for others; needed for all that horizontally migrate}
 #'  }
-#'  \itemize{needed for all stage structured inverts
+#'  }
+#'  \item{optional for all stage structured inverts:
+#'  \itemize{
 #'  \item{seperate}{1 = seperate groups (or single pool), 0 = age structured
 #'  single group, defaults to 0; at this point can only handle one recruit type
 #'  for these groups}
 #'  }
-#'  \itemize{needed for all vertebrates
+#'  }
+#'  \item{optional for all vertebrates:
+#'  \itemize{
 #'  \item{reprod_strength}{# Vertebrate reproduction strength flags (1=very
 #'  strong year classes possible, relative strength set using recruitRange and
 #'  0=only moderate variation in year class strength possible, mainly for top
@@ -166,12 +170,15 @@
 #'  \item{min_move_temp} {defaults to minimum temp in model}
 #'  \item{max_move_temp} {defaults to maximum temp in model}
 #'  }
-#'  \itemize{needed for all vertebrates and stage structured inverts
+#'  }
+#'  \item{optional for all vertebrates and stage structured inverts:
+#'  \itemize{
 #'  \item{ext_reprod} {does group reproduce outside model area? 1 = yes, 0 = no,
 #'  required for all vertebrates and stage-structured invertebrates, defaults to 0}
 #'  \item{local_recruit} {defaults to 0,
 #'  1 = demersal and piscivorous fish recruit at parental locations, 0 = independent distribution}
 #'  item{flag_temp_sensitive}{Temperature sensitivty; defaults to 0 = no, 1 = yes}
+#'  }
 #'  }
 #'  \item{flag_X_day}
 #'  \item{active} { 2 = no preference, 1 = day, 0 = night,defaults to 2, needed
@@ -197,7 +204,7 @@
 #'  \item{low}{Threshold spatial factors for filter feeders if using ERSEM formulation, Little space limitation (pop too small) }
 #'  \item{thresh}{Threshold spatial factors for filter feeders if using ERSEM formulation }
 #'  \item{sat}{Threshold spatial factors for filter feeders if using ERSEM formulation, Interference to uptake due to shading }
-#'  \item{home_range} {defaults to 1, all epxcept primary producers)
+#'  \item{home_range} {defaults to 1, all epxcept primary producers}
 #'  \item{overlap} {defaults to 1, all except primary producers}
 #'  \item{p_stock} {verts only, scalars to determine, defaults to 1 assuming no
 #'  stocks considered (just one big group)}
@@ -267,8 +274,8 @@
 #'  number of cohorts}
 #'  \item{cultured}{defaults to 0}
 #'  }
-#'
-#'
+#'  }
+#'  }
 #  need to add file here wiht mum, clearance, and other values. for now these just default
 #  to value in code to keep everything clean
 #  @param invert_mum_and_clearance_csv name of csv file that must contain the
@@ -288,7 +295,7 @@
 #  \item{vertically_migrates} {defaults to 0}
 #  \item{horizontally_migrates} {defaults to 0}
 #  }
-#'  @param flag_data_csv
+#' @param flag_data_csv csv file containing major flag values for model
 #' @details This function creates the biology prm file needed by Atlantis.
 #' @keywords biology prm
 #' @export
