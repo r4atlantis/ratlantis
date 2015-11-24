@@ -55,7 +55,8 @@
 #'  \item{recover_mult}
 #'  \item{recover_start}
 #'  \item{PP}
-#'  \itemize{needed for all living
+#'  \item{needed for all living:
+#'  \itemize{
 #'  \item{flag_dem}{Preferred location trend (0 is top, 1 is demersal (?)));
 #'  whether to weight vertical distributions towards surface or bottom layers
 #'  when in depths where there were less than complete set of depth layers. defaults
@@ -87,6 +88,7 @@
 #'  \item{salinity_sensitive}{Whether the species is sensitive to salinity, defaults to 0}
 #'  \item{salinity_correction_scalar}{# Correction scalar salt for nonlinear salinity
 #'   impact function, defaults to 1}
+#'  }
 #'  }
 #'  \item{needed for all that horizontally migrate
 #'  \itemize{
