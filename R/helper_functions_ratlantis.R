@@ -13,6 +13,7 @@
 #' This function allows you to calculate the mean value of a set while excluuding
 #' NA's
 #' @param ... list for which you seeking a mean
+#' @export
 meannona=function(...){
   mean(..., na.rm=T)
 }
@@ -22,6 +23,7 @@ meannona=function(...){
 #' This function allows you to calculate the max value of a set while excluuding
 #' NA's
 #' @param ... list for which you seeking a maximum
+#' @export
 maxnona=function(...){
   max(..., na.rm=T)
 }
@@ -31,6 +33,7 @@ maxnona=function(...){
 #' This function allows you to calculate the mean value of a set while excluuding
 #' NA's
 #' @param ... list for which you seeking a minimum
+#' @export
 minnona=function(...){
   min(..., na.rm=T)
 }
