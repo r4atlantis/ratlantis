@@ -9,7 +9,7 @@
 #' directory
 #' @param map_name name of map used for bgm creation; can be produced by rbgmeriser
 #' function or created manually, defaults to file created by rbgmeriser
-#' @param (optional) bbox_coordinates bounding box (in EPSG:4326 decimal degrees, defining
+#' @param bbox_coordinates (optional) bounding box (in EPSG:4326 decimal degrees, defining
 #' "left, bottom, right, top" of bounding box) in which you wish for information
 #' on interactions.  If these are not supplied code uses provided map to determine
 #' bounding boxes
