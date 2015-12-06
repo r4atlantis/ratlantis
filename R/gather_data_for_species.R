@@ -100,7 +100,7 @@ gather_data_for_species <- function(species_list_location = getwd(), species_lis
 
   pop_char_Lmax <- reshape::cast (SpecCode~., value="Lmax", data = pop_char_info, maxnona)
   names(pop_char_Lmax)[names(pop_char_Lmax) == '(all)'] <- 'max_length'
-  pop_char_Lmax$max_length[!is.finite(pop_char_Wmax$Lmax)] <- NA
+  pop_char_Lmax$max_length[!is.finite(pop_char_Lmax$Lmax)] <- NA
 
 
   pop_char_tmax <- reshape::cast (SpecCode~., value="tmax", data = pop_char_info, maxnona)

@@ -1,3 +1,70 @@
+CEP_habdepend 0
+BFS_habdepend 0
+BFF_habdepend 0
+BFD_habdepend 0
+BG_habdepend 0
+BMD_habdepend 0
+BML_habdepend 0
+BMS_habdepend 0
+PWN_habdepend 0
+ZL_habdepend 0
+BD_habdepend 0
+MA_habdepend 0
+MB_habdepend 0
+SG_habdepend 0
+BC_habdepend 0
+ZG_habdepend 0
+PL_habdepend 0
+DF_habdepend 0
+PS_habdepend 0
+ZM_habdepend 0
+ZS_habdepend 0
+PB_habdepend 0
+BB_habdepend 0
+BO_habdepend 0
+DL_habdepend 0
+DR_habdepend 0
+
+ 
+
+BMD_habdepend  1
+BML_habdepend  1
+BMS_habdepend  1
+BG_habdepend  0
+BFS_habdepend  0
+BFF_habdepend  0
+BD_habdepend  0
+MA_habdepend  0
+SG_habdepend  0
+BC_habdepend  0
+BO_habdepend  0
+
+MA_mindepth      0
+MB_mindepth      0
+SG_mindepth      0
+ZG_mindepth      0
+PL_mindepth      0
+PS_mindepth      0
+PB_mindepth      0
+BB_mindepth      0
+DL_mindepth      0
+DR_mindepth      0
+DC_mindepth      0
+
+
+MA_maxdepth      5000
+MB_maxdepth      5000
+SG_maxdepth      5000
+ZG_maxdepth      5000
+PL_maxdepth      5000
+PS_maxdepth      5000
+PB_maxdepth      5000
+BB_maxdepth      5000
+DL_maxdepth      5000
+DR_maxdepth      5000
+DC_maxdepth      5000
+
+
 
 # Habitat dependency parameters                       
 # Vectors indicating which habitats each group prefers. 1=group lives on the habitat, 0=not present.            
@@ -1265,3 +1332,2687 @@ FPWN_S3juv 11
            
 FPWN_S4juv 11          
  0 0.5 0.5 0 0 0 0 0 0 0 0
+ 
+ 
+   
+# Vertical distribution for invertebrate consumers (proportion in each                  
+# water column layer in day and night). First entry for each vector refers to water           
+# column layer closest to the sediment and then up through the watercolumn to             
+# surface most layer on the extreme right                   
+VERTday_CEP 6                         
+0.5 0.3 0.1 0.1 0.0 0.0                     
+
+VERTnight_CEP 6                         
+0.1 0.1 0.2 0.2 0.2 0.2                     
+
+VERTday_PWN 6                         
+0.5 0.5 0 0 0 0                     
+
+VERTnight_PWN 6                         
+0.5 0.5 0 0 0 0                     
+
+VERTday_ZG 6                         
+0.1 0.1 0.1 0.1 0.1 0.5                     
+
+VERTnight_ZG 6                         
+0.1 0.5 0.1 0.1 0.1 0.1                     
+
+VERTday_ZL 6                         
+0.1 0.1 0.1 0.1 0.4 0.2                     
+
+VERTnight_ZL 6                         
+0.1 0.1 0.1 0.1 0.4 0.2                     
+
+VERTday_ZM 6                         
+0.1 0.1 0.1 0.1 0.4 0.2                     
+
+VERTnight_ZM 6                         
+0.1 0.1 0.1 0.1 0.4 0.2                     
+
+VERTday_ZS 6                         
+0.1 0.1 0.1 0.1 0.4 0.2                     
+
+VERTnight_ZS 6                         
+0.1 0.1 0.1 0.1 0.4 0.2                     
+
+# Vertical distribution for vertebrates (proportion in each water column layer in day and night).            
+# First entry for each group is for the juveniles, second for the adults.             
+# First entry for each vector refers to water column layer closest to the sediment            
+# and then up through the watercolumn to surface most layer on the extreme right            
+VERTday_FPS1 6                         
+0 0 0 0.2 0.4 0.4                     
+
+VERTnight_FPS1 6                         
+0 0 0 0.2 0.4 0.4                     
+
+VERTday_FPS2 6                         
+0 0 0 0.2 0.4 0.4                     
+
+VERTnight_FPS2 6                         
+0 0 0 0.2 0.4 0.4                     
+
+VERTday_FPL1 6                         
+0 0 0 0.2 0.4 0.4                     
+
+VERTnight_FPL1 6                         
+0 0 0 0 0.5 0.5                     
+
+VERTday_FPL2 6                         
+0 0 0.1 0.2 0.3 0.4                     
+
+VERTnight_FPL2 6                         
+0 0 0 0.2 0.4 0.4                     
+
+VERTday_FPO1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FPO1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FPO2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FPO2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FVD1 6                         
+0 0 0 0 0.5 0.5                     
+
+VERTnight_FVD1 6                         
+0 0 0 0 0.5 0.5                     
+
+VERTday_FVD2 6                         
+0 0 0 0 0.5 0.5                     
+
+VERTnight_FVD2 6                         
+0 0 0 0 0.5 0.5                     
+
+VERTday_FVV1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FVV1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FVV2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FVV2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FVS1 6                         
+0 0 0 0 0.5 0.5                     
+
+VERTnight_FVS1 6                         
+0 0 0 0 0.5 0.5                     
+
+VERTday_FVS2 6                         
+0 0 0 0 0.5 0.5                     
+
+VERTnight_FVS2 6                         
+0 0 0 0 0.5 0.5                     
+
+VERTday_FVT1 6                         
+0 0 0 0.4 0.4 0.2                     
+
+VERTnight_FVT1 6                         
+0 0 0 0.4 0.4 0.2                     
+
+VERTday_FVT2 6                         
+0 0 0 0.4 0.4 0.2                     
+
+VERTnight_FVT2 6                         
+0 0 0 0.4 0.4 0.2                     
+
+VERTday_FVO1 6                         
+0.5 0.5 0 0 0 0                     
+
+VERTnight_FVO1 6                         
+0.5 0.5 0 0 0 0                     
+
+VERTday_FVO2 6                         
+0.5 0.5 0 0 0 0                     
+
+VERTnight_FVO2 6                         
+0.5 0.5 0 0 0 0                     
+
+VERTday_FVB1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FVB1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FVB2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FVB2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FMM1 6                         
+0 0.7 0.2 0.1 0 0                     
+
+VERTnight_FMM1 6                         
+0 0 0.1 0.1 0.5 0.3                     
+
+VERTday_FMM2 6                         
+0 0.7 0.2 0.1 0 0                    
+
+VERTnight_FMM2 6                         
+0 0 0.1 0.1 0.5 0.3                     
+
+VERTday_FMN1 6                         
+0.1 0.7 0.2 0 0 0                     
+
+VERTnight_FMN1 6                         
+0.1 0.7 0.2 0 0 0                     
+
+VERTday_FMN2 6                         
+0.1 0.7 0.2 0 0 0                     
+
+VERTnight_FMN2 6                         
+0.1 0.7 0.2 0 0 0                     
+
+VERTday_FBP1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FBP1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FBP2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FBP2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FDD1 6                         
+0.5 0.5 0 0 0 0                     
+
+VERTnight_FDD1 6                         
+0.3 0.3 0.2 0.2 0 0                     
+
+VERTday_FDD2 6                         
+0.5 0.3 0.2 0 0 0                     
+
+VERTnight_FDD2 6                         
+0.3 0.3 0.2 0.2 0 0                       
+
+VERTday_FDS1 6                         
+0 0.56 0.41 0.01 0.01 0.01                     
+
+VERTnight_FDS1 6                         
+0 0.43 0.45 0.05 0.04 0.03                     
+
+VERTday_FDS2 6                         
+0 0.43 0.45 0.05 0.04 0.03                     
+
+VERTnight_FDS2 6                         
+0 0.43 0.45 0.05 0.04 0.03                     
+
+VERTday_FDB1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FDB1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FDB2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FDB2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FDC1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FDC1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FDC2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FDC2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FDO1 6                         
+0.7 0.3 0 0 0 0                     
+
+VERTnight_FDO1 6                         
+0.7 0.3 0 0 0 0                     
+
+VERTday_FDO2 6                         
+0.7 0.3 0 0 0 0                     
+
+VERTnight_FDO2 6                         
+0.7 0.3 0 0 0 0                     
+
+VERTday_FDE1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FDE1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FDE2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FDE2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FDF1 6                         
+0 0 0 0 0.3 0.7                     
+
+VERTnight_FDF1 6                         
+0 0 0 0 0.5 0.5                     
+
+VERTday_FDF2 6                         
+0.4 0.5 0.1 0 0 0                     
+
+VERTnight_FDF2 6                         
+0 0.3 0.3 0.2 0.1 0.1                     
+
+VERTday_FDP1 6                         
+0 0 0 0 0 1                     
+
+VERTnight_FDP1 6                         
+0 0 0 0 0 1                     
+
+VERTday_FDP2 6                         
+1 0 0 0 0 0                     
+
+VERTnight_FDP2 6                         
+1 0 0 0 0 0                     
+
+VERTday_FDM1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FDM1 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_FDM2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTnight_FDM2 6                         
+0.75 0.25 0 0 0 0                     
+
+VERTday_SHD1 6                         
+1 0 0 0 0 0                    
+
+VERTnight_SHD1 6                         
+1 0 0 0 0 0                    
+
+VERTday_SHD2 6                         
+1 0 0 0 0 0                      
+
+VERTnight_SHD2 6                         
+1 0 0 0 0 0                      
+
+VERTday_SHC1 6                         
+1 0 0 0 0 0                     
+
+VERTnight_SHC1 6                         
+1 0 0 0 0 0                     
+
+VERTday_SHC2 6                         
+1 0 0 0 0 0                     
+
+VERTnight_SHC2 6                         
+1 0 0 0 0 0                     
+
+VERTday_SHP1 6                         
+0 0 0 0.2 0.4 0.4                     
+
+VERTnight_SHP1 6                         
+0 0 0 0.2 0.4 0.4                     
+
+VERTday_SHP2 6                         
+0 0 0 0.2 0.4 0.4                     
+
+VERTnight_SHP2 6                         
+0 0 0 0.2 0.4 0.4                     
+
+VERTday_SHB1 6                         
+1 0 0 0 0 0                     
+
+VERTnight_SHB1 6                         
+1 0 0 0 0 0                     
+
+VERTday_SHB2 6                         
+1 0 0 0 0 0                     
+
+VERTnight_SHB2 6                         
+1 0 0 0 0 0                     
+
+VERTday_SHR1 6                         
+1 0 0 0 0 0                     
+
+VERTnight_SHR1 6                         
+1 0 0 0 0 0                     
+
+VERTday_SHR2 6                         
+1 0 0 0 0 0                     
+
+VERTnight_SHR2 6                         
+1 0 0 0 0 0                     
+
+VERTday_SSK1 6                         
+1 0 0 0 0 0                     
+
+VERTnight_SSK1 6                         
+1 0 0 0 0 0                     
+
+VERTday_SSK2 6                         
+1 0 0 0 0 0                     
+
+VERTnight_SSK2 6                         
+1 0 0 0 0 0                     
+
+VERTday_REP1 6                         
+0.4 0.3 0 0.2 0.1 0                     
+
+VERTnight_REP1 6                         
+0.4 0.3 0 0.2 0.1 0                     
+
+VERTday_REP2 6                         
+0.4 0.3 0 0.2 0.1 0                     
+
+VERTnight_REP2 6                         
+0.4 0.3 0 0.2 0.1 0                     
+
+VERTday_WDG1 6                         
+0.1 0.1 0.1 0.1 0.1 0.5                     
+
+VERTnight_WDG1 6                         
+0.1 0.1 0.1 0.1 0.1 0.5                     
+
+VERTday_WDG2 6                         
+0.1 0.1 0.1 0.1 0.1 0.5                     
+
+VERTnight_WDG2 6                         
+0.1 0.1 0.1 0.1 0.1 0.5                     
+
+VERTday_PIN1 6                         
+0 0.1 0.1 0.1 0.2 0.5                     
+
+VERTnight_PIN1 6                         
+0 0.1 0.1 0.1 0.2 0.5                     
+
+VERTday_PIN2 6                         
+0 0.1 0.1 0.1 0.2 0.5                     
+
+VERTnight_PIN2 6                         
+0 0.1 0.1 0.1 0.2 0.5                     
+
+VERTday_WHB1 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTnight_WHB1 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTday_WHB2 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTnight_WHB2 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTday_WHS1 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTnight_WHS1 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTday_WHS2 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTnight_WHS2 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTday_WHT1 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTnight_WHT1 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTday_WHT2 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTnight_WHT2 6                         
+0 0 0 0 0.2 0.8                     
+
+VERTnight_SB1 6
+0 0 0 0 0 1                     
+VERTnight_SB2 6
+0 0 0 0 0 1                     
+
+VERTday_SB1 6
+0 0 0 0 0 1                     
+VERTday_SB2 6
+0 0 0 0 0 1                     
+
+VERTday_SP1 6
+0 0 0 0.2 0.3 0.5                     
+VERTday_SP2 6
+0 0 0 0.2 0.3 0.5                     
+
+VERTnight_SP1 6
+0 0 0 0.2 0.3 0.5                     
+VERTnight_SP2 6
+0 0 0 0.2 0.3 0.5     
+
+
+             
+
+# Proportion from each box in the model that exit when group migrates out of the model domain (default value will be     
+# 0 except for the few cells along the boundary where the group can flow out of the model. Juv stands for     
+# juveniles and ad for adults (treated seperately in the model so separate entries for them are given here)        
+MigIOBox_ZL 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_BML 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+# Juvenile migration                        
+MigIOBox_FPSjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FPLjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FPOjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVDjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVVjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVSjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVTjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVT2juv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVOjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVO2juv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVO3juv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVBjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVB2juv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FMMjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FMNjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FBPjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDDjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDSjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDBjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDCjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDOjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDEjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDFjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDMjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDPjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHDjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHCjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHPjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHP2juv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHBjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHRjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SSKjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SBjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SPjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_REPjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_REP2juv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_PINjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_PIN2juv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_WDGjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_WHBjuv 11                         
+1 1 1 1 1 1 1 1 1 1 1 
+
+MigIOBox_WHB2juv 11                         
+1 1 1 1 1 1 1 1 1 1 1
+
+MigIOBox_WHSjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_WHTjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_WHT2juv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_CEPjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_PWNjuv 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+# Adult migrations                        
+MigIOBox_FPSad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FPLad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FPOad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVDad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVVad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVSad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVTad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVT2ad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVOad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVO2ad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVO3ad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVBad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FVB2ad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FMMad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FMNad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FBPad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDDad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDSad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDBad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDCad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDOad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDEad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDFad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDMad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_FDPad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHDad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHCad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHPad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHP2ad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHBad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SHRad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SSKad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SBad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_SPad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_REPad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_REP2ad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_PINad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_PIN2ad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_WDGad 11                         
+0 0 0 0 0 0 0 0 0 0 0 
+
+MigIOBox_WHBad 11                         
+1 1 1 1 1 1 1 1 1 1 1 
+
+MigIOBox_WHB2ad 11                         
+1 1 1 1 1 1 1 1 1 1 1 
+
+MigIOBox_WHSad 11                         
+0 0 0 0 0 0 0 0 0 0 0
+
+MigIOBox_WHTad 11                         
+0 0 0 0 0 0 0 0 0 0 0
+
+MigIOBox_WHT2ad 11                         
+0 0 0 0 0 0 0 0 0 0 0
+
+MigIOBox_CEPad 11                         
+0 0 0 0 0 0 0 0 0 0 0
+
+MigIOBox_PWNad 11                         
+0 0 0 0 0 0 0 0 0 0 0
+
+
+
+
+# Numbers and weights of each group that begin outside the model domain and must migrate in during the first year.      
+# Treat it these as part of the initial conditions when setting up initial stock sizes (i.e. adjust numbers inside       
+# the model domain accordingly). There is one entry per cohort and the sn and rn entries are the structural and      
+# reserve weight values for those to migrate in.                  
+# Invertebrate migration parameters - biomass beginning outside model domain                 
+KMIGa_INVERT_ZG	1
+0
+KMIGa_INVERT_ZL	1
+0
+KMIGa_INVERT_ZM	1
+0
+KMIGa_INVERT_ZS	1
+0
+KMIGa_INVERT_CEP	2
+0 0
+KMIGa_INVERT_PWN	2
+0 0
+KMIGa_INVERT_BML	1
+0
+# from B1
+# Numbers per age group                      
+KMIGa_FPL 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FPS 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FPO 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVD 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVV 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVS 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVB 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVT 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVO 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FMM 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FMN 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FBP 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDD 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDS 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDB 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDC 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDO 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDE 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDF 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDM 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDP 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHD 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHC 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHP 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHB 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHR 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SSK 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SB 10        
+2468.84 1109.41 498.48 223.99 100.69 45.23 20.45 9.29 4.34 1.86
+            
+
+KMIGa_SP 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_REP 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_PIN 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_WDG 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_WHB 10        
+8.67 7.13 5.89 4.65 3.72 3.10 2.48 2.17 1.86 1.55
+                 
+
+KMIGa_WHS 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_WHT 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+# Reserve weights for each age group                    
+KMIGa_FPLrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FPSrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FPOrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVDrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVVrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVSrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVBrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVTrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVOrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FMMrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FMNrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FBPrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDDrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDSrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDBrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDCrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDOrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDErn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDFrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDMrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDPrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHDrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHCrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHPrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHBrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHRrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SSKrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SBrn 10                         
+93400 198720 224480 229520 230460 230640 230670 230680 230685 230690                 
+
+KMIGa_SPrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_REPrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_PINrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_WDGrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_WHBrn 10                         
+1.96E+08 2.18E+08 2.19E+08 2.19E+08 2.19E+08 2.19E+08 2.19E+08 2.19E+08 2.19E+08 2.19E+08
+
+KMIGa_WHSrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_WHTrn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+# Structural weights for each age group                    
+KMIGa_FPLsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FPSsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FPOsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVDsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVVsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVSsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVBsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVTsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FVOsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FMMsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FMNsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FBPsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDDsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDSsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDBsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDCsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDOsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDEsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDFsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDMsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_FDPsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHDsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHCsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHPsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHBsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SHRsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SSKsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_SBsn 10                         
+14665 31205 35245 36040 36190 36215 36220 26225 36230 36235                 
+
+KMIGa_SPsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_REPsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_PINsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_WDGsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_WHBsn 10                         
+7.38E+07 8.22E+07 8.26E+07 8.27E+07 8.27E+07 8.27E+07 8.27E+07 8.27E+07 8.27E+07 8.27E+07
+
+KMIGa_WHSsn 10                         
+0 0 0 0 0 0 0 0 0 0                 
+
+KMIGa_WHTsn 10                         
+0 0 0 0 0 0 0 0 0 0 
+
+
+
+# Food availabilty (exploitable fractions) - note that a zero entry may signify a food group           
+# that is either unavailable or not a part of the diet.               
+# Note that explicit exploitable fractions are not generally given for PB and BB             
+# as they're consumed with DL and DR. All populations on the consumed DL or DR           
+# are considered grazed.                       
+# pPREY1FY1 is the availability of juvenile prey groups to juvenile group FY, similarly             
+# pPREY1FY2 is the availability of juvenile prey groups to adult group FY and so on           
+# The order of the prey groups is defined by your functional group input file.
+                                        
+pPREY1FPL1 65                                                               
+0 0 0.005 0 0 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.002 0 0 0 0 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FPL1 65                                                               
+0 0 0 0 0 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.002 0 0 0 0 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FPL2 65                                                               
+0 0 0.1 0 0 0 0 0 0 0.01 0.06 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0.002 0 0 0 0 0 0.01 0.02 0 0.01 0.025 0.01 0 0 0 0.002 0.001 0.01 0 0 0
+                                                                
+pPREY2FPL2 65                                                               
+0 0 0.001 0 0 0 0 0 0 0.01 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0.002 0 0 0 0 0 0.01 0.02 0 0.01 0.025 0.01 0 0 0 0.002 0.001 0.001 0 0 0
+                                                                
+pPREY1FPS1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0 0 0 0 0 0 0.2 0 0.1 0.1 0.05 0 0 0 0.2 0.001 0 0 0 0
+                                                                
+pPREY2FPS1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0 0 0 0 0 0 0.2 0 0.1 0.1 0.05 0 0 0 0.2 0.001 0 0 0 0
+                                                                
+pPREY1FPS2 65                                                               
+0 0 0.001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0.2 0 0 0 0 0 0 0.2 0.003 0.1 0.1 0.05 0 0 0 0.2 0.001 0 0 0 0
+                                                                
+pPREY2FPS2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0.2 0 0 0 0 0 0 0.2 0.003 0.1 0.1 0.05 0 0 0 0.2 0.001 0 0 0 0
+                                                                
+pPREY1FPO1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.01 0 0 0 0 0 0.08 0.028 0.02 0 0.0000001 0 0 0.02 0 0.001 0.053333333 0.05 0 0 0.001 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FPO1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.01 0 0 0 0 0 0.08 0.028 0.02 0 0.0000001 0 0 0.02 0 0.001 0.053333333 0.05 0 0 0.001 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FPO2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.01 0 0 0 0 0.01 0.1 0.04 0.02 0 0.0000001 0 0 0.02 0 0.001 0.01 0.05 0 0 0.001 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FPO2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.01 0 0 0 0 0.01 0.1 0.04 0.02 0 0.0000001 0 0 0.02 0 0.001 0.01 0.05 0 0 0.001 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FVD1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0 0 0 0 0 0.002 0.2 0 0.05 0.09 0.01 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FVD1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0 0 0 0 0 0.002 0.2 0 0.05 0.09 0.01 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FVD2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0 0 0 0 0 0.009444444 0.2 0.003 0.05 0.09 0.01 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FVD2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0 0 0 0 0 0.009444444 0.2 0.003 0.05 0.09 0.01 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FVV1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.05 0.2 0.005 0.005 0.005 0.01 0 0.05 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY2FVV1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.05 0.2 0.005 0.005 0.005 0.01 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY1FVV2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.05 0.05 0.2 0.01 0.005 0.01 0.01 0 0.05 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY2FVV2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.05 0.05 0.2 0.01 0.005 0.01 0.01 0 0.05 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY1FVS1 65                                                               
+0.1 0.001 0.02 0 0.02 0 0 0 0.002 0.01 0 0 0 0.002 0.01 0.015 0.015 0 0 0.1 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.0075 0.007 0.007 0.02 0.001 0 0.001 0.05 0.15 0.008 0 0 0 0.018 0.005 0.02 0 0.001 0.01 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FVS1 65                                                               
+0.12 0.001 0.001 0 0.004 0 0.0001 0 0.004 0.01 0 0 0 0 0.002 0.05 0.075 0 0 0.1 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.0075 0.007 0.007 0.02 0.001 0 0.001 0.05 0.15 0.008 0 0 0 0.018 0.005 0.02 0 0.001 0.01 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FVS2 65                                                               
+0.1 0.001 0.001 0 0.02 0.001 0 0 0.004 0.01 0 0 0 0.002 0.005 0.003 0.05 0 0 0.1 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.0075 0.007 0.007 0.02 0.001 0 0.001 0.05 0.15 0.008 0 0 0 0.018 0.005 0.02 0 0.001 0.01 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FVS2 65                                                               
+0.12 0.001 0.0005 0 0.004 0 0.0001 0 0.008 0.01 0 0 0 0.002 0.001 0.01 0.03 0 0 0.1 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.0075 0.007 0.007 0.02 0.001 0 0.001 0.05 0 0.008 0 0 0 0.018 0.005 0.02 0 0.001 0.01 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FVT1 65                                                               
+0.12 0 0.2 0.04 0.25 0.04 0 0 0.25 0.1 0.15 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0 0 0 0 0.0015 0 0.0015 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FVT1 65                                                               
+0.275 0 0.2 0.2 0.08 0.003 0 0 0.3 0.02 0.25 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0 0 0 0 0.0015 0 0.0015 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FVT2 65                                                               
+0.12 0 0.2 0.04 0.25 0.04 0 0.02 0.25 0.1 0.15 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0 0 0 0 0.0015 0 0.0015 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FVT2 65                                                               
+0.275 0 0.2 0.2 0.08 0.003 0 0.02 0.3 0.02 0.25 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0 0 0 0 0.0015 0 0.0015 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FVO1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0 0 0 0 0 0 0.2 0 0.005 0.05 0 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FVO1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0.3 0 0 0 0 0 0 0.2 0 0.005 0.05 0 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FVO2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0 0 0 0 0 0 0.2 0 0.005 0.05 0 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FVO2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0 0 0 0 0 0 0.2 0 0.005 0.05 0 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FVB1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0065 0.00025 0 0.00025 0 0.04875 0.05 0 0.01 0 0.0025 0 0 0 0 0 0 0 0 0.001 0.02 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FVB1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0065 0.00025 0 0.00025 0 0.04875 0.05 0 0.01 0 0.0025 0 0 0 0 0 0 0 0 0.001 0.02 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FVB2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0.001 0 0.001 0 0.3 0.05 0 0.01 0 0.01 0 0 0 0 0 0 0 0 0.01 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FVB2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0.001 0 0.001 0 0.3 0.05 0 0.01 0 0.01 0 0 0 0 0 0 0 0 0.01 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FMM1 65                                                               
+0.1 0 0.2 0.2 0 0 0 0 0 0.005 0.275 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0 0 0 0 0 0.15 0 0 0 0.1 0.2 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FMM1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0 0 0 0 0 0.15 0 0 0 0.1 0.2 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FMM2 65                                                               
+0.1 0 0.2 0.2 0 0 0 0 0.04 0.005 0.275 0.1 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0 0 0 0 0 0.15 0 0 0 0.1 0.2 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FMM2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0 0 0 0 0 0.15 0 0 0 0.1 0.2 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FMN1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0.005 0.02 0 0.01 0.005 0.01 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FMN1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0.005 0.02 0 0.01 0.005 0.01 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FMN2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0.005 0.02 0 0.01 0.005 0.01 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FMN2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0.005 0.02 0 0.01 0.005 0.01 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FBP1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0075 0.05 0 0.1 0.01 0.025 0 0.05 0 0.025 0 0.1 0 0.05 0 0 0 0 0 0 0 0 0.05 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY2FBP1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0075 0.05 0 0.1 0.01 0.025 0 0.05 0 0.025 0 0.1 0 0.05 0 0 0 0 0 0 0 0 0.05 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY1FBP2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0075 0.05 0 0.1 0.01 0.025 0.05 0.05 0 0.025 0 0.15 0 0.05 0 0 0 0 0 0 0 0 0 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY2FBP2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0075 0.05 0 0.1 0.01 0.025 0.05 0.05 0 0.025 0 0.15 0 0.05 0 0 0 0 0 0 0 0 0 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY1FDD1 65                                                               
+0 0 0 0.002 0.01 0 0.0002 0 0.1 0.01 0.15 0.02 0.01 0 0 0 0 0.001 0.025 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0.000006 0.0001 0.0001 0.0002 0.000025 0 0.000025 0.05 0.1 0.0125 0 0 0 0.0018 0.00005 0 0 0 0.0002 0 0 0 0 0.002 0.001 0.001 0 0 0
+                                                                
+pPREY2FDD1 65                                                               
+0 0 0 0.002 0 0 0.0002 0 0.032 0.01 0.03 0 0.01 0 0 0 0 0.01 0.005 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0.000006 0.0001 0.0001 0.0002 0.000025 0 0.000025 0.05 0.1 0.0125 0 0 0 0.0018 0.00005 0 0 0 0.0002 0 0 0 0 0.002 0.001 0.001 0 0 0
+                                                                
+pPREY1FDD2 65                                                               
+0 0 0 0.002 0.01 0 0.0002 0 0.1 0.02 0.15 0.02 0.01 0 0 0 0 0.001 0.025 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 1.22222E-05 0.000576204 0.000576204 0.0004 6.44444E-05 0 6.44444E-05 0.05 0.1 0.019166667 0 0 0 0.000546667 1.33333E-05 0 0 0 0.000255556 0 0 0 0 0.002 0.001 0.001 0 0 0
+                                                                
+pPREY2FDD2 65                                                               
+0 0 0 0.002 0.01 0 0.0002 0 0.032 0.025 0.03 0 0.01 0 0 0 0 0.01 0.005 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 1.22222E-05 0.000576204 0.000576204 0.0004 6.44444E-05 0 6.44444E-05 0.05 0.1 0.019166667 0 0 0 0.000546667 1.33333E-05 0 0 0 0.000255556 0 0 0 0 0.002 0.001 0.001 0 0 0
+                                                                
+pPREY1FDS1 65                                                               
+0.005 0.001 0.05 0.001 0.1 0 0.001 0 0.1 0 0 0 0 0.003 0.025 0.1 0.003 0 0 0.07 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0.0001 0.007 0.007 0.002 0.01137931 0.000015 0.01137931 0.05 0.3 0.05 0.000001 0 0.0000001 0.007637931 0.001 0 0 0 0.0275 0 0 0 0 0.002 0.0005 0.0001 0 0 0
+                                                                
+pPREY2FDS1 65                                                               
+0.04 0.001 0.0005 0.001 0.004 0 0.001 0 0.004 0 0 0 0 0.003 0.005 0.1 0.0005 0 0 0.07 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0.0001 0.007 0.007 0.002 0.01137931 0.000015 0.01137931 0.05 0.3 0.05 0.000001 0 0.0000001 0.007637931 0.001 0 0 0.005 0.0275 0 0 0 0 0.002 0.0005 0.0001 0 0 0
+                                                                
+pPREY1FDS2 65                                                               
+0.02 0.015 0.1 0.001 0.1 0 0.004 0 0.02 0 0 0 0 0.045 0.025 0.1 0.03 0 0 0.07 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.00015 0.008 0.008 0.0016 0.013793103 0.0004625 0.013793103 0.05 0.1 0.005 0.00001 0 0.000001 0.009137931 0.001 0 0 0 0.0035 0 0 0 0 0.002 0.0005 0.0001 0 0 0
+                                                                
+pPREY2FDS2 65                                                               
+0.175 0.01 0.005 0.001 0.004 0 0.004 0 0.04 0 0 0 0 0.03 0.005 0.25 0.0075 0 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.00015 0.008 0.008 0.0016 0.013793103 0.0004625 0.013793103 0.05 0.1 0.005 0.00001 0 0.000001 0.009137931 0.001 0 0 0 0.0035 0 0 0 0 0.002 0.0005 0.0001 0 0 0
+                                                                
+pPREY1FDM1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00075 0.01 0 0.1 0.05 0.025 0 0.05 0 0.05 0.001 0.1 0 0.075 0 0 0 0 0 0 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FDM1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00075 0.01 0 0.1 0.05 0 0 0.05 0 0.05 0.001 0.1 0 0.075 0 0 0 0 0 0 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FDM2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00075 0.01 0 0.1 0.05 0.025 0.015 0.05 0 0.05 0.001 0.1 0 0.075 0 0 0 0 0 0 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FDM2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00075 0.01 0 0.1 0.05 0 0.015 0.05 0 0.05 0.001 0.1 0 0.075 0 0 0 0 0 0 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FDP1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0.05 0.2 0 0 0.09 0.05 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FDP1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0.05 0.2 0 0 0.09 0.05 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FDP2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0 0 0 0 0 0.05 0.2 0 0 0.09 0.075 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FDP2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0 0 0 0 0 0.05 0.2 0 0 0.09 0.075 0 0 0 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FDB1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0.05 0.05 0.016666667 0.000833333 7.66667E-05 0.000833333 0 0.1 0.036666667 0.01 0.1 0 0.023333333 0 0.04 0 0.01 0.053333333 0 0 0 0.01 0.1 0.05 0 0.01 0.01 0
+                                                                
+pPREY2FDB1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0.05 0.05 0.016666667 0.000833333 7.66667E-05 0.000833333 0.05 0.1 0.036666667 0.01 0.05 0 0.023333333 0 0.04 0 0.01 0.053333333 0 0 0 0.01 0.1 0.05 0 0.01 0.01 0
+                                                                
+pPREY1FDB2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0075 0.05 0.05 0.02 0.001 0.0005 0.001 0 0.1 0.04 0.01 0.15 0 0.05 0 0.04 0 0.01 0.02 0 0 0 0.01 0.1 0.05 0 0.01 0.01 0
+                                                                
+pPREY2FDB2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0075 0.05 0.05 0.02 0.001 0.0005 0.001 0 0.1 0.04 0.01 0.1 0 0.05 0 0.04 0 0.01 0.02 0 0 0 0.01 0.1 0.05 0 0.01 0.01 0
+                                                                
+pPREY1FDC1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.05 0.1 0.005 0.0001 0.005 0.05 0.1 0.07 0 0.1 0 0.05 0 0.04 0 0 0.01 0 0 0 0.005 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY2FDC1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.05 0.1 0.005 0.0001 0.005 0.05 0.1 0.07 0 0.1 0 0.05 0 0.04 0 0 0.01 0 0 0 0.005 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY1FDC2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.0075 0.05 0.05 0.1 0.05 0.0009 0.05 0.05 0.011111111 0.07 0 0.15 0 0.05 0 0.04 0 0 0 0 0 0 0 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY2FDC2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.0075 0.05 0.05 0.1 0.05 0.0009 0.05 0.05 0.011111111 0.07 0 0.15 0 0.05 0 0.04 0 0 0 0 0 0 0 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY1FDO1 65                                                               
+0 0.1 0.1 0 0 0 0 0 0 0 0 0 0 0 0.1 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0.0075 0.005 0.005 0.05 0.05 0 0.05 0.1 0.1 0.02 0.1 0.05 0 0.01 0 0 0 0.15 0 0 0 0 0.05 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY2FDO1 65                                                               
+0 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0.0075 0.005 0.005 0.05 0.05 0 0.05 0.1 0.1 0.02 0.1 0.05 0 0.01 0 0 0 0.15 0 0 0 0 0.05 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY1FDO2 65                                                               
+0 0.1 0.1 0 0 0.05 0 0 0 0 0 0 0 0 0.1 0 0.05 0.1 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0.04 0.01 0.01 0.1 0.1 0.008444444 0.1 0.1 0 0.05 0 0.1 0 0.05 0 0 0 0.15 0 0 0 0 0 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY2FDO2 65                                                               
+0 0.1 0.1 0 0 0.05 0 0 0 0 0 0 0 0 0.1 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0.04 0.01 0.01 0.1 0.1 0.008444444 0.1 0.1 0 0.05 0 0.1 0 0.05 0 0 0 0.15 0 0 0 0 0 0.02 0.01 0 0.01 0.01 0
+                                                                
+pPREY1FDE1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0.035 0.05 0 0.02 0.03 0 0 0 0.05 0.07 0.05 0 0 0.001 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FDE1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0.035 0.05 0 0.02 0.03 0 0 0 0.05 0.07 0.05 0 0 0.001 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FDE2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00875 0.00875 0 0.00875 0.01 0.3 0.05 0.05 0 0.01 0.05 0 0 0 0 0.07 0.05 0 0 0.001 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY2FDE2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00875 0.00875 0 0.00875 0.01 0.3 0.05 0.05 0 0.01 0.05 0 0 0 0 0.07 0.05 0 0 0.001 0.1 0.05 0 0.05 0.05 0
+                                                                
+pPREY1FDF1 65                                                               
+0.005 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.025 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0.000005 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FDF1 65                                                               
+0.01 0 0 0 0 0 0 0 0 0.005 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.025 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0.000005 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1FDF2 65                                                               
+0 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.025 0 0 0 0 0 0 0 0 0.3 0 0 0 0 0 0 0 0 0 0.0005 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2FDF2 65                                                               
+0.04 0 0 0 0 0 0 0 0 0.005 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.025 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0005 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SHD1 65                                                               
+0.1 0.05 0.05 0.075 0 0.05 0 0 0.02 0.005 0 0 0.1 0.05 0.05 0.025 0.075 0.05 0 0.083333333 0.1 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0.05 0.004 0.0015 0.0015 0.1 0.00013 0.0005 0.00013 0.083333333 0 0.05 0 0.033333333 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SHD1 65                                                               
+0.12 0 0.005 0.075 0.04 0.005 0.01 0 0.004 0.01 0 0 0.1 0.05 0.01 0.1 0.04 0.05 0 0.083333333 0.2 0 0 0 0 0.001 0.02 0 0 0 0 0 0 0 0 0.05 0.004 0.0015 0.0015 0.1 0.00013 0.0005 0.00013 0.083333333 0 0.05 0 0.033333333 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SHD2 65                                                               
+0.075 0.05 0.005 0.05 0.02 0.001 0.002 0 0.002 0.001 0 0.002 0.75 0.05 0.05 0.025 0.075 0.05 0.01 0.083333333 0.1 0 0 0 0.05 0.05 0.01 0 0 0 0 0 0 0 0 0.05 0.004 0.0015 0.0015 0.1 0.00013 0.0005 0.00013 0.083333333 0 0.05 0 0.033333333 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SHD2 65                                                               
+0.12 0.05 0.005 0.05 0.04 0.005 0.002 0 0.004 0.001 0 0.05 0.75 0.05 0.01 0.1 0.04 0.05 0 0.083333333 0.2 0 0 0 0 0.001 0.02 0 0 0 0 0 0 0 0 0.05 0.004 0.0015 0.0015 0.1 0.00013 0.0005 0.00013 0.083333333 0 0.05 0 0.033333333 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SHC1 65                                                               
+0 0 0 0 0.01 0 0 0 0.002 0.001 0 0.0002 0.05 0 0 0.0025 0 0 0.01 0.1 0 0.001 0 0 0 0 0.002 0 0 0 0 0 0 0 0 0.001 0.022 0.005 0.005 0.055 0.005 0.005 0.005 0.05 0 0.015 0 0 0 0.005 0.01 0 0 0 0 0 0 0 0 0.002 0.001 0.001 0 0 0
+                                                                
+pPREY2SHC1 65                                                               
+0 0 0 0 0.12 0 0 0 0.004 0.001 0 0 0.05 0 0 0.025 0 0 0.0001 0.1 0 0.001 0 0 0 0 0.002 0 0 0 0 0 0 0 0 0.001 0.022 0.005 0.005 0.055 0.005 0.005 0.005 0.05 0 0.015 0 0 0 0.005 0.01 0 0 0 0 0 0 0 0 0.002 0.001 0.001 0 0 0
+                                                                
+pPREY1SHC2 65                                                               
+0 0 0 0 0.01 0 0 0 0.002 0.001 0 0.0002 0.02 0 0 0.005 0 0 0.01 0.1 0 0.001 0 0.001 0 0 0.01 0 0 0 0 0 0 0 0 0.005 0.004 0.05 0.05 0.01 0.05 0.005 0.05 0.05 0 0.005 0 0 0 0.05 0.01 0 0 0 0 0 0 0 0 0.002 0.001 0.001 0 0 0
+                                                                
+pPREY2SHC2 65                                                               
+0 0 0 0 0.12 0 0 0 0.004 0.001 0 0.001 0.02 0 0 0.1 0 0 0.0001 0.2 0 0.001 0 0.001 0 0 0.002 0 0 0 0 0 0 0 0 0.005 0.004 0.05 0.05 0.01 0.05 0.005 0.05 0.05 0 0.005 0 0 0 0.05 0.01 0 0 0 0 0 0 0 0 0.002 0.001 0.001 0 0 0
+                                                                
+pPREY1SHP1 65                                                               
+0.05 0.01 0.03 0.05 0.1 0.05 0.01 0.05 0.1 0.001 0 0 0.02 0.05 0.05 0.015 0.04 0.015 0 0.2 0.2 0.01 0.05 0.005 0.05 0.01 0.06 0.05 0 0.02 0 0 0.01 0.01 0 0.05 0 0 0 0 0.00013 0.0001 0.00013 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SHP1 65                                                               
+0.12 0.01 0.003 0.05 0.12 0.001 0.01 0.05 0.12 0.001 0 0 0.02 0.05 0.01 0.03 0.015 0.015 0 0.2 0.2 0.01 0.05 0.005 0.05 0.1 0.01 0.05 0 0.02 0 0 0.01 0.01 0 0.05 0 0 0 0 0.00013 0.0001 0.00013 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SHP2 65                                                               
+0.05 0.01 0.001 0.05 0.1 0.05 0.01 0.05 0.1 0.001 0 0 0.02 0.05 0.05 0.015 0.04 0.015 0 0.2 0.2 0.01 0.05 0.005 0.05 0.05 0.06 0.05 0 0.02 0 0.05 0.01 0.01 0 0.05 0 0 0 0 0.00013 0.0001 0.00013 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SHP2 65                                                               
+0.12 0.01 0.0015 0.05 0.12 0.001 0.01 0.05 0.12 0.001 0 0 0.02 0.05 0.01 0.03 0.015 0.015 0 0.2 0.2 0.01 0.05 0.005 0.05 0.05 0.01 0.05 0 0.02 0 0.05 0.01 0.01 0 0.05 0 0 0 0 0.00013 0.0001 0.00013 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SHB1 65                                                               
+0 0 0 0 0.002 0 0 0 0.01 0.05 0.15 0 0.05 0 0 0 0 0 0 0 0.2 0.05 0 0 0 0 0.02 0 0 0 0 0 0 0 0 0.05 0.01 0.000533333 0.000533333 0.007666667 0.003833333 0.003833333 0.003833333 0.1 0 0.015333333 0 0.1 0 0.038333333 0.0005 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SHB1 65                                                               
+0 0 0 0 0.004 0 0.0002 0 0.004 0.05 0.15 0 0 0 0 0 0 0 0 0 0.2 0.05 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0.05 0.01 0.000533333 0.000533333 0.007666667 0.007666667 0.003833333 0.003833333 0.1 0 0.015333333 0 0.1 0 0.038333333 0.0005 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SHB2 65                                                               
+0 0 0 0 0.01 0 0 0 0.01 0.05 0.15 0 0.05 0 0 0 0 0 0 0 0.2 0.05 0 0 0 0 0.02 0 0 0 0 0 0 0 0 0.05 0.005 0.0005 0.0005 0.001 0 0.0005 0.0005 0.1 0 0.002 0 0.1 0 0.005 0.0005 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SHB2 65                                                               
+0 0 0 0 0.004 0 0.0002 0 0.004 0.05 0.15 0 0.1 0 0 0 0 0 0 0 0.2 0.05 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0.05 0.005 0.0005 0.0005 0.001 0.001 0.0005 0.0005 0.1 0 0.002 0 0.1 0 0.005 0.0005 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SHR1 65                                                               
+0.015 0.01 0 0 0.1 0 0 0 0.1 0.05 0.25 0 0.25 0 0 0.15 0 0 0 0 0.2 0.05 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0.05 0.00075 0.001 0.001 0.02 0.001 0.001 0.001 0.1 0 0.025 0 0.1 0 0.025 0.0005 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SHR1 65                                                               
+0.12 0.05 0 0 0.04 0 0.01 0 0.04 0.05 0.25 0 0.5 0 0 0.3 0 0 0 0 0.2 0.05 0 0 0 0 0.02 0 0 0 0 0 0 0 0 0.05 0.00075 0.001 0.001 0.02 0.001 0.001 0.001 0.1 0 0.025 0 0.1 0 0.01 0.0005 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SHR2 65                                                               
+0.015 0.01 0 0 0.1 0 0 0 0.02 0.05 0.25 0 0.25 0 0 0.15 0 0 0 0 0.2 0.05 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0.05 0.004388889 0.005 0.005 0.011111111 0.004555556 0.000555556 0.004555556 0.1 0 0.025 0 0.1 0 0.005555556 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SHR2 65                                                               
+0.12 0.05 0 0 0.04 0 0.01 0 0.04 0.05 0.25 0 0.5 0 0 0.3 0 0 0 0 0.2 0.05 0 0 0 0 0.02 0 0 0 0 0 0 0 0 0.05 0.004388889 0.005 0.005 0 0.004555556 0.000555556 0.004555556 0.1 0 0.025 0 0.1 0 0.005555556 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SSK1 65                                                               
+0 0.005 0 0 0 0 0.01 0 0.2 0 0 0.05 0.1 0.05 0.2 0 0.075 0.05 0.05 0.1 0 0.01 0 0.01 0 0 0 0 0 0 0 0 0 0 0 0 0.0075 0.01 0.01 0.02 0.005 0 0.005 0.05 0.1 0.025 0 0 0 0.02 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SSK1 65                                                               
+0 0 0 0 0 0 0.01 0 0.12 0 0 0.05 0.1 0 0.05 0 0.04 0.05 0.01 0.1 0 0.01 0 0.01 0 0 0 0 0 0 0 0 0 0 0 0 0.0075 0.01 0.01 0.02 0.005 0 0.005 0.05 0.1 0.025 0 0 0 0.02 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SSK2 65                                                               
+0 0.005 0 0 0 0 0.01 0 0.1 0 0 0.05 0.1 0.05 0.2 0 0.075 0.05 0.05 0.1 0 0.01 0 0.001 0 0.2 0 0 0 0 0 0 0 0 0 0 0.0075 0.01 0.01 0.02 0.005 0 0.005 0.05 0.1 0.025 0 0 0 0.01 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SSK2 65                                                               
+0 0.001 0 0 0 0 0.01 0 0.12 0 0 0.05 0.1 0.01 0.05 0 0.04 0.05 0.01 0.1 0 0.01 0 0.001 0 0 0 0 0 0 0 0 0 0 0 0 0.0075 0.01 0.01 0.02 0.005 0 0.005 0.05 0.1 0.025 0 0 0 0.01 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SB1 65                                                               
+0.075 0 0.05 0.05 0 0.05 0 0 0.1 0.01 0 0 0 0 0.2 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.0075 0.01 0 0 0.005 0 0.005 0 0.1 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0.0001 0.02 0.01 0.05 0 0 0.05
+                                                                
+pPREY2SB1 65                                                               
+0.12 0 0.05 0.05 0 0.005 0 0 0.12 0.01 0 0 0 0 0.05 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.0075 0.01 0 0 0.005 0 0.005 0 0.1 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0.0001 0.02 0.01 0.05 0 0 0.05
+                                                                
+pPREY1SB2 65                                                               
+0.075 0 0.05 0.05 0 0.05 0 0 0.1 0.01 0 0 0 0 0.2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0.005 0 0.005 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0.01 0.05 0 0 0.05
+                                                                
+pPREY2SB2 65                                                               
+0.12 0 0.05 0.05 0 0.005 0 0 0.12 0.01 0 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0 0 0 0 0.005 0 0.005 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0.01 0.05 0 0 0.05
+                                                                
+pPREY1SP1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SP1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1SP2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2SP2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1REP1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2REP1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1REP2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2REP2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1PIN1 65                                                               
+0.075 0 0.1 0.025 0.02 0.001 0 0.05 0.1 0.05 0.15 0.1 0.005 0 0.025 0.008 0 0.001 0.01 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.0075 0.01 0 0.02 0.0025 0 0.0025 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0 0.001
+                                                                
+pPREY2PIN1 65                                                               
+0.12 0 0.01 0.025 0.04 0.0001 0 0.05 0.12 0.05 0.05 0.1 0.04 0 0.005 0.1 0 0.001 0.001 0 0.2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.0075 0.01 0 0.02 0.0025 0 0.0025 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0 0.001
+                                                                
+pPREY1PIN2 65                                                               
+0.075 0 0.1 0.05 0.02 0.002 0 0.05 0.1 0.05 0.15 0.1 0.005 0 0.05 0.008 0 0.001 0.01 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.0075 0.01 0 0.02 0.005 0 0.005 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0 0.001
+                                                                
+pPREY2PIN2 65                                                               
+0.12 0 0.005 0.05 0.04 0.0001 0 0.05 0.12 0.05 0.1 0.1 0.04 0 0.01 0.1 0 0.001 0.001 0 0.2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.0075 0.01 0 0.02 0.005 0 0.005 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0 0.001
+                                                                
+pPREY1WHB1 65                                                               
+0 0 0.01 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0.05 0.05 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2WHB1 65                                                               
+0 0 0.01 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0.05 0.05 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1WHB2 65                                                               
+0 0 0.01 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0.05 0.05 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2WHB2 65                                                               
+0 0 0.011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0 0 0 0 0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0.05 0.05 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1WHS1 65                                                               
+0.075 0 0.02 0.05 0 0.04 0 0.05 0.06 0.01 0 0 0 0 0.05 0 0 0.04 0 0 0.2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.0004 0.0005 0 0.001 0.0005 0 0.0005 0 0 0.0025 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0 0.0005
+                                                                
+pPREY2WHS1 65                                                               
+0.12 0 0.001 0.05 0 0.0004 0 0.02 0.12 0.01 0 0 0 0 0.01 0 0 0.04 0 0 0.2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.0004 0.0005 0 0.001 0.0005 0 0.0005 0 0 0.0025 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0 0.0005
+                                                                
+pPREY1WHS2 65                                                               
+0.075 0 0.02 0.05 0 0.04 0 0.05 0.06 0.01 0 0 0 0 0.15 0 0 0.04 0 0 0.2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.0004 0.0005 0 0.001 0.0005 0 0.0005 0 0 0.0025 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0 0.0005
+                                                                
+pPREY2WHS2 65                                                               
+0.12 0 0.001 0.05 0 0.0004 0 0.02 0.12 0.01 0 0 0 0 0.03 0 0 0.04 0 0 0.2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0.0004 0.0005 0 0.001 0.0005 0 0.0005 0 0 0.0025 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0 0.0005
+                                                                
+pPREY1WHT1 65                                                               
+0.01 0 0.01 0.05 0 0.04 0 0.05 0.04 0.05 0 0 0 0 0.025 0 0 0.04 0 0 0.2 0.02 0.025 0.01 0.03 0.1 0 0.05 0 0.01 0 0.05 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0 0 0.01
+                                                                
+pPREY2WHT1 65                                                               
+0.02 0 0.01 0.05 0 0.0008 0 0.05 0.08 0.05 0 0 0 0 0.005 0 0 0.04 0 0 0.2 0.02 0.025 0.01 0.02 0.075 0 0.05 0 0.01 0 0.05 0 0 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0 0 0.01
+                                                                
+pPREY1WHT2 65                                                               
+0.01 0 0.01 0.05 0 0.035 0 0.05 0.02 0.05 0 0 0 0 0.05 0 0 0.04 0 0 0.1 0.02 0.025 0.01 0.01 0.15 0 0.05 0 0.01 0 0.05 0.01 0 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0 0 0.01
+                                                                
+pPREY2WHT2 65                                                               
+0.02 0 0.01 0.05 0 0.0008 0 0.05 0.04 0.05 0 0 0 0 0.01 0 0 0.04 0 0 0.2 0.02 0.025 0.01 0.04 0.1 0 0.05 0 0.01 0 0.05 0.01 0 0 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.01 0 0 0.01
+                                                                
+pPREY1WDG1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.01 0.05 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2WDG1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0.01 0.05 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1WDG2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0 0.05 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY2WDG2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0 0.05 0.05 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREYZG 65                                                               
+0 0 0.005 0 0 0 0 0 0 0.001 0.003 0 0.005 0 0.001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0 0 0 0 0.001 0.0004 0 0.0001 0.025 0.0001 0 0 0 0.002 0.001 0.001 0 0 0
+                                                                
+pPREYZL 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0 0 0 0 0 0 0 0.00002 0.002 0.001 0 0 0 0.002 0.0001 0 0 0 0
+                                                                
+pPREYZM 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0001 0.0025 0.001 0 0 0 0.002 0.001 0 0 0 0
+                                                                
+pPREYZS 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0001 0 0.0001 0 0 0 0.002 0.001 0 0 0 0
+                                                                
+pPREYDF 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREYBD 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00006 0.004 0.002 0.002 0.002 0.002 0.002
+                                                                
+pPREYBO 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00003 0.000015 0 0.000015 0.000015 0
+                                                                
+pPREYBC 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0005 0 0 0 0 0 0 0 0 0 0 0 0 0.0001 0 0 0.0001 0 0 0.0001
+                                                                
+pPREYBFS 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0001 0 0 0 0 0.02 0 0.0001 0 0 0 0 0 0.00001 0.00001 0 0 0 0
+                                                                
+pPREYBFF 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0 0.0001 0.0025 0.001 0 0 0 0.02 0.01 0 0 0 0
+                                                                
+pPREYBFD 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0004 0 0.0001 0.00025 0.0001 0 0 0 0.02 0.01 0 0 0 0
+                                                                
+pPREYBMS 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0075 0.01 0 0.02 0.001 0.0001 0.01 0 0 0.01 0 0 0 0.01 0 0.004 0 0.001 0 0 0 0 0 0.002 0.0001 0.05 0.001 0.0001 0.05
+                                                                
+pPREYBML 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.003 0.004 0 0.008 0.0005 0 0.005 0 0 0.001 0 0 0 0.005 0 0 0 0 0 0 0 0 0 0.02 0.01 0.05 0.01 0.01 0.05
+                                                                
+pPREYBMD 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00075 0.001 0.0002 0.01 0.0005 0 0.001 0 0 0.0001 0 0 0 0.001 0 0 0 0 0 0 0 0 0 0.002 0.001 0.05 0.001 0.001 0.05
+                                                                
+pPREYBG 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0.0001 0 0 0 0 0 0 0 0 0 0 0.02 0.01 0 0 0 0
+                                                                
+pPREY1CEP1 65                                                               
+0.0002 0 0.0025 0.02 0.032 0.0004 0.0001 0.0001 0 0.05 0.025 0.00001 0 0 0.00016 0 0 0.0002 0 0 0 0 0 0 0 0 0 0 0.00005 0 0 0 0 0 0 0.0001 0 0 0 0 0 0 0 0 0.04 0 0 0 0 0 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0 0
+
+pPREY2CEP1 65                                                               
+0.0002 0 0.0025 0.02 0.032 0.0004 0.0001 0.0001 0 0.05 0.025 0.00001 0 0 0.00016 0 0 0.0002 0 0 0 0 0 0 0 0 0 0 0.00005 0 0 0 0 0 0 0.0001 0 0 0 0 0 0 0 0 0.04 0 0 0 0 0 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1CEP2 65                                                               
+0.0004 0.0012 0.03 0.02 0.032 0.0001 0.0006 0.001 0 0.05 0.06 0.00005 0 0 0.0005 0 0 0.00075 0 0 0 0 0 0 0 0 0 0 0.0005 0 0 0 0 0 0 0.00025 0 0 0 0 0 0 0 0 0.03 0 0 0 0 0 0 0 0 0.001 0.008 0 0 0 0 0 0 0 0 0 0
+
+pPREY2CEP2 65                                                               
+0.0004 0.0012 0.03 0.02 0.032 0.0001 0.0006 0.001 0 0.05 0.06 0.00005 0 0 0.0005 0 0 0.00075 0 0 0 0 0 0 0 0 0 0 0.0005 0 0 0 0 0 0 0.00025 0 0 0 0 0 0 0 0 0.03 0 0 0 0 0 0 0 0 0.001 0.008 0 0 0 0 0 0 0 0 0 0
+                                                                
+pPREY1PWN1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0.005 0.005 0.005 0.005 0 0.005 0 0.07 0.005 0 0 0 0.005 0 0.4 0 0.2 0.05 0 0 0 0.001 0.1 0.01 0.05 0.05 0 0
+  
+pPREY2PWN1 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0.005 0.005 0.005 0.005 0 0.005 0 0.07 0.005 0 0 0 0.005 0 0.4 0 0.2 0.05 0 0 0 0.001 0.1 0.01 0.05 0.05 0 0
+
+##new file doesn't have prey1 and prey2 for cep and pwn
+                                                        
+pPREY1PWN2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0.005 0.005 0.005 0.005 0 0.005 0 0.07 0.005 0 0 0 0.005 0 0.18 0 0.09 0.05 0 0 0 0.001 0.1 0.01 0.05 0.05 0 0
+
+pPREY2PWN2 65                                                               
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0.005 0.005 0.005 0.005 0 0.005 0 0.07 0.005 0 0 0 0.005 0 0.18 0 0.09 0.05 0 0 0 0.001 0.1 0.01 0.05 0.05 0 0
+
+
+## Ontogenetic diet preferences - one entry per age class. 1=use explicit interactions above, 0=use ontogenetic values below .
+# For each group where the p_split value is set to 0 there will be a value for each cohort of the groups tagged below as age_structured_pred.           
+p_split_BFD     0
+p_split_BFF     0
+p_split_BFS     0
+p_split_BMD     0
+p_split_BMS     0
+p_split_BML     0
+p_split_BG     0
+p_split_ZG     0
+p_split_ZL     0
+p_split_ZM     0
+p_split_ZS     0
+p_split_BD     0
+p_split_BC     0
+
+#Flag to indicate that the group uses age structured prey.
+age_structured_prey_FVD 1
+age_structured_prey_FVV 1
+age_structured_prey_FVS 1
+age_structured_prey_FVB 1
+age_structured_prey_FVT 1
+age_structured_prey_FVO 1
+age_structured_prey_FMM 1
+age_structured_prey_FDD 1
+age_structured_prey_FDS 1
+age_structured_prey_FDB 1
+age_structured_prey_FDC 1
+age_structured_prey_FDO 1
+age_structured_prey_FDE 1
+age_structured_prey_FDF 1
+age_structured_prey_SHB 1
+age_structured_prey_SHD 1
+age_structured_prey_SHC 1
+age_structured_prey_SHP 1
+age_structured_prey_SHR 1
+age_structured_prey_FPL 0
+age_structured_prey_FPO 0
+age_structured_prey_FPS 0
+age_structured_prey_FBP 0
+age_structured_prey_FMN 0
+age_structured_prey_FDM 0
+age_structured_prey_FDP 0
+age_structured_prey_SSK 0
+age_structured_prey_SB 0
+age_structured_prey_SP 0
+age_structured_prey_PIN 0
+age_structured_prey_REP 0
+age_structured_prey_WHB 0
+age_structured_prey_WHS 0
+age_structured_prey_WHT 0
+age_structured_prey_WDG 0
+
+# These replace the juvenile/adult values defined in the pPREY entries above    
+p_ZGFPO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of deep piscivore   
+p_ZLFPO 10              
+0.04 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1      
+# Fraction of mesozooplankton exploitable by each age class of deep piscivore    
+p_ZMFPO 10              
+0.1 0.05 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of carnivorous infauna exploitable by each age class of deep piscivore   
+p_BCFPO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of benthic deposit feeders exploitable by each age class of deep piscivore  
+p_BDFPO 10              
+0.004 0.04 0.04 0.04 0.04 0.04 0.04 0.04 0.04 0.04      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of deep piscivore 
+p_BFFPO 10              
+0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of scallops exploitable by each age class of deep piscivore    
+p_BFSFPO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of deep piscivore    
+p_BGFPO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of deep piscivore    
+p_BMFPO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of megazoobenthos exploitable by each age class of deep piscivore    
+p_BMLFPO 10              
+0 0 0 0 0 0 0 0 0 0      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of deep piscivore   
+p_ZGFVD 10              
+0.002 0.005 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of large zooplankton exploitable by each age class of deep piscivore   
+p_ZLFVD 10              
+0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3      
+# Fraction of mesozooplankton exploitable by each age class of deep piscivore    
+p_ZMFVD 10              
+0.09 0.09 0.09 0.09 0.09 0.09 0.09 0.09 0.09 0.09      
+# Fraction of carnivorous infauna exploitable by each age class of deep piscivore   
+p_BCFVD 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of benthic deposit feeders exploitable by each age class of deep piscivore  
+p_BDFVD 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of deep piscivore 
+p_BFFFVD 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of deep piscivore 
+p_BFDFVD 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of scallops exploitable by each age class of deep piscivore    
+p_BFSFVD 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of deep piscivore    
+p_BGFVD 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of deep piscivore    
+p_BMSFVD 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of deep piscivore    
+p_BMDFVD 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of megazoobenthos exploitable by each age class of deep piscivore    
+p_BMLFVD 10              
+0 0 0 0 0 0 0 0 0 0      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of vulnerable piscivore   
+p_ZGFVV 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of vulnerable piscivore   
+p_ZLFVV 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of mesozooplankton exploitable by each age class of vulnerable piscivore    
+p_ZMFVV 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of carnivorous infauna exploitable by each age class of vulnerable piscivore   
+p_BCFVV 10              
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of benthic deposit feeders exploitable by each age class of vulnerable piscivore  
+p_BDFVV 10              
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of vulnerable piscivore 
+p_BFFFVV 10
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of vulnerable piscivore 
+p_BFDFVV 10
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of scallops exploitable by each age class of vulnerable piscivore    
+p_BFSFVV 10              
+0 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of macrozoobenthos exploitable by each age class of vulnerable piscivore    
+p_BGFVV 10              
+0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2      
+# Fraction of macrozoobenthos exploitable by each age class of vulnerable piscivore    
+p_BMSFVV 10
+0.005 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of macrozoobenthos exploitable by each age class of vulnerable piscivore    
+p_BMDFVV 10
+0.005 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of megazoobenthos exploitable by each age class of vulnerable piscivore    
+p_BMLFVV 10              
+0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of shallow piscivore   
+p_ZGFVS 10              
+0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+# Fraction of large zooplankton exploitable by each age class of shallow piscivore   
+p_ZLFVS 10              
+0.15 0.15 0.15 0.15 0.15 0.15 0.15 0.15 0.15 0.15      
+# Fraction of mesozooplankton exploitable by each age class of shallow piscivore    
+p_ZMFVS 10              
+0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of carnivorous infauna exploitable by each age class of shallow piscivore   
+p_BCFVS 10              
+0.018 0.018 0.018 0.018 0.018 0.018 0.018 0.018 0.018 0.018      
+# Fraction of benthic deposit feeders exploitable by each age class of shallow piscivore  
+p_BDFVS 10              
+0.008 0.008 0.008 0.008 0.008 0.008 0.008 0.008 0.008 0.008      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of shallow piscivore 
+p_BFFFVS 10
+0.007 0.007 0.007 0.007 0.007 0.007 0.007 0.007 0.007 0.007      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of shallow piscivore 
+p_BFDFVS 10
+0.007 0.007 0.007 0.007 0.007 0.007 0.007 0.007 0.007 0.007      
+# Fraction of scallops exploitable by each age class of shallow piscivore    
+p_BFSFVS 10              
+0.0075 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075      
+# Fraction of macrozoobenthos exploitable by each age class of shallow piscivore    
+p_BGFVS 10              
+0.02 0.02 0.02 0.02 0.02 0.02 0.02 0.02 0.02 0.02      
+# Fraction of macrozoobenthos exploitable by each age class of shallow piscivore    
+p_BMSFVS 10
+0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001      
+# Fraction of macrozoobenthos exploitable by each age class of shallow piscivore    
+p_BMDFVS 10
+0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001      
+# Fraction of megazoobenthos exploitable by each age class of shallow piscivore    
+p_BMLFVS 10              
+0 0 0 0 0 0 0 0 0 0      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of other piscivore   
+p_ZGFVB 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of other piscivore   
+p_ZLFVB 10              
+0.015 0.015 0.015 0.15 0.3 0.3 0.3 0.3 0.3 0.3      
+# Fraction of mesozooplankton exploitable by each age class of other piscivore    
+p_ZMFVB 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of carnivorous infauna exploitable by each age class of other piscivore   
+p_BCFVB 10              
+0 0 0 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of benthic deposit feeders exploitable by each age class of other piscivore  
+p_BDFVB 10              
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of other piscivore 
+p_BFFFVB 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of other piscivore 
+p_BFDFVB 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of scallops exploitable by each age class of other piscivore    
+p_BFSFVB 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of other piscivore    
+p_BGFVB 10              
+0.002 0.002 0.002 0.02 0.02 0.02 0.02 0.02 0.02 0.02      
+# Fraction of macrozoobenthos exploitable by each age class of other piscivore    
+p_BMSFVB 10
+0 0 0 0.001 0.001 0.001 0.001 0.001 0.001 0.001      
+# Fraction of macrozoobenthos exploitable by each age class of other piscivore    
+p_BMDFVB 10
+0 0 0 0.001 0.001 0.001 0.001 0.001 0.001 0.001      
+# Fraction of megazoobenthos exploitable by each age class of other piscivore    
+p_BMLFVB 10              
+0 0 0 0 0 0 0 0 0 0      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of large piscivore   
+p_ZGFVT 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of large piscivore   
+p_ZLFVT 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of mesozooplankton exploitable by each age class of large piscivore    
+p_ZMFVT 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of carnivorous infauna exploitable by each age class of large piscivore   
+p_BCFVT 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of benthic deposit feeders exploitable by each age class of large piscivore  
+p_BDFVT 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of large piscivore 
+p_BFFFVT 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of large piscivore 
+p_BFDFVT 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of scallops exploitable by each age class of large piscivore    
+p_BFSFVT 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of large piscivore    
+p_BGFVT 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of large piscivore    
+p_BMSFVT 10
+0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015      
+# Fraction of macrozoobenthos exploitable by each age class of large piscivore    
+p_BMDFVT 10
+0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015      
+# Fraction of megazoobenthos exploitable by each age class of large piscivore    
+p_BMLFVT 10              
+0 0 0 0 0 0 0 0 0 0      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of large tuna   
+p_ZGFVO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of large tuna   
+p_ZLFVO 10              
+0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3      
+# Fraction of mesozooplankton exploitable by each age class of large tuna    
+p_ZMFVO 10              
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of carnivorous infauna exploitable by each age class of large tuna   
+p_BCFVO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of benthic deposit feeders exploitable by each age class of large tuna  
+p_BDFVO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of large tuna 
+p_BFFFVO 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of large tuna 
+p_BFDFVO 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of scallops exploitable by each age class of large tuna    
+p_BFSFVO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of large tuna    
+p_BGFVO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of large tuna    
+p_BMSFVO 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of large tuna    
+p_BMDFVO 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of megazoobenthos exploitable by each age class of large tuna    
+p_BMLFVO 10              
+0 0 0 0 0 0 0 0 0 0      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of migratory mesopelagics   
+p_ZGFMM 10              
+0.15 0.15 0.15 0.15 0.15 0.15 0.15 0.15 0.15 0.15      
+# Fraction of large zooplankton exploitable by each age class of migratory mesopelagics   
+p_ZLFMM 10              
+0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2      
+# Fraction of mesozooplankton exploitable by each age class of migratory mesopelagics    
+p_ZMFMM 10              
+0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1      
+# Fraction of carnivorous infauna exploitable by each age class of migratory mesopelagics   
+p_BCFMM 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of benthic deposit feeders exploitable by each age class of migratory mesopelagics  
+p_BDFMM 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of migratory mesopelagics 
+p_BFFFMM 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of migratory mesopelagics 
+p_BFDFMM 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of scallops exploitable by each age class of migratory mesopelagics    
+p_BFSFMM 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of migratory mesopelagics    
+p_BGFMM 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of migratory mesopelagics    
+p_BMSFMM 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of migratory mesopelagics    
+p_BMDFMM 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of megazoobenthos exploitable by each age class of migratory mesopelagics    
+p_BMLFMM 10              
+0 0 0 0 0 0 0 0 0 0      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of deep demersals   
+p_ZGFDD 10              
+0.00005 0.00004 0.00001 0.00001 0.00001 0.00001 0.00001 0.00001 0.00001 0.00001      
+# Fraction of large zooplankton exploitable by each age class of deep demersals   
+p_ZLFDD 10              
+0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1      
+# Fraction of mesozooplankton exploitable by each age class of deep demersals    
+p_ZMFDD 10              
+0.0002 0.0003 0.00025 0.00025 0.00025 0.00025 0.00025 0.00025 0.00025 0.00025      
+# Fraction of carnivorous infauna exploitable by each age class of deep demersals   
+p_BCFDD 10              
+0.0018 0.0012 0.0005 0.00046 0.00046 0.00046 0.00046 0.00046 0.00046 0.00046      
+# Fraction of benthic deposit feeders exploitable by each age class of deep demersals  
+p_BDFDD 10              
+0.0125 0.0125 0.02 0.02 0.02 0.02 0.02 0.02 0.02 0.02      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of deep demersals 
+p_BFFFDD 10
+0.0001 0.000845833 0.0005425 0.0005425 0.0005425 0.0005425 0.0005425 0.0005425 0.0005425 0.0005425      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of deep demersals 
+p_BFDFDD 10
+0.0001 0.000845833 0.0005425 0.0005425 0.0005425 0.0005425 0.0005425 0.0005425 0.0005425 0.0005425      
+# Fraction of scallops exploitable by each age class of deep demersals    
+p_BFSFDD 10              
+0.000006 0.00003 0.00001 0.00001 0.00001 0.00001 0.00001 0.00001 0.00001 0.00001      
+# Fraction of macrozoobenthos exploitable by each age class of deep demersals    
+p_BGFDD 10              
+0.0002 0.0012 0.0003 0.0003 0.0003 0.0003 0.0003 0.0003 0.0003 0.0003      
+# Fraction of macrozoobenthos exploitable by each age class of deep demersals    
+p_BMSFDD 10
+0.000025 0.0001 0.00006 0.00006 0.00006 0.00006 0.00006 0.00006 0.00006 0.00006      
+# Fraction of macrozoobenthos exploitable by each age class of deep demersals    
+p_BMDFDD 10
+0.000025 0.0001 0.00006 0.00006 0.00006 0.00006 0.00006 0.00006 0.00006 0.00006      
+# Fraction of megazoobenthos exploitable by each age class of deep demersals    
+p_BMLFDD 10              
+0 0 0 0 0 0 0 0 0 0      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of shallow demersals   
+p_ZGFDS 10              
+0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001      
+# Fraction of large zooplankton exploitable by each age class of shallow demersals   
+p_ZLFDS 10              
+0.3 0.3 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1      
+# Fraction of mesozooplankton exploitable by each age class 0.001 shallow demersals    
+p_ZMFDS 10              
+0.035 0.02 0.0035 0.0035 0.0035 0.0035 0.0035 0.0035 0.0035 0.0035      
+# Fraction of carnivorous infauna exploitable by each age class of shallow demersals   
+p_BCFDS 10              
+0.006948276 0.008327586 0.009017241 0.009155172 0.009155172 0.009155172 0.009155172 0.009155172 0.009155172 0.009155172      
+# Fraction of benthic deposit feeders exploitable by each age class of shallow demersals  
+p_BDFDS 10              
+0.05 0.05 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of shallow demersals 
+p_BFFFDS 10
+0.006 0.008 0.008 0.008 0.008 0.008 0.008 0.008 0.008 0.008      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of shallow demersals 
+p_BFDFDS 10
+0.006 0.008 0.008 0.008 0.008 0.008 0.008 0.008 0.008 0.008      
+# Fraction of scallops exploitable by each age class of shallow demersals    
+p_BFSFDS 10              
+0.00005 0.00015 0.00015 0.00015 0.00015 0.00015 0.00015 0.00015 0.00015 0.00015      
+# Fraction of macrozoobenthos exploitable by each age class of shallow demersals    
+p_BGFDS 10              
+0.002 0.002 0.0016 0.0016 0.0016 0.0016 0.0016 0.0016 0.0016 0.0016      
+# Fraction of macrozoobenthos exploitable by each age class of shallow demersals    
+p_BMSFDS 10
+0.008965517 0.013793103 0.013793103 0.013793103 0.013793103 0.013793103 0.013793103 0.013793103 0.013793103 0.013793103      
+# Fraction of macrozoobenthos exploitable by each age class of shallow demersals    
+p_BMDFDS 10
+0.008965517 0.013793103 0.013793103 0.013793103 0.013793103 0.013793103 0.013793103 0.013793103 0.013793103 0.013793103      
+# Fraction of megazoobenthos exploitable by each age class of shallow demersals    
+p_BMLFDS 10              
+0 0.00003 0.0002 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of other shallow demersals  
+p_ZGFDB 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of other shallow demersals  
+p_ZLFDB 10              
+0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1      
+# Fraction of mesozooplankton exploitable by each age class of other shallow demersals   
+p_ZMFDB 10              
+0.1 0.05 0.01 0.02 0.02 0.02 0.02 0.02 0.02 0.02      
+# Fraction of carnivorous infauna exploitable by each age class of other shallow demersals  
+p_BCFDB 10              
+0.01 0.01 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of benthic deposit feeders exploitable by each age class of other shallow demersals 
+p_BDFDB 10              
+0.03 0.04 0.04 0.04 0.04 0.04 0.04 0.04 0.04 0.04      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of other shallow demersals
+p_BFFFDB 10
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of other shallow demersals
+p_BFDFDB 10
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of scallops exploitable by each age class of other shallow demersals   
+p_BFSFDB 10              
+0 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075      
+# Fraction of macrozoobenthos exploitable by each age class of other shallow demersals   
+p_BGFDB 10              
+0.01 0.02 0.02 0.02 0.02 0.02 0.02 0.02 0.02 0.02      
+# Fraction of macrozoobenthos exploitable by each age class of other shallow demersals   
+p_BMSFDB 10
+0.0005 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001      
+# Fraction of macrozoobenthos exploitable by each age class of other shallow demersals   
+p_BMDFDB 10
+0.0005 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001      
+# Fraction of megazoobenthos exploitable by each age class of other shallow demersals   
+p_BMLFDB 10              
+0 0.00003 0.0002 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of other deep demersals  
+p_ZGFDC 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of other deep demersals  
+p_ZLFDC 10              
+0.1 0.1 0 0 0 0 0 0 0 0      
+# Fraction of mesozooplankton exploitable by each age class of other deep demersals   
+p_ZMFDC 10              
+0.01 0 0 0 0 0 0 0 0 0      
+# Fraction of carnivorous infauna exploitable by each age class of other deep demersals  
+p_BCFDC 10              
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of benthic deposit feeders exploitable by each age class of other deep demersals 
+p_BDFDC 10              
+0.07 0.07 0.07 0.07 0.07 0.07 0.07 0.07 0.07 0.07      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of other deep demersals
+p_BFFFDC 10
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of other deep demersals
+p_BFDFDC 10
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of scallops exploitable by each age class of other deep demersals   
+p_BFSFDC 10              
+0 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075 0.0075      
+# Fraction of macrozoobenthos exploitable by each age class of other deep demersals   
+p_BGFDC 10              
+0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1      
+# Fraction of macrozoobenthos exploitable by each age class of other deep demersals   
+p_BMSFDC 10
+0.005 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of macrozoobenthos exploitable by each age class of other deep demersals   
+p_BMDFDC 10
+0.005 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of megazoobenthos exploitable by each age class of other deep demersals   
+p_BMLFDC 10              
+0.0001 0.0001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of long-lived demersals   
+p_ZGFDO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of long-lived demersals   
+p_ZLFDO 10              
+0.1 0 0 0 0 0 0 0 0 0      
+# Fraction of mesozooplankton exploitable by each age class of long-lived demersals    
+p_ZMFDO 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of carnivorous infauna exploitable by each age class of long-lived demersals   
+p_BCFDO 10              
+0.01 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of benthic deposit feeders exploitable by each age class of long-lived demersals  
+p_BDFDO 10              
+0.02 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of long-lived demersals 
+p_BFFFDO 10
+0.005 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of long-lived demersals 
+p_BFDFDO 10
+0.005 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of scallops exploitable by each age class of long-lived demersals    
+p_BFSFDO 10              
+0.0075 0.04 0.04 0.04 0.04 0.04 0.04 0.04 0.04 0.04      
+# Fraction of macrozoobenthos exploitable by each age class of long-lived demersals    
+p_BGFDO 10              
+0.05 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1      
+# Fraction of macrozoobenthos exploitable by each age class of long-lived demersals    
+p_BMSFDO 10
+0.05 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1      
+# Fraction of macrozoobenthos exploitable by each age class of long-lived demersals    
+p_BMDFDO 10
+0.05 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1      
+# Fraction of megazoobenthos exploitable by each age class of long-lived demersals    
+p_BMLFDO 10              
+0 0.001 0.005 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of estuarine demersals   
+p_ZGFDE 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of estuarine demersals   
+p_ZLFDE 10              
+0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3      
+# Fraction of mesozooplankton exploitable by each age class of estuarine demersals    
+p_ZMFDE 10              
+0.07 0.07 0.07 0.07 0.07 0.07 0.07 0.07 0.07 0.07      
+# Fraction of carnivorous infauna exploitable by each age class of estuarine demersals   
+p_BCFDE 10              
+0.01 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of benthic deposit feeders exploitable by each age class of estuarine demersals  
+p_BDFDE 10              
+0.02 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of estuarine demersals 
+p_BFFFDE 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of estuarine demersals 
+p_BFDFDE 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of scallops exploitable by each age class of estuarine demersals    
+p_BFSFDE 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of estuarine demersals    
+p_BGFDE 10              
+0 0 0 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of macrozoobenthos exploitable by each age class of estuarine demersals    
+p_BMSFDE 10
+0 0 0 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of macrozoobenthos exploitable by each age class of estuarine demersals    
+p_BMDFDE 10
+0 0 0 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of megazoobenthos exploitable by each age class of estuarine demersals    
+p_BMLFDE 10              
+0 0 0 0 0 0 0 0 0 0      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of flat deep demersal demersals 
+p_ZGFDF 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of flat deep demersal demersals 
+p_ZLFDF 10              
+0.05 0.05 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3      
+# Fraction of mesozooplankton exploitable by each age class of flat deep demersal demersals  
+p_ZMFDF 10              
+0.000005 0.000005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005      
+# Fraction of carnivorous infauna exploitable by each age class of flat deep demersal demersals 
+p_BCFDF 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of benthic deposit feeders exploitable by each age class of flat deep demersal demersals
+p_BDFDF 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of flat deep demersal
+p_BFFFDF 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of flat deep demersal
+p_BFDFDF 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of scallops exploitable by each age class of flat deep demersal demersals  
+p_BFSFDF 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of flat deep demersal demersals  
+p_BGFDF 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of flat deep demersal demersals  
+p_BMSFDF 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of flat deep demersal demersals  
+p_BMDFDF 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of megazoobenthos exploitable by each age class of flat deep demersal demersals  
+p_BMLFDF 10              
+0 0 0 0 0 0 0 0 0 0      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of demersal sharks   
+p_ZGSHD 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of demersal sharks   
+p_ZLSHD 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of mesozooplankton exploitable by each age class of demersal sharks    
+p_ZMSHD 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of carnivorous infauna exploitable by each age class of demersal sharks   
+p_BCSHD 10              
+0.1 0.1 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of benthic deposit feeders exploitable by each age class of demersal sharks  
+p_BDSHD 10              
+0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of demersal sharks 
+p_BFFSHD 10
+0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of demersal sharks 
+p_BFDSHD 10
+0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015 0.0015      
+# Fraction of scallops exploitable by each age class of demersal sharks    
+p_BFSSHD 10              
+0.004 0.004 0.004 0.004 0.004 0.004 0.004 0.004 0.004 0.004      
+# Fraction of macrozoobenthos exploitable by each age class of demersal sharks    
+p_BGSHD 10              
+0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1      
+# Fraction of macrozoobenthos exploitable by each age class of demersal sharks    
+p_BMSSHD 10
+0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013      
+# Fraction of macrozoobenthos exploitable by each age class of demersal sharks    
+p_BMDSHD 10
+0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013      
+# Fraction of megazoobenthos exploitable by each age class of demersal sharks    
+p_BMLSHD 10              
+0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of dogfish    
+p_ZGSHC 10              
+0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of large zooplankton exploitable by each age class of dogfish    
+p_ZLSHC 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of mesozooplankton exploitable by each age class of dogfish     
+p_ZMSHC 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of carnivorous infauna exploitable by each age class of dogfish    
+p_BCSHC 10              
+0.005 0.005 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of benthic deposit feeders exploitable by each age class of dogfish   
+p_BDSHC 10              
+0.025 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of dogfish  
+p_BFFSHC 10
+0.005 0.005 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of dogfish  
+p_BFDSHC 10
+0.005 0.005 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of scallops exploitable by each age class of dogfish     
+p_BFSSHC 10              
+0.04 0.004 0.004 0.004 0.004 0.004 0.004 0.004 0.004 0.004      
+# Fraction of macrozoobenthos exploitable by each age class of dogfish     
+p_BGSHC 10              
+0.1 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of macrozoobenthos exploitable by each age class of dogfish     
+p_BMSSHC 10
+0.005 0.005 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of macrozoobenthos exploitable by each age class of dogfish     
+p_BMDSHC 10
+0.005 0.005 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of megazoobenthos exploitable by each age class of dogfish     
+p_BMLSHC 10              
+0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+               
+               
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of other demersal sharks  
+p_ZGSHB 10              
+0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005      
+# Fraction of large zooplankton exploitable by each age class of other demersal sharks  
+p_ZLSHB 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of mesozooplankton exploitable by each age class of other demersal sharks   
+p_ZMSHB 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of carnivorous infauna exploitable by each age class of other demersal sharks  
+p_BCSHB 10              
+0.1 0.01 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+# Fraction of benthic deposit feeders exploitable by each age class of other demersal sharks 
+p_BDSHB 10              
+0.04 0.004 0.002 0.002 0.002 0.002 0.002 0.002 0.002 0.002      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of other demersal sharks
+p_BFFSHB 10
+0.001 0.0001 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of other demersal sharks
+p_BFDSHB 10
+0.001 0.0001 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005      
+# Fraction of scallops exploitable by each age class of other demersal sharks   
+p_BFSSHB 10              
+0.01 0.01 0.01 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+# Fraction of macrozoobenthos exploitable by each age class of other demersal sharks   
+p_BGSHB 10              
+0.02 0.002 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001      
+# Fraction of macrozoobenthos exploitable by each age class of other demersal sharks   
+p_BMSSHB 10
+0.01 0.001 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005      
+# Fraction of macrozoobenthos exploitable by each age class of other demersal sharks   
+p_BMDSHB 10
+0.01 0.001 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005      
+# Fraction of megazoobenthos exploitable by each age class of other demersal sharks   
+p_BMLSHB 10              
+0.01 0.001 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of pelagic sharks   
+p_ZGSHP 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of large zooplankton exploitable by each age class of pelagic sharks   
+p_ZLSHP 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of mesozooplankton exploitable by each age class of pelagic sharks    
+p_ZMSHP 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of carnivorous infauna exploitable by each age class of pelagic sharks   
+p_BCSHP 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of benthic deposit feeders exploitable by each age class of pelagic sharks  
+p_BDSHP 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of pelagic sharks 
+p_BFFSHP 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of pelagic sharks 
+p_BFDSHP 10
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of scallops exploitable by each age class of pelagic sharks    
+p_BFSSHP 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of pelagic sharks    
+p_BGSHP 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of macrozoobenthos exploitable by each age class of pelagic sharks    
+p_BMSSHP 10
+0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013      
+# Fraction of macrozoobenthos exploitable by each age class of pelagic sharks    
+p_BMDSHP 10
+0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013 0.00013      
+# Fraction of megazoobenthos exploitable by each age class of pelagic sharks    
+p_BMLSHP 10              
+0.0001 0.0001 0.0001 0.0001 0.0001 0.0001 0.0001 0.0001 0.0001 0.0001      
+               
+# Fraction of gelatinous zooplankton exploitable by each age class of reef sharks   
+p_ZGSHR 10              
+0.0005 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05      
+# Fraction of large zooplankton exploitable by each age class of reef sharks   
+p_ZLSHR 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of mesozooplankton exploitable by each age class of reef sharks    
+p_ZMSHR 10              
+0 0 0 0 0 0 0 0 0 0      
+# Fraction of carnivorous infauna exploitable by each age class of reef sharks   
+p_BCSHR 10              
+0.01 0.01 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+# Fraction of benthic deposit feeders exploitable by each age class of reef sharks  
+p_BDSHR 10              
+0.025 0.025 0.025 0.025 0.025 0.025 0.025 0.025 0.025 0.025      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of reef sharks 
+p_BFFSHR 10
+0.001 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+# Fraction of filter feeding benthic invertebrates exploitable by each age class of reef sharks 
+p_BFDSHR 10
+0.001 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+# Fraction of scallops exploitable by each age class of reef sharks    
+p_BFSSHR 10              
+0.00075 0.0075 0.004 0.004 0.004 0.004 0.004 0.004 0.004 0.004      
+# Fraction of macrozoobenthos exploitable by each age class of reef sharks    
+p_BGSHR 10              
+0.02 0.02 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01      
+# Fraction of macrozoobenthos exploitable by each age class of reef sharks    
+p_BMSSHR 10
+0.001 0.001 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+# Fraction of macrozoobenthos exploitable by each age class of reef sharks    
+p_BMDSHR 10
+0.001 0.001 0.005 0.005 0.005 0.005 0.005 0.005 0.005 0.005      
+# Fraction of megazoobenthos exploitable by each age class of reef sharks    
+p_BMLSHR 10              
+0.001 0.001 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005 0.0005      
+               
+
+#new model doesn't have ph effects, maybe not turned on?
+#new model doesn't have salinity parameters either
+
+
+CEP_sn           2375.0    Ref. AFDW for adult cephal. so can determine avail fish groups (=20cm squid)
+jCEP_sn          375.0     Ref. AFDW for juv cephal. so can determine avail fish groups (=10cm, squid)
+ZG_sn            2375.0    Ref. AFDW for gelatin. zoopl. so can determine avail fish groups (=20cm medusa)
+BML_sn           20263.0   Ref. AFDW for megazoobenthos so can determine avail fish groups (=20cm lobster, 3.5kg)
+BMS_sn           13290.0    Ref. AFDW for shallow macrozoobenthos so can determine avail fish groups (=10cm crab, 500g)
+BMD_sn           13290.0    Ref. AFDW for deep macrozoobenthos so can determine avail fish groups (=10cm crab, 500g)
+jPWN_sn          10.0      Ref. AFDW for deep macrozoobenthos so can determine avail fish groups (=1cm prawn)
+PWN_sn           90.0      Ref. AFDW for deep macrozoobenthos so can determine avail fish groups (=10cm prawn)
+
+# Following parameters required for read-in, but as these species don't eat age-structured groups, not used as yet
+ZL_sn           1.0        Ref. AFDW for large zooplankton so can determine avail fish groups (=10cm prawn)
+ZM_sn           1.0        Ref. AFDW for mesozooplankton so can determine avail fish groups (=10cm prawn)
+ZS_sn           1.0        Ref. AFDW for small zooplankton so can determine avail fish groups (=10cm prawn)
+DF_sn           1.0        Ref. AFDW for dinoflagellates so can determine avail fish groups (=10cm prawn)
+BFS_sn          90.0       Ref. AFDW for shallow filter feeders so can determine avail fish groups (=10cm prawn)
+BFF_sn          90.0       Ref. AFDW for other filter feeders so can determine avail fish groups (=10cm prawn)
+BFD_sn          90.0       Ref. AFDW for deep filter feeders so can determine avail fish groups (=10cm prawn)
+BG_sn           50.0       Ref. AFDW for benthic grazers so can determine avail fish groups (=10cm prawn)
+BO_sn           1.0        Ref. AFDW for meiobenthos so can determine avail fish groups (=10cm prawn)
+BD_sn           10.0       Ref. AFDW for deposit feeders so can determine avail fish groups (=10cm prawn)
+BC_sn           5.0        Ref. AFDW for benthic canrivores so can determine avail fish groups (=10cm prawn)
+
+check mum and clearance, especially for juvenile inverts
+
+
+# Clearance rates for consumers - this is used by Holling type feeding (predcase 0, 1, 2)          
+C_ZG_T15  0.008  Clearance rate of gelatinous zooplankton -0.008 mg3(mg N)-1 d-1 0.02 - 0.08             
+C_ZL_T15  0.02  Clearance rate of large zooplankton -0.01 mg3(mg N)-1 d-1 0.02 - 0.08             
+C_ZM_T15  0.04  Clearance rate of meso-zooplankton -0.045 mg3(mg N)-1 d-1 0.05 - 0.1              
+C_ZS_T15  0.18  Clearance rate of small zooplankton mg3(mg N)-1 d-1 0.2 - 0.4              
+C_DF_T15  0.2  Clearance rate of dinoflagellates mg3(mg N)-1 d-1 0.2 - 0.4               
+C_BFS_T15  0.02  Clearance rate of shallow filter feeders mg3(mg N)-1 d-1 0.0005 - 0.015             
+C_BFD_T15  0.02  Clearance rate of deep filter feeders mg3(mg N)-1 d-1 0.0005 - 0.015             
+C_BFF_T15  0.02  Clearance rate of other filter feeders mg3(mg N)-1 d-1 0.0005 - 0.015             
+C_BD_T15  0.01  Clearance rate of benth deposit feeders mg3(mg N)-1 d-1 0.00055 - 0.02             
+C_BC_T15  0.008  Clearance rate of benth inf carniv -0.001 mg3(mg N)-1 d-1 0.0004 - 0.012            
+C_BG_T15  0.004 Clearance rate of benthic grazers -0.00004 mg3(mg N)-1 d-1 0.00005 - 0.003             
+C_BMS_T15  0.003  Clearance rate of shallow macrozoobenthos mg3(mg N)-1 d-1 0.0002 - 0.004              
+C_BML_T15  0.016  Clearance rate of megazoobenthos mg3(mg N)-1 d-1 0.0002 - 0.004               
+C_BMD_T15  0.004  Clearance rate of deep macrozoobenthos mg3(mg N)-1 d-1 0.0002 - 0.004              
+C_BO_T15  0.01 Clearance rate of meiobenthos mg3(mg N)-1 d-1 0.001 - 0.05               
+C_CEP_T15  0.0019  Clearance rate of cephalopods mg3(mg N)-1 d-1 0.1 - 0.2               
+C_jCEP_T15  0.0015  Clearance rate of juvenile cephalopods mg3(mg N)-1d-1 0.1 - 0.2               
+C_PWN_T15  0.01  Clearance rate of prawns mg3(mg N)-1d-1 0.0002 - 0.004                
+C_jPWN_T15  0.007  Clearance rate of juvenile prawns mg3(mg N)-1d-1 0.0002 - 0.004               
+
+# Bacteria need C_ param for read-in but not used - see bacteria colonistation and uptake params above
+C_PB_T15         0.0       Clearance rate of pelagic bacteria                  mg3(mg N)-1 d-1  0.001 - 0.05  
+C_BB_T15         0.0       Clearance rate of benthic bacteria                  mg3(mg N)-1 d-1  0.001 - 0.05  
+
+# Clearance rate of each vertebrate group, per age class mg3(mg N)-1 d-1              
+flagfishrates  0  Switch to show whether clearance and growth rates are absolute=0, or as proportion of body mass=1         
+
+C_FPL            10
+0.15 3.0 7.0 8.0 15.0 25.0 20.0 20.0 20.0 20.0
+
+C_FPS            10
+0.0002 0.3 0.6 0.6 0.6 0.6 0.5 0.5 0.4 0.4
+
+C_FPO 10                         
+0.830998464 1.007442396 1.816966206 15.9122043 16.19791859 16.9122043 17.62649002 17.62649002 17.62649002 17.62649002                 
+
+C_FVD            10
+2.0 2.5 3.5 4.0 5.0 7.0 7.0 7.0 7.0 7.0
+                
+C_FVV 10                         
+0.8 1.25 2.25 19.0 20.0 20.5 21.0 21.0 21.0 21.0                                                 
+
+C_FVS            10
+40.0 40.0 40.0 120.0 150.0 250.0 250.0 300.0 300.0 300.0
+               
+C_FVT            10
+400.0 2000.0 3000.0 3000.0 5000.0 6000.0 6000.0 6000.0 6000.0 8000.0
+
+C_FVO            10                              
+2 3 5 10 10 10 10 10 10 10
+
+C_FVB            10                
+2 3 5 10 10 10 10 10 10 10                 
+
+C_FMM            10
+3.0 15.0 48.0 56.0 56.0 56.0 56.0 56.0 56.0 28.0
+
+C_FMN            10
+2.6 4.1 3.0 1.8 1.3 0.8 0.8 0.8 0.8 0.8                 
+
+C_FBP            10
+0.830998464 1.007442396 1.816966206 15.9122043 16.19791859 16.9122043 17.62649002 17.62649002 17.62649002 17.62649002                 
+
+C_FDD            10
+48.75 160 217.5 420 380 412.5 432.5 457.5 482.5 482.5
+
+C_FDS            10
+4 20 40 60 60 60 60 60 60 60
+
+C_FDB            10                         
+2 3 5 10 10 10 10 10 10 10                 
+
+C_FDC            10                         
+0.830998464 1.007442396 1.816966206 15.9122043 16.19791859 16.9122043 17.62649002 17.62649002 17.62649002 17.62649002                 
+
+C_FDO            10                         
+0.830998464 1.007442396 1.816966206 15.9122043 16.19791859 16.9122043 17.62649002 17.62649002 17.62649002 17.62649002                 
+
+C_FDE            10
+4.0 2.5 2.5 5.0 6.0 8.0 8.0 7.0 7.0 7.0                 
+
+C_FDF            10
+4.0 32.0 32.0 48.0 120.0 300.0 300.0 300.0 300.0 300.0
+
+C_FDM            10                         
+0.83 1.0 1.81 15.91 16.2 16.91 17.63 34.0 34.0 34.0                 
+
+C_FDP            10
+0.5 1.5 1.5 0.8 0.8 0.4 0.4 0.2 0.2 0.2               
+
+C_SHD            10
+933.3333333 566.6666667 766.6666667 1350 3133.333333 3666.666667 3666.666667 3666.666667 3666.666667 3666.666667
+
+C_SHC            10
+30.0 30.0 60.0 90.0 120.0 130.0 90.0 30.0 30.0 30.0                
+
+C_SHB 10                         
+30.0 30.0 60.0 90.0 120.0 130.0 90.0 30.0 30.0 30.0                 
+
+C_SHP            10
+1000.0 7000.0 7000.0 7000.0 7000.0 15000.0 20000.0 30000.0 30000.0 30000.0
+
+C_SHR            10                         
+30 45 50 60 70 70 70 70 70 70                 
+
+C_SSK            10
+15.0 150.0 300.0 600.0 800.0 800.0 1000.0 1000.0 1000.0 1000.0 
+                                                  
+C_SB             10                        
+200.0 70.0 50.0 50.0 50.0 50.0 50.0 50.0 50.0 50.0                
+
+C_SP             10
+2.0 4.0 6.0 8.0 10.0 15.0 20.0 20.0 20.0 20.0
+
+C_REP            10
+3.0 0.5 15.0 30.0 30.0 30.0 30.0 30.0 30.0 30.0
+
+C_WDG            10
+200.0 200.0 200.0 300.0 300.0 300.0 300.0 300.0 300.0 300.0
+
+C_PIN            10
+1000.0 10000.0 6000.0 4000.0 2000.0 2000.0 700.0 700.0 600.0 600.0
+
+C_WHB            10
+1500.0 80.0 270.0 500.0 1000.0 1000.0 2000.0 3000.0 3000.0 3000.0
+
+C_WHS            10
+9000.0 14000.0 4000.0 2000.0 8000.0 8000.0 600.0 500.0 350.0 300.0
+
+C_WHT            10
+100000.0 80000.0 50000.0 10000.0 3000.0 2000.0 2000.0 1500.0 1500.0 1500.0
+
+# Consumer growth - this is used by Holling type feeding (predcase 0, 1, 2)
+mum_ZG_T15       0.02     Growth rate of gelatinous zooplankton            mg N d-1      0.02 - 0.35
+mum_ZL_T15       0.01     Growth rate of largezooplankton (0.04)           mg N d-1      0.02 - 0.35
+mum_ZM_T15       0.05     Growth rate of meso-zooplankton                  mg N d-1       0.3 - 1.4
+mum_ZS_T15       0.9      Growth rate of microzooplankton                  mg N d-1       0.5 - 2.5
+mum_BFS_T15      0.025     Growth rate of shallow filter feeders             mg N d-1          0.01
+mum_BFF_T15      0.08     Growth rate of other filter feeders               mg N d-1          0.01
+mum_BFD_T15      0.075     Growth rate of deep filter feeders                mg N d-1          0.01
+mum_BD_T15       0.02    Growth rate of deposit feeders                   mg N d-1      0.005 - 0.07
+mum_BC_T15       0.0125   Growth rate of infaunal carnivores (0.005)        mg N d-1      0.005 - 0.06
+mum_BG_T15       0.02     Growth rate of benthic grazers                   mg N d-1      0.001 - 0.01
+mum_BMS_T15      0.05     Growth rate of shallow macrozoobenthos            mg N d-1      0.0015 - 0.015
+mum_BMD_T15      0.05     Growth rate of deep macrozoobenthos               mg N d-1      0.0015 - 0.015
+mum_BML_T15      0.016    Growth rate of megazoobenthos                     mg N d-1      0.0015 - 0.015
+mum_BO_T15       0.03      Growth rate of meiobenthos                        mg N d-1          0.3
+mum_PB_T15       1.2      Growth rate of pelagic bacteria                  mg N d-1       1.0 - 2.0
+mum_BB_T15       1.5      Growth rate of sediment bacteria                 mg N d-1       1.0 - 2.0
+mum_CEP_T15   0.0014   Growth rate of cephalopods (from AMS was 0.05 in NSW) mg N d-1 0.02 - 0.35               
+mum_jCEP_T15   0.001  Growth rate of juvenile cephalopods (from AMS was 0.05 in NSW) mg N d-1 0.02 - 0.35              
+mum_PWN_T15   0.0000001 Growth rate of prawns (from AMS was 0.004 in NSW) mg N d-1 0.0015 - 0.015             
+mum_jPWN_T15   0.0000001  Growth rate of juvenile prawns (From AMS was 0.004 in NSW) mg N d-1 0.0015 - 0.015              
+                         
+# Vertebrate growth rates for each group, per age class mg N d-1           
+
+mum_FPL          10
+2.0 9.0 30.0 40.0 40.0 40.0 40.0 40.0 40.0 40.0
+
+mum_FPS          10
+0.003 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+
+mum_FPO 10                       
+0.418285127 1.246523551 2.069271654 2.67801458 3.035477156 3.172197908 3.140384589 2.992594809 2.773276786 2.516598583                 
+
+mum_FVD          10
+1.7 12.0 25.0 25.0 25.0 25.0 20.0 20.0 20.0 20.0
+
+mum_FVV 10                       
+4.0 8.0 7.0 5.0 3.75 3.0 2.0 1.8 1.0 0.8                 
+
+mum_FVS 10                       
+150 150 150 250 250 250 250 250 250 250
+
+mum_FVT          10
+1000.0 7000.0 7000.0 7000.0 7000.0 7000.0 7000.0 7000.0 7000.0 7000.0
+
+mum_FVO 10                        
+1.322269862 2.091654976 2.762792352 3.077038359 3.105631604 2.943649066 2.673592716 2.35603034 2.030907742 1.722103169                 
+
+mum_FVB 10                       
+1.322269862 2.091654976 2.762792352 3.077038359 3.105631604 2.943649066 2.673592716 2.35603034 2.030907742 1.722103169                 
+
+mum_FMM          10
+15.0 24.0 24.0 24.0 24.0 24.0 24.0 24.0 24.0 12.0
+ 
+mum_FMN          10
+6.0 10.0 10.0 8.0 8.0 8.0 8.0 8.0 8.0 8.0        
+         
+mum_FBP 10                       
+1.353221791 1.791206405 2.419165043 2.839497375 3.057148201 3.106836224 3.031115252 2.869911118 2.65639063 2.416080844                 
+
+mum_FDD          10
+80.0   250.0   260.0   270.0   280.0  280.0  280.0  280.0  280.0  280.0
+
+mum_FDS          10
+30 100 150 150 99.03225806 83.38709677 83.38709677 83.38709677 83.38709677 83.38709677
+
+mum_FDB 10                       
+4.309497958 4.311134946 5.054565136 5.248896298 5.054363045 4.62801544 4.091142203 3.525919845 2.982383937 2.487396013                 
+
+mum_FDC 10                       
+2.542680758 2.165998814 2.847089473 3.457241652 3.973383069 4.386304755 4.696038851 4.908446226 5.032767475 5.07991216                 
+
+mum_FDO 10                        
+7.887707419 40.65260389 56.22578195 50.65774674 38.39317132 26.72193186 17.75572704 11.48764367 7.315758456 4.614698272                 
+
+mum_FDE          10
+2.0 8.0 14.0 16.0 18.0 28.0 32.0 40.0 40.0 40.0
+
+mum_FDF 10                       
+0.4  3.25  20.0  90.0  200.0  250.0  250.0  250.0  250.0  250.0
+
+mum_FDM 10                        
+4.0 6.12 5.42 4.14 3.07 2.26 1.65 2.4 1.7 1.2                 
+             
+mum_FDP          10
+0.08 0.2 0.2 0.3 0.3 0.3 0.3 0.3 0.3 0.3
+
+mum_SHD 10                         
+300.0 500.0 1500.0 1500.0 2000.0 4000.0 4000.0 4000.0 4000.0 4000.0                
+
+mum_SHC          10
+30.0 90.0 95.0 100.0 100.0 100.0 100.0 100.0 100.0 100.0
+
+mum_SHB          10
+20.0 200.0 250.0 250.0 250.0 300.0 300.0 300.0 300.0 300.0
+
+mum_SHP          10
+500.0 8000.0 8000.0 15000.0 30000.0 40000.0 40000.0 40000.0 40000.0 40000.0 
+
+mum_SHR 10                       
+20.0 200.0 250.0 250.0 250.0 300.0 300.0 300.0 300.0 300.0
+             
+mum_SSK          10
+10.0 250.0 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0 1000.0
+
+mum_SB 10                       
+5000 1000 200 100 100 100 100 300 300 300                 
+
+mum_SP 10                       
+9 45 100 100 100 100 100 100 100 100                 
+
+mum_REP 10                       
+40 12 12 12 12 12 12 17 17 17                 
+
+mum_WDG 10                       
+200 45 55 65 80 85 90 90 90 90                 
+
+mum_PIN          10
+3000.0 3000.0 3000.0 2000.0 2000.0 2000.0 2000.0 2000.0 2000.0 2000.0 
+
+mum_WHB          10
+7000000.0 1500000.0 2200000.0 2200000.0 2200000.0 2200000.0 2200000.0 2200000.0 2200000.0 2200000.0 
+
+mum_WHS          10
+2000.0 1500.0 1500.0 1500.0 1500.0 1500.0 1500.0 1500.0 1500.0 1500.0 
+
+mum_WHT          10
+1500000.0 600000.0 500000.0 250000.0 100000.0 80000.0 80000.0 80000.0 80000.0 80000.0 
+
+need to add reef switch for vla, switch to 1
+
+for vlb #Cam: basic rules are pelagic or mobile piscivore and planktivores: 0.4
+#          sedentary or demersal 0.2; mid 0.3; birds and oceanic turtles 0.5

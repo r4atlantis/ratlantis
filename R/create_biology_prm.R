@@ -15,8 +15,8 @@
 #'  \item{mean_M}
 #'  \item{max_age}
 #'  \item {min_age_reprod}
-#'  \item {mean_a}
-#'  \item {mean_b}
+#'  \item {mean_a} {average coefficient from length-weight relationship}
+#'  \item {mean_b} {average exponent from length-weight relationship}
 #'  \item {mean_Loo}
 #'  \item {mean_K}
 #'  \item {min_depth}
@@ -27,7 +27,6 @@
 #'  \item{parental_care} {does the vertebrate group provides parental care for
 #'   young until maturity; 0 = no, 1 = yes, -1 = semelparous so die after reproduction}
 #'  \item{feed_while_spawning}{for vertebrates and age-structured inverts}
-#'  \item{catch_grazer}
 #'  \item{assessed}
 #'  \item{cover}
 #'  \item{silicon_dep}
@@ -37,11 +36,13 @@
 #'  provided):
 #'  \itemize{
 #'  \item{num_of_age_classes}
+#'  \item{catch_grazer} {is the group an opportunistic catch grazers (thief)?
+#'  defaults to no = 0}
 #'  \item{ca}
 #'  \item{cb}
 #'  \item{juv_eff}
 #'  \item{adult_eff}
-#'  \item{recruit_code} {flag recruit, needed for verts and stage structured invertebrates,
+#'  \item{recruit_group_code} {flag recruit, needed for verts and stage structured invertebrates,
 #' Vertebrate reproduction related flags. The flagrecruit entries refer to the recruitment function used.
 #' 1=const, 2=dependent on prim producers (Chla), 3=Beverton-Holt, 4=lognormal, 5=dependent on all plankton
 #' groups not just Chla, 6=Bev-Holt with lognormal variation added, 7=Bev-Holt with encourage recovery
@@ -90,12 +91,21 @@
 #'   impact function, defaults to 1}
 #'  }
 #'  }
+#'  \item{needed for that are catch grazers:
+#'  \itemize{
+#'  \item{prop_catch_available}{Availabilty of catch to opportunistic catch grazers (thieves);
+#'  should be space separated vector with entry for each other functional group; defaults to 0}
+#'  \item{prop_catch_exploitable}{How much of each catch is exploitable by opportunistic catch grazers (thieves);
+#'  should be space separated vector with entry for each other functional group; defaults to 0}
+#'  }
+#'  }
+#'
 #'  \item{needed for all that horizontally migrate
 #'  \itemize{
 #'  \item{migrates_out_of_model} {defaults to 0, needed for all that horizontally
 #'  migrate.  Maximum number of times juvenile OR adult stages must leave the
 #'  model domain). For example if juvenile FVT leave once,but adults leave 3
-#'   times then enter 3 here.  Hard code assumes juvenile inverts do not leave model.}
+#'   times then enter 3 here.  Hard group_code assumes juvenile inverts do not leave model.}
 #'  \item{migrates_out_times_ad} { Migration dates (days of the year) for adults of groups
 #'  with stages or for pools moving out of model domain - must be as many entries in these arrays as there
 #'  are in the flagjXXXMigrate entry for that group, separated by a space. Note
@@ -171,6 +181,10 @@
 #'  \item{swim_speed}{defaults to 12500 for fish and sharks, 15000 for birds, 20000 for sharks mammals}
 #'  \item{min_move_temp} {defaults to minimum temp in model}
 #'  \item{max_move_temp} {defaults to maximum temp in model}
+#'  \item{prefer_allocate_reserves}{Vertebrate preference for rebuilding reserves over structure;
+#'  defaults to 4 for fish, 3 for sharks, 3.5 for mammals, and 5 for birds}
+#'  \item{min_length_reproduction}{if not provided, uses mininum age at reproduction and
+#'  length weight relationship to estimate}
 #'  }
 #'  }
 #'  \item{optional for all vertebrates and stage structured inverts:
@@ -180,6 +194,34 @@
 #'  \item{local_recruit} {defaults to 0,
 #'  1 = demersal and piscivorous fish recruit at parental locations, 0 = independent distribution}
 #'  item{flag_temp_sensitive}{Temperature sensitivty; defaults to 0 = no, 1 = yes}
+#'  }
+#'  }
+#'  #'  \item{optional for all predators:
+#'  \itemize{
+#'  \item{gape_lower_limit} {defaults to .01, lower Gape size for predators, to determine available prey fish groups.  Required for all
+#'  predators}
+#'  \item{gape_upper_limit} {defaults to 1, upper Gape size for predators, to determine available prey fish groups.  Required for all
+#'  predators}
+#'  \item{population_refuge}{Seed bank/population refuge based on consumer intake, if available
+#'   food below this feeding slows/stops so can't eat out all food. only used by
+#'    model for predcase =4; defaults to 1 for filler}
+#'   \item{saturation_level}{Saturation levels for consumer food intake. only used by model for predcase = 4; defaults to 1 for filler}
+#'   \item{search_volume_invert}{Search volume for invertebrate predators -
+#'   used by size specific Holling type III (predcase 5); defaults to 999 here for filler value  }
+#'   \item{search_volume_coefficient}{Search volume coefficient for vertebrate predators-
+#'   used by size specific Holling type III (predcase 5);
+#'   defaults to planktivorous = 2, pelagic piscivores = 5, demersal/reef = 1}
+#'   \item{search_volume_exponent}{Search volume exponenent for vertebrate predators -
+#'   used by size specific Holling type III (predcase 5);
+#'   defaults to .5 for birds and sharks and .35 for mammals and fish}
+#'   \item{handling_time_invert}{handling time for invertebrate predators -
+#'   used by size specific Holling type III (predcase 5); defaults to 999 here for filler value  }
+#'   \item{handling_time_coefficient}{handling time coefficient for vertebrate predators-
+#'   used by size specific Holling type III (predcase 5);
+#'   ; defaults to 999 here for filler value  }
+#'   \item{handling_time_exponent}{handling time exponenent for vertebrate predators -
+#'   used by size specific Holling type III (predcase 5);
+#'   ; defaults to 999 here for filler value  }
 #'  }
 #'  }
 #'  \item{flag_X_day}
@@ -201,23 +243,18 @@
 #'  \item{wc} {defaults to .01}
 #'  \item{turned_on} {defaults to 1 (=yes, 0=no)  groups$IsTurnedOn=1}
 #'  \item{overwinter} {defaults to 0}
-#'  \item{max}{pace restrictions for basal (epibenthic and some infauna) groups, defaults to
+#'  \item{max}{space restrictions for basal (epibenthic and some infauna) groups, defaults to
 #'  5000}
 #'  \item{low}{Threshold spatial factors for filter feeders if using ERSEM formulation, Little space limitation (pop too small) }
 #'  \item{thresh}{Threshold spatial factors for filter feeders if using ERSEM formulation }
 #'  \item{sat}{Threshold spatial factors for filter feeders if using ERSEM formulation, Interference to uptake due to shading }
 #'  \item{home_range} {defaults to 1, all epxcept primary producers}
 #'  \item{overlap} {defaults to 1, all except primary producers}
-#'  \item{p_stock} {verts only, scalars to determine, defaults to 1 assuming no
-#'  stocks considered (just one big group)}
-#'  \item{p_stock_juv} {verts only, scalars to determine, defaults to 1
-#'  assuming no stocks considered (just one big group)}
+#'  \item{stock_availability} {verts only, scalars to determine stock availablity for adults, defaults to 1 assuming no
+#'  stocks considered (just one big group, should be vector the same length as number of stocks)}
+#'  \item{stock_availability_juv} {verts only, scalars to determine availablity for juveniles, defaults to 1
+#'  assuming no stocks considered (just one big group), should be vector the same length as number of stocks}
 #'  \item{kup} {defaults to 1 ,deals with gape limitations, required for all predators}
-#'  \item{klp} {defaults to .01, deals with gape limitations, required for all
-#'  predators}
-#'  \item{pr} {preference for rebuilding, defaults to 3 for fish and mammals,
-#'  5 for bird and fish}
-#'  \item{min_length_reprod} {defaults to 0}
 #'  \item{kdep} {depth organisms can dig into, not needed for primary producers,
 #'  defaults to .1}
 #'  \item{ka} {scaling of respiration vs weight, defaults .025 for fish, .021
@@ -270,8 +307,8 @@
 #'  \item{KN} {default to 0, Primary producer nutrient requirements   }
 #'  \item{num_of_genotypes}{defaults to 1}
 #'  \item{num_of_stages}{defaults to 2 for vertebrates, 1 for others}
-#'  \item{number_of_stocks}{defaults to 1}
-#'  \item{number_of_spawns}{{defaults to 1}}
+#'  \item{num_of_stocks}{defaults to 1}
+#'  \item{num_of_spawns}{{defaults to 1}}
 #'  \item{num_of_age_class_size}{set by internal function using maximum age and
 #'  number of cohorts}
 #'  \item{cultured}{defaults to 0}
@@ -279,7 +316,7 @@
 #'  }
 #'  }
 #  need to add file here wiht mum, clearance, and other values. for now these just default
-#  to value in code to keep everything clean
+#  to value in group_code to keep everything clean
 #  @param invert_mum_and_clearance_csv name of csv file that must contain the
 #  following column headers
 #  \itemize{
@@ -398,7 +435,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   #list variables to be included here
   to_be_included <- c("atlantis_type", "AgeClass", "ActualAge", "WetWeight",
     "StructN", "ResN", "mum", "clearance", "Decay", "PropAgeDist", "PropJuv", "PropAdults",
-    "PropBiomass", "PropSpawning")
+    "PropBiomass", "PropSpawning", "length")
 
   #make matrix to hold data
   #take number of ages classes plus a 0 class for all vertebrate
@@ -449,6 +486,12 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
               mean_individual_morphology$ActualAge[i]
           )))^species_input[species_input$group_code == mean_individual_morphology$group_code[i],
             "mean_b"]
+
+        mean_individual_morphology$length[i] <-  (mean_individual_morphology$WetWeight[i]/
+                                                    species_input[species_input$group_code == mean_individual_morphology$group_code[i],
+                                                                  "mean_a"])^(1/species_input[species_input$group_code == mean_individual_morphology$group_code[i],
+                                                                                              "mean_b"])
+
 
         if(mean_individual_morphology$atlantis_type[i] %in% c("fish", "shark")){
           mean_individual_morphology$Decay[i]<- exp(-1*species_input[species_input$group_code
@@ -584,10 +627,10 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   species_input$AdultSj <- .3*species_input$AdultGrowthRate/species_input$adult_eff
 
   #make columns for  type of recruitment, local recruitment, and year class variation
-  if ("recruit_code" %!in% names (species_input)){
-    species_input$recruit_code <- NA
-    species_input$recruit_code[species_input$atlantis_type %in% c("bird", "mammal")] <- 12
-    species_input$recruit_code[species_input$atlantis_type %in% c("fish", "shark")] <- 10
+  if ("recruit_group_code" %!in% names (species_input)){
+    species_input$recruit_group_code <- NA
+    species_input$recruit_group_code[species_input$atlantis_type %in% c("bird", "mammal")] <- 12
+    species_input$recruit_group_code[species_input$atlantis_type %in% c("fish", "shark")] <- 10
   }
   if ("local_recruit" %!in% names (species_input)){
     species_input$local_recruit <- 0
@@ -605,6 +648,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   }
 
   if( "pred_case" %!in% names(species_input)){
+    species_input$pred_case <- NA
     species_input$pred_case[species_input$predator == 1] <- 0
   }
 
@@ -793,18 +837,87 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
  if("fsp" %!in% names(species_input)){
     species_input$fsp <- 0
   }
-  if("p_stock" %!in% names(species_input)){
-    species_input$p_stock <- 1
+  if("stock_availabilty" %!in% names(species_input)){
+    species_input$stock_availability <- 1
   }
-  if("p_stock_juv" %!in% names(species_input)){
-    species_input$p_stock_juv <- 1
+  if("stock_availabilty_juv" %!in% names(species_input)){
+    species_input$stock_availability_juv <- 1
   }
-  if("kup" %!in% names(species_input)){
-    species_input$kup[species_input$predator == 1] <- 1
+
+  if("gape_lower_limit" %!in% names(species_input)){
+    species_input$gape_lower_limit <- NA
+    species_input$gape_lower_limit[species_input$predator == 1] <- .01
   }
-  if("klp" %!in% names(species_input)){
-    species_input$klp[species_input$predator == 1] <- .01
+
+  if("gape_upper_limit" %!in% names(species_input)){
+    species_input$gape_upper_limit <- NA
+    species_input$gape_upper_limit[species_input$predator == 1] <- 1
   }
+
+  if("population_refuge" %!in% names(species_input)){
+    species_input$population_refuge <- NA
+    species_input$population_refuge[species_input$predator == 1] <- 1
+  }
+
+  if("saturation_level" %!in% names(species_input)){
+    species_input$saturation_level <- NA
+    species_input$saturation_level[species_input$predator == 1] <- 1
+  }
+  if("search_volume_invert" %!in% names(species_input)){
+    species_input$search_volume_invert <- NA
+    species_input$search_volume_invert[species_input$predator == 1 &
+                                  species_input$atlantis_type %!in% c("fish",
+                                                                         "mammal", "bird", "shark")] <- 999
+  }
+
+
+  if("search_volume_coefficient" %!in% names(species_input)){
+    species_input$search_volume_coefficient <- NA
+    species_input$search_volume_coefficient[species_input$predator == 1 &
+                                              species_input$atlantis_type %in% c("fish",
+                                                                                    "mammal", "bird", "shark")
+                                            & species_input$TL_final < 3.1] <- 2
+
+    species_input$search_volume_coefficient[species_input$predator == 1 &
+                                         species_input$atlantis_type %in% c("fish",
+                                                                               "mammal", "bird", "shark")
+                                       & species_input$TL_final >= 3.1] <- 5
+    }
+
+  if("search_volume_exponent" %!in% names(species_input)){
+    species_input$search_volume_exponent <- NA
+    species_input$search_volume_exponent[species_input$predator == 1 &
+                                              species_input$atlantis_type %in% c("bird", "shark")] <- .5
+    species_input$search_volume_exponent[species_input$predator == 1 &
+                                              species_input$atlantis_type %in% c("fish",
+                                                                                    "mammal")] <- .35
+  }
+
+
+
+
+  if("handling_time_invert" %!in% names(species_input)){
+    species_input$handling_time_invert <- NA
+    species_input$handling_time_invert[species_input$predator == 1 &
+                                         species_input$atlantis_type %!in% c("fish",
+                                                                                "mammal", "bird", "shark")] <- 999
+  }
+
+
+  if("handling_time_coefficient" %!in% names(species_input)){
+    species_input$handling_time_coefficient <- NA
+    species_input$handling_time_coefficient[species_input$predator == 1 &
+                                         species_input$atlantis_type %in% c("fish",
+                                                                                "mammal", "bird", "shark")] <- 999
+  }
+
+  if("handling_time_exponent" %!in% names(species_input)){
+    species_input$handling_time_exponent <- NA
+    species_input$handling_time_exponent[species_input$predator == 1 &
+                                              species_input$atlantis_type %in% c("fish",
+                                                                                    "mammal", "bird", "shark")] <- 999
+  }
+
   if("pr" %!in% names(species_input)){
     species_input$pr <- NA
     species_input$pr[species_input$atlantis_type %in% c("fish", "mammal")] <- 3
@@ -822,6 +935,14 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     species_input$ka[species_input$atlantis_type == "mammal"] <- .021
     species_input$ka[species_input$atlantis_type == "bird"] <- .024
     species_input$ka[species_input$atlantis_type %!in% c("fish", "mammal", "bird")] <- .014
+  }
+
+  if("prefer_allocate_reserves" %!in% names(species_input)){
+    species_input$prefer_allocate_reservesa <- NA
+    species_input$prefer_allocate_reserves[species_input$atlantis_type == "fish"] <- 4
+    species_input$prefer_allocate_reserves[species_input$atlantis_type == "shark"] <- 2
+    species_input$prefer_allocate_reserves[species_input$atlantis_type == "mammal"] <- 3.5
+    species_input$prefer_allocate_reserves[species_input$atlantis_type == "bird"] <- 5
   }
 
   if("kb" %!in% names(species_input)){
@@ -1023,6 +1144,21 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("max" %!in% names(species_input)){
     species_input$max <- 5000
   }
+  if("catch_grazer" %!in% names(species_input)){
+    species_input$catch_grazer <- 0
+  }
+
+  if("prop_catch_available" %!in% names(species_input)){
+    species_input$prop_catch_available <- NA
+    species_input$prop_catch_available[species_input$catch_grazer == 1] <-
+      gsub(",", rep = "", toString(rep(0,nrow(species_input))))
+  }
+
+  if("prop_catch_exploitable" %!in% names(species_input)){
+    species_input$prop_catch_exploitable <- NA
+    species_input$prop_catch_exploitable[species_input$catch_grazer == 1] <-
+      gsub(",", rep = "", toString(rep(0,nrow(species_input))))
+  }
 
   #add index
   species_input=species_input[order(species_input$atlantis_type, species_input$group_code),]
@@ -1073,8 +1209,8 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   sink("Biology_prm.prm")
   cat("#Biology prm file for Deep-C model \n")
   cat(paste("#",Sys.Date(), "\n"))
-  #codes for reference
-  cat("#list codes for reference \n")
+  #group_codes for reference
+  cat("#list group_codes for reference \n")
   for (i in 1:nrow(species_input)){cat(paste("#", as.character(species_input$group_name[i]),
                                              as.character(species_input$group_code[i]), "\n"))}
   #start adding flags, check https://wiki.csiro.au/display/Atlantis/Finding+all+the+options+for+the+flags
@@ -1208,6 +1344,29 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     if (species_input$predator[i] == 1){
       cat(paste("predcase_", as.character(species_input$group_code[i]), " ",
                 species_input$pred_case[i], "\n", sep=""))
+        cat(paste("KLP_", as.character(species_input$group_code[i]), " ",
+                  species_input$gape_lower_limit[i], "\n", sep=""))
+        cat(paste("KUP_", as.character(species_input$group_code[i]), " ",
+                  species_input$gape_upper_limit[i], "\n", sep=""))
+        cat(paste("KL_", as.character(species_input$group_code[i]), " ",
+                  species_input$population_refuge[i], "\n", sep=""))
+        cat(paste("KU_", as.character(species_input$group_code[i]), " ",
+                  species_input$saturation_level[i], "\n", sep=""))
+        if (species_input$atlantis_type[i] %!in% c("fish", "mammal", "bird", "shark")){
+        cat(paste("vl_", as.character(species_input$group_code[i]), " ",
+                  species_input$search_volume_invert[i], "\n", sep=""))
+        cat(paste("ht_", as.character(species_input$group_code[i]), " ",
+                    species_input$handling_time_invert[i], "\n", sep=""))
+        }else{
+          cat(paste("vla_", as.character(species_input$group_code[i]), "_T15 ",
+                    species_input$search_volume_coefficient[i], "\n", sep=""))
+          cat(paste("vlb_", as.character(species_input$group_code[i]), " ",
+                    species_input$search_volume_exponent[i], "\n", sep=""))
+          cat(paste("hta_", as.character(species_input$group_code[i]), " ",
+                    species_input$handling_time_coefficient[i], "\n", sep=""))
+          cat(paste("htb_", as.character(species_input$group_code[i]), " ",
+                    species_input$handling_time_exponent[i], "\n", sep=""))
+          }
     }
 
     #for all consumeer
@@ -1216,6 +1375,47 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
 
       cat(paste("flag",as.character(species_input$group_code[i]), "day ",
                 species_input$active[i],"\n", sep = ""))
+
+
+     if (species_input$atlantis_type[i] %!in% c("fish", "mammal", "bird", "shark") |
+           species_input$num_of_stages[i] == 1){
+        cat(paste("mum_", as.character(species_input$group_code[i]), "_T15 ",
+                  mean_individual_morphology[mean_individual_morphology$group_code ==
+                                               species_input$group_code[i], "mum"], "\n", sep=""))
+      cat(paste("C_", as.character(species_input$group_code[i]), "_T15 ",
+                mean_individual_morphology[mean_individual_morphology$group_code ==
+                                             species_input$group_code[i], "clearance"], "\n", sep=""))
+    } else {
+
+      #clearance
+      cat(paste("C_", as.character(species_input$group_code[i]), " ",
+                species_input$num_of_age_classes[i], "\n", sep=""))
+      cat(mean_individual_morphology[mean_individual_morphology$group_code ==
+                                       species_input$group_code[i] &
+                                       mean_individual_morphology$AgeClass>0,"clearance"])
+      cat("\n")
+
+      #mum
+
+      cat(paste("mum_", as.character(species_input$group_code[i]), " ",
+                species_input$num_of_age_classes[i], "\n", sep=""))
+      cat(mean_individual_morphology[mean_individual_morphology$group_code ==
+                                       species_input$group_code[i] & mean_individual_morphology$AgeClass>0,"mum"])
+      cat("\n")
+    }
+    }
+
+    #for all catch grazers
+    if(species_input$catch_grazer[i] == 1){
+
+      cat(paste("pFC",as.character(species_input$group_code[i]), " ",
+                nrow(species_input),"\n", sep = ""))
+      cat(as.character(species_input$prop_catch_available[i]))
+      cat("\n")
+      cat(paste("PropCatch_",as.character(species_input$group_code[i]), " ",
+                nrow(species_input),"\n", sep = ""))
+      cat(as.character(species_input$prop_catch_exploitable[i]))
+      cat("\n")
     }
 
     #for primary producers
@@ -1326,8 +1526,6 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
         cat(as.character(species_input$prop_increase_migrant_size_juv[i]))
         cat("\n")
 
-
-
         cat(paste(as.character(species_input$group_code[i]), "_Migrate_Time 1",
                   "\n", sep=""))
         cat(as.character(species_input$migrates_out_times_ad[i]))
@@ -1399,10 +1597,10 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
       #flagrecruit <- flag_recruit
       if (species_input$atlantis_type[i] %in% c("fish", "mammal", "bird", "shark")){
       cat(paste("flagrecruit",as.character(species_input$group_code[i]), " ",
-        species_input$Recruitcode[i], "\n", sep=""))
+        species_input$Recruitgroup_code[i], "\n", sep=""))
       } else{
         cat(paste("flagrecruit",as.character(species_input$group_code[i]), " ",
-          species_input$Recruitcode[i], "\n", sep=""))
+          species_input$Recruitgroup_code[i], "\n", sep=""))
         cat(paste("flagseperate",as.character(species_input$group_code[i]), " ",
           species_input$seperate[i], "\n", sep=""))
       }
@@ -1460,7 +1658,34 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
 
     cat(paste(as.character(species_input$group_code[i]), "_max_move_salt",species_input$max_move_salt[i],"\n", sep=""))
 
+    cat(paste("pSTOCK_", as.character(species_input$group_code[i]), " 1","\n", sep=""))
+    cat(as.character(species_input$stock_availability[i]))
+    cat("\n")
+
+    cat(paste("pSTOCK_j", as.character(species_input$group_code[i]), " 1","\n", sep=""))
+    cat(as.character(species_input$stock_availability_juv[i]))
+    cat("\n")
+
+    cat(paste("pR_", as.character(species_input$group_code[i]), " ",
+              species_input$prefer_allocate_reserves[i],"\n", sep=""))
+
+    cat(paste("li_a ", as.character(species_input$group_code[i]), " ",
+              species_input$mean_a[i],"\n", sep=""))
+    cat(paste("li_b ", as.character(species_input$group_code[i]), " ",
+              species_input$mean_b[i],"\n", sep=""))
+
+    if("min_length_reproduction" %!in% names(species_input)){
+      cat(paste("min_li_mat ", as.character(species_input$group_code[i]), " ",
+                minnona(mean_individual_morphology[mean_individual_morphology$group_code
+                                                   == species_input$group_code[i] &
+                                                     mean_individual_morphology$Prop_Adult > 0,
+                                                   "length"]),"\n", sep=""))
+    }else {cat(paste("min_li_mat ", as.character(species_input$group_code[i]), " ",
+                     species_input$min_length_reproduction[i]), "\n", sep="")
     }
+
+       }
+
     cat("\n")
   }
   sink()

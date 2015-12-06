@@ -118,13 +118,13 @@ flagIsEstuary    0
 flaglightopt    3 Light model: 0=orig, 1=bottom, 2=top, 3=mid-depth of cell 3                
 flagmodeltemp   0 Temperature model used: 1 = regression, 0 = from data 1            
 flagmodelpH     0  
-flagmodelArag   0
 flagq10         1 Q10 corrections used in the model: 1 = yes, 0 = no 1            
 O2case          3 Oxygen limitation used: 0 = ambient O2, 1 = based on depth, 2 = IGBEM, 3 = quadratic lim 3     
 flagnut         0 Nutrient lim used: 0=Leibig (min), 1=multiplicative, 2=WQI 0                 
 flagmicro       0 Nutrient lim by micronutrient: 0 = no, 1 = yes 0              
 flagtempchange  0 Mean temperature changes: 0 = no, 1 = yes 0               
-flagsaltchange  0 Mean salinity changes: 0 = no, 1 = yes 0               
+flagsaltchange  0 Mean salinity changes: 0 = no, 1 = yes 0       
+flagpHchange  0 Mean salinity changes: 0 = no, 1 = yes 0                       
 flagstarve      1 Give starvation notices: 0 = no, 1 = yes 0               
 flagdegrade     0 Degrade coastal habitats (effects growth of MA, SG and BFS) 0              
 flagroc         0 Density dependent drop off option: 0 = none, 1 = ratio drop off, 2 = exponential decline 0       
@@ -136,11 +136,12 @@ lim_sun_hours   0  Whether using limted hours of sun oer day or the default assu
 flag_macro_model 0
 swr_scalar       0.45      # Proportion of shortwave radiation available to photosynthesis
            
-flag_olddiet     1         Whether to use old (1) or new (0) diet calculations                 1
-UseHardFeedingWindow  1    Whether to use Heaviside based feeding window (1) or smoother curve (0)   1          
+flag_olddiet 1
+UseHardFeedingWindow  1    Whether to use Heaviside based feeding window (1) or smoother curve (0)   1
            
 flag_fine_ontogenetic_diets 0   
 flag_report_water_detritus 0        
+flag_rel_cover 0
                    
 # Preferred location trend (whether to weight vertical distributions towards surface or bottom              
 # layers when in depths where there were less than complete set of depth layers. 0 is top, 1 is demersal (?))            
@@ -409,7 +410,7 @@ flaglocalrecruitWDG 1 1
 flaglocalrecruitWHB 1 1                        
 flaglocalrecruitWHT 1 1                        
 flaglocalrecruitWHS 1 1                        
-flaglocalrecruitCEP   1                                                                        1
+
 
 # Flag indicating whether the vertebrate group bearslive young (0 = no, 1 = yes)            
 flagbearliveFPS 0 0                        
@@ -604,11 +605,13 @@ flagtempsensitiveWHT 0 0
 flagtempsensitiveCEP 0 0                        
 flagtempsensitivePWN 0 0                        
 
-## Habitat dependency 
-flag_rel_cover  0  to show ehther using cumulative habitat (0) or average relative cover (1) when interacting with predators
+# Habitat dependency 
 
-# 1st one just to know if it is necessary to read the whole list of dependency par
+
+(1st one just to know if it is necessary to read the whole list of dependency par)
 flaghabdepend    0         general vertebrate demersal habitat dependency: 0 = no, 1 = yes     0
+
+flag_benthos_sediment_link 0  flag indicating whether growth of benthos is scaled based on bottom types (1) or not (0)
 
 FPS_habdepend  0  small planktivores dependent on demersal habitat: 0 = no, 1 = yes 0            
 FPL_habdepend  0  large planktivores dependent on demersal habitat: 0 = no, 1 = yes 0            
@@ -644,8 +647,48 @@ REP_habdepend  0  reptiles dependent on demersal habitat: 0 = no, 1 = yes 0
 WDG_habdepend  0  dugongs dependent on demersal habitat: 0 = no, 1 = yes 0             
 WHB_habdepend  0  baleen whales dependent on demersal habitat: 0 = no, 1 = yes 0            
 WHS_habdepend  0  small toothed whales dependent on demersal habitat: 0 = no, 1 = yes 0           
-WHT_habdepend  0  toothed whales dependent on demersal habitat: 0 = no, 1 = yes 0            
+WHT_habdepend  0  toothed whales dependent on demersal habitat: 0 = no, 1 = yes 0  
+CEP_habdepend 0
+BFS_habdepend 0
+BFF_habdepend 0
+BFD_habdepend 0
+BG_habdepend 0
+BMD_habdepend 0
+BML_habdepend 0
+BMS_habdepend 0
+PWN_habdepend 0
+ZL_habdepend 0
+BD_habdepend 0
+MA_habdepend 0
+MB_habdepend 0
+SG_habdepend 0
+BC_habdepend 0
+ZG_habdepend 0
+PL_habdepend 0
+DF_habdepend 0
+PS_habdepend 0
+ZM_habdepend 0
+ZS_habdepend 0
+PB_habdepend 0
+BB_habdepend 0
+BO_habdepend 0
+DL_habdepend 0
+DR_habdepend 0
+
  
+
+BMD_habdepend  1
+BML_habdepend  1
+BMS_habdepend  1
+BG_habdepend  0
+BFS_habdepend  0
+BFF_habdepend  0
+BD_habdepend  0
+MA_habdepend  0
+SG_habdepend  0
+BC_habdepend  0
+BO_habdepend  0
+
 # Vertebrate density dependent movement related flags                    
 flagtempdepend   0         0 = off, 1 = temperature preferences used
 flagsaltdepend   0         0 = off, 1 = salinity preferences used
@@ -1312,899 +1355,6 @@ Schange_mult 1
 vertSchange_mult 6                         
 1 1 1 1 1 1                   
 
-
-## pH effects
-flagpHchange   0    Whether the pH values change through time following a forced trend - yes = 1, no = 0
-
-pHchange_max_num  1         Number of changes in average base temperature                       1
-# Day changes in base tepmerature begins (must have same number of entries as given by Schange_num)
-pHchange_start    1
-0
-# Period of time changes in base tepmerature take (must have same number of
-# entries as given by Schange_num)
-pHchange_period   1
-1
-# Scale of change in base temperature (must have same number of entries as given by Schange_num)
-pHchange_mult     1
-1.0
-# Differential scaling with depth (must be as many entries as
-# number of water column layers * number of changes)
-vertpHchange_mult 5
-1.0 1.0 1.0 1.0 1.0
-
-pH_sensitivity_model  1    Whether using monod (0) or nonlinear model (1)
-
-# Constants for empirical pH model
-pH_surface_depth          200.0      Depth of surface layer
-pH_mid_depth              1600.0     Depth of midwater layer
-pH_surface_coefft_T       -2.6214    Temperature term coefficient for surface waters
-pH_surface_coefft_S       59.764     Salinity term coefficient for surface waters       
-pH_surface_coefft_O       0.0419     Oxygen term coefficient for surface waters
-5pH_surface_const          2341.0     Constant term coefficient for surface waters
-pH_mid_coefft_T           -6.3912    Temperature term coefficient for mid-level waters
-pH_mid_coefft_S           87.186     Salinity term coefficient for mid-level waters 
-pH_mid_coefft_O           -0.1123    Oxygen term coefficient for mid-level waters
-pH_mid_const              2407.9     Constant term coefficient for mid-level waters
-pH_deep_coefft_T          -18.274    Temperature term coefficient for deep waters
-pH_deep_coefft_S          126.66     Salinity term coefficient for deep waters 
-pH_deep_coefft_O          -0.781     Oxygen term coefficient for deep waters
-pH_deep_const             2579.6     Constant term coefficient for deep waters
-
-# Whether the species growth or non predation mortality is sensitive to pH
-flagpHsensitive_PL     0
-flagpHsensitive_PS     0
-flagpHsensitive_DF     0
-flagpHsensitive_MA     0
-flagpHsensitive_MB     0
-flagpHsensitive_SG     0
-flagpHsensitive_ZG     0
-flagpHsensitive_ZL     0
-flagpHsensitive_ZM     0
-flagpHsensitive_ZS     0
-flagpHsensitive_FPS    0
-flagpHsensitive_FPL    0
-flagpHsensitive_FPO    0
-flagpHsensitive_FVD    0
-flagpHsensitive_FVV    0
-flagpHsensitive_FVS    0
-flagpHsensitive_FVT    0
-flagpHsensitive_FVO    0
-flagpHsensitive_FVB    0
-flagpHsensitive_FMM    0
-flagpHsensitive_FMN    0
-flagpHsensitive_FBP    0
-flagpHsensitive_FDD    0
-flagpHsensitive_FDS    0
-flagpHsensitive_FDB    0
-flagpHsensitive_FDC    0
-flagpHsensitive_FDO    0
-flagpHsensitive_FDE    0
-flagpHsensitive_FDF    0
-flagpHsensitive_FDP    0
-flagpHsensitive_FDM    0
-flagpHsensitive_SHD    0
-flagpHsensitive_SHC    0
-flagpHsensitive_SHP    0
-flagpHsensitive_SHB    0
-flagpHsensitive_SHR    0
-flagpHsensitive_SSK    0
-flagpHsensitive_SB     0
-flagpHsensitive_SP     0
-flagpHsensitive_REP    0
-flagpHsensitive_PIN    0
-flagpHsensitive_WDG    0
-flagpHsensitive_WHB    0
-flagpHsensitive_WHT    0
-flagpHsensitive_WHS    0
-flagpHsensitive_PB     0
-flagpHsensitive_BB     0
-flagpHsensitive_BO     0
-flagpHsensitive_BD     0
-flagpHsensitive_BC     0
-flagpHsensitive_BFS    0
-flagpHsensitive_BFD    0
-flagpHsensitive_BFF    0
-flagpHsensitive_BG     0
-flagpHsensitive_BMS    0
-flagpHsensitive_BMD    0
-flagpHsensitive_BML    0
-flagpHsensitive_CEP    0
-flagpHsensitive_PWN    0
-
-# Whether the species fecundity is sensitive to pH
-flagfecundsensitive_PL     0
-flagfecundsensitive_PS     0
-flagfecundsensitive_DF     0
-flagfecundsensitive_MA     0
-flagfecundsensitive_MB     0
-flagfecundsensitive_SG     0
-flagfecundsensitive_ZG     0
-flagfecundsensitive_ZL     0
-flagfecundsensitive_ZM     0
-flagfecundsensitive_ZS     0
-flagfecundsensitive_FPS    0
-flagfecundsensitive_FPL    0
-flagfecundsensitive_FPO    0
-flagfecundsensitive_FVD    0
-flagfecundsensitive_FVV    0
-flagfecundsensitive_FVS    0
-flagfecundsensitive_FVT    0
-flagfecundsensitive_FVO    0
-flagfecundsensitive_FVB    0
-flagfecundsensitive_FMM    0
-flagfecundsensitive_FMN    0
-flagfecundsensitive_FBP    0
-flagfecundsensitive_FDD    0
-flagfecundsensitive_FDS    0
-flagfecundsensitive_FDB    0
-flagfecundsensitive_FDC    0
-flagfecundsensitive_FDO    0
-flagfecundsensitive_FDE    0
-flagfecundsensitive_FDF    0
-flagfecundsensitive_FDP    0
-flagfecundsensitive_FDM    0
-flagfecundsensitive_SHD    0
-flagfecundsensitive_SHC    0
-flagfecundsensitive_SHP    0
-flagfecundsensitive_SHB    0
-flagfecundsensitive_SHR    0
-flagfecundsensitive_SSK    0
-flagfecundsensitive_SB     0
-flagfecundsensitive_SP     0
-flagfecundsensitive_REP    0
-flagfecundsensitive_PIN    0
-flagfecundsensitive_WDG    0
-flagfecundsensitive_WHB    0
-flagfecundsensitive_WHT    0
-flagfecundsensitive_WHS    0
-flagfecundsensitive_PB     0
-flagfecundsensitive_BB     0
-flagfecundsensitive_BO     0
-flagfecundsensitive_BD     0
-flagfecundsensitive_BC     0
-flagfecundsensitive_BFS    0
-flagfecundsensitive_BFD    0
-flagfecundsensitive_BFF    0
-flagfecundsensitive_BG     0
-flagfecundsensitive_BMS    0
-flagfecundsensitive_BMD    0
-flagfecundsensitive_BML    0
-flagfecundsensitive_CEP    0
-flagfecundsensitive_PWN    0
-
-# Whether the species nutritional value is sensitive to salinity or pH (mainly an issue for phytoplankton)
-flagnutvaleffect_PL     0
-flagnutvaleffect_PS     0
-flagnutvaleffect_DF     0
-flagnutvaleffect_MA     0
-flagnutvaleffect_MB     0
-flagnutvaleffect_SG     0
-flagnutvaleffect_ZG     0
-flagnutvaleffect_ZL     0
-flagnutvaleffect_ZM     0
-flagnutvaleffect_ZS     0
-flagnutvaleffect_FPS    0
-flagnutvaleffect_FPL    0
-flagnutvaleffect_FPO    0
-flagnutvaleffect_FVD    0
-flagnutvaleffect_FVV    0
-flagnutvaleffect_FVS    0
-flagnutvaleffect_FVT    0
-flagnutvaleffect_FVO    0
-flagnutvaleffect_FVB    0
-flagnutvaleffect_FMM    0
-flagnutvaleffect_FMN    0
-flagnutvaleffect_FBP    0
-flagnutvaleffect_FDD    0
-flagnutvaleffect_FDS    0
-flagnutvaleffect_FDB    0
-flagnutvaleffect_FDC    0
-flagnutvaleffect_FDO    0
-flagnutvaleffect_FDE    0
-flagnutvaleffect_FDF    0
-flagnutvaleffect_FDP    0
-flagnutvaleffect_FDM    0
-flagnutvaleffect_SHD    0
-flagnutvaleffect_SHC    0
-flagnutvaleffect_SHP    0
-flagnutvaleffect_SHB    0
-flagnutvaleffect_SHR    0
-flagnutvaleffect_SSK    0
-flagnutvaleffect_SB     0
-flagnutvaleffect_SP     0
-flagnutvaleffect_REP    0
-flagnutvaleffect_PIN    0
-flagnutvaleffect_WDG    0
-flagnutvaleffect_WHB    0
-flagnutvaleffect_WHT    0
-flagnutvaleffect_WHS    0
-flagnutvaleffect_PB     0
-flagnutvaleffect_BB     0
-flagnutvaleffect_BO     0
-flagnutvaleffect_BD     0
-flagnutvaleffect_BC     0
-flagnutvaleffect_BFS    0
-flagnutvaleffect_BFD    0
-flagnutvaleffect_BFF    0
-flagnutvaleffect_BG     0
-flagnutvaleffect_BMS    0
-flagnutvaleffect_BMD    0
-flagnutvaleffect_BML    0
-flagnutvaleffect_CEP    0
-flagnutvaleffect_PWN    0
-
-# Whether the species availability to predators is sensitive to pH (mainly behaviour in fish)
-flagpredavaileffect_PL     0
-flagpredavaileffect_PS     0
-flagpredavaileffect_DF     0
-flagpredavaileffect_MA     0
-flagpredavaileffect_MB     0
-flagpredavaileffect_SG     0
-flagpredavaileffect_ZG     0
-flagpredavaileffect_ZL     0
-flagpredavaileffect_ZM     0
-flagpredavaileffect_ZS     0
-flagpredavaileffect_FPS    0
-flagpredavaileffect_FPL    0
-flagpredavaileffect_FPO    0
-flagpredavaileffect_FVD    0
-flagpredavaileffect_FVV    0
-flagpredavaileffect_FVS    0
-flagpredavaileffect_FVT    0
-flagpredavaileffect_FVO    0
-flagpredavaileffect_FVB    0
-flagpredavaileffect_FMM    0
-flagpredavaileffect_FMN    0
-flagpredavaileffect_FBP    0
-flagpredavaileffect_FDD    0
-flagpredavaileffect_FDS    0
-flagpredavaileffect_FDB    0
-flagpredavaileffect_FDC    0
-flagpredavaileffect_FDO    0
-flagpredavaileffect_FDE    0
-flagpredavaileffect_FDF    0
-flagpredavaileffect_FDP    0
-flagpredavaileffect_FDM    0
-flagpredavaileffect_SHD    0
-flagpredavaileffect_SHC    0
-flagpredavaileffect_SHP    0
-flagpredavaileffect_SHB    0
-flagpredavaileffect_SHR    0
-flagpredavaileffect_SSK    0
-flagpredavaileffect_SB     0
-flagpredavaileffect_SP     0
-flagpredavaileffect_REP    0
-flagpredavaileffect_PIN    0
-flagpredavaileffect_WDG    0
-flagpredavaileffect_WHB    0
-flagpredavaileffect_WHT    0
-flagpredavaileffect_WHS    0
-flagpredavaileffect_PB     0
-flagpredavaileffect_BB     0
-flagpredavaileffect_BO     0
-flagpredavaileffect_BD     0
-flagpredavaileffect_BC     0
-flagpredavaileffect_BFS    0
-flagpredavaileffect_BFD    0
-flagpredavaileffect_BFF    0
-flagpredavaileffect_BG     0
-flagpredavaileffect_BMS    0
-flagpredavaileffect_BMD    0
-flagpredavaileffect_BML    0
-flagpredavaileffect_CEP    0
-flagpredavaileffect_PWN    0
-
-# Whether the species growth or non predation mortality is sensitive to pH
-flagcontract_tol_PL     0
-flagcontract_tol_PS     0
-flagcontract_tol_DF     0
-flagcontract_tol_MA     0
-flagcontract_tol_MB     0
-flagcontract_tol_SG     0
-flagcontract_tol_ZG     0
-flagcontract_tol_ZL     0
-flagcontract_tol_ZM     0
-flagcontract_tol_ZS     0
-flagcontract_tol_FPS    0
-flagcontract_tol_FPL    0
-flagcontract_tol_FPO    0
-flagcontract_tol_FVD    0
-flagcontract_tol_FVV    0
-flagcontract_tol_FVS    0
-flagcontract_tol_FVT    0
-flagcontract_tol_FVO    0
-flagcontract_tol_FVB    0
-flagcontract_tol_FMM    0
-flagcontract_tol_FMN    0
-flagcontract_tol_FBP    0
-flagcontract_tol_FDD    0
-flagcontract_tol_FDS    0
-flagcontract_tol_FDB    0
-flagcontract_tol_FDC    0
-flagcontract_tol_FDO    0
-flagcontract_tol_FDE    0
-flagcontract_tol_FDF    0
-flagcontract_tol_FDP    0
-flagcontract_tol_FDM    0
-flagcontract_tol_SHD    0
-flagcontract_tol_SHC    0
-flagcontract_tol_SHP    0
-flagcontract_tol_SHB    0
-flagcontract_tol_SHR    0
-flagcontract_tol_SSK    0
-flagcontract_tol_SB     0
-flagcontract_tol_SP     0
-flagcontract_tol_REP    0
-flagcontract_tol_PIN    0
-flagcontract_tol_WDG    0
-flagcontract_tol_WHB    0
-flagcontract_tol_WHT    0
-flagcontract_tol_WHS    0
-flagcontract_tol_PB     0
-flagcontract_tol_BB     0
-flagcontract_tol_BO     0
-flagcontract_tol_BD     0
-flagcontract_tol_BC     0
-flagcontract_tol_BFS    0
-flagcontract_tol_BFD    0
-flagcontract_tol_BFF    0
-flagcontract_tol_BG     0
-flagcontract_tol_BMS    0
-flagcontract_tol_BMD    0
-flagcontract_tol_BML    0
-flagcontract_tol_CEP    0
-flagcontract_tol_PWN    0
-
-# Form of the pH effects model applied for the group
-# 0 = no effect, 0 = monod, 0 = nonlinear (humped form as of Hinga 0000), 0 = linear
-pHsensitive_model_PL     0
-pHsensitive_model_PS     0
-pHsensitive_model_DF     0
-pHsensitive_model_MA     0
-pHsensitive_model_MB     0
-pHsensitive_model_SG     0
-pHsensitive_model_ZG     0
-pHsensitive_model_ZL     0
-pHsensitive_model_ZM     0
-pHsensitive_model_ZS     0
-pHsensitive_model_FPS    0
-pHsensitive_model_FPL    0
-pHsensitive_model_FPO    0
-pHsensitive_model_FVD    0
-pHsensitive_model_FVV    0
-pHsensitive_model_FVS    0
-pHsensitive_model_FVT    0
-pHsensitive_model_FVO    0
-pHsensitive_model_FVB    0
-pHsensitive_model_FMM    0
-pHsensitive_model_FMN    0
-pHsensitive_model_FBP    0
-pHsensitive_model_FDD    0
-pHsensitive_model_FDS    0
-pHsensitive_model_FDB    0
-pHsensitive_model_FDC    0
-pHsensitive_model_FDO    0
-pHsensitive_model_FDE    0
-pHsensitive_model_FDF    0
-pHsensitive_model_FDP    0
-pHsensitive_model_FDM    0
-pHsensitive_model_SHD    0
-pHsensitive_model_SHC    0
-pHsensitive_model_SHP    0
-pHsensitive_model_SHB    0
-pHsensitive_model_SHR    0
-pHsensitive_model_SSK    0
-pHsensitive_model_SB     0
-pHsensitive_model_SP     0
-pHsensitive_model_REP    0
-pHsensitive_model_PIN    0
-pHsensitive_model_WDG    0
-pHsensitive_model_WHB    0
-pHsensitive_model_WHT    0
-pHsensitive_model_WHS    0
-pHsensitive_model_PB     0
-pHsensitive_model_BB     0
-pHsensitive_model_BO     0
-pHsensitive_model_BD     0
-pHsensitive_model_BC     0
-pHsensitive_model_BFS    0
-pHsensitive_model_BFD    0
-pHsensitive_model_BFF    0
-pHsensitive_model_BG     0
-pHsensitive_model_BMS    0
-pHsensitive_model_BMD    0
-pHsensitive_model_BML    0
-pHsensitive_model_CEP    0
-pHsensitive_model_PWN    0
-
-# Monod inflection point for pH impact function
-KN_pH_PL     0.0
-KN_pH_PS     0.0
-KN_pH_DF     0.0
-KN_pH_MA     0.0
-KN_pH_MB     0.0
-KN_pH_SG     0.0
-KN_pH_ZG     0.0
-KN_pH_ZL     7.0
-KN_pH_ZM     7.0
-KN_pH_ZS     0.0
-KN_pH_FPS    0.0
-KN_pH_FPL    0.0
-KN_pH_FPO    0.0
-KN_pH_FVD    0.0
-KN_pH_FVV    0.0
-KN_pH_FVS    0.0
-KN_pH_FVT    7.0
-KN_pH_FVO    0.0
-KN_pH_FVB    0.0
-KN_pH_FMM    0.0
-KN_pH_FMN    0.0
-KN_pH_FBP    0.0
-KN_pH_FDD    0.0
-KN_pH_FDS    0.0
-KN_pH_FDB    0.0
-KN_pH_FDC    0.0
-KN_pH_FDO    0.0
-KN_pH_FDE    0.0
-KN_pH_FDF    0.0
-KN_pH_FDP    0.0
-KN_pH_FDM    0.0
-KN_pH_SHD    0.0
-KN_pH_SHC    0.0
-KN_pH_SHP    0.0
-KN_pH_SHB    0.0
-KN_pH_SHR    0.0
-KN_pH_SSK    0.0
-KN_pH_SB     0.0
-KN_pH_SP     0.0
-KN_pH_REP    0.0
-KN_pH_PIN    0.0
-KN_pH_WDG    0.0
-KN_pH_WHB    0.0
-KN_pH_WHT    0.0
-KN_pH_WHS    0.0
-KN_pH_PB     0.0
-KN_pH_BB     0.0
-KN_pH_BO     0.0
-KN_pH_BD     0.0
-KN_pH_BC     0.0
-KN_pH_BFS    0.0
-KN_pH_BFD    9.0
-KN_pH_BFF    0.0
-KN_pH_BG     0.0
-KN_pH_BMS    7.0
-KN_pH_BMD    7.0
-KN_pH_BML    7.0
-KN_pH_CEP    7.0
-KN_pH_PWN    7.0
-
-# Optimal pH for nonlinear pH impact function
-optimal_pH_PL     4.0
-optimal_pH_PS     5.0
-optimal_pH_DF     0.0
-optimal_pH_MA     6.0
-optimal_pH_MB     0.0
-optimal_pH_SG     5.0
-optimal_pH_ZG     0.0
-optimal_pH_ZL     0.0
-optimal_pH_ZM     0.0
-optimal_pH_ZS     0.0
-optimal_pH_FPS    0.0
-optimal_pH_FPL    0.0
-optimal_pH_FPO    0.0
-optimal_pH_FVD    0.0
-optimal_pH_FVV    0.0
-optimal_pH_FVS    0.0
-optimal_pH_FVT    0.0
-optimal_pH_FVO    0.0
-optimal_pH_FVB    0.0
-optimal_pH_FMM    0.0
-optimal_pH_FMN    0.0
-optimal_pH_FBP    0.0
-optimal_pH_FDD    0.0
-optimal_pH_FDS    0.0
-optimal_pH_FDB    0.0
-optimal_pH_FDC    0.0
-optimal_pH_FDO    0.0
-optimal_pH_FDE    0.0
-optimal_pH_FDF    0.0
-optimal_pH_FDP    0.0
-optimal_pH_FDM    0.0
-optimal_pH_SHD    0.0
-optimal_pH_SHC    0.0
-optimal_pH_SHP    0.0
-optimal_pH_SHB    0.0
-optimal_pH_SHR    0.0
-optimal_pH_SSK    0.0
-optimal_pH_SB     0.0
-optimal_pH_SP     0.0
-optimal_pH_REP    0.0
-optimal_pH_PIN    0.0
-optimal_pH_WDG    0.0
-optimal_pH_WHB    0.0
-optimal_pH_WHT    0.0
-optimal_pH_WHS    0.0
-optimal_pH_PB     0.0
-optimal_pH_BB     0.0
-optimal_pH_BO     0.0
-optimal_pH_BD     0.0
-optimal_pH_BC     0.0
-optimal_pH_BFS    0.0
-optimal_pH_BFD    0.0
-optimal_pH_BFF    0.0
-optimal_pH_BG     0.0
-optimal_pH_BMS    0.0
-optimal_pH_BMD    0.0
-optimal_pH_BML    0.0
-optimal_pH_CEP    0.0
-optimal_pH_PWN    0.0
-
-# Correction scalar pH for nonlinear pH impact function
-pH_correction_PL     150.0
-pH_correction_PS     200.0
-pH_correction_DF     1.0
-pH_correction_MA     150.0
-pH_correction_MB     1.0
-pH_correction_SG     100.0
-pH_correction_ZG     1.0
-pH_correction_ZL     1.0
-pH_correction_ZM     1.0
-pH_correction_ZS     1.0
-pH_correction_FPS    1.0
-pH_correction_FPL    1.0
-pH_correction_FPO    1.0
-pH_correction_FVD    1.0
-pH_correction_FVV    1.0
-pH_correction_FVS    1.0
-pH_correction_FVT    1.0
-pH_correction_FVO    1.0
-pH_correction_FVB    1.0
-pH_correction_FMM    1.0
-pH_correction_FMN    1.0
-pH_correction_FBP    1.0
-pH_correction_FDD    1.0
-pH_correction_FDS    1.0
-pH_correction_FDB    1.0
-pH_correction_FDC    1.0
-pH_correction_FDO    1.0
-pH_correction_FDE    1.0
-pH_correction_FDF    1.0
-pH_correction_FDP    1.0
-pH_correction_FDM    1.0
-pH_correction_SHD    1.0
-pH_correction_SHC    1.0
-pH_correction_SHP    1.0
-pH_correction_SHB    1.0
-pH_correction_SHR    1.0
-pH_correction_SSK    1.0
-pH_correction_SB     1.0
-pH_correction_SP     1.0
-pH_correction_REP    1.0
-pH_correction_PIN    1.0
-pH_correction_WDG    1.0
-pH_correction_WHB    1.0
-pH_correction_WHT    1.0
-pH_correction_WHS    1.0
-pH_correction_PB     1.0
-pH_correction_BB     1.0
-pH_correction_BO     1.0
-pH_correction_BD     1.0
-pH_correction_BC     1.0
-pH_correction_BFS    1.0
-pH_correction_BFD    1.0
-pH_correction_BFF    1.0
-pH_correction_BG     1.0
-pH_correction_BMS    1.0
-pH_correction_BMD    1.0
-pH_correction_BML    1.0
-pH_correction_CEP    1.0
-pH_correction_PWN    1.0
-
-# Coefficient pH for nonlinear pH impact function
-pH_constA_PL     1.4
-pH_constA_PS     3.7
-pH_constA_DF     1.0
-pH_constA_MA     1.6
-pH_constA_MB     1.0
-pH_constA_SG     4.2
-pH_constA_ZG     1.0
-pH_constA_ZL     5.0
-pH_constA_ZM     5.0
-pH_constA_ZS     1.0
-pH_constA_FPS    1.0
-pH_constA_FPL    1.0
-pH_constA_FPO    2.0
-pH_constA_FVD    1.0
-pH_constA_FVV    1.0
-pH_constA_FVS    1.0
-pH_constA_FVT    6.0
-pH_constA_FVO    1.0
-pH_constA_FVB    1.0
-pH_constA_FMM    1.0
-pH_constA_FMN    1.0
-pH_constA_FBP    1.0
-pH_constA_FDD    2.25
-pH_constA_FDS    2.5
-pH_constA_FDB    2.0
-pH_constA_FDC    2.0
-pH_constA_FDO    1.0
-pH_constA_FDE    2.0
-pH_constA_FDF    2.0
-pH_constA_FDP    2.0
-pH_constA_FDM    2.0
-pH_constA_SHD    1.0
-pH_constA_SHC    1.0
-pH_constA_SHP    1.0
-pH_constA_SHB    1.0
-pH_constA_SHR    1.0
-pH_constA_SSK    1.0
-pH_constA_SB     1.0
-pH_constA_SP     1.0
-pH_constA_REP    1.0
-pH_constA_PIN    1.0
-pH_constA_WDG    1.0
-pH_constA_WHB    1.0
-pH_constA_WHT    1.0
-pH_constA_WHS    1.0
-pH_constA_PB     -3.0
-pH_constA_BB     -3.0
-pH_constA_BO     1.0
-pH_constA_BD     1.0
-pH_constA_BC     1.0
-pH_constA_BFS    -3.0
-pH_constA_BFD    6.0
-pH_constA_BFF    -7.0
-pH_constA_BG     -3.0
-pH_constA_BMS    5.5
-pH_constA_BMD    6.0
-pH_constA_BML    5.5
-pH_constA_CEP    6.0
-pH_constA_PWN    5.0
- 
-# Base coefficient pH for nonlinear pH impact function
-pH_constB_PL     1.1705
-pH_constB_PS     1.0
-pH_constB_DF     0.0
-pH_constB_MA     1.1
-pH_constB_MB     0.0
-pH_constB_SG     1.0
-pH_constB_ZG     0.0
-pH_constB_ZL     1.7
-pH_constB_ZM     1.7
-pH_constB_ZS     0.0
-pH_constB_FPS    0.0
-pH_constB_FPL    0.0
-pH_constB_FPO    -0.125
-pH_constB_FVD    0.0
-pH_constB_FVV    0.0
-pH_constB_FVS    0.0
-pH_constB_FVT    1.5
-pH_constB_FVO    0.0
-pH_constB_FVB    0.0
-pH_constB_FMM    0.0
-pH_constB_FMN    0.0
-pH_constB_FBP    0.0
-pH_constB_FDD    -0.155
-pH_constB_FDS    -0.19
-pH_constB_FDB    -0.125
-pH_constB_FDC    -0.125
-pH_constB_FDO    0.0
-pH_constB_FDE    -0.125
-pH_constB_FDF    -0.125
-pH_constB_FDP    -0.125
-pH_constB_FDM    -0.125
-pH_constB_SHD    0.0
-pH_constB_SHC    0.0
-pH_constB_SHP    0.0
-pH_constB_SHB    0.0
-pH_constB_SHR    0.0
-pH_constB_SSK    0.0
-pH_constB_SB     0.0
-pH_constB_SP     0.0
-pH_constB_REP    0.0
-pH_constB_PIN    0.0
-pH_constB_WDG    0.0
-pH_constB_WHB    0.0
-pH_constB_WHT    0.0
-pH_constB_WHS    0.0
-pH_constB_PB     0.5
-pH_constB_BB     0.5
-pH_constB_BO     0.0
-pH_constB_BD     0.0
-pH_constB_BC     0.0
-pH_constB_BFS    0.5
-pH_constB_BFD    2.0
-pH_constB_BFF    1.0
-pH_constB_BG     0.5
-pH_constB_BMS    1.5
-pH_constB_BMD    1.5
-pH_constB_BML    1.5
-pH_constB_CEP    1.5
-pH_constB_PWN    1.7
-
-# Correction scalar pH for nonlinear pH impact function
-contract_tol_PL     0.0
-contract_tol_PS     0.0
-contract_tol_DF     0.0
-contract_tol_MA     0.0
-contract_tol_MB     0.0
-contract_tol_SG     0.0
-contract_tol_ZG     1.0
-contract_tol_ZL     1.0
-contract_tol_ZM     1.0
-contract_tol_ZS     0.0
-contract_tol_FPS    3.0
-contract_tol_FPL    3.0
-contract_tol_FPO    3.0
-contract_tol_FVD    4.0
-contract_tol_FVV    4.0
-contract_tol_FVS    3.0
-contract_tol_FVT    2.0
-contract_tol_FVO    3.0
-contract_tol_FVB    3.0
-contract_tol_FMM    3.0
-contract_tol_FMN    3.0
-contract_tol_FBP    3.0
-contract_tol_FDD    3.0
-contract_tol_FDS    4.0
-contract_tol_FDB    3.0
-contract_tol_FDC    3.0
-contract_tol_FDO    3.0
-contract_tol_FDE    3.0
-contract_tol_FDF    3.0
-contract_tol_FDP    3.0
-contract_tol_FDM    3.0
-contract_tol_SHD    3.0
-contract_tol_SHC    3.0
-contract_tol_SHP    3.0
-contract_tol_SHB    3.0
-contract_tol_SHR    3.0
-contract_tol_SSK    3.0
-contract_tol_SB     0.0
-contract_tol_SP     3.0
-contract_tol_REP    4.0
-contract_tol_PIN    1.0
-contract_tol_WDG    1.0
-contract_tol_WHB    1.0
-contract_tol_WHT    1.0
-contract_tol_WHS    1.0
-contract_tol_PB     0.0
-contract_tol_BB     0.0
-contract_tol_BO     0.0
-contract_tol_BD     0.0
-contract_tol_BC     0.0
-contract_tol_BFS    1.0
-contract_tol_BFD    1.0
-contract_tol_BFF    1.0
-contract_tol_BG     1.0
-contract_tol_BMS    4.0
-contract_tol_BMD    3.0
-contract_tol_BML    4.0
-contract_tol_CEP    0.0
-contract_tol_PWN    1.0
-
-# Whether the species is sensitive to salinity
-flagSaltSensitive_PL     0
-flagSaltSensitive_PS     0
-flagSaltSensitive_DF     0
-flagSaltSensitive_MA     0
-flagSaltSensitive_MB     0
-flagSaltSensitive_SG     0
-flagSaltSensitive_ZG     0
-flagSaltSensitive_ZL     0
-flagSaltSensitive_ZM     0
-flagSaltSensitive_ZS     0
-flagSaltSensitive_FPS    0
-flagSaltSensitive_FPL    0
-flagSaltSensitive_FPO    0
-flagSaltSensitive_FVD    0
-flagSaltSensitive_FVV    0
-flagSaltSensitive_FVS    0
-flagSaltSensitive_FVT    0
-flagSaltSensitive_FVO    0
-flagSaltSensitive_FVB    0
-flagSaltSensitive_FMM    0
-flagSaltSensitive_FMN    0
-flagSaltSensitive_FBP    0
-flagSaltSensitive_FDD    0
-flagSaltSensitive_FDS    0
-flagSaltSensitive_FDB    0
-flagSaltSensitive_FDC    0
-flagSaltSensitive_FDO    0
-flagSaltSensitive_FDE    0
-flagSaltSensitive_FDF    0
-flagSaltSensitive_FDP    0
-flagSaltSensitive_FDM    0
-flagSaltSensitive_SHD    0
-flagSaltSensitive_SHC    0
-flagSaltSensitive_SHP    0
-flagSaltSensitive_SHB    0
-flagSaltSensitive_SHR    0
-flagSaltSensitive_SSK    0
-flagSaltSensitive_SB     0
-flagSaltSensitive_SP     0
-flagSaltSensitive_REP    0
-flagSaltSensitive_PIN    0
-flagSaltSensitive_WDG    0
-flagSaltSensitive_WHB    0
-flagSaltSensitive_WHT    0
-flagSaltSensitive_WHS    0
-flagSaltSensitive_PB     0
-flagSaltSensitive_BB     0
-flagSaltSensitive_BO     0
-flagSaltSensitive_BD     0
-flagSaltSensitive_BC     0
-flagSaltSensitive_BFS    0
-flagSaltSensitive_BFD    0
-flagSaltSensitive_BFF    0
-flagSaltSensitive_BG     0
-flagSaltSensitive_BMS    0
-flagSaltSensitive_BMD    0
-flagSaltSensitive_BML    0
-flagSaltSensitive_CEP    0
-flagSaltSensitive_PWN    0
-
-# Correction scalar salt for nonlinear salinity impact function
-salt_correction_PL     1.0
-salt_correction_PS     1.0
-salt_correction_DF     1.0
-salt_correction_MA     1.0
-salt_correction_MB     1.0
-salt_correction_SG     1.0
-salt_correction_ZG     1.0
-salt_correction_ZL     1.0
-salt_correction_ZM     1.0
-salt_correction_ZS     1.0
-salt_correction_FPS    1.0
-salt_correction_FPL    1.0
-salt_correction_FPO    1.0
-salt_correction_FVD    1.0
-salt_correction_FVV    1.0
-salt_correction_FVS    1.0
-salt_correction_FVT    1.0
-salt_correction_FVO    1.0
-salt_correction_FVB    1.0
-salt_correction_FMM    1.0
-salt_correction_FMN    1.0
-salt_correction_FBP    1.0
-salt_correction_FDD    1.0
-salt_correction_FDS    1.0
-salt_correction_FDB    1.0
-salt_correction_FDC    1.0
-salt_correction_FDO    1.0
-salt_correction_FDE    1.0
-salt_correction_FDF    1.0
-salt_correction_FDP    1.0
-salt_correction_FDM    1.0
-salt_correction_SHD    1.0
-salt_correction_SHC    1.0
-salt_correction_SHP    1.0
-salt_correction_SHB    1.0
-salt_correction_SHR    1.0
-salt_correction_SSK    1.0
-salt_correction_SB     1.0
-salt_correction_SP     1.0
-salt_correction_REP    1.0
-salt_correction_PIN    1.0
-salt_correction_WDG    1.0
-salt_correction_WHB    1.0
-salt_correction_WHT    1.0
-salt_correction_WHS    1.0
-salt_correction_PB     1.0
-salt_correction_BB     1.0
-salt_correction_BO     1.0
-salt_correction_BD     1.0
-salt_correction_BC     1.0
-salt_correction_BFS    1.0
-salt_correction_BFD    1.0
-salt_correction_BFF    1.0
-salt_correction_BG     1.0
-salt_correction_BMS    1.0
-salt_correction_BMD    1.0
-salt_correction_BML    1.0
-salt_correction_CEP    1.0
-salt_correction_PWN    1.0
-
 ## Tolerances and boundaries                       
 RelTol   0.1   Relative tolerance of the adaptive differentiation scheme 0.1                 
 Flux_tol  0.2   Tolerance of mass balance assumption per cell mg N m-3 0.1              
@@ -2337,6 +1487,9 @@ habitat_ZG 10
 habitat_BC 10
 1 1 1 1 1 1 1 1 1 1 
 
+habitat_BO 10
+1 1 1 1 1 1 1 1 1 1 
+
 habitat_BD 10
 1 1 1 1 1 1 1 1 1 1 
 
@@ -2348,9 +1501,6 @@ habitat_SG 10
 
 habitat_MB 10
 0 0 0 0 0 0 0 0 0 0 
-
-habitat_BO 10
-1 1 1 1 1 1 1 1 1 1 
 
 juv_habitat_CEP 10
 1 1 1 1 1 1 1 1 1 1 
@@ -2644,44 +1794,80 @@ Bcov_juv_PIN  0.6  Coefft of refuge relationship with biogenic habitat for juv P
 Bcov_juv_WDG  0.6  Coefft of refuge relationship with biogenic habitat for juv WDG 0.6              
 Bcov_juv_WHB  0.6  Coefft of refuge relationship with biogenic habitat for juv WHB 0.6              
 Bcov_juv_WHS  0.6  Coefft of refuge relationship with biogenic habitat for juv WHS 0.6              
-Bcov_juv_WHT  0.6  Coefft of refuge relationship with biogenic habitat for juv WHT 0.6              
+Bcov_juv_WHT  0.6  Coefft of refuge relationship with biogenic habitat for juv WHT 0.6      
 
-Acov_juv_FPS  1.0  Scalar of refuge relationship with biogenic habitat for juv FPS 1.0              
-Acov_juv_FPL  1.0  Scalar of refuge relationship with biogenic habitat for juv FPL 1.0              
-Acov_juv_FPO  1.0  Scalar of refuge relationship with biogenic habitat for juv FPO 1.0              
-Acov_juv_FVS  1.0  Scalar of refuge relationship with biogenic habitat for juv FVS 1.0              
-Acov_juv_FVD  1.0  Scalar of refuge relationship with biogenic habitat for juv FVD 1.0              
-Acov_juv_FVV  1.0  Scalar of refuge relationship with biogenic habitat for juv FVV 1.0              
-Acov_juv_FVT  1.0  Scalar of refuge relationship with biogenic habitat for juv FVT 1.0              
-Acov_juv_FVO  1.0  Scalar of refuge relationship with biogenic habitat for juv FVO 1.0              
-Acov_juv_FVB  1.0  Scalar of refuge relationship with biogenic habitat for juv FVB 1.0              
-Acov_juv_FMM  1.0  Scalar of refuge relationship with biogenic habitat for juv FMM 1.0              
-Acov_juv_FMN  1.0  Scalar of refuge relationship with biogenic habitat for juv FMN 1.0              
-Acov_juv_FBP  1.0  Scalar of refuge relationship with biogenic habitat for juv FBP 1.0              
-Acov_juv_FDS  1.0  Scalar of refuge relationship with biogenic habitat for juv FDS 1.0              
-Acov_juv_FDD  1.0  Scalar of refuge relationship with biogenic habitat for juv FDD 1.0              
-Acov_juv_FDB  1.0  Scalar of refuge relationship with biogenic habitat for juv FDB 1.0              
-Acov_juv_FDC  1.0  Scalar of refuge relationship with biogenic habitat for juv FDC 1.0              
-Acov_juv_FDO  1.0  Scalar of refuge relationship with biogenic habitat for juv FDO 1.0              
-Acov_juv_FDE  1.0  Scalar of refuge relationship with biogenic habitat for juv FDE 1.0              
-Acov_juv_FDF  1.0  Scalar of refuge relationship with biogenic habitat for juv FDF 1.0              
-Acov_juv_FDM  1.0  Scalar of refuge relationship with biogenic habitat for juv FDM 1.0              
-Acov_juv_FDP  1.0  Scalar of refuge relationship with biogenic habitat for juv FDP 1.0              
-Acov_juv_SHD  1.0  Scalar of refuge relationship with biogenic habitat for juv SHD 1.0              
-Acov_juv_SHC  1.0  Scalar of refuge relationship with biogenic habitat for juv SHC 1.0              
-Acov_juv_SHP  1.0  Scalar of refuge relationship with biogenic habitat for juv SHP 1.0              
-Acov_juv_SHB  1.0  Scalar of refuge relationship with biogenic habitat for juv SHB 1.0              
-Acov_juv_SHR  1.0  Scalar of refuge relationship with biogenic habitat for juv SHR 1.0              
-Acov_juv_SSK  1.0  Scalar of refuge relationship with biogenic habitat for juv SSK 1.0              
-Acov_juv_SB  1.0  Scalar of refuge relationship with biogenic habitat for juv SB 1.0              
-Acov_juv_SP  1.0  Scalar of refuge relationship with biogenic habitat for juv SP 1.0              
-Acov_juv_REP  1.0  Scalar of refuge relationship with biogenic habitat for juv REP 1.0              
-Acov_juv_PIN  1.0  Scalar of refuge relationship with biogenic habitat for juv PIN 1.0              
-Acov_juv_WDG  1.0  Scalar of refuge relationship with biogenic habitat for juv WDG 1.0              
-Acov_juv_WHB  1.0  Scalar of refuge relationship with biogenic habitat for juv WHB 1.0              
-Acov_juv_WHS  1.0  Scalar of refuge relationship with biogenic habitat for juv WHS 1.0              
-Acov_juv_WHT  1.0  Scalar of refuge relationship with biogenic habitat for juv WHT 1.0              
 
+Acov_juv_FPS  1.0  Scalar for refuge relationship with biogenic habitat for juv FPS 1.0              
+Acov_juv_FPL  1.0  Scalar for refuge relationship with biogenic habitat for juv FPL 1.0              
+Acov_juv_FPO  1.0  Scalar for refuge relationship with biogenic habitat for juv FPO 1.0              
+Acov_juv_FVS  1.0  Scalar for refuge relationship with biogenic habitat for juv FVS 1.0              
+Acov_juv_FVD  1.0  Scalar for refuge relationship with biogenic habitat for juv FVD 1.0              
+Acov_juv_FVV  1.0  Scalar for refuge relationship with biogenic habitat for juv FVV 1.0              
+Acov_juv_FVT  1.0  Scalar for refuge relationship with biogenic habitat for juv FVT 1.0              
+Acov_juv_FVO  1.0  Scalar for refuge relationship with biogenic habitat for juv FVO 1.0              
+Acov_juv_FVB  1.0  Scalar for refuge relationship with biogenic habitat for juv FVB 1.0              
+Acov_juv_FMM  1.0  Scalar for refuge relationship with biogenic habitat for juv FMM 1.0              
+Acov_juv_FMN  1.0  Scalar for refuge relationship with biogenic habitat for juv FMN 1.0              
+Acov_juv_FBP  1.0  Scalar for refuge relationship with biogenic habitat for juv FBP 1.0              
+Acov_juv_FDS  1.0  Scalar for refuge relationship with biogenic habitat for juv FDS 1.0              
+Acov_juv_FDD  1.0  Scalar for refuge relationship with biogenic habitat for juv FDD 1.0              
+Acov_juv_FDB  1.0  Scalar for refuge relationship with biogenic habitat for juv FDB 1.0              
+Acov_juv_FDC  1.0  Scalar for refuge relationship with biogenic habitat for juv FDC 1.0              
+Acov_juv_FDO  1.0  Scalar for refuge relationship with biogenic habitat for juv FDO 1.0              
+Acov_juv_FDE  1.0  Scalar for refuge relationship with biogenic habitat for juv FDE 1.0              
+Acov_juv_FDF  1.0  Scalar for refuge relationship with biogenic habitat for juv FDF 1.0              
+Acov_juv_FDM  1.0  Scalar for refuge relationship with biogenic habitat for juv FDM 1.0              
+Acov_juv_FDP  1.0  Scalar for refuge relationship with biogenic habitat for juv FDP 1.0              
+Acov_juv_SHD  1.0  Scalar for refuge relationship with biogenic habitat for juv SHD 1.0              
+Acov_juv_SHC  1.0  Scalar for refuge relationship with biogenic habitat for juv SHC 1.0              
+Acov_juv_SHP  1.0  Scalar for refuge relationship with biogenic habitat for juv SHP 1.0              
+Acov_juv_SHB  1.0  Scalar for refuge relationship with biogenic habitat for juv SHB 1.0              
+Acov_juv_SHR  1.0  Scalar for refuge relationship with biogenic habitat for juv SHR 1.0              
+Acov_juv_SSK  1.0  Scalar for refuge relationship with biogenic habitat for juv SSK 1.0              
+Acov_juv_SB  1.0  Scalar for refuge relationship with biogenic habitat for juv SB 1.0              
+Acov_juv_SP  1.0  Scalar for refuge relationship with biogenic habitat for juv SP 1.0              
+Acov_juv_REP  1.0  Scalar for refuge relationship with biogenic habitat for juv REP 1.0              
+Acov_juv_PIN  1.0  Scalar for refuge relationship with biogenic habitat for juv PIN 1.0              
+Acov_juv_WDG  1.0  Scalar for refuge relationship with biogenic habitat for juv WDG 1.0              
+Acov_juv_WHB  1.0  Scalar for refuge relationship with biogenic habitat for juv WHB 1.0              
+Acov_juv_WHS  1.0  Scalar for refuge relationship with biogenic habitat for juv WHS 1.0              
+Acov_juv_WHT  1.0  Scalar for refuge relationship with biogenic habitat for juv WHT 1.0  
+
+Acov_ad_FPS  1.0  Scalar for refuge relationship with biogenic habitat for ad FPS 1.0              
+Acov_ad_FPL  1.0  Scalar for refuge relationship with biogenic habitat for ad FPL 1.0              
+Acov_ad_FPO  1.0  Scalar for refuge relationship with biogenic habitat for ad FPO 1.0              
+Acov_ad_FVS  1.0  Scalar for refuge relationship with biogenic habitat for ad FVS 1.0              
+Acov_ad_FVD  1.0  Scalar for refuge relationship with biogenic habitat for ad FVD 1.0              
+Acov_ad_FVV  1.0  Scalar for refuge relationship with biogenic habitat for ad FVV 1.0              
+Acov_ad_FVT  1.0  Scalar for refuge relationship with biogenic habitat for ad FVT 1.0              
+Acov_ad_FVO  1.0  Scalar for refuge relationship with biogenic habitat for ad FVO 1.0              
+Acov_ad_FVB  1.0  Scalar for refuge relationship with biogenic habitat for ad FVB 1.0              
+Acov_ad_FMM  1.0  Scalar for refuge relationship with biogenic habitat for ad FMM 1.0              
+Acov_ad_FMN  1.0  Scalar for refuge relationship with biogenic habitat for ad FMN 1.0              
+Acov_ad_FBP  1.0  Scalar for refuge relationship with biogenic habitat for ad FBP 1.0              
+Acov_ad_FDS  1.0  Scalar for refuge relationship with biogenic habitat for ad FDS 1.0              
+Acov_ad_FDD  1.0  Scalar for refuge relationship with biogenic habitat for ad FDD 1.0              
+Acov_ad_FDB  1.0  Scalar for refuge relationship with biogenic habitat for ad FDB 1.0              
+Acov_ad_FDC  1.0  Scalar for refuge relationship with biogenic habitat for ad FDC 1.0              
+Acov_ad_FDO  1.0  Scalar for refuge relationship with biogenic habitat for ad FDO 1.0              
+Acov_ad_FDE  1.0  Scalar for refuge relationship with biogenic habitat for ad FDE 1.0              
+Acov_ad_FDF  1.0  Scalar for refuge relationship with biogenic habitat for ad FDF 1.0              
+Acov_ad_FDM  1.0  Scalar for refuge relationship with biogenic habitat for ad FDM 1.0              
+Acov_ad_FDP  1.0  Scalar for refuge relationship with biogenic habitat for ad FDP 1.0              
+Acov_ad_SHD  1.0  Scalar for refuge relationship with biogenic habitat for ad SHD 1.0              
+Acov_ad_SHC  1.0  Scalar for refuge relationship with biogenic habitat for ad SHC 1.0              
+Acov_ad_SHP  1.0  Scalar for refuge relationship with biogenic habitat for ad SHP 1.0              
+Acov_ad_SHB  1.0  Scalar for refuge relationship with biogenic habitat for ad SHB 1.0              
+Acov_ad_SHR  1.0  Scalar for refuge relationship with biogenic habitat for ad SHR 1.0              
+Acov_ad_SSK  1.0  Scalar for refuge relationship with biogenic habitat for ad SSK 1.0              
+Acov_ad_SB  1.0  Scalar for refuge relationship with biogenic habitat for ad SB 1.0              
+Acov_ad_SP  1.0  Scalar for refuge relationship with biogenic habitat for ad SP 1.0              
+Acov_ad_REP  1.0  Scalar for refuge relationship with biogenic habitat for ad REP 1.0              
+Acov_ad_PIN  1.0  Scalar for refuge relationship with biogenic habitat for ad PIN 1.0              
+Acov_ad_WDG  1.0  Scalar for refuge relationship with biogenic habitat for ad WDG 1.0              
+Acov_ad_WHB  1.0  Scalar for refuge relationship with biogenic habitat for ad WHB 1.0              
+Acov_ad_WHS  1.0  Scalar for refuge relationship with biogenic habitat for ad WHS 1.0              
+Acov_ad_WHT  1.0  Scalar for refuge relationship with biogenic habitat for ad WHT 1.0          
 
 # Orange are groups with transferred species, but no new species (ASK BETH WHAT THESE' Kcov and Bcov' PARAMETER MEANS)       
 Kcov_ad_FPS  3  Exponent of refuge relationship with biogenic habitat for adult FPS 3              
@@ -2756,42 +1942,6 @@ Bcov_ad_WHB  0.6  Coefft of refuge relationship with biogenic habitat for adult 
 Bcov_ad_WHS  0.6  Coefft of refuge relationship with biogenic habitat for adult WHS 0.6              
 Bcov_ad_WHT  0.6  Coefft of refuge relationship with biogenic habitat for adult WHT 0.6              
 
-Acov_ad_FPS  1.0  Scalar of refuge relationship with biogenic habitat for ad FPS 1.0              
-Acov_ad_FPL  1.0  Scalar of refuge relationship with biogenic habitat for ad FPL 1.0              
-Acov_ad_FPO  1.0  Scalar of refuge relationship with biogenic habitat for ad FPO 1.0              
-Acov_ad_FVS  1.0  Scalar of refuge relationship with biogenic habitat for ad FVS 1.0              
-Acov_ad_FVD  1.0  Scalar of refuge relationship with biogenic habitat for ad FVD 1.0              
-Acov_ad_FVV  1.0  Scalar of refuge relationship with biogenic habitat for ad FVV 1.0              
-Acov_ad_FVT  1.0  Scalar of refuge relationship with biogenic habitat for ad FVT 1.0              
-Acov_ad_FVO  1.0  Scalar of refuge relationship with biogenic habitat for ad FVO 1.0              
-Acov_ad_FVB  1.0  Scalar of refuge relationship with biogenic habitat for ad FVB 1.0              
-Acov_ad_FMM  1.0  Scalar of refuge relationship with biogenic habitat for ad FMM 1.0              
-Acov_ad_FMN  1.0  Scalar of refuge relationship with biogenic habitat for ad FMN 1.0              
-Acov_ad_FBP  1.0  Scalar of refuge relationship with biogenic habitat for ad FBP 1.0              
-Acov_ad_FDS  1.0  Scalar of refuge relationship with biogenic habitat for ad FDS 1.0              
-Acov_ad_FDD  1.0  Scalar of refuge relationship with biogenic habitat for ad FDD 1.0              
-Acov_ad_FDB  1.0  Scalar of refuge relationship with biogenic habitat for ad FDB 1.0              
-Acov_ad_FDC  1.0  Scalar of refuge relationship with biogenic habitat for ad FDC 1.0              
-Acov_ad_FDO  1.0  Scalar of refuge relationship with biogenic habitat for ad FDO 1.0              
-Acov_ad_FDE  1.0  Scalar of refuge relationship with biogenic habitat for ad FDE 1.0              
-Acov_ad_FDF  1.0  Scalar of refuge relationship with biogenic habitat for ad FDF 1.0              
-Acov_ad_FDM  1.0  Scalar of refuge relationship with biogenic habitat for ad FDM 1.0              
-Acov_ad_FDP  1.0  Scalar of refuge relationship with biogenic habitat for ad FDP 1.0              
-Acov_ad_SHD  1.0  Scalar of refuge relationship with biogenic habitat for ad SHD 1.0              
-Acov_ad_SHC  1.0  Scalar of refuge relationship with biogenic habitat for ad SHC 1.0              
-Acov_ad_SHP  1.0  Scalar of refuge relationship with biogenic habitat for ad SHP 1.0              
-Acov_ad_SHB  1.0  Scalar of refuge relationship with biogenic habitat for ad SHB 1.0              
-Acov_ad_SHR  1.0  Scalar of refuge relationship with biogenic habitat for ad SHR 1.0              
-Acov_ad_SSK  1.0  Scalar of refuge relationship with biogenic habitat for ad SSK 1.0              
-Acov_ad_SB  1.0  Scalar of refuge relationship with biogenic habitat for ad SB 1.0              
-Acov_ad_SP  1.0  Scalar of refuge relationship with biogenic habitat for ad SP 1.0              
-Acov_ad_REP  1.0  Scalar of refuge relationship with biogenic habitat for ad REP 1.0              
-Acov_ad_PIN  1.0  Scalar of refuge relationship with biogenic habitat for ad PIN 1.0              
-Acov_ad_WDG  1.0  Scalar of refuge relationship with biogenic habitat for ad WDG 1.0              
-Acov_ad_WHB  1.0  Scalar of refuge relationship with biogenic habitat for ad WHB 1.0              
-Acov_ad_WHS  1.0  Scalar of refuge relationship with biogenic habitat for ad WHS 1.0              
-Acov_ad_WHT  1.0  Scalar of refuge relationship with biogenic habitat for ad WHT 1.0              
-
 # Benthic depth stratification markers                      
 
 ## Parameters to use with home range movement
@@ -2848,13 +1998,16 @@ BFS_mindepth     0
 BFD_mindepth     50
 BG_mindepth      0
 MA_mindepth      0
+MB_mindepth      0
 SG_mindepth      0
 ZG_mindepth      0
 PL_mindepth      0
 PS_mindepth      0
 PB_mindepth      0
 BB_mindepth      0
-
+DL_mindepth      0
+DR_mindepth      0
+DC_mindepth      0
 
 # Maximum depth (m) for each group
 FPS_maxdepth     5000 
@@ -2909,12 +2062,16 @@ BFS_maxdepth     200
 BFD_maxdepth     5000 
 BG_maxdepth      5000
 MA_maxdepth      5000
+MB_maxdepth      5000
 SG_maxdepth      5000
 ZG_maxdepth      5000
 PL_maxdepth      5000
 PS_maxdepth      5000
 PB_maxdepth      5000
 BB_maxdepth      5000
+DL_maxdepth      5000
+DR_maxdepth      5000
+DC_maxdepth      5000
 
 # Home range radius (m) for each group
 FPS_homerangerad     1 
@@ -7211,28 +6368,16 @@ pPREYBMD 65
 pPREYBG 65                                                               
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.001 0 0.0001 0 0 0 0 0 0 0 0 0 0 0.02 0.01 0 0 0 0
                                                                 
-pPREY1CEP1 65                                                               
-0.0002 0 0.0025 0.02 0.032 0.0004 0.0001 0.0001 0 0.05 0.025 0.00001 0 0 0.00016 0 0 0.0002 0 0 0 0 0 0 0 0 0 0 0.00005 0 0 0 0 0 0 0.0001 0 0 0 0 0 0 0 0 0.04 0 0 0 0 0 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0 0
-
-pPREY2CEP1 65                                                               
+pPREYCEP1 65                                                               
 0.0002 0 0.0025 0.02 0.032 0.0004 0.0001 0.0001 0 0.05 0.025 0.00001 0 0 0.00016 0 0 0.0002 0 0 0 0 0 0 0 0 0 0 0.00005 0 0 0 0 0 0 0.0001 0 0 0 0 0 0 0 0 0.04 0 0 0 0 0 0 0 0 0 0.01 0 0 0 0 0 0 0 0 0 0
                                                                 
-pPREY1CEP2 65                                                               
-0.0004 0.0012 0.03 0.02 0.032 0.0001 0.0006 0.001 0 0.05 0.06 0.00005 0 0 0.0005 0 0 0.00075 0 0 0 0 0 0 0 0 0 0 0.0005 0 0 0 0 0 0 0.00025 0 0 0 0 0 0 0 0 0.03 0 0 0 0 0 0 0 0 0.001 0.008 0 0 0 0 0 0 0 0 0 0
-
-pPREY2CEP2 65                                                               
+pPREYCEP2 65                                                               
 0.0004 0.0012 0.03 0.02 0.032 0.0001 0.0006 0.001 0 0.05 0.06 0.00005 0 0 0.0005 0 0 0.00075 0 0 0 0 0 0 0 0 0 0 0.0005 0 0 0 0 0 0 0.00025 0 0 0 0 0 0 0 0 0.03 0 0 0 0 0 0 0 0 0.001 0.008 0 0 0 0 0 0 0 0 0 0
                                                                 
-pPREY1PWN1 65                                                               
+pPREYPWN1 65                                                               
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0.005 0.005 0.005 0.005 0 0.005 0 0.07 0.005 0 0 0 0.005 0 0.4 0 0.2 0.05 0 0 0 0.001 0.1 0.01 0.05 0.05 0 0
-  
-pPREY2PWN1 65                                                               
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0.005 0.005 0.005 0.005 0 0.005 0 0.07 0.005 0 0 0 0.005 0 0.4 0 0.2 0.05 0 0 0 0.001 0.1 0.01 0.05 0.05 0 0
-                                                        
-pPREY1PWN2 65                                                               
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0.005 0.005 0.005 0.005 0 0.005 0 0.07 0.005 0 0 0 0.005 0 0.18 0 0.09 0.05 0 0 0 0.001 0.1 0.01 0.05 0.05 0 0
-
-pPREY2PWN2 65                                                               
+                                                                
+pPREYPWN2 65                                                               
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.005 0.005 0.005 0.005 0.005 0 0.005 0 0.07 0.005 0 0 0 0.005 0 0.18 0 0.09 0.05 0 0 0 0.001 0.1 0.01 0.05 0.05 0 0
 
 
@@ -9538,212 +8683,205 @@ KLYS_MA 1.0       Lysis rate of macroalgaes  d-1 (0.01)       0.01
 KLYS_SG 1.0       Lysis rate of seagrass     d-1 (0.01)       0.01
 
 # Linear mortality 
-PL_mL        0.00002       Linear mortality rate of lg phytopl, 15 deg C     d-1              0.14
-PS_mL        0.00001       Linear mortality rate of picophytopl, 15 deg C    d-1              0.14
-MB_mL        0.0       Linear mortality rate of microphytoben, 15 deg C  d-1              0.14
-DF_mL        0.0       Linear mortality rate of dinoflag, 15 deg C       d-1              0.14
-MA_mL        0.0000001    Linear mortality rate of macroalgae, 15 deg C     d-1             0.002 - 0.04
-SG_mL        0   Linear mortality rate of seagrass, 15 deg C       d-1              0.001 - 0.01
-ZG_mL        0.000001  Linear mortality rate of gelatin zoopl, 15 deg C  d-1 (0.0008)     0.0 - 0.04
-ZL_mL        0.0002  Linear mortality rate of large zoopl, 15 deg C    d-1 (0.001)      0.0 - 0.04
-ZM_mL        0.0001  Linear mortality rate of meso-zoopl, 15 deg C     d-1 (0.001)      0.0 - 0.09
-ZS_mL        0.000009  Linear mortality rate of microzoopl, 15 deg C     d-1 (0.0015)     0.0 - 1.0
-BFS_mL       0.0       Linear mortality rate of shallow ff, 15 deg C     d-1 (0.000001)   0.0 -  0.001
-BFF_mL       0.0       Linear mortality rate of other ff, 15 deg C       d-1 (0.000001)   0.0 -  0.001
-BFD_mL       0.0       Linear mortality rate of deep filt feed, 15 deg C d-1 (0.000001)   0.0 -  0.001
-BD_mL        0.001  Linear mortality rate of deposit feeder, 15 deg C d-1 (0.0005)     0.0 -  0.001
-BC_mL        0.00005   Linear mortality rate of inf carniv, 15 deg C     d-1 (0.0001)     0.0 - 0.003
-BG_mL        0.0001    Linear mortality rate of herbiv grazer, 15 deg C  d-1 (0.0005)     0.0 - 0.001
-BMS_mL       0.00006    Linear mort rate of shallow macrozooben, 15 deg C d-1 (0.00037)    0.0 - 0.002
-BML_mL       0.00007    Linear mortality rate of megazoobenthos, 15 deg C d-1 (0.00037)    0.0 - 0.002
-BMD_mL       0.000002    Linear mort. rate of deep macrozooben.,  15 deg C d-1 (0.0001)     0.0 - 0.002
-BO_mL        0.00000001 Linear mortality rate of meiobenthos, 15 deg C    d-1 (0.0082)     0.0 - 0.01
-PB_mL        0.00001   Linear mortality rate of pelagic bact, 15 deg C   d-1              0.0 - 0.1
-BB_mL        0.00001   Linear mortality rate of sediment bact, 15 deg C  d-1 (0.0001)     0.0 - 0.1
+mL_PL_T15        0.00002       Linear mortality rate of lg phytopl, 15 deg C     d-1              0.14
+mL_PS_T15        0.00001       Linear mortality rate of picophytopl, 15 deg C    d-1              0.14
+mL_MB_T15        0.0       Linear mortality rate of microphytoben, 15 deg C  d-1              0.14
+mL_DF_T15        0.0       Linear mortality rate of dinoflag, 15 deg C       d-1              0.14
+mL_MA_T15        0.0000001    Linear mortality rate of macroalgae, 15 deg C     d-1             0.002 - 0.04
+mL_SG_T15        0   Linear mortality rate of seagrass, 15 deg C       d-1              0.001 - 0.01
+mL_ZG_T15        0.000001  Linear mortality rate of gelatin zoopl, 15 deg C  d-1 (0.0008)     0.0 - 0.04
+mL_ZL_T15        0.0002  Linear mortality rate of large zoopl, 15 deg C    d-1 (0.001)      0.0 - 0.04
+mL_ZM_T15        0.0001  Linear mortality rate of meso-zoopl, 15 deg C     d-1 (0.001)      0.0 - 0.09
+mL_ZS_T15        0.000009  Linear mortality rate of microzoopl, 15 deg C     d-1 (0.0015)     0.0 - 1.0
+mL_BFS_T15       0.0       Linear mortality rate of shallow ff, 15 deg C     d-1 (0.000001)   0.0 -  0.001
+mL_BFF_T15       0.0       Linear mortality rate of other ff, 15 deg C       d-1 (0.000001)   0.0 -  0.001
+mL_BFD_T15       0.0       Linear mortality rate of deep filt feed, 15 deg C d-1 (0.000001)   0.0 -  0.001
+mL_BD_T15        0.001  Linear mortality rate of deposit feeder, 15 deg C d-1 (0.0005)     0.0 -  0.001
+mL_BC_T15        0.00005   Linear mortality rate of inf carniv, 15 deg C     d-1 (0.0001)     0.0 - 0.003
+mL_BG_T15        0.0001    Linear mortality rate of herbiv grazer, 15 deg C  d-1 (0.0005)     0.0 - 0.001
+mL_BMS_T15       0.00006    Linear mort rate of shallow macrozooben, 15 deg C d-1 (0.00037)    0.0 - 0.002
+mL_BML_T15       0.00007    Linear mortality rate of megazoobenthos, 15 deg C d-1 (0.00037)    0.0 - 0.002
+mL_BMD_T15       0.000002    Linear mort. rate of deep macrozooben.,  15 deg C d-1 (0.0001)     0.0 - 0.002
+mL_BO_T15        0.00000001 Linear mortality rate of meiobenthos, 15 deg C    d-1 (0.0082)     0.0 - 0.01
+mL_PB_T15        0.00001   Linear mortality rate of pelagic bact, 15 deg C   d-1              0.0 - 0.1
+mL_BB_T15        0.00001   Linear mortality rate of sediment bact, 15 deg C  d-1 (0.0001)     0.0 - 0.1
+mL_CEP_T15       0.0000001  Linear mortality rate of cephalopods, 15 deg C    d-1 (0.002)      0.0 - 0.01
+mL_jCEP_T15      0.00001   Linear mortality rate of juv cephal., 15 deg C    d-1 (0.002)      0.0 - 0.01
+mL_PWN_T15       0.000001  Linear mortality rate of prawns, 15 deg C         d-1 (0.002)      0.0 - 0.01
+mL_jPWN_T15      0.00001   Linear mortality rate of juv prawns, 15 deg C     d-1 (0.002)      0.0 - 0.01
+mL_FPL_T15       2e-6      Linear mortality rate of lg planktiv., 15 deg C   d-1 (5e-7)       0.0 - 0.001
+mL_FPS_T15       2e-8      Linear mortality rate of small planktiv, 15 deg C d-1 (5e-9)       0.0 - 0.001
+mL_FPO_T15       1.25e-11  Linear mortality rate of other planktiv, 15 deg C d-1 (5e-9)       0.0 - 0.001
+mL_FVD_T15       1.0e-11   Linear mortality rate of deep pisciv., 15 deg C   d-1              0.0 - 0.00005
+mL_FVV_T15       1.0e-11   Linear mortality rate of vul. pisciv., 15 deg C   d-1              0.0 - 0.00005
+mL_FVS_T15       2.5e-10   Linear mort. rate of shallow pisciv., 15 deg C    d-1              0.0 - 0.00005
+mL_FVT_T15       9.0e-14   Linear mort. rate of tropical pisciv., 15 deg C   d-1              0.0 - 0.00005
+mL_FVB_T15       1.0e-13      Linear mortality rate of other pisciv, 15 deg C   d-1              0.0 - 0.001
+mL_FVO_T15       0.0       Linear mortality rate of other tuna, 15 deg C     d-1              0.0 - 0.00005
+mL_FMM_T15       5e-10      Linear mort. rate of mig. mesopelagic, 15 deg C   d-1 (5e-9)       0.0 - 0.001
+mL_FMN_T15       8e-9      Linear mort. rate of non-mig mesopelag., 15 deg C d-1 (5e-9)       0.0 - 0.001
+mL_FBP_T15       1.0e-9      Linear mortality rate of other tuna, 15 deg C     d-1              0.0 - 0.00005
+mL_FDD_T15       1.0e-9    Linear mortality rate of deep demersals, 15 deg C d-1 (1.e-10)     0.0 - 0.002
+mL_FDS_T15       1.0e-9    Linear mort. rate of shallow demersals, 15 deg C  d-1              0.0 - 0.001
+mL_FDB_T15       7.5e-13  Linear mortality rate of other shal dem, 15 deg C d-1              0.0 - 0.001
+mL_FDC_T15       4.0e-9    Linear mortality rate of other deep dem, 15 deg C d-1              0.0 - 0.001
+mL_FDO_T15       0.0       Linear mortality rate of longlived dem, 15 deg C  d-1              0.0 - 0.002
+mL_FDE_T15       1.0e-9    Linear mortality rate of herbiv dem., 15 deg C    d-1              0.0 - 0.002
+mL_FDF_T15       1.0e-9   Linear mortality rate of flat deep dem., 15 deg C d-1               0.0 - 0.00005
+mL_FDM_T15       4.0e-8    Linear mortality rate of misc demersals, 15 deg C d-1              0.0 - 0.002
+mL_FDP_T15       1.0e-12    Linear mortality rate of protected dem., 15 deg C d-1              0.0 - 0.002
+mL_SHD_T15       1.0e-13       Linear mort. rate of demersal sharks, 15 deg C    d-1           0.0 - 0.0002
+mL_SHB_T15       1.0e-13       Linear mortality rate of other sharks, 15 deg C   d-1           0.0 - 0.0002
+mL_SHC_T15       1.0e-13       Linear mort. rate of dogfish, 15 deg C            d-1           0.0 - 0.0002
+mL_SHR_T15       6.0e-13       Linear mortality rate of reef sharks, 15 deg C    d-1           0.0 - 0.0002
+mL_SHP_T15       2.0e-13       Linear mortality rate of pelagic sharks, 15 deg C d-1           0.0 - 0.0002
+mL_SSK_T15       5.0e-11       Linear mort. rate of skates and rays, 15 deg C    d-1           0.0 - 0.0002
+mL_SB_T15        8e-6       Linear mortality rate of seabirds, 15 deg C       d-1          0.0 - 0.0004
+mL_SP_T15        9e-7      Linear mortality rate of penguins, 15 deg C       d-1           0.0 - 0.001
+mL_REP_T15       0.0       Linear mort. rate of reptiles, 15 deg C           d-1           0.0 - 0.0002
+mL_WDG_T15       0.0       Linear mortality rate of dugongs, 15 deg C        d-1           0.0 - 0.0008
+mL_PIN_T15       5.0e-13       Linear mortality rate of pinnipeds, 15 deg C      d-1           0.0 - 0.0008
+mL_WHB_T15       1.0e-13       Linear mortality rate of baleen whales, 15 deg C  d-1           0.0 - 0.0008
+mL_WHT_T15       1.0e-13       Linear mortality rate of toothed whales, 15 deg C d-1           0.0 - 0.0008
+mL_WHS_T15       1.0e-13       Linear mort. rate of sm. toothed whales, 15 deg C d-1           0.0 - 0.0008
 
 
-FPL_mL 2
-9.00E-007	2.00E-006
-FPS_mL 2
-1.00E-008	2.00E-008
-FPO_mL 2
-1.25E-011	1.25E-011
-FVD_mL 2
-1.00E-009	1.00E-011
-FVV_mL 2
-1.00E-011	1.00E-011
-FVS_mL 2
-1.00E-015	2.50E-010
-FVT_mL 2
-9.00E-016	9.00E-014
-FVB_mL 2
-1.00E-017	1.00E-013
-FVO_mL 2
-1.00E-016	0
-FMM_mL 2
-1.00E-018	5.00E-010
-FMN_mL 2
-2.00E-016	8.00E-009
-FBP_mL 2
-1.00E-011	1.00E-009
-FDD_mL 2
-1.00E-009	1.00E-009
-FDS_mL 2
-4.00E-011	1.00E-009
-FDB_mL 2
-2.00E-013	7.50E-013
-FDC_mL 2
-1.00E-009	4.00E-009
-FDO_mL 2
-0	0
-FDE_mL 2
-1.00E-009	1.00E-009
-FDF_mL 2
-3.00E-007	1.00E-009
-FDM_mL 2
-1.00E-009	4.00E-008
-FDP_mL 2
-1.00E-010	1.00E-012
-SHD_mL 2
-1.00E-008	1.00E-013
-SHB_mL 2
-1.00E-009	1.00E-013
-SHC_mL 2
-1.00E-010	1.00E-013
-SHR_mL 2
-1.00E-008	6.00E-013
-SHP_mL 2
-5.00E-008	2.00E-013
-SSK_mL 2
-3.00E-010	5.00E-011
-SB_mL 2
-8.00E-008	8.00E-006
-SP_mL 2
-9.00E-007	9.00E-007
-REP_mL 2
-0	0
-WDG_mL 2
-0	0
-PIN_mL 2
-1.00E-008	5.00E-013
-WHB_mL 2
-1.00E-008	1.00E-013
-WHT_mL 2
-1.00E-008	1.00E-013
-WHS_mL 2
-1.00E-008	1.00E-013
-
-#Linear mortality rate of cephalopods, 15 deg C    d-1 (0.002)      0.0 - 0.01
-CEP_mL 2
-0.00001 0.0000001
-
-PWN_mL 2    
-0.00001 0.0000001  
-
+jmL_FPL_T15       9e-7      Linear mortality rate of  JUV lg planktiv., 15 deg C   d-1 (5e-7)  0.0 - 0.001
+jmL_FPS_T15       1e-8      Linear mortality rate of small planktiv, 15 deg C d-1 (5e-9)       0.0 - 0.001
+jmL_FPO_T15       1.25e-11  Linear mortality rate of other planktiv, 15 deg C d-1 (5e-9)       0.0 - 0.001
+jmL_FVD_T15       1.0e-9    Linear mortality rate of deep pisciv., 15 deg C   d-1              0.0 - 0.00005
+jmL_FVV_T15       1.0e-11   Linear mortality rate of vul. pisciv., 15 deg C   d-1              0.0 - 0.00005
+jmL_FVS_T15       1.0e-15  Linear mort. rate of shallow pisciv., 15 deg C    d-1              0.0 - 0.00005
+jmL_FVT_T15       9.0e-16   Linear mort. rate of tropical pisciv., 15 deg C   d-1              0.0 - 0.00005
+jmL_FVB_T15       1.0e-17      Linear mortality rate of other pisciv, 15 deg C   d-1              0.0 - 0.001
+jmL_FVO_T15       1.0e-16       Linear mortality rate of other tuna, 15 deg C     d-1              0.0 - 0.00005
+jmL_FMM_T15       1e-18      Linear mort. rate of mig. mesopelagic, 15 deg C   d-1 (5e-9)       0.0 - 0.001
+jmL_FMN_T15       2e-16     Linear mort. rate of non-mig mesopelag., 15 deg C d-1 (5e-9)       0.0 - 0.001
+jmL_FBP_T15       1.0e-11    Linear mortality rate of other tuna, 15 deg C     d-1              0.0 - 0.00005
+jmL_FDD_T15       1.0e-9    Linear mortality rate of deep demersals, 15 deg C d-1 (1.e-10)     0.0 - 0.002
+jmL_FDS_T15       4.0e-11 Linear mort. rate of shallow demersals, 15 deg C  d-1              0.0 - 0.001
+jmL_FDB_T15       2.0e-13  Linear mortality rate of other shal dem, 15 deg C d-1              0.0 - 0.001
+jmL_FDC_T15       1.0e-9    Linear mortality rate of other deep dem, 15 deg C d-1              0.0 - 0.001
+jmL_FDO_T15       0.0       Linear mortality rate of longlived dem, 15 deg C  d-1              0.0 - 0.002
+jmL_FDE_T15       1.0e-9    Linear mortality rate of herbiv dem., 15 deg C    d-1              0.0 - 0.002
+jmL_FDF_T15       3.0e-7    Linear mortality rate of flat deep dem., 15 deg C d-1              0.0 - 0.00005
+jmL_FDM_T15       1.0e-9    Linear mortality rate of misc demersals, 15 deg C d-1              0.0 - 0.002
+jmL_FDP_T15       1.0e-10    Linear mortality rate of protected dem., 15 deg C d-1              0.0 - 0.002
+jmL_SHD_T15       1e-8       Linear mort. rate of demersal sharks, 15 deg C    d-1          0.0 - 0.0002
+jmL_SHB_T15       1e-9       Linear mortality rate of other sharks, 15 deg C   d-1          0.0 - 0.0002
+jmL_SHC_T15       1e-10      Linear mort. rate of dogfish, 15 deg C            d-1          0.0 - 0.0002
+jmL_SHR_T15       1e-8       Linear mortality rate of reef sharks, 15 deg C    d-1          0.0 - 0.0002
+jmL_SHP_T15       5e-8       Linear mortality rate of pelagic sharks, 15 deg C d-1              0.0 - 0.0002
+jmL_SSK_T15       3e-10       Linear mort. rate of skates and rays, 15 deg C    d-1              0.0 - 0.0002
+jmL_SB_T15        8e-8      Linear mortality rate of seabirds, 15 deg C       d-1              0.0 - 0.0004
+jmL_SP_T15        9e-7      Linear mortality rate of penguins, 15 deg C       d-1              0.0 - 0.001
+jmL_REP_T15       0.0       Linear mort. rate of reptiles, 15 deg C           d-1              0.0 - 0.0002
+jmL_WDG_T15       0.0       Linear mortality rate of dugongs, 15 deg C        d-1              0.0 - 0.0008
+jmL_PIN_T15       1e-8       Linear mortality rate of pinnipeds, 15 deg C      d-1              0.0 - 0.0008
+jmL_WHB_T15       1e-8       Linear mortality rate of baleen whales, 15 deg C  d-1              0.0 - 0.0008
+jmL_WHT_T15       1e-8       Linear mortality rate of toothed whales, 15 deg C d-1              0.0 - 0.0008
+jmL_WHS_T15       1e-8       Linear mort. rate of sm. toothed whales, 15 deg C d-1              0.0 - 0.0008
 
 # Quadratic mortality 
 # Invertebrates
-ZG_mQ        0.000005    Quad. mortality rate of gelatin. zoopl, 15 deg C  d-1 (0.00001)    0.0 - 0.01
-ZL_mQ        0.000001  Quad. mortality rate of large zoopl, 15 deg C     d-1              0.0 - 0.01
-ZM_mQ        0.0       Quad. mortality rate of meso-zoopl, 15 deg C      d-1              0.0 - 0.02
-ZS_mQ        0.0       Quad. mortality rate of microzoopl, 15 deg C      d-1              0.0 - 0.2
-BC_mQ        0.0000001  Quad. mortality rate of inf carniv, 15 deg C      d-1              0.0 - 0.00001
-BD_mQ        0.0000003   Quad. mortality rate of deposit feeder, 15 deg C  d-1              0.0
-BO_mQ        0.0       Quad. mortality rate of meiobenthos, 15 deg C     d-1              0.0
-BFS_mQ       1.0e-7    Quad. mortality rate of shallow ff, 15 deg C      d-1              0.0 - 0.000002
-BFF_mQ       1.0e-7    Quad. mortality rate of other ff, 15 deg C        d-1              0.0 - 0.000002
-BFD_mQ       1.0e-6    Quad. mortality rate of deep filt feed, 15 deg C  d-1              0.0 - 0.000002
-BMS_mQ       0.0000001  Quad. mort. rate of shallow macrozooben, 15 deg C d-1              0.0 - 0.000002
-BML_mQ       0.0000001  Quad. mortality rate of megazoobenthos, 15 deg C  d-1              0.0 - 0.000002
-BMD_mQ       0.0000001 Quad. mort. rate of deep macrozooben., 15 deg C   d-1              0.0 - 0.000002
-BG_mQ        0.0       Quad. mortality rate of benthic grazer, 15 deg C  d-1              0.0
+mQ_ZG_T15        0.000005    Quad. mortality rate of gelatin. zoopl, 15 deg C  d-1 (0.00001)    0.0 - 0.01
+mQ_ZL_T15        0.000001  Quad. mortality rate of large zoopl, 15 deg C     d-1              0.0 - 0.01
+mQ_ZM_T15        0.0       Quad. mortality rate of meso-zoopl, 15 deg C      d-1              0.0 - 0.02
+mQ_ZS_T15        0.0       Quad. mortality rate of microzoopl, 15 deg C      d-1              0.0 - 0.2
+mQ_BC_T15        0.0000001  Quad. mortality rate of inf carniv, 15 deg C      d-1              0.0 - 0.00001
+mQ_BD_T15        0.0000003   Quad. mortality rate of deposit feeder, 15 deg C  d-1              0.0
+mQ_BO_T15        0.0       Quad. mortality rate of meiobenthos, 15 deg C     d-1              0.0
+mQ_BFS_T15       1.0e-7    Quad. mortality rate of shallow ff, 15 deg C      d-1              0.0 - 0.000002
+mQ_BFF_T15       1.0e-7    Quad. mortality rate of other ff, 15 deg C        d-1              0.0 - 0.000002
+mQ_BFD_T15       1.0e-6    Quad. mortality rate of deep filt feed, 15 deg C  d-1              0.0 - 0.000002
+mQ_BMS_T15       0.0000001  Quad. mort. rate of shallow macrozooben, 15 deg C d-1              0.0 - 0.000002
+mQ_BML_T15       0.0000001  Quad. mortality rate of megazoobenthos, 15 deg C  d-1              0.0 - 0.000002
+mQ_BMD_T15       0.0000001 Quad. mort. rate of deep macrozooben., 15 deg C   d-1              0.0 - 0.000002
+mQ_BG_T15        0.0       Quad. mortality rate of benthic grazer, 15 deg C  d-1              0.0
 
+# Invertebrates with age structure
+mQ_CEP_T15       1.0e-10    Quad. mortality rate of cephalopods, 15 deg C     d-1 (1.0e-9)     0.0 - 0.0001
+mQ_jCEP_T15      1.0e-10    Quad. mortality rate of juv cephalopods, 15 deg C d-1 (1.0e-9)     0.0 - 0.0001
+mQ_PWN_T15       1.0e-2     Quad. mortality rate of prawns, 15 deg C          d-1              0.0 - 0.0001
+mQ_jPWN_T15      1.0e-2     Quad. mortality rate of juvenile prawns, 15 deg C d-1              0.0 - 0.0001
 
-CEP_mQ 2
-1.0e-10 1.0e-10
+# Adult vertebrates
+mQ_FPL_T15       5.0e-11     Quad. mortality rate of large planktiv., 15 deg C d-1 (5.25e-10)   0.0
+mQ_FPS_T15       1e-13     Quad. mortality rate of small planktiv., 15 deg C d-1 (1.25e-10)   0.0
+mQ_FPO_T15       1e-14     Quad. mortality rate of other planktiv., 15 deg C d-1 (1.25e-10)   0.0
+mQ_FVD_T15       4e-12     Quad. mortality rate of deep pisciv., 15 deg C    d-1 (2.5e-15)    0.0 - 0.0002   
+mQ_FVV_T15       1.0e-10  Quad. mortality rate of vulner. pisciv., 15 deg C d-1              0.0 - 0.0002   
+mQ_FVS_T15       1.0e-7  Quad. mortality rate of shallow pisciv, 15 deg C  d-1 (9.5e-11)    0.0 - 0.0002   
+mQ_FVT_T15       5.0e-7    Quad. mortality rate of tropical pisciv, 15 deg C d-1 (2.5e-14)    0.0 - 0.0002   
+mQ_FVO_T15       1.0e-6    Quad. mortality rate of other tuna, 15 deg C      d-1              0.0 - 0.0002   
+mQ_FVB_T15       1.6e-13   Quad. mortality rate of other pisciv., 15 deg C   d-1              0.0 - 0.0002   
+mQ_FMM_T15       2.0e-9   Quad. mortality rate of mig mesopelagic, 15 deg C d-1 (1.25e-10)   0.0
+mQ_FMN_T15       9.25e-14  Quad. mortality rate of non-mig mesopel, 15 deg C d-1 (8.25e-11)   0.0
+mQ_FBP_T15       3.00e-9   Quad. mortality rate of large planktiv., 15 deg C d-1              0.0
+mQ_FDD_T15       6.4e-10   Quad. mortality rate of deep demersal, 15 deg C   d-1 (2.5e-13)    0.0   
+mQ_FDS_T15       4.0e-10   Quad. mort. rate of shallow demersal, 15 deg C    d-1              0.0   
+mQ_FDB_T15       9.0e-10   Quad. mortality rate of other shal dem, 15 deg C  d-1              0.0   
+mQ_FDC_T15       5.0e-8    Quad. mortality rate of other deep dem, 15 deg C  d-1 (1.25e-12)   0.0   
+mQ_FDO_T15       1.0e-13   Quad. mortality rate of longlived dem, 15 deg C   d-1 (2.5e-13)    0.0   
+mQ_FDE_T15       4.0e-11    Quad. mortality rate of herbiv demersal, 15 deg C d-1              0.0   
+mQ_FDF_T15       4.0e-8    Quad. mortality rate of flat deep dem, 15 deg C   d-1              0.0 - 0.0002   
+mQ_FDM_T15       1.0e-6   Quad. mortality rate of misc demersal, 15 deg C   d-1              0.0   
+mQ_FDP_T15       8.0e-12   Quad. mortality rate of protected dem, 15 deg C   d-1              0.0   
+mQ_SHD_T15       1.0e-8    Quad. mortality rate of demersal sharks, 15 deg C d-1              0.0   
+mQ_SHB_T15       1.0e-11    Quad. mortality rate of other sharks, 15 deg C    d-1              0.0   
+mQ_SHC_T15       3.0e-9    Quad. mortality rate of dogfish, 15 deg C         d-1              0.0   
+mQ_SHR_T15       2.0e-6    Quad. mortality rate of reef sharks, 15 deg C     d-1              0.0   
+mQ_SHP_T15       4.0e-6    Quad. mortality rate of pelagic sharks, 15 deg C  d-1              0.0   
+mQ_SSK_T15       5.0e-6   Quad. mortality rate of skates and rays, 15 deg C d-1              0.0   
+mQ_SB_T15        1.0e-5    Quad. mortality rate of seabirds, 15 deg C        d-1              0.0
+mQ_SP_T15        2.25e-9   Quad. mortality rate of penguins, 15 deg C        d-1              0.0
+mQ_REP_T15       6.5e-8    Quad. mortality rate of reptiles, 15 deg C        d-1              0.0   
+mQ_WDG_T15       9.5e-7    Quad. mortality rate of dugongs, 15 deg C         d-1              0.0   
+mQ_PIN_T15       2.0e-7    Quad. mortality rate of pinnipeds, 15 deg C       d-1              0.0   
+mQ_WHB_T15       5.0e-8    Quad. mortality rate of baleen whales, 15 deg C   d-1              0.0   
+mQ_WHS_T15       2.0e-7    Quad. mortality rate of sm tooth whales, 15 deg C d-1              0.0   
+mQ_WHT_T15       1.0e-5    Quad. mortality rate of toothed whales, 15 deg C  d-1              0.0   
 
-PWN_mQ 2
-1.0e-10 1.0e-10
-
-
-FPL_mQ 2
-1.00E-015	5.00E-011
-FPS_mQ 2
-1.00E-015	1.00E-013
-FPO_mQ 2
-1.00E-015	1.00E-014
-FVD_mQ 2
-1.00E-015	4.00E-012
-FVV_mQ 2
-6.00E-013	1.00E-010
-FVS_mQ 2
-2.00E-016	1.00E-007
-FVT_mQ 2
-2.50E-011	5.00E-007
-FVO_mQ 2
-5.00E-011	1.00E-006
-FVB_mQ 2
-1.00E-017	1.60E-013
-FMM_mQ 2
-1.00E-018	2.00E-009
-FMN_mQ 2
-2.00E-016	9.25E-014
-FBP_mQ 2
-1.00E-013	3.00E-009
-FDD_mQ 2
-5.00E-016	6.40E-010
-FDS_mQ 2
-1.00E-013	4.00E-010
-FDB_mQ 2
-1.00E-013	9.00E-010
-FDC_mQ 2
-3.50E-010	5.00E-008
-FDO_mQ 2
-8.50E-014	1.00E-013
-FDE_mQ 2
-9.50E-012	4.00E-011
-FDF_mQ 2
-9.00E-013	4.00E-008
-FDM_mQ 2
-5.00E-016	1.00E-006
-FDP_mQ 2
-8.00E-013	8.00E-012
-SHD_mQ 2
-1.20E-010	1.00E-008
-SHB_mQ 2
-1.00E-011	1.00E-011
-SHC_mQ 2
-1.00E-010	3.00E-009
-SHR_mQ 2
-5.00E-009	2.00E-006
-SHP_mQ 2
-1.60E-008	4.00E-006
-SSK_mQ 2
-3.00E-010	5.00E-006
-SB_mQ 2
-1.00E-006	1.00E-005
-SP_mQ 2
-1.00E-009	2.25E-009
-REP_mQ 2
-9.50E-008	6.50E-008
-WDG_mQ 2
-3.00E-006	9.50E-007
-PIN_mQ 2
-1.50E-007	2.00E-007
-WHB_mQ 2
-1.00E-007	5.00E-008
-WHS_mQ 2
-2.00E-007	2.00E-007
-WHT_mQ 2
-1.00E-006	1.00E-005
-
+# Juvenile vertebrates
+jmQ_FPL_T15       1e-15     Quad. mort. rate of juv. large planktiv., 15 deg C d-1 (5.25e-10)   0.0
+jmQ_FPS_T15       1e-15     Quad. mort. rate of juv. small planktiv., 15 deg C d-1 (1.25e-10)   0.0
+jmQ_FPO_T15       1e-15     Quad. mort. rate of juv. other planktiv., 15 deg C d-1 (1.25e-10)   0.0
+jmQ_FVD_T15       1.0e-15  Quad. mort. rate of juv. deep pisciv., 15 deg C    d-1 (2.5e-15)    0.0 - 0.0002   
+jmQ_FVV_T15       6.0e-13   Quad. mort. rate of juv. vulner. pisciv., 15 deg C d-1              0.0 - 0.0002   
+jmQ_FVS_T15       2.0e-16  Quad. mort. rate of juv. shallow pisciv, 15 deg C  d-1 (9.5e-11)    0.0 - 0.0002   
+jmQ_FVT_T15       2.5e-11   Quad. mort. rate of juv. tropical pisciv, 15 deg C d-1 (2.5e-14)    0.0 - 0.0002   
+jmQ_FVO_T15       5.0e-11   Quad. mort. rate of juv. other tuna, 15 deg C      d-1              0.0 - 0.0002   
+jmQ_FVB_T15       1.0e-17   Quad. mort. rate of juv. other pisciv., 15 deg C   d-1              0.0 - 0.0002   
+jmQ_FMM_T15       1.0e-18  Quad. mort. rate of juv. mig mesopelagic, 15 deg C d-1 (1.25e-10)   0.0
+jmQ_FMN_T15       2.0e-16   Quad. mort. rate of juv. non-mig mesopel, 15 deg C d-1 (8.25e-11)   0.0
+jmQ_FBP_T15       1.0e-13   Quad. mort. rate of juv. large planktiv., 15 deg C d-1              0.0
+jmQ_FDD_T15       5.0e-16   Quad. mort. rate of juv. deep demersal, 15 deg C   d-1 (2.5e-13)    0.0   
+jmQ_FDS_T15       1.0e-13   Quad. mort. rate of juv. shallow demersal, 15 deg C d-1             0.0   
+jmQ_FDB_T15       1.0e-13   Quad. mort. rate of juv. other shal dem, 15 deg C  d-1              0.0   
+jmQ_FDC_T15       3.5e-10   Quad. mort. rate of juv. other deep dem, 15 deg C  d-1 (1.25e-12)   0.0   
+jmQ_FDO_T15       8.5e-14   Quad. mort. rate of juv. longlived dem, 15 deg C   d-1 (2.5e-13)    0.0   
+jmQ_FDE_T15       9.5e-12   Quad. mort. rate of juv. herbiv demersal, 15 deg C d-1              0.0   
+jmQ_FDF_T15       9.0e-13   Quad. mort. rate of juv. flat deep dem, 15 deg C   d-1              0.0 - 0.0002   
+jmQ_FDM_T15       5.0e-16   Quad. mort. rate of juv. misc demersal, 15 deg C   d-1              0.0   
+jmQ_FDP_T15       8.0e-13   Quad. mort. rate of juv. protected dem, 15 deg C   d-1              0.0   
+jmQ_SHD_T15       1.2e-10    Quad. mort. rate of juv. demersal sharks, 15 deg C d-1              0.0   
+jmQ_SHB_T15       1.0e-11    Quad. mort. rate of juv. other sharks, 15 deg C    d-1              0.0   
+jmQ_SHC_T15       1.0e-10    Quad. mort. rate of juv. dogfish, 15 deg C         d-1              0.0   
+jmQ_SHR_T15       5.0e-9    Quad. mort. rate of juv. reef sharks, 15 deg C     d-1              0.0   
+jmQ_SHP_T15       1.6e-8    Quad. mort. rate of juv. pelagic sharks, 15 deg C  d-1              0.0   
+jmQ_SSK_T15       3.0e-10   Quad. mort. rate of juv. skates and rays, 15 deg C d-1              0.0   
+jmQ_SB_T15        1.0e-6    Quad. mort. rate of juv. seabirds, 15 deg C        d-1              0.0
+jmQ_SP_T15        1.0e-9    Quad. mort. rate of juv. penguins, 15 deg C        d-1              0.0
+jmQ_REP_T15       9.5e-8    Quad. mort. rate of juv. reptiles, 15 deg C        d-1              0.0   
+jmQ_WDG_T15       3.0e-6    Quad. mort. rate of juv. dugongs, 15 deg C         d-1              0.0   
+jmQ_PIN_T15       1.5e-7    Quad. mort. rate of juv. pinnipeds, 15 deg C       d-1              0.0   
+jmQ_WHB_T15       1.0e-7    Quad. mort. rate of juv. baleen whales, 15 deg C   d-1              0.0   
+jmQ_WHS_T15       2.0e-7    Quad. mort. rate of juv. sm tooth whales, 15 deg C d-1              0.0   
+jmQ_WHT_T15       1.0e-6    Quad. mort. rate of juv. toothed whales, 15 deg C  d-1              0.0   
 
 # Extra macrophyte mortality (based on physical environment)                   
 mS_MA_T15  100   Scour (bottom stress) macroalgae mortality d-1 120 - 180                
 mS_SG_T15  0.0000002 Excessive DIN seagrass mortality d-1 0 - 0.0002                 
-
-# Terminal (senescence mortality) for biomass pools (proportion of terminal age group dying)
-mT_CEP            1.0                                                                    0.0  
 
 # Starvation mortality for fish (based on condition)                   
 mStarve_FPL 0.0001
@@ -10336,7 +9474,6 @@ PIN_AgeClassSize  2  Number of years represented in each age class of pinnipeds 
 WHB_AgeClassSize  6  Number of years represented in each age class of baleen whales 10             
 WHS_AgeClassSize  5  Number of years represented in each age class of sm toothed whales 10            
 WHT_AgeClassSize  8  Number of years represented in each age class of toothed whales 10             
-CEP_AgeClassSize  1  Number of years represented in each age class of cephalopods        1
  
 # Age class of maturity                      
 FPL_age_mat  2  First mature age class of large planktivores 1                 
@@ -10376,12 +9513,11 @@ WHS_age_mat  2  First mature age class of small toothed whales 2
 WHT_age_mat  2  First mature age class of toothed whales 2                 
 
 #interpreted as the time of year that each cohort becomes mature (this is 226 + 'Time_Spawn')
-
-#Time_Age_CEP     2
-#90 231
-
 Time_Age_CEP     2
-90 366
+90 231
+
+Time_Age_PWN     2
+90 315
 
 # Spawning season                        
 FPL_Time_Spawn  210  Time of year large planktivores spawn d 210 - 330               
@@ -10421,11 +9557,12 @@ WHS_Time_Spawn  280  Time of year small toothed whales mate d 0 - 360
 WHT_Time_Spawn  280  Time of year toothed whales mate d 0 - 360               
 
 #date of spawning, first entry is the autumn cohort, second is the spring
+CEP_Time_Spawn 300
+jCEP_Time_Spawn 90
 
-CEP_Time_Spawn 90
+PWN_Time_Spawn 315
+jPWN_Time_Spawn 90
 
-#CEP_Time_Spawn 2
-#90 231
               
 FPL_spawn_period  14  Period of spawning for large planktivores d 1 - 365               
 FPS_spawn_period  14  Period of spawning for small planktivores d 1 - 365               
@@ -10502,8 +9639,6 @@ WHB_Recruit_Time  300  Length of gestation period for baleen whales d 290 - 330
 WHS_Recruit_Time  350  Length of gestation period for sm toothed whales d 360 - 390             
 WHT_Recruit_Time  350  Length of gestation period for toothed whales d 360 - 390              
 
-CEP_Recruit_Time 0         Length of gestation period for cephalopods        d                0 - 30   (At present use 30 so instantaneous like in old code)
-
 # Recruitment window                        
 Recruit_Period_FPL  30  Length of time recruits arrive over for large planktiv d 15 - 90            
 Recruit_Period_FPS  30  Length of time recruits arrive over for small planktiv d 15 - 90            
@@ -10540,8 +9675,6 @@ Recruit_Period_PIN  10  Length of time recruits arrive over for pinnipeds d 15 -
 Recruit_Period_WHB  30  Length of time recruits arrive over for baleen whales d 15 - 90            
 Recruit_Period_WHS  10  Length of time recruits arrive over for sm tooth whales d 15 - 90           
 Recruit_Period_WHT  10  Length of time recruits arrive over for toothed whales d 15 - 90            
-
-Recruit_Period_CEP 0       Length of time recruits arrive over for cephalopods     d          0 - 1     (At present use 30 so instantaneous like in old code)
 
 KSPA_FPL  31.93     Constant in spawning formulation for large planktivores 31.93                 
 KSPA_FPS  5.3   Constant in spawning formulation for small planktivores 5.3                 
@@ -10614,12 +9747,6 @@ FSP_PIN  0.16   Fraction used in spawning formulation for pinnipeds 0.16
 FSP_WHB  0.16   Fraction used in spawning formulation for baleen whales 0.16                
 FSP_WHS  0.16   Fraction used in spawning formulation for small toothed whales 0.16               
 FSP_WHT  0.16   Fraction used in spawning formulation for toothed whales 0.16                
-              
-FSP_CEP          1.0       Fraction of biomass contributing to spawn for cephalopods          1.0
-        
-## Proportion of the biomass of age structured biomass pool lost to spawning (i.e. what proportion of the spawning adult biomass is lost via gamete release)
-## Simplest case is to set to 0.0, this is effectively what it was in the original Atlantis code
-prop_spawn_lost_CEP  0.0
                       
 ## Proportion of the population (per age) spawning. One value per cohort, number of cohorts defined in your functional group definition file.                  
 FSPB_FPL 10                         
@@ -10725,13 +9852,7 @@ FSPB_WHS 10
 0 0.4 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5                 
 
 FSPB_WHT 10                         
-0 0.4 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5     
-
-FSPB_PWN        2
-1.0 1.0
-
-FSPB_CEP        2
-1.0 1.0            
+0 0.4 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5                 
                        
 # Recruit location spatial distibutions.                       
 FPL_recruit_hdistrib  11        
@@ -10839,13 +9960,7 @@ WHS_recruit_hdistrib  11
           
 WHT_recruit_hdistrib  11        
 0 0.229334806 0.162132273 0.229721258 0.254190521 0.124621143 0 0 0 0 0
-
-CEP_recruit_hdistrib  11        
-0 0.303466913 0.183153627 0.261906146 0.135934791 0.115538523 0 0 0 0 0
-
-PWN_recruit_hdistrib  11        
-0 0.303466913 0.183153627 0.261906146 0.135934791 0.115538523 0 0 0 0 0                     
-
+                        
 # Recruit location vertical distibutions. First entry for each vector refers to water              
 # column layer closest to the sediment and then up through the watercolumn to             
 # surface most layer on the extreme right (regardless of how many water layers are present)                   
@@ -13110,1048 +12225,6 @@ jack_b_WHT	0
 jack_b_CEP	0
 jack_b_PWN	0
 
-## Evolution related parameters
-flag_do_evolution     0        Whether do evolution (1) or not (0)                                      0
-flag_mult_grow_curves 0        Whether using mutiple growth curves not evolution per se (1) or not (0)  0        
-flag_bound_change     0        Whether evolution is effecting bound (1) or impact (0)                   0
-evol_stdev_range      2.0      Range of genotypes in terms of stdev                                     1-2
-max_rate_evol         0.0      Maximum evolutionary shift at any one point in time
-flag_inheritance      1        Flag indicating whether complex (0), simple (1) or straight (2) inheritance model used (1)
-
-
-trait_active_FPL     7
-0 0 0 0 0 0 0
-
-trait_active_FPS     7
-0 0 0 0 0 0 0
-
-trait_active_FPO     7
-0 0 0 0 0 0 0
-
-trait_active_FVD     7
-0 0 0 0 0 0 0
-
-trait_active_FVV     7
-0 0 0 0 0 0 0
-
-trait_active_FVS     7
-0 0 0 0 0 0 0
-
-trait_active_FVT     7
-0 0 0 0 0 0 0
-
-trait_active_FVO     7
-0 0 0 0 0 0 0
-
-trait_active_FVB     7
-0 0 0 0 0 0 0
-
-trait_active_FMM     7
-0 0 0 0 0 0 0
-
-trait_active_FMN     7
-0 0 0 0 0 0 0
-
-trait_active_FBP     7
-0 0 0 0 0 0 0
-
-trait_active_FDD     7
-0 0 0 0 0 0 0
-
-trait_active_FDS     7
-0 0 0 0 0 0 0
-
-trait_active_FDB     7
-0 0 0 0 0 0 0
-
-trait_active_FDC     7
-0 0 0 0 0 0 0
-
-trait_active_FDO     7
-0 0 0 0 0 0 0
-
-trait_active_FDE     7
-0 0 0 0 0 0 0
-
-trait_active_FDF     7
-0 0 0 0 0 0 0
-
-trait_active_FDP     7
-0 0 0 0 0 0 0
-
-trait_active_FDM     7
-0 0 0 0 0 0 0
-
-trait_active_SHD     7
-0 0 0 0 0 0 0
-
-trait_active_SHC     7
-0 0 0 0 0 0 0
-
-trait_active_SHP     7
-0 0 0 0 0 0 0
-
-trait_active_SHB     7
-0 0 0 0 0 0 0
-
-trait_active_SHR     7
-0 0 0 0 0 0 0
-
-trait_active_SSK     7
-0 0 0 0 0 0 0
-
-trait_active_SB      7
-0 0 0 0 0 0 0
-
-trait_active_SP      7
-0 0 0 0 0 0 0
-
-trait_active_REP     7
-0 0 0 0 0 0 0
-
-trait_active_PIN     7
-0 0 0 0 0 0 0
-
-trait_active_WDG     7
-0 0 0 0 0 0 0
-
-trait_active_WHB     7
-0 0 0 0 0 0 0
-
-trait_active_WHT     7
-0 0 0 0 0 0 0
-
-trait_active_WHS     7
-0 0 0 0 0 0 0
-
-trait_active_PB      7
-0 0 0 0 0 0 0
-
-trait_active_BB      7
-0 0 0 0 0 0 0
-
-trait_active_BO      7
-0 0 0 0 0 0 0
-
-trait_active_BD      7
-0 0 0 0 0 0 0
-
-trait_active_BC      7
-0 0 0 0 0 0 0
-
-trait_active_BFS     7
-0 0 0 0 0 0 0
-
-trait_active_BFD     7
-0 0 0 0 0 0 0
-
-trait_active_BFF     7
-0 0 0 0 0 0 0
-
-trait_active_BG     7
-0 0 0 0 0 0 0
-
-trait_active_BMS     7
-0 0 0 0 0 0 0
-
-trait_active_BMD     7
-0 0 0 0 0 0 0
-
-trait_active_BML     7
-0 0 0 0 0 0 0
-
-trait_active_CEP     7
-0 0 0 0 0 0 0
-
-trait_active_PWN     7
-0 0 0 0 0 0 0
-
-trait_active_PL      7
-0 0 0 0 0 0 0
-
-trait_active_PS      7
-0 0 0 0 0 0 0
-
-trait_active_DF      7
-0 0 0 0 0 0 0
-
-trait_active_MA      7
-0 0 0 0 0 0 0
-
-trait_active_MB      7
-0 0 0 0 0 0 0
-
-trait_active_SG      7
-0 0 0 0 0 0 0
-
-trait_active_ZG      7
-0 0 0 0 0 0 0
-
-trait_active_ZL      7
-0 0 0 0 0 0 0
-
-trait_active_ZM      7
-0 0 0 0 0 0 0
-
-trait_active_ZS      7
-0 0 0 0 0 0 0
-
-# Max proportional shift in phenotypes with aging
-max_prop_shift_FPS     0.0                                                                                0.0
-max_prop_shift_FPL     0.0                                                                                0.0
-max_prop_shift_FPO     0.0                                                                                0.0
-max_prop_shift_FVD     0.0                                                                                0.0
-max_prop_shift_FVV     0.0                                                                                0.0
-max_prop_shift_FVS     0.0                                                                                0.0
-max_prop_shift_FVT     0.0                                                                                0.0
-max_prop_shift_FVO     0.0                                                                                0.0
-max_prop_shift_FVB     0.0                                                                                0.0
-max_prop_shift_FMM     0.0                                                                                0.0
-max_prop_shift_FMN     0.0                                                                                0.0
-max_prop_shift_FBP     0.0                                                                                0.0
-max_prop_shift_FDD     0.0                                                                                0.0
-max_prop_shift_FDS     0.0                                                                                0.0
-max_prop_shift_FDB     0.0                                                                                0.0
-max_prop_shift_FDC     0.0                                                                                0.0
-max_prop_shift_FDO     0.0                                                                                0.0
-max_prop_shift_FDE     0.0                                                                                0.0
-max_prop_shift_FDF     0.0                                                                                0.0
-max_prop_shift_FDP     0.0                                                                                0.0
-max_prop_shift_FDM     0.0                                                                                0.0
-max_prop_shift_SHD     0.0                                                                                0.0
-max_prop_shift_SHC     0.0                                                                                0.0
-max_prop_shift_SHP     0.0                                                                                0.0
-max_prop_shift_SHB     0.0                                                                                0.0
-max_prop_shift_SHR     0.0                                                                                0.0
-max_prop_shift_SSK     0.0                                                                                0.0
-max_prop_shift_SB      0.0                                                                                0.0
-max_prop_shift_SP      0.0                                                                                0.0
-max_prop_shift_REP     0.0                                                                                0.0
-max_prop_shift_PIN     0.0                                                                                0.0
-max_prop_shift_WDG     0.0                                                                                0.0
-max_prop_shift_WHB     0.0                                                                                0.0
-max_prop_shift_WHT     0.0                                                                                0.0
-max_prop_shift_WHS     0.0                                                                                0.0
-max_prop_shift_PB      0.0                                                                                0.0
-max_prop_shift_BB      0.0                                                                                0.0
-max_prop_shift_BO      0.0                                                                                0.0
-max_prop_shift_BD      0.0                                                                                0.0
-max_prop_shift_BC      0.0                                                                                0.0
-max_prop_shift_BFS     0.0                                                                                0.0
-max_prop_shift_BFD     0.0                                                                                0.0
-max_prop_shift_BFF     0.0                                                                                0.0
-max_prop_shift_BG      0.0                                                                                0.0
-max_prop_shift_BMS     0.0                                                                                0.0
-max_prop_shift_BMD     0.0                                                                                0.0
-max_prop_shift_BML     0.0                                                                                0.0
-max_prop_shift_CEP     0.0                                                                                0.0
-max_prop_shift_PWN     0.0                                                                                0.0
-max_prop_shift_PL      0.0                                                                                0.0
-max_prop_shift_PS      0.0                                                                                0.0
-max_prop_shift_DF      0.0                                                                                0.0
-max_prop_shift_MA      0.0                                                                                0.0
-max_prop_shift_MB      0.0                                                                                0.0
-max_prop_shift_SG      0.0                                                                                0.0
-max_prop_shift_ZG      0.0                                                                                0.0
-max_prop_shift_ZL      0.0                                                                                0.0
-max_prop_shift_ZM      0.0                                                                                0.0
-max_prop_shift_ZS      0.0                                                                                0.0
-
-# Level of inheritance
-inheritance_FPS     0.0                                                                                0.0
-inheritance_FPL     0.0                                                                                0.0
-inheritance_FPO     0.0                                                                                0.0
-inheritance_FVD     0.0                                                                                0.0
-inheritance_FVV     0.0                                                                                0.0
-inheritance_FVS     0.0                                                                                0.0
-inheritance_FVT     0.0                                                                                0.0
-inheritance_FVO     0.0                                                                                0.0
-inheritance_FVB     0.0                                                                                0.0
-inheritance_FMM     0.0                                                                                0.0
-inheritance_FMN     0.0                                                                                0.0
-inheritance_FBP     0.0                                                                                0.0
-inheritance_FDD     0.0                                                                                0.0
-inheritance_FDS     0.0                                                                                0.0
-inheritance_FDB     0.0                                                                                0.0
-inheritance_FDC     0.0                                                                                0.0
-inheritance_FDO     0.0                                                                                0.0
-inheritance_FDE     0.0                                                                                0.0
-inheritance_FDF     0.0                                                                                0.0
-inheritance_FDP     0.0                                                                                0.0
-inheritance_FDM     0.0                                                                                0.0
-inheritance_SHD     0.0                                                                                0.0
-inheritance_SHC     0.0                                                                                0.0
-inheritance_SHP     0.0                                                                                0.0
-inheritance_SHB     0.0                                                                                0.0
-inheritance_SHR     0.0                                                                                0.0
-inheritance_SSK     0.0                                                                                0.0
-inheritance_SB      0.0                                                                                0.0
-inheritance_SP      0.0                                                                                0.0
-inheritance_REP     0.0                                                                                0.0
-inheritance_PIN     0.0                                                                                0.0
-inheritance_WDG     0.0                                                                                0.0
-inheritance_WHB     0.0                                                                                0.0
-inheritance_WHT     0.0                                                                                0.0
-inheritance_WHS     0.0                                                                                0.0
-inheritance_PB      0.0                                                                                0.0
-inheritance_BB      0.0                                                                                0.0
-inheritance_BO      0.0                                                                                0.0
-inheritance_BD      0.0                                                                                0.0
-inheritance_BC      0.0                                                                                0.0
-inheritance_BFS     0.0                                                                                0.0
-inheritance_BFD     0.0                                                                                0.0
-inheritance_BFF     0.0                                                                                0.0
-inheritance_BG      0.0                                                                                0.0
-inheritance_BMS     0.0                                                                                0.0
-inheritance_BMD     0.0                                                                                0.0
-inheritance_BML     0.0                                                                                0.0
-inheritance_CEP     0.0                                                                                0.0
-inheritance_PWN     0.0                                                                                0.0
-inheritance_PL      0.0                                                                                0.0
-inheritance_PS      0.0                                                                                0.0
-inheritance_DF      0.0                                                                                0.0
-inheritance_MA      0.0                                                                                0.0
-inheritance_MB      0.0                                                                                0.0
-inheritance_SG      0.0                                                                                0.0
-inheritance_ZG      0.0                                                                                0.0
-inheritance_ZL      0.0                                                                                0.0
-inheritance_ZM      0.0                                                                                0.0
-inheritance_ZS      0.0                                                                                0.0
-
-# Level of trait variance
-trait_variance_FPS     0.0                                                                                0.0
-trait_variance_FPL     0.0                                                                                0.0
-trait_variance_FPO     0.0                                                                                0.0
-trait_variance_FVD     0.0                                                                                0.0
-trait_variance_FVV     0.0                                                                                0.0
-trait_variance_FVS     0.0                                                                                0.0
-trait_variance_FVT     0.0                                                                                0.0
-trait_variance_FVO     0.0                                                                                0.0
-trait_variance_FVB     0.0                                                                                0.0
-trait_variance_FMM     0.0                                                                                0.0
-trait_variance_FMN     0.0                                                                                0.0
-trait_variance_FBP     0.0                                                                                0.0
-trait_variance_FDD     0.0                                                                                0.0
-trait_variance_FDS     0.0                                                                                0.0
-trait_variance_FDB     0.0                                                                                0.0
-trait_variance_FDC     0.0                                                                                0.0
-trait_variance_FDO     0.0                                                                                0.0
-trait_variance_FDE     0.0                                                                                0.0
-trait_variance_FDF     0.0                                                                                0.0
-trait_variance_FDP     0.0                                                                                0.0
-trait_variance_FDM     0.0                                                                                0.0
-trait_variance_SHD     0.0                                                                                0.0
-trait_variance_SHC     0.0                                                                                0.0
-trait_variance_SHP     0.0                                                                                0.0
-trait_variance_SHB     0.0                                                                                0.0
-trait_variance_SHR     0.0                                                                                0.0
-trait_variance_SSK     0.0                                                                                0.0
-trait_variance_SB      0.0                                                                                0.0
-trait_variance_SP      0.0                                                                                0.0
-trait_variance_REP     0.0                                                                                0.0
-trait_variance_PIN     0.0                                                                                0.0
-trait_variance_WDG     0.0                                                                                0.0
-trait_variance_WHB     0.0                                                                                0.0
-trait_variance_WHT     0.0                                                                                0.0
-trait_variance_WHS     0.0                                                                                0.0
-trait_variance_PB      0.0                                                                                0.0
-trait_variance_BB      0.0                                                                                0.0
-trait_variance_BO      0.0                                                                                0.0
-trait_variance_BD      0.0                                                                                0.0
-trait_variance_BC      0.0                                                                                0.0
-trait_variance_BFS     0.0                                                                                0.0
-trait_variance_BFD     0.0                                                                                0.0
-trait_variance_BFF     0.0                                                                                0.0
-trait_variance_BG      0.0                                                                                0.0
-trait_variance_BMS     0.0                                                                                0.0
-trait_variance_BMD     0.0                                                                                0.0
-trait_variance_BML     0.0                                                                                0.0
-trait_variance_CEP     0.0                                                                                0.0
-trait_variance_PWN     0.0                                                                                0.0
-trait_variance_PL      0.0                                                                                0.0
-trait_variance_PS      0.0                                                                                0.0
-trait_variance_DF      0.0                                                                                0.0
-trait_variance_MA      0.0                                                                                0.0
-trait_variance_MB      0.0                                                                                0.0
-trait_variance_SG      0.0                                                                                0.0
-trait_variance_ZG      0.0                                                                                0.0
-trait_variance_ZL      0.0                                                                                0.0
-trait_variance_ZM      0.0                                                                                0.0
-trait_variance_ZS      0.0                                                                                0.0
-
-# Minimum level of trait variance (i.e. what the variance can decline to as evolution occurs dynamically)
-min_trait_variance_FPS     0.0                                                                                0.0
-min_trait_variance_FPL     0.0                                                                                0.0
-min_trait_variance_FPO     0.0                                                                                0.0
-min_trait_variance_FVD     0.0                                                                                0.0
-min_trait_variance_FVV     0.0                                                                                0.0
-min_trait_variance_FVS     0.0                                                                                0.0
-min_trait_variance_FVT     0.0                                                                                0.0
-min_trait_variance_FVO     0.0                                                                                0.0
-min_trait_variance_FVB     0.0                                                                                0.0
-min_trait_variance_FMM     0.0                                                                                0.0
-min_trait_variance_FMN     0.0                                                                                0.0
-min_trait_variance_FBP     0.0                                                                                0.0
-min_trait_variance_FDD     0.0                                                                                0.0
-min_trait_variance_FDS     0.0                                                                                0.0
-min_trait_variance_FDB     0.0                                                                                0.0
-min_trait_variance_FDC     0.0                                                                                0.0
-min_trait_variance_FDO     0.0                                                                                0.0
-min_trait_variance_FDE     0.0                                                                                0.0
-min_trait_variance_FDF     0.0                                                                                0.0
-min_trait_variance_FDP     0.0                                                                                0.0
-min_trait_variance_FDM     0.0                                                                                0.0
-min_trait_variance_SHD     0.0                                                                                0.0
-min_trait_variance_SHC     0.0                                                                                0.0
-min_trait_variance_SHP     0.0                                                                                0.0
-min_trait_variance_SHB     0.0                                                                                0.0
-min_trait_variance_SHR     0.0                                                                                0.0
-min_trait_variance_SSK     0.0                                                                                0.0
-min_trait_variance_SB      0.0                                                                                0.0
-min_trait_variance_SP      0.0                                                                                0.0
-min_trait_variance_REP     0.0                                                                                0.0
-min_trait_variance_PIN     0.0                                                                                0.0
-min_trait_variance_WDG     0.0                                                                                0.0
-min_trait_variance_WHB     0.0                                                                                0.0
-min_trait_variance_WHT     0.0                                                                                0.0
-min_trait_variance_WHS     0.0                                                                                0.0
-min_trait_variance_PB      0.0                                                                                0.0
-min_trait_variance_BB      0.0                                                                                0.0
-min_trait_variance_BO      0.0                                                                                0.0
-min_trait_variance_BD      0.0                                                                                0.0
-min_trait_variance_BC      0.0                                                                                0.0
-min_trait_variance_BFS     0.0                                                                                0.0
-min_trait_variance_BFD     0.0                                                                                0.0
-min_trait_variance_BFF     0.0                                                                                0.0
-min_trait_variance_BG      0.0                                                                                0.0
-min_trait_variance_BMS     0.0                                                                                0.0
-min_trait_variance_BMD     0.0                                                                                0.0
-min_trait_variance_BML     0.0                                                                                0.0
-min_trait_variance_CEP     0.0                                                                                0.0
-min_trait_variance_PWN     0.0                                                                                0.0
-min_trait_variance_PL      0.0                                                                                0.0
-min_trait_variance_PS      0.0                                                                                0.0
-min_trait_variance_DF      0.0                                                                                0.0
-min_trait_variance_MA      0.0                                                                                0.0
-min_trait_variance_MB      0.0                                                                                0.0
-min_trait_variance_SG      0.0                                                                                0.0
-min_trait_variance_ZG      0.0                                                                                0.0
-min_trait_variance_ZL      0.0                                                                                0.0
-min_trait_variance_ZM      0.0                                                                                0.0
-min_trait_variance_ZS      0.0                                                                                0.0
-
-
-flag_benthos_sediment_link 0  flag indicating whether growth of benthos is scaled based on bottom types (1) or not (0)
-flag_competing_epiff 0
-flag_invert_biohab 0
-
-#flag indicating which refugia model to use
-# refuge_model option: 0 = none, 1 = original, 2 is rugosity related
-flag_refuge_model 1
-
-#flag indicating which rugosity model to use
-# rugosity_model option: 0 = none, 1 = mechanistic, 2 is an empirical relationship from Blackwood 
-flag_rugosity_model 0
-
-RugCover_Coefft    1.4613
-RugCover_Const     0.0475
-RugCover_Cap       4
-
-min_rugosity 1
-max_rugosity 5
-
-flag_georugosity 0
-
-# Bozec model for rugosity
-rugosity_const 1.2    # was 0.88 from Bozec et al 2014 but to allow for box wide effects this has been retuned here.
-
-
-flag_move_habdepend	   1  setting it to 0 means that habitat is not considered when doing movement, it will still be considering in feeding etc
-
-FPS_rec_HabDepend    0         small planktivores recruitment dependent on demersal habitat: 0 = no, 0 = yes   0
-FPL_rec_HabDepend    0         large planktivores recruitment dependent on demersal habitat: 0 = no, 0 = yes   0
-FBG_rec_HabDepend    0         grenadier recruitment dependent on demersal habitat: 0 = no, 0 = yes   0
-FVD_rec_HabDepend    0         deep piscivorous fish recruit depend. on demersal habitat: 0 = no, 0 = yes  0
-FBM_rec_HabDepend    0         banded morwong recruitment depend on demersal habitat: 0 = no, 0 = yes  0
-FVS_rec_HabDepend    0         shallow pisciv. fish recruitment dependent on demersal habitat: 0 = no, 0 = yes 0
-FVT_rec_HabDepend    0         tropical pisciv. fish depend. on demersal habitat: 0 = no, 0 = yes  0
-FFH_rec_HabDepend    0         flathead recruitment dependent on demersal habitat: 0 = no, 0 = yes           0
-FDR_rec_HabDepend    0         demersal reef fish recruitment dependent on demersal habitat: 0 = no, 0 = yes    0
-FMM_rec_HabDepend    0         migratory mesopelag. depend. on demersal habitat: 0 = no, 0 = yes   0
-FMN_rec_HabDepend    0         non-mig. mesopelag. depend. on demersal habitat: 0 = no, 0 = yes    0
-FBP_rec_HabDepend    0         benthopelagic recruitment dependent on demersal habitat: 0 = no, 0 = yes        0
-FDD_rec_HabDepend    0         deep demersal fish recruitment dependent on demersal habitat: 0 = no, 0 = yes   0
-FDS_rec_HabDepend    0         shallow demersal fish depend. on demersal habitat: 0 = no, 0 = yes  0
-FHC_rec_HabDepend    0         herring cale recruitment dependent on demersal habitat: 0 = no, 0 = yes   0
-FBW_rec_HabDepend    0         blue throat wrasse recruitment dependent on demersal habitat: 0 = no, 0 = yes  0
-FSN_rec_HabDepend    0         pink snapper recruitment dependent on demersal habitat: 0 = no, 0 = yes   0
-FDH_rec_HabDepend    0         herbivorous demersal recruitment dependent on demersal habitat: 0 = no, 0 = yes 0
-FWT_rec_HabDepend    0         warehou recruitment dependent on demersal habitat: 0 = no, 0 = yes   0
-FDM_rec_HabDepend    0         miscell. demersal recruitment dependent on demersal habitat: 0 = no, 0 = yes    0
-FDT_rec_HabDepend    0         territorial demersal recruitment dependent on demersal habitat: 0 = no, 0 = yes   0
-FST_rec_HabDepend    0         striped tuna recruitment dependent on demersal habitat: 0 = no, 0 = yes   0
-SHD_rec_HabDepend    0         demersal sharks recruitment dependent on demersal habitat: 0 = no, 0 = yes      0
-SHS_rec_HabDepend    0         dogshark recruitment dependent on demersal habitat: 0 = no, 0 = yes              0
-SHP_rec_HabDepend    0         pelagic sharks recruitment dependent on demersal habitat: 0 = no, 0 = yes       0
-SHG_rec_HabDepend    0         green-eye dogfish recruitment dependent on demersal habitat: 0 = no, 0 = yes          0
-SHR_rec_HabDepend    0         gummy shark recruitment dependent on demersal habitat: 0 = no, 0 = yes           0
-SSK_rec_HabDepend    0         skates and rays recruitment dependent on demersal habitat: 0 = no, 0 = yes      0
-SB_rec_HabDepend     0         seabirds recruitment dependent on demersal habitat: 0 = no, 0 = yes             0
-BGU_rec_HabDepend    0         urchin recruitment dependent on demersal habitat: 0 = no, 0 = yes             0
-PIN_rec_HabDepend    0         pinnipeds recruitment dependent on demersal habitat: 0 = no, 0 = yes            0
-BGA_rec_HabDepend    0         abalone recruitment dependent on demersal habitat: 0 = no, 0 = yes             0
-BRL_rec_HabDepend    0         lobster recruitment dependent on demersal habitat: 0 = no, 0 = yes              0
-WHB_rec_HabDepend    0         baleen whales recruitment dependent on demersal habitat: 0 = no, 0 = yes        0
-WHS_rec_HabDepend    0         small toothed whales recruitment dependent on demersal habitat: 0 = no, 0 = yes 0
-WHT_rec_HabDepend    0         toothed whales recruitment dependent on demersal habitat: 0 = no, 0 = yes       0
-CEP_rec_HabDepend    0         cephalopod recruitment dependent on demersal habitat: 0 = no, 0 = yes 0
-PWN_rec_HabDepend    0         prawn recruitment dependent on demersal habitat: 0 = no, 0 = yes       0
-
-
-
-#Added by Bec Gorton 28th May 2015
-min_pH_PL 0
-min_pH_PS 0
-min_pH_DF 0
-min_pH_MA 0
-min_pH_MB 0
-min_pH_SG 0
-min_pH_ZG 0
-min_pH_ZL 0
-min_pH_ZM 0
-min_pH_ZS 0
-min_pH_FPS 0
-min_pH_FPL 0
-min_pH_FPO 0
-min_pH_FVD 0
-min_pH_FVV 0
-min_pH_FVS 0
-min_pH_FVT 0
-min_pH_FVO 0
-min_pH_FVB 0
-min_pH_FMM 0
-min_pH_FMN 0
-min_pH_FBP 0
-min_pH_FDD 0
-min_pH_FDS 0
-min_pH_FDB 0
-min_pH_FDC 0
-min_pH_FDO 0
-min_pH_FDE 0
-min_pH_FDF 0
-min_pH_FDP 0
-min_pH_FDM 0
-min_pH_SHD 0
-min_pH_SHC 0
-min_pH_SHP 0
-min_pH_SHB 0
-min_pH_SHR 0
-min_pH_SSK 0
-min_pH_SB 0
-min_pH_SP 0
-min_pH_REP 0
-min_pH_PIN 0
-min_pH_WDG 0
-min_pH_WHB 0
-min_pH_WHT 0
-min_pH_WHS 0
-min_pH_PB 0
-min_pH_BB 0
-min_pH_BO 0
-min_pH_BD 0
-min_pH_BC 0
-min_pH_BFS 0
-min_pH_BFD 0
-min_pH_BFF 0
-min_pH_BG 0
-min_pH_BMS 0
-min_pH_BMD 0
-min_pH_BML 0
-min_pH_CEP 0
-min_pH_PWN 0
-
-max_pH_PL 0
-max_pH_PS 0
-max_pH_DF 0
-max_pH_MA 0
-max_pH_MB 0
-max_pH_SG 0
-max_pH_ZG 0
-max_pH_ZL 0
-max_pH_ZM 0
-max_pH_ZS 0
-max_pH_FPS 0
-max_pH_FPL 0
-max_pH_FPO 0
-max_pH_FVD 0
-max_pH_FVV 0
-max_pH_FVS 0
-max_pH_FVT 0
-max_pH_FVO 0
-max_pH_FVB 0
-max_pH_FMM 0
-max_pH_FMN 0
-max_pH_FBP 0
-max_pH_FDD 0
-max_pH_FDS 0
-max_pH_FDB 0
-max_pH_FDC 0
-max_pH_FDO 0
-max_pH_FDE 0
-max_pH_FDF 0
-max_pH_FDP 0
-max_pH_FDM 0
-max_pH_SHD 0
-max_pH_SHC 0
-max_pH_SHP 0
-max_pH_SHB 0
-max_pH_SHR 0
-max_pH_SSK 0
-max_pH_SB 0
-max_pH_SP 0
-max_pH_REP 0
-max_pH_PIN 0
-max_pH_WDG 0
-max_pH_WHB 0
-max_pH_WHT 0
-max_pH_WHS 0
-max_pH_PB 0
-max_pH_BB 0
-max_pH_BO 0
-max_pH_BD 0
-max_pH_BC 0
-max_pH_BFS 0
-max_pH_BFD 0
-max_pH_BFF 0
-max_pH_BG 0
-max_pH_BMS 0
-max_pH_BMD 0
-max_pH_BML 0
-max_pH_CEP 0
-max_pH_PWN 0
-
-pHmortstart_PL 0
-pHmortstart_PS 0
-pHmortstart_DF 0
-pHmortstart_MA 0
-pHmortstart_MB 0
-pHmortstart_SG 0
-pHmortstart_ZG 0
-pHmortstart_ZL 0
-pHmortstart_ZM 0
-pHmortstart_ZS 0
-pHmortstart_FPS 0
-pHmortstart_FPL 0
-pHmortstart_FPO 0
-pHmortstart_FVD 0
-pHmortstart_FVV 0
-pHmortstart_FVS 0
-pHmortstart_FVT 0
-pHmortstart_FVO 0
-pHmortstart_FVB 0
-pHmortstart_FMM 0
-pHmortstart_FMN 0
-pHmortstart_FBP 0
-pHmortstart_FDD 0
-pHmortstart_FDS 0
-pHmortstart_FDB 0
-pHmortstart_FDC 0
-pHmortstart_FDO 0
-pHmortstart_FDE 0
-pHmortstart_FDF 0
-pHmortstart_FDP 0
-pHmortstart_FDM 0
-pHmortstart_SHD 0
-pHmortstart_SHC 0
-pHmortstart_SHP 0
-pHmortstart_SHB 0
-pHmortstart_SHR 0
-pHmortstart_SSK 0
-pHmortstart_SB 0
-pHmortstart_SP 0
-pHmortstart_REP 0
-pHmortstart_PIN 0
-pHmortstart_WDG 0
-pHmortstart_WHB 0
-pHmortstart_WHT 0
-pHmortstart_WHS 0
-pHmortstart_PB 0
-pHmortstart_BB 0
-pHmortstart_BO 0
-pHmortstart_BD 0
-pHmortstart_BC 0
-pHmortstart_BFS 0
-pHmortstart_BFD 0
-pHmortstart_BFF 0
-pHmortstart_BG 0
-pHmortstart_BMS 0
-pHmortstart_BMD 0
-pHmortstart_BML 0
-pHmortstart_CEP 0
-pHmortstart_PWN 0
-
-pHmortA_PL 0
-pHmortA_PS 0
-pHmortA_DF 0
-pHmortA_MA 0
-pHmortA_MB 0
-pHmortA_SG 0
-pHmortA_ZG 0
-pHmortA_ZL 0
-pHmortA_ZM 0
-pHmortA_ZS 0
-pHmortA_FPS 0
-pHmortA_FPL 0
-pHmortA_FPO 0
-pHmortA_FVD 0
-pHmortA_FVV 0
-pHmortA_FVS 0
-pHmortA_FVT 0
-pHmortA_FVO 0
-pHmortA_FVB 0
-pHmortA_FMM 0
-pHmortA_FMN 0
-pHmortA_FBP 0
-pHmortA_FDD 0
-pHmortA_FDS 0
-pHmortA_FDB 0
-pHmortA_FDC 0
-pHmortA_FDO 0
-pHmortA_FDE 0
-pHmortA_FDF 0
-pHmortA_FDP 0
-pHmortA_FDM 0
-pHmortA_SHD 0
-pHmortA_SHC 0
-pHmortA_SHP 0
-pHmortA_SHB 0
-pHmortA_SHR 0
-pHmortA_SSK 0
-pHmortA_SB 0
-pHmortA_SP 0
-pHmortA_REP 0
-pHmortA_PIN 0
-pHmortA_WDG 0
-pHmortA_WHB 0
-pHmortA_WHT 0
-pHmortA_WHS 0
-pHmortA_PB 0
-pHmortA_BB 0
-pHmortA_BO 0
-pHmortA_BD 0
-pHmortA_BC 0
-pHmortA_BFS 0
-pHmortA_BFD 0
-pHmortA_BFF 0
-pHmortA_BG 0
-pHmortA_BMS 0
-pHmortA_BMD 0
-pHmortA_BML 0
-pHmortA_CEP 0
-pHmortA_PWN 0
-
-pHmortB_PL 0
-pHmortB_PS 0
-pHmortB_DF 0
-pHmortB_MA 0
-pHmortB_MB 0
-pHmortB_SG 0
-pHmortB_ZG 0
-pHmortB_ZL 0
-pHmortB_ZM 0
-pHmortB_ZS 0
-pHmortB_FPS 0
-pHmortB_FPL 0
-pHmortB_FPO 0
-pHmortB_FVD 0
-pHmortB_FVV 0
-pHmortB_FVS 0
-pHmortB_FVT 0
-pHmortB_FVO 0
-pHmortB_FVB 0
-pHmortB_FMM 0
-pHmortB_FMN 0
-pHmortB_FBP 0
-pHmortB_FDD 0
-pHmortB_FDS 0
-pHmortB_FDB 0
-pHmortB_FDC 0
-pHmortB_FDO 0
-pHmortB_FDE 0
-pHmortB_FDF 0
-pHmortB_FDP 0
-pHmortB_FDM 0
-pHmortB_SHD 0
-pHmortB_SHC 0
-pHmortB_SHP 0
-pHmortB_SHB 0
-pHmortB_SHR 0
-pHmortB_SSK 0
-pHmortB_SB 0
-pHmortB_SP 0
-pHmortB_REP 0
-pHmortB_PIN 0
-pHmortB_WDG 0
-pHmortB_WHB 0
-pHmortB_WHT 0
-pHmortB_WHS 0
-pHmortB_PB 0
-pHmortB_BB 0
-pHmortB_BO 0
-pHmortB_BD 0
-pHmortB_BC 0
-pHmortB_BFS 0
-pHmortB_BFD 0
-pHmortB_BFF 0
-pHmortB_BG 0
-pHmortB_BMS 0
-pHmortB_BMD 0
-pHmortB_BML 0
-pHmortB_CEP 0
-pHmortB_PWN 0
-
-pHmortmid_PL 0
-pHmortmid_PS 0
-pHmortmid_DF 0
-pHmortmid_MA 0
-pHmortmid_MB 0
-pHmortmid_SG 0
-pHmortmid_ZG 0
-pHmortmid_ZL 0
-pHmortmid_ZM 0
-pHmortmid_ZS 0
-pHmortmid_FPS 0
-pHmortmid_FPL 0
-pHmortmid_FPO 0
-pHmortmid_FVD 0
-pHmortmid_FVV 0
-pHmortmid_FVS 0
-pHmortmid_FVT 0
-pHmortmid_FVO 0
-pHmortmid_FVB 0
-pHmortmid_FMM 0
-pHmortmid_FMN 0
-pHmortmid_FBP 0
-pHmortmid_FDD 0
-pHmortmid_FDS 0
-pHmortmid_FDB 0
-pHmortmid_FDC 0
-pHmortmid_FDO 0
-pHmortmid_FDE 0
-pHmortmid_FDF 0
-pHmortmid_FDP 0
-pHmortmid_FDM 0
-pHmortmid_SHD 0
-pHmortmid_SHC 0
-pHmortmid_SHP 0
-pHmortmid_SHB 0
-pHmortmid_SHR 0
-pHmortmid_SSK 0
-pHmortmid_SB 0
-pHmortmid_SP 0
-pHmortmid_REP 0
-pHmortmid_PIN 0
-pHmortmid_WDG 0
-pHmortmid_WHB 0
-pHmortmid_WHT 0
-pHmortmid_WHS 0
-pHmortmid_PB 0
-pHmortmid_BB 0
-pHmortmid_BO 0
-pHmortmid_BD 0
-pHmortmid_BC 0
-pHmortmid_BFS 0
-pHmortmid_BFD 0
-pHmortmid_BFF 0
-pHmortmid_BG 0
-pHmortmid_BMS 0
-pHmortmid_BMD 0
-pHmortmid_BML 0
-pHmortmid_CEP 0
-pHmortmid_PWN 0
-
-intersp_depend_recruit_PL 0
-intersp_depend_recruit_PS 0
-intersp_depend_recruit_DF 0
-intersp_depend_recruit_MA 0
-intersp_depend_recruit_MB 0
-intersp_depend_recruit_SG 0
-intersp_depend_recruit_ZG 0
-intersp_depend_recruit_ZL 0
-intersp_depend_recruit_ZM 0
-intersp_depend_recruit_ZS 0
-intersp_depend_recruit_FPS 0
-intersp_depend_recruit_FPL 0
-intersp_depend_recruit_FPO 0
-intersp_depend_recruit_FVD 0
-intersp_depend_recruit_FVV 0
-intersp_depend_recruit_FVS 0
-intersp_depend_recruit_FVT 0
-intersp_depend_recruit_FVO 0
-intersp_depend_recruit_FVB 0
-intersp_depend_recruit_FMM 0
-intersp_depend_recruit_FMN 0
-intersp_depend_recruit_FBP 0
-intersp_depend_recruit_FDD 0
-intersp_depend_recruit_FDS 0
-intersp_depend_recruit_FDB 0
-intersp_depend_recruit_FDC 0
-intersp_depend_recruit_FDO 0
-intersp_depend_recruit_FDE 0
-intersp_depend_recruit_FDF 0
-intersp_depend_recruit_FDP 0
-intersp_depend_recruit_FDM 0
-intersp_depend_recruit_SHD 0
-intersp_depend_recruit_SHC 0
-intersp_depend_recruit_SHP 0
-intersp_depend_recruit_SHB 0
-intersp_depend_recruit_SHR 0
-intersp_depend_recruit_SSK 0
-intersp_depend_recruit_SB 0
-intersp_depend_recruit_SP 0
-intersp_depend_recruit_REP 0
-intersp_depend_recruit_PIN 0
-intersp_depend_recruit_WDG 0
-intersp_depend_recruit_WHB 0
-intersp_depend_recruit_WHT 0
-intersp_depend_recruit_WHS 0
-intersp_depend_recruit_PB 0
-intersp_depend_recruit_BB 0
-intersp_depend_recruit_BO 0
-intersp_depend_recruit_BD 0
-intersp_depend_recruit_BC 0
-intersp_depend_recruit_BFS 0
-intersp_depend_recruit_BFD 0
-intersp_depend_recruit_BFF 0
-intersp_depend_recruit_BG 0
-intersp_depend_recruit_BMS 0
-intersp_depend_recruit_BMD 0
-intersp_depend_recruit_BML 0
-intersp_depend_recruit_CEP 0
-intersp_depend_recruit_PWN 0
-
-
-intersp_depend_sp_PL 0
-intersp_depend_sp_PS 0
-intersp_depend_sp_DF 0
-intersp_depend_sp_MA 0
-intersp_depend_sp_MB 0
-intersp_depend_sp_SG 0
-intersp_depend_sp_ZG 0
-intersp_depend_sp_ZL 0
-intersp_depend_sp_ZM 0
-intersp_depend_sp_ZS 0
-intersp_depend_sp_FPS 0
-intersp_depend_sp_FPL 0
-intersp_depend_sp_FPO 0
-intersp_depend_sp_FVD 0
-intersp_depend_sp_FVV 0
-intersp_depend_sp_FVS 0
-intersp_depend_sp_FVT 0
-intersp_depend_sp_FVO 0
-intersp_depend_sp_FVB 0
-intersp_depend_sp_FMM 0
-intersp_depend_sp_FMN 0
-intersp_depend_sp_FBP 0
-intersp_depend_sp_FDD 0
-intersp_depend_sp_FDS 0
-intersp_depend_sp_FDB 0
-intersp_depend_sp_FDC 0
-intersp_depend_sp_FDO 0
-intersp_depend_sp_FDE 0
-intersp_depend_sp_FDF 0
-intersp_depend_sp_FDP 0
-intersp_depend_sp_FDM 0
-intersp_depend_sp_SHD 0
-intersp_depend_sp_SHC 0
-intersp_depend_sp_SHP 0
-intersp_depend_sp_SHB 0
-intersp_depend_sp_SHR 0
-intersp_depend_sp_SSK 0
-intersp_depend_sp_SB 0
-intersp_depend_sp_SP 0
-intersp_depend_sp_REP 0
-intersp_depend_sp_PIN 0
-intersp_depend_sp_WDG 0
-intersp_depend_sp_WHB 0
-intersp_depend_sp_WHT 0
-intersp_depend_sp_WHS 0
-intersp_depend_sp_PB 0
-intersp_depend_sp_BB 0
-intersp_depend_sp_BO 0
-intersp_depend_sp_BD 0
-intersp_depend_sp_BC 0
-intersp_depend_sp_BFS 0
-intersp_depend_sp_BFD 0
-intersp_depend_sp_BFF 0
-intersp_depend_sp_BG 0
-intersp_depend_sp_BMS 0
-intersp_depend_sp_BMD 0
-intersp_depend_sp_BML 0
-intersp_depend_sp_CEP 0
-intersp_depend_sp_PWN 0
-
-
-intersp_depend_scale_PL 0
-intersp_depend_scale_PS 0
-intersp_depend_scale_DF 0
-intersp_depend_scale_MA 0
-intersp_depend_scale_MB 0
-intersp_depend_scale_SG 0
-intersp_depend_scale_ZG 0
-intersp_depend_scale_ZL 0
-intersp_depend_scale_ZM 0
-intersp_depend_scale_ZS 0
-intersp_depend_scale_FPS 0
-intersp_depend_scale_FPL 0
-intersp_depend_scale_FPO 0
-intersp_depend_scale_FVD 0
-intersp_depend_scale_FVV 0
-intersp_depend_scale_FVS 0
-intersp_depend_scale_FVT 0
-intersp_depend_scale_FVO 0
-intersp_depend_scale_FVB 0
-intersp_depend_scale_FMM 0
-intersp_depend_scale_FMN 0
-intersp_depend_scale_FBP 0
-intersp_depend_scale_FDD 0
-intersp_depend_scale_FDS 0
-intersp_depend_scale_FDB 0
-intersp_depend_scale_FDC 0
-intersp_depend_scale_FDO 0
-intersp_depend_scale_FDE 0
-intersp_depend_scale_FDF 0
-intersp_depend_scale_FDP 0
-intersp_depend_scale_FDM 0
-intersp_depend_scale_SHD 0
-intersp_depend_scale_SHC 0
-intersp_depend_scale_SHP 0
-intersp_depend_scale_SHB 0
-intersp_depend_scale_SHR 0
-intersp_depend_scale_SSK 0
-intersp_depend_scale_SB 0
-intersp_depend_scale_SP 0
-intersp_depend_scale_REP 0
-intersp_depend_scale_PIN 0
-intersp_depend_scale_WDG 0
-intersp_depend_scale_WHB 0
-intersp_depend_scale_WHT 0
-intersp_depend_scale_WHS 0
-intersp_depend_scale_PB 0
-intersp_depend_scale_BB 0
-intersp_depend_scale_BO 0
-intersp_depend_scale_BD 0
-intersp_depend_scale_BC 0
-intersp_depend_scale_BFS 0
-intersp_depend_scale_BFD 0
-intersp_depend_scale_BFF 0
-intersp_depend_scale_BG 0
-intersp_depend_scale_BMS 0
-intersp_depend_scale_BMD 0
-intersp_depend_scale_BML 0
-intersp_depend_scale_CEP 0
-intersp_depend_scale_PWN 0
-
 flagstockingPL 0
 flagstockingPS 0
 flagstockingDF 0
@@ -14211,6 +12284,3 @@ flagstockingBMD 0
 flagstockingBML 0
 flagstockingCEP 0
 flagstockingPWN 0
-
-flag_do_var_express 0
-flag_evolvar_capped 0
