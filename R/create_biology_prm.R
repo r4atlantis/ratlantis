@@ -91,7 +91,12 @@
 #'   impact function, defaults to 1}
 #'  }
 #'  }
-#'  \item{needed for that are catch grazers:
+#'  #'  \item{optional for primary producers:
+#'  \itemize{
+#'  \item{lysis_rate} {only primary producers defaults to 0}
+#'  }
+#'  }
+#'  \item{optional for catch grazers:
 #'  \itemize{
 #'  \item{prop_catch_available}{Availabilty of catch to opportunistic catch grazers (thieves);
 #'  should be space separated vector with entry for each other functional group; defaults to 0}
@@ -185,6 +190,9 @@
 #'  defaults to 4 for fish, 3 for sharks, 3.5 for mammals, and 5 for birds}
 #'  \item{min_length_reproduction}{if not provided, uses mininum age at reproduction and
 #'  length weight relationship to estimate}
+#'  \item{ fish_respiration_scaling_coefficient} {scaling of respiration vs weight, defaults .025 for fish, .021
+#'  for mammals, .024 for birds, .014 for all others}
+#'  \item{ fish_respiration_scaling_exponent} {exponent of respiration vs weight, defaults to .8}
 #'  }
 #'  }
 #'  \item{optional for all vertebrates and stage structured inverts:
@@ -224,9 +232,23 @@
 #'   ; defaults to 999 here for filler value  }
 #'  }
 #'  }
-#'  \item{flag_X_day}
+#'  \item{optional for all consumers:
+#'  \itemize{
 #'  \item{active} { 2 = no preference, 1 = day, 0 = night,defaults to 2, needed
 #'  for all consumers}
+#'  \item {sediment_penetration_depth}{Depth consumers can dig into, are found down to in the sediment;
+#'  defaults to .1 for lg_inf; .1 for fish, mammals, sharks, and birds; and .001 for others }
+#'  \item {assimilation_efficiency_on_plants}{defaults to .5 for invertebrates,
+#'  .1 for vertebrates}
+#'  \item {assimilation_efficiency_on_live_food_and_carrion}{defaults to .5 for invertebrates,
+#'  .1 for vertebrates}
+#'  \item {assimilation_efficiency_on_labile_detritus}{defaults to .3 for bacteria,
+#'  .2 for filter feeders, and .1 for everything else}
+#'  \item {assimilation_efficiency_on_refractory_detritus}{defaults to .5 for bacteria,
+#'  .3 for filter feeders, and .1 for everything else}
+#'  }
+#'  }
+#'  \item{flag_X_day}
 #'  \item{k_tur} {defaults to .1}{needed for epibenthic groups that are mobile or infaunal (SM_INF, LG_INF, MOB_EP_OTHER)}
 #'  \item{k_irr} {defaults to 1, needed for epibenthic groups that are infaunal
 #'   (SM_INF, LG_INF))}
@@ -254,17 +276,14 @@
 #'  stocks considered (just one big group, should be vector the same length as number of stocks)}
 #'  \item{stock_availability_juv} {verts only, scalars to determine availablity for juveniles, defaults to 1
 #'  assuming no stocks considered (just one big group), should be vector the same length as number of stocks}
-#'  \item{kup} {defaults to 1 ,deals with gape limitations, required for all predators}
-#'  \item{kdep} {depth organisms can dig into, not needed for primary producers,
-#'  defaults to .1}
-#'  \item{ka} {scaling of respiration vs weight, defaults .025 for fish, .021
-#'  for mammals, .024 for birds, .014 for all others}
-#'  \item{kb} {exponent of respiration vs weight, defaults to .8}
-#'  \item{klys} {only primary producers defaults to 0}
-#'  \item{m_L} {tuning parameter, defaults to 0}
-#'  \item{m_Q} {tuning parameter, needed for all living except primary producers,
+#'  \item{linear_mortality} {tuning parameter needed for all living organisms, defaults to 0}
+#'  \item{juvenile_linear_mortality} {tuning parameter, defaults to 0, needed for stage-structured inverts and
+#'  vertebrates}
+#'  \item{quadratic_mortality} {tuning parameter, needed for all living except primary producers,
 #'  defaults to 0}
-#'  \item{m_S} {tuning parameter for phytobenthos and seagrass,defaults to 0}
+#'  \item{juvenile_quadratic_mortality} {tuning parameter, defaults to 0, needed for stage-structured inverts
+#'  and vertebrates}
+#'  \item{m_S} {tuning parameter for phytoben and seagrass,defaults to 0}
 #'  \item{m_Starve} {only for verts, defaults to 0}
 #'  \item{m_D} {tuning parameter, oxygen mortality due to ambient, inverts except
 #'  primary producers,tuning parameter, oxygen mortality due to depth, inverts except
@@ -926,15 +945,12 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("min_length_reprod" %!in% names(species_input)){
     species_input$min_length_reprod <- 0
   }
-  if("kdep" %!in% names(species_input)){
-    species_input$kdep <- .1
-  }
-  if("ka" %!in% names(species_input)){
-    species_input$ka <- NA
-    species_input$ka[species_input$atlantis_type == "fish"] <- .025
-    species_input$ka[species_input$atlantis_type == "mammal"] <- .021
-    species_input$ka[species_input$atlantis_type == "bird"] <- .024
-    species_input$ka[species_input$atlantis_type %!in% c("fish", "mammal", "bird")] <- .014
+  if(" fish_respiration_scaling_coefficient" %!in% names(species_input)){
+    species_input$ fish_respiration_scaling_coefficient <- NA
+    species_input$ fish_respiration_scaling_coefficient[species_input$atlantis_type == "fish"] <- .025
+    species_input$ fish_respiration_scaling_coefficient[species_input$atlantis_type == "mammal"] <- .021
+    species_input$ fish_respiration_scaling_coefficient[species_input$atlantis_type == "bird"] <- .024
+    species_input$ fish_respiration_scaling_coefficient[species_input$atlantis_type %!in% c("fish", "mammal", "bird")] <- .014
   }
 
   if("prefer_allocate_reserves" %!in% names(species_input)){
@@ -945,17 +961,11 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     species_input$prefer_allocate_reserves[species_input$atlantis_type == "bird"] <- 5
   }
 
-  if("kb" %!in% names(species_input)){
-    species_input$kb <- .8
+  if(" fish_respiration_scaling_exponent" %!in% names(species_input)){
+    species_input$ fish_respiration_scaling_exponent <- .8
   }
-  if("klys" %!in% names(species_input)){
-    species_input$klys <- 0
-  }
-  if("m_L" %!in% names(species_input)){
-    species_input$m_L <- 0
-  }
-  if("m_Q" %!in% names(species_input)){
-    species_input$m_Q <- 0
+  if("lysis_rate" %!in% names(species_input)){
+    species_input$lysis_rate <- 0
   }
   if("m_S" %!in% names(species_input)){
     species_input$m_S <- 0
@@ -1078,6 +1088,34 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
       "mammal", "bird")] <- 2
     species_input$num_of_stages[is.na(species_input$num_of_stages)] <- 1
   }
+  if("linear_mortality" %!in% names(species_input)){
+    species_input$linear_mortality <- NA
+    species_input$linear_mortality[species_input$atlantis_type %!in% c("lab_det",
+                                                                       "ref_det",
+                                                                       "carrion")] <- 0
+  }
+  if("juvenile_linear_mortality" %!in% names(species_input)){
+    species_input$juvenile_linear_mortality <- NA
+    species_input$juvenile_linear_mortality[species_input$atlantis_type %!in% c("lab_det",
+                                                                       "ref_det",
+                                                                       "carrion") &
+                                     species_input$num_of_stages > 1] <- 0
+  }
+
+  if("quadratic_mortality" %!in% names(species_input)){
+    species_input$quadratic_mortality <- NA
+    species_input$quadratic_mortality[species_input$atlantis_type %!in% c("lab_det",
+                                                                       "ref_det",
+                                                                       "carrion")] <- 0
+  }
+  if("juvenile_quadratic_mortality" %!in% names(species_input)){
+    species_input$juvenile_quadratic_mortality <- NA
+    species_input$juvenile_quadratic_mortality[species_input$atlantis_type %!in% c("lab_det",
+                                                                                "ref_det",
+                                                                                "carrion") &
+                                              species_input$num_of_stages > 1] <- 0
+  }
+
   if("num_of_stocks" %!in% names(species_input)){
     species_input$num_of_stocks <- 1
   }
@@ -1158,6 +1196,55 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     species_input$prop_catch_exploitable <- NA
     species_input$prop_catch_exploitable[species_input$catch_grazer == 1] <-
       gsub(",", rep = "", toString(rep(0,nrow(species_input))))
+  }
+  if("sediment_penetration_depth" %!in% names(species_input)){
+    species_input$sediment_penetration_depth <- NA
+    species_input$sediment_penetration_depth[species_input$atlantis_type %!in%
+                                               c("phytoben", "microphytobenthos",
+                                               "seagrass", "lg_phy", "sm_phy")] <- .001
+        species_input$sediment_penetration_depth[species_input$atlantis_type %in%
+                                               c("lg_inf")] <- .1
+    species_input$sediment_penetration_depth[species_input$atlantis_type %in%
+                                               c("fish", "mammal", "shark", "bird")] <- 1
+  }
+  if("assimilation_efficiency_on_plants" %!in% names(species_input)){
+    species_input$assimilation_efficiency_on_plants <- NA
+    species_input$assimilation_efficiency_on_plants[species_input$atlantis_type %!in%
+                                               c("phytoben", "microphytobenthos",
+                                                 "seagrass", "lg_phy", "sm_phy")] <- .5
+    species_input$assimilation_efficiency_on_plants[species_input$atlantis_type %in%
+                                               c("fish", "mammal", "shark", "bird")] <- .1
+  }
+
+  if("assimilation_efficiency_on_live_food_and_carrion" %!in% names(species_input)){
+    species_input$assimilation_efficiency_on_live_food_and_carrion <- NA
+    species_input$assimilation_efficiency_on_live_food_and_carrion[species_input$atlantis_type %!in%
+                                                      c("phytoben", "microphytobenthos",
+                                                        "seagrass", "lg_phy", "sm_phy")] <- .5
+    species_input$assimilation_efficiency_on_live_food_and_carrion[species_input$atlantis_type %in%
+                                                      c("fish", "mammal", "shark", "bird")] <- .1
+  }
+
+  if("assimilation_efficiency_on_labile_detritus" %!in% names(species_input)){
+    species_input$assimilation_efficiency_on_labile_detritus <- NA
+    species_input$assimilation_efficiency_on_labile_detritus[species_input$atlantis_type %!in%
+                                                      c("phytoben", "microphytobenthos",
+                                                        "seagrass", "lg_phy", "sm_phy")] <- .1
+    species_input$assimilation_efficiency_on_labile_detritus[species_input$atlantis_type %in%
+                                                      c("sed_ep_ff")] <- .2
+    species_input$assimilation_efficiency_on_labile_detritus[species_input$atlantis_type %in%
+                                                               c("pl_bact", "sed_bact")] <- .3
+  }
+
+  if("assimilation_efficiency_on_refractory_detritus" %!in% names(species_input)){
+    species_input$assimilation_efficiency_on_refractory_detritus <- NA
+    species_input$assimilation_efficiency_on_refractory_detritus[species_input$atlantis_type %!in%
+                                                               c("phytoben", "microphytobenthos",
+                                                                 "seagrass", "lg_phy", "sm_phy")] <- .1
+    species_input$assimilation_efficiency_on_refractory_detritus[species_input$atlantis_type %in%
+                                                               c("sed_ep_ff")] <- .3
+    species_input$assimilation_efficiency_on_refractory_detritus[species_input$atlantis_type %in%
+                                                               c("pl_bact", "sed_bact")] <- .5
   }
 
   #add index
@@ -1329,6 +1416,27 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
                 " ", species_input$salinity_sensitive[i],"\n", sep=""))
       cat(paste("salt_correction_",as.character(species_input$group_code[i]),
                 " ", species_input$salinity_correction_scalar[i],"\n", sep=""))
+
+      cat(paste("mQ_", as.character(species_input$group_code[i]), "_T15 ",
+                species_input$linear_mortality[i],"\n", sep="" ))
+
+      if(species_input$num_of_stages[i] > 1){
+        cat(paste("jmQ_", as.character(species_input$group_code[i]), "_T15 ",
+                  species_input$juvenile_linear_mortality[i],"\n", sep="" ))
+
+      }
+
+      cat(paste("mQ_", as.character(species_input$group_code[i]), "_T15 ",
+                species_input$quadratic_mortality[i],"\n", sep="" ))
+
+      if(species_input$num_of_stages[i] > 1){
+        cat(paste("jmL_", as.character(species_input$group_code[i]), "_T15 ",
+                  species_input$juvenile_quadratic_mortality[i],"\n", sep="" ))
+
+      }
+
+
+
     }
 
     #for all except pelagic bacteria
@@ -1403,6 +1511,20 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
                                        species_input$group_code[i] & mean_individual_morphology$AgeClass>0,"mum"])
       cat("\n")
     }
+
+
+      cat(paste("KDEP_", as.character(species_input$group_code[i]), " ",
+                species_input$sediment_penetration_depth[i],"\n", sep=""))
+
+      cat(paste("EPlant_", as.character(species_input$group_code[i]), " ",
+                species_input$assimilation_efficiency_on_plants[i],"\n", sep=""))
+
+      cat(paste("E_", as.character(species_input$group_code[i]), " ",
+                species_input$assimilation_efficiency_on_live_food_and_carrion[i],"\n", sep=""))
+      cat(paste("EDL_", as.character(species_input$group_code[i]), " ",
+                species_input$assimilation_efficiency_on_labile_detritus[i],"\n", sep=""))
+      cat(paste("EDR_", as.character(species_input$group_code[i]), " ",
+                species_input$assimilation_efficiency_on_refractory_detritus[i],"\n", sep=""))
     }
 
     #for all catch grazers
@@ -1435,6 +1557,8 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
                 species_input$KS[i], "\n", sep=""))
       cat(paste("KF_", as.character(species_input$group_code[i]), "_T15 ",
                 species_input$KS[i], "\n", sep=""))
+      cat(paste("KLYS_", as.character(species_input$group_code[i]), " ",
+                species_input$lysis_rate[i], "\n", sep=""))
     }
 
     #all except primary producers
@@ -1683,6 +1807,11 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     }else {cat(paste("min_li_mat ", as.character(species_input$group_code[i]), " ",
                      species_input$min_length_reproduction[i]), "\n", sep="")
     }
+
+    cat(paste("KA_", as.character(species_input$group_code[i]), " ",
+              species_input$fish_respiration_scaling_coefficient[i]), "\n", sep="")
+    cat(paste("KB_", as.character(species_input$group_code[i]), " ",
+              species_input$fish_respiration_scaling_exponent[i]), "\n", sep="")
 
        }
 
