@@ -23,8 +23,8 @@ working directory).}
  \item{mean_M}
  \item{max_age}
  \item {min_age_reprod}
- \item {mean_a}
- \item {mean_b}
+ \item {mean_a} {average coefficient from length-weight relationship}
+ \item {mean_b} {average exponent from length-weight relationship}
  \item {mean_Loo}
  \item {mean_K}
  \item {min_depth}
@@ -35,7 +35,6 @@ working directory).}
  \item{parental_care} {does the vertebrate group provides parental care for
   young until maturity; 0 = no, 1 = yes, -1 = semelparous so die after reproduction}
  \item{feed_while_spawning}{for vertebrates and age-structured inverts}
- \item{catch_grazer}
  \item{assessed}
  \item{cover}
  \item{silicon_dep}
@@ -45,11 +44,13 @@ working directory).}
  provided):
  \itemize{
  \item{num_of_age_classes}
+ \item{catch_grazer} {is the group an opportunistic catch grazers (thief)?
+ defaults to no = 0}
  \item{ca}
  \item{cb}
  \item{juv_eff}
  \item{adult_eff}
- \item{recruit_code} {flag recruit, needed for verts and stage structured invertebrates,
+ \item{recruit_group_code} {flag recruit, needed for verts and stage structured invertebrates,
 Vertebrate reproduction related flags. The flagrecruit entries refer to the recruitment function used.
 1=const, 2=dependent on prim producers (Chla), 3=Beverton-Holt, 4=lognormal, 5=dependent on all plankton
 groups not just Chla, 6=Bev-Holt with lognormal variation added, 7=Bev-Holt with encourage recovery
@@ -63,7 +64,7 @@ spawning, 13=forced timeseries of recruitment, defaults to  }
  \item{recover_mult}
  \item{recover_start}
  \item{PP}
- \item{needed for all living:
+ \item{optional for all living:
  \itemize{
  \item{flag_dem}{Preferred location trend (0 is top, 1 is demersal (?)));
  whether to weight vertical distributions towards surface or bottom layers
@@ -98,12 +99,31 @@ spawning, 13=forced timeseries of recruitment, defaults to  }
   impact function, defaults to 1}
  }
  }
+ \item{optional for primary producers:
+ \itemize{
+ \item{lysis_rate} {only primary producers defaults to 0}
+ }
+ }
+ \item{optional for macrophytes:
+ \itemize{
+ \item{extra_mortality_macrophytes} {due to scour or nutrient input for mar, defaults to 0}
+ }
+ }
+ \item{optional for catch grazers:
+ \itemize{
+ \item{prop_catch_available}{Availabilty of catch to opportunistic catch grazers (thieves);
+ should be space separated vector with entry for each other functional group; defaults to 0}
+ \item{prop_catch_exploitable}{How much of each catch is exploitable by opportunistic catch grazers (thieves);
+ should be space separated vector with entry for each other functional group; defaults to 0}
+ }
+ }
+
  \item{needed for all that horizontally migrate
  \itemize{
  \item{migrates_out_of_model} {defaults to 0, needed for all that horizontally
  migrate.  Maximum number of times juvenile OR adult stages must leave the
  model domain). For example if juvenile FVT leave once,but adults leave 3
-  times then enter 3 here.  Hard code assumes juvenile inverts do not leave model.}
+  times then enter 3 here.  Hard group_code assumes juvenile inverts do not leave model.}
  \item{migrates_out_times_ad} { Migration dates (days of the year) for adults of groups
  with stages or for pools moving out of model domain - must be as many entries in these arrays as there
  are in the flagjXXXMigrate entry for that group, separated by a space. Note
@@ -179,6 +199,13 @@ spawning, 13=forced timeseries of recruitment, defaults to  }
  \item{swim_speed}{defaults to 12500 for fish and sharks, 15000 for birds, 20000 for sharks mammals}
  \item{min_move_temp} {defaults to minimum temp in model}
  \item{max_move_temp} {defaults to maximum temp in model}
+ \item{prefer_allocate_reserves}{Vertebrate preference for rebuilding reserves over structure;
+ defaults to 4 for fish, 3 for sharks, 3.5 for mammals, and 5 for birds}
+ \item{min_length_reproduction}{if not provided, uses mininum age at reproduction and
+ length weight relationship to estimate}
+ \item{ fish_respiration_scaling_coefficient} {scaling of respiration vs weight, defaults .025 for fish, .021
+ for mammals, .024 for birds, .014 for all others}
+ \item{ fish_respiration_scaling_exponent} {exponent of respiration vs weight, defaults to .8}
  }
  }
  \item{optional for all vertebrates and stage structured inverts:
@@ -190,9 +217,51 @@ spawning, 13=forced timeseries of recruitment, defaults to  }
  item{flag_temp_sensitive}{Temperature sensitivty; defaults to 0 = no, 1 = yes}
  }
  }
- \item{flag_X_day}
+ #'  \item{optional for all predators:
+ \itemize{
+ \item{gape_lower_limit} {defaults to .01, lower Gape size for predators, to determine available prey fish groups.  Required for all
+ predators}
+ \item{gape_upper_limit} {defaults to 1, upper Gape size for predators, to determine available prey fish groups.  Required for all
+ predators}
+ \item{population_refuge}{Seed bank/population refuge based on consumer intake, if available
+  food below this feeding slows/stops so can't eat out all food. only used by
+   model for predcase =4; defaults to 1 for filler}
+  \item{saturation_level}{Saturation levels for consumer food intake. only used by model for predcase = 4; defaults to 1 for filler}
+  \item{search_volume_invert}{Search volume for invertebrate predators -
+  used by size specific Holling type III (predcase 5); defaults to 999 here for filler value  }
+  \item{search_volume_coefficient}{Search volume coefficient for vertebrate predators-
+  used by size specific Holling type III (predcase 5);
+  defaults to planktivorous = 2, pelagic piscivores = 5, demersal/reef = 1}
+  \item{search_volume_exponent}{Search volume exponenent for vertebrate predators -
+  used by size specific Holling type III (predcase 5);
+  defaults to .5 for birds and sharks and .35 for mammals and fish}
+  \item{handling_time_invert}{handling time for invertebrate predators -
+  used by size specific Holling type III (predcase 5); defaults to 999 here for filler value  }
+  \item{handling_time_coefficient}{handling time coefficient for vertebrate predators-
+  used by size specific Holling type III (predcase 5);
+  ; defaults to 999 here for filler value  }
+  \item{handling_time_exponent}{handling time exponenent for vertebrate predators -
+  used by size specific Holling type III (predcase 5);
+  ; defaults to 999 here for filler value  }
+ }
+ }
+ \item{optional for all consumers:
+ \itemize{
  \item{active} { 2 = no preference, 1 = day, 0 = night,defaults to 2, needed
  for all consumers}
+ \item {sediment_penetration_depth}{Depth consumers can dig into, are found down to in the sediment;
+ defaults to .1 for lg_inf; .1 for fish, mammals, sharks, and birds; and .001 for others }
+ \item {assimilation_efficiency_on_plants}{defaults to .5 for invertebrates,
+ .1 for vertebrates}
+ \item {assimilation_efficiency_on_live_food_and_carrion}{defaults to .5 for invertebrates,
+ .1 for vertebrates}
+ \item {assimilation_efficiency_on_labile_detritus}{defaults to .3 for bacteria,
+ .2 for filter feeders, and .1 for everything else}
+ \item {assimilation_efficiency_on_refractory_detritus}{defaults to .5 for bacteria,
+ .3 for filter feeders, and .1 for everything else}
+ }
+ }
+ \item{flag_X_day}
  \item{k_tur} {defaults to .1}{needed for epibenthic groups that are mobile or infaunal (SM_INF, LG_INF, MOB_EP_OTHER)}
  \item{k_irr} {defaults to 1, needed for epibenthic groups that are infaunal
   (SM_INF, LG_INF))}
@@ -209,40 +278,31 @@ spawning, 13=forced timeseries of recruitment, defaults to  }
  \item{wc} {defaults to .01}
  \item{turned_on} {defaults to 1 (=yes, 0=no)  groups$IsTurnedOn=1}
  \item{overwinter} {defaults to 0}
- \item{max}{pace restrictions for basal (epibenthic and some infauna) groups, defaults to
+ \item{max}{space restrictions for basal (epibenthic and some infauna) groups, defaults to
  5000}
  \item{low}{Threshold spatial factors for filter feeders if using ERSEM formulation, Little space limitation (pop too small) }
  \item{thresh}{Threshold spatial factors for filter feeders if using ERSEM formulation }
  \item{sat}{Threshold spatial factors for filter feeders if using ERSEM formulation, Interference to uptake due to shading }
  \item{home_range} {defaults to 1, all epxcept primary producers}
  \item{overlap} {defaults to 1, all except primary producers}
- \item{p_stock} {verts only, scalars to determine, defaults to 1 assuming no
- stocks considered (just one big group)}
- \item{p_stock_juv} {verts only, scalars to determine, defaults to 1
- assuming no stocks considered (just one big group)}
- \item{kup} {defaults to 1 ,deals with gape limitations, required for all predators}
- \item{klp} {defaults to .01, deals with gape limitations, required for all
- predators}
- \item{pr} {preference for rebuilding, defaults to 3 for fish and mammals,
- 5 for bird and fish}
- \item{min_length_reprod} {defaults to 0}
- \item{kdep} {depth organisms can dig into, not needed for primary producers,
- defaults to .1}
- \item{ka} {scaling of respiration vs weight, defaults .025 for fish, .021
- for mammals, .024 for birds, .014 for all others}
- \item{kb} {exponent of respiration vs weight, defaults to .8}
- \item{klys} {only primary producers defaults to 0}
- \item{m_L} {tuning parameter, defaults to 0}
- \item{m_Q} {tuning parameter, needed for all living except primary producers,
+ \item{stock_availability} {verts only, scalars to determine stock availablity for adults, defaults to 1 assuming no
+ stocks considered (just one big group, should be vector the same length as number of stocks)}
+ \item{stock_availability_juv} {verts only, scalars to determine availablity for juveniles, defaults to 1
+ assuming no stocks considered (just one big group), should be vector the same length as number of stocks}
+ \item{linear_mortality} {tuning parameter needed for all living organisms, defaults to 0}
+ \item{juvenile_linear_mortality} {tuning parameter, defaults to 0, needed for stage-structured inverts and
+ vertebrates}
+ \item{quadratic_mortality} {tuning parameter, needed for all living except primary producers,
  defaults to 0}
- \item{m_S} {tuning parameter for phytobenthos and seagrass,defaults to 0}
- \item{m_Starve} {only for verts, defaults to 0}
- \item{m_D} {tuning parameter, oxygen mortality due to ambient, inverts except
- primary producers,tuning parameter, oxygen mortality due to depth, inverts except
+ \item{juvenile_quadratic_mortality} {tuning parameter, defaults to 0, needed for stage-structured inverts
+ and vertebrates}
+ \item{starve} {mortality due to starvation, only for vertebrates, defaults to 0}
+ \item{oxygen_depth_mortality} {tuning parameter, Half oxygen mortality depth, inverts except
  primary producers,defaults to .001}
- \item{m_O} {defaults to .01}
- \item{k_02} {lethal oxgyen level, inverts except primary producers,defaults to .5}
- \item{k_O2_lim} {defults to 10}
+ \item{ambient_oxygen_mortality} {tuning parameter, oxygen dependent mortality due to ambient conditions, inverts except
+ primary producers, defaults to .01}
+ \item{lethal_oxygen_level} {lethal oxgyen level, inverts except primary producers,defaults to .5}
+ \item{limiting_oxygen_level} {limiting oxygen level, inverts except primary producers, defults to 10}
  \item(min_02){verts only, defaults to 0}
  \item{mS_FD} {verts only, defaults to 0 (mortatlity due to fish not included
  in model), value for each season, separated by a space (defaults to 0)}
@@ -278,8 +338,8 @@ spawning, 13=forced timeseries of recruitment, defaults to  }
  \item{KN} {default to 0, Primary producer nutrient requirements   }
  \item{num_of_genotypes}{defaults to 1}
  \item{num_of_stages}{defaults to 2 for vertebrates, 1 for others}
- \item{number_of_stocks}{defaults to 1}
- \item{number_of_spawns}{{defaults to 1}}
+ \item{num_of_stocks}{defaults to 1}
+ \item{num_of_spawns}{{defaults to 1}}
  \item{num_of_age_class_size}{set by internal function using maximum age and
  number of cohorts}
  \item{cultured}{defaults to 0}
