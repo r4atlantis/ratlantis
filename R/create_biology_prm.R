@@ -198,6 +198,8 @@
 #'  \item{ fish_respiration_scaling_coefficient} {scaling of respiration vs weight, defaults .025 for fish, .021
 #'  for mammals, .024 for birds, .014 for all others}
 #'  \item{ fish_respiration_scaling_exponent} {exponent of respiration vs weight, defaults to .8}
+#'  \item{minimim_oxygen_vertebrates}{minimum tolerated oxygen level for age
+#'  structured groups (typically vertebrates)}
 #'  }
 #'  }
 #'  \item{optional for all vertebrates and stage structured inverts:
@@ -209,7 +211,15 @@
 #'  item{flag_temp_sensitive}{Temperature sensitivty; defaults to 0 = no, 1 = yes}
 #'  }
 #'  }
-#'  #'  \item{optional for all predators:
+#'  \item{optional for all fish:
+#'  \itemize{
+#'  \item{other_fish_mortality} {mortality due to fish not included
+#'  in model), value per quarter, separated by a space; defaults to 0}
+#'  \item{mammal_bird_mortality} {Static seabird and mammal induced mortality of
+#'  each fish group, per quarter, separated by a space; defaults to 0}
+#'  }
+#'  }
+#'  \item{optional for all predators:
 #'  \itemize{
 #'  \item{gape_lower_limit} {defaults to .01, lower Gape size for predators, to determine available prey fish groups.  Required for all
 #'  predators}
@@ -253,7 +263,6 @@
 #'  .3 for filter feeders, and .1 for everything else}
 #'  }
 #'  }
-#'  \item{flag_X_day}
 #'  \item{k_tur} {defaults to .1}{needed for epibenthic groups that are mobile or infaunal (SM_INF, LG_INF, MOB_EP_OTHER)}
 #'  \item{k_irr} {defaults to 1, needed for epibenthic groups that are infaunal
 #'   (SM_INF, LG_INF))}
@@ -281,11 +290,8 @@
 #'  stocks considered (just one big group, should be vector the same length as number of stocks)}
 #'  \item{stock_availability_juv} {verts only, scalars to determine availablity for juveniles, defaults to 1
 #'  assuming no stocks considered (just one big group), should be vector the same length as number of stocks}
-#'  \item{linear_mortality} {tuning parameter needed for all living organisms, defaults to 0}
-#'  \item{juvenile_linear_mortality} {tuning parameter, defaults to 0, needed for stage-structured inverts and
-#'  vertebrates}
-#'  \item{quadratic_mortality} {tuning parameter, needed for all living except primary producers,
-#'  defaults to 0}
+#'  \item{linear_mortality} {tuning parameter needed for each stage for all living organisms; defaults to 0}
+#'  \item{quadratic_mortality} {tuning parameter needed for each stage for all living organisms; defaults to 0}
 #'  \item{juvenile_quadratic_mortality} {tuning parameter, defaults to 0, needed for stage-structured inverts
 #'  and vertebrates}
 #'  \item{starve} {mortality due to starvation, only for vertebrates, defaults to 0}
@@ -295,8 +301,7 @@
 #'  primary producers, defaults to .01}
 #'  \item{lethal_oxygen_level} {lethal oxgyen level, inverts except primary producers,defaults to .5}
 #'  \item{limiting_oxygen_level} {limiting oxygen level, inverts except primary producers, defults to 10}
-#'  \item(min_02){verts only, defaults to 0}
-#'  \item{mS_FD} {verts only, defaults to 0 (mortatlity due to fish not included
+#'  \item{other_fish_mortality} {fish only, defaults to 0 (mortatlity due to fish not included
 #'  in model), value for each season, separated by a space (defaults to 0)}
 #'  \item{mS_SB} {verts only, defaults to 0 (mortatlity due to birds and mammals
 #'  not included in model), value for each season, separated by a space}
@@ -366,7 +371,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
                                flag_data_csv){
 
   species_input <- read.csv(paste(species_data_location, "/", species_info_groups_csv, sep=""),
-    header = T)
+    header = T, strip.white = T)
 
   flag_data <- read.csv(paste(species_data_location, "/",flag_data_csv, sep=""),
                         header=T)
@@ -982,7 +987,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("oxygen_depth_mortality" %!in% names(species_input)){
     species_input$oxygen_depth_mortality <- NA
     species_input$oxygen_depth_mortality[species_input$atlantis_type %!in%
-                                           C("fish", "mammal", "bird", "shark",
+                                           c("fish", "mammal", "bird", "shark",
                                              "microphytobenthos", "phytoben",
                                              "sm_phy", "lg_phy", "dinoflag",
                                              "seagrass")] <- 0.001
@@ -990,7 +995,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("ambient_oxygen_mortality" %!in% names(species_input)){
     species_input$ambient_oxygen_mortality <- NA
     species_input$ambient_oxygen_mortality[species_input$atlantis_type %!in%
-                                           C("fish", "mammal", "bird", "shark",
+                                           c("fish", "mammal", "bird", "shark",
                                              "microphytobenthos", "phytoben",
                                              "sm_phy", "lg_phy", "dinoflag",
                                              "seagrass")] <- 0.01
@@ -999,7 +1004,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("lethal_oxygen_level" %!in% names(species_input)){
     species_input$lethal_oxygen_level <- NA
     species_input$lethal_oxygen_level[species_input$atlantis_type %!in%
-                                             C("fish", "mammal", "bird", "shark",
+                                             c("fish", "mammal", "bird", "shark",
                                                "microphytobenthos", "phytoben",
                                                "sm_phy", "lg_phy", "dinoflag",
                                                "seagrass")] <- 0.5
@@ -1008,18 +1013,30 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("limiting_oxygen_level" %!in% names(species_input)){
     species_input$limiting_oxygen_level <- NA
     species_input$limiting_oxygen_level[species_input$atlantis_type %!in%
-                                        C("fish", "mammal", "bird", "shark",
+                                        c("fish", "mammal", "bird", "shark",
                                           "microphytobenthos", "phytoben",
                                           "sm_phy", "lg_phy", "dinoflag",
                                           "seagrass")] <- 10
   }
 
-   if("min_O2" %!in% names(species_input)){
-    species_input$min_O2 <- 0
+   if("minimim_oxygen_vertebrates" %!in% names(species_input)){
+     species_input$minimim_oxygen_vertebrates <-NA
+     species_input$minimim_oxygen_vertebrates[species_input$atlantis_type %in%
+                                                c("fish", "mammal", "bird",
+                                                  "shark")] <- 0
+   }
+
+  if("other_fish_mortality" %!in% names(species_input)){
+    species_input$other_fish_mortality <-NA
+    species_input$other_fish_mortality[species_input$atlantis_type %in%
+                                               c("fish")] <-  c("0 0 0 0")
   }
-  if("mS_FD" %!in% names(species_input)){
-    species_input$mS_FD <- c("0, 0, 0, 0")
+  if("mammal_bird_mortality" %!in% names(species_input)){
+    species_input$mammal_bird_mortality <-NA
+    species_input$mammal_bird_mortality[species_input$atlantis_type %in%
+                                         c("fish")] <-  c("0 0 0 0")
   }
+
   if("mS_SB" %!in% names(species_input)){
     species_input$mS_SB <-  c("0, 0, 0, 0")
   }
@@ -1119,31 +1136,27 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   }
   if("linear_mortality" %!in% names(species_input)){
     species_input$linear_mortality <- NA
-    species_input$linear_mortality[species_input$atlantis_type %!in% c("lab_det",
-                                                                       "ref_det",
-                                                                       "carrion")] <- 0
-  }
-  if("juvenile_linear_mortality" %!in% names(species_input)){
-    species_input$juvenile_linear_mortality <- NA
-    species_input$juvenile_linear_mortality[species_input$atlantis_type %!in% c("lab_det",
-                                                                       "ref_det",
-                                                                       "carrion") &
-                                     species_input$num_of_stages > 1] <- 0
+    for (i in 1:nrow (species_input)){
+      if(species_input$atlantis_type[i] %!in% c("lab_det",
+                                             "ref_det",
+                                             "carrion")){
+    species_input$linear_mortality[i] <- toString(rep(0, species_input$num_of_stages[i]))
+      }
+    }
   }
 
   if("quadratic_mortality" %!in% names(species_input)){
     species_input$quadratic_mortality <- NA
-    species_input$quadratic_mortality[species_input$atlantis_type %!in% c("lab_det",
-                                                                       "ref_det",
-                                                                       "carrion")] <- 0
+    for (i in 1:nrow (species_input)){
+      if(species_input$atlantis_type[i] %!in% c("lab_det",
+                                                "ref_det",
+                                                "carrion")){
+        species_input$quadratic_mortality[i] <- toString(rep(0, species_input$num_of_stages[i]))
+      }
+    }
   }
-  if("juvenile_quadratic_mortality" %!in% names(species_input)){
-    species_input$juvenile_quadratic_mortality <- NA
-    species_input$juvenile_quadratic_mortality[species_input$atlantis_type %!in% c("lab_det",
-                                                                                "ref_det",
-                                                                                "carrion") &
-                                              species_input$num_of_stages > 1] <- 0
-  }
+
+
   if("extra_mortality_macrophytes" %!in% names(species_input)){
     species_input$extra_mortality_macrophytes <- NA
     species_input$extra_mortality_macrophytes[species_input$atlantis_type %!in% c("phytoben", "seagrass")] <- 0
@@ -1296,7 +1309,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   mean_individual_morphology$group_code <- toupper(mean_individual_morphology$group_code)
 
     #PRODUCE GROUPS FILE
-  groups <- data.frame("group_code" = species_input$group_code,
+  groups <- data.frame("Code" = species_input$group_code,
                        "Index" = species_input$index,
                        "IsTurnedOn" = species_input$turned_on,
                        "Name" = species_input$group_code,
@@ -1450,25 +1463,27 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
       cat(paste("salt_correction_",as.character(species_input$group_code[i]),
                 " ", species_input$salinity_correction_scalar[i],"\n", sep=""))
 
-      cat(paste("mL_", as.character(species_input$group_code[i]), "_T15 ",
-                species_input$linear_mortality[i],"\n", sep="" ))
 
       if(species_input$num_of_stages[i] > 1){
-        cat(paste("jmL_", as.character(species_input$group_code[i]), "_T15 ",
-                  species_input$juvenile_linear_mortality[i],"\n", sep="" ))
-
+        cat(paste(as.character(species_input$group_code[i]), "_mL ", species_input$num_of_stages[i],
+                  "\n", sep=""))
+        cat(paste(species_input$linear_mortality[i], "\n", sep="" ))
+      } else {
+      cat(paste(as.character(species_input$group_code[i]), "_mL ",
+                        species_input$linear_mortality[i],sep="" ))
       }
 
-      cat(paste("mQ_", as.character(species_input$group_code[i]), "_T15 ",
-                species_input$quadratic_mortality[i],"\n", sep="" ))
 
       if(species_input$num_of_stages[i] > 1){
-        cat(paste("jmQ_", as.character(species_input$group_code[i]), "_T15 ",
-                  species_input$juvenile_quadratic_mortality[i],"\n", sep="" ))
-
+        cat(paste(as.character(species_input$group_code[i]), "_mQ ", species_input$num_of_stages[i],
+                  "\n", sep=""))
+        cat(paste(species_input$quadratic_mortality[i], "\n", sep="" ))
+      } else {
+        cat(paste(as.character(species_input$group_code[i]), "_mQ ",
+                  species_input$quadratic_mortality[i],sep="" ))
       }
 
-      if(species_input$atlantis_type[i] %in% c("phytoben", "seagrass")){
+    if(species_input$atlantis_type[i] %in% c("phytoben", "seagrass")){
         cat(paste("mS_", as.character(species_input$group_code[i]), "_T15 ",
                   species_input$extra_mortality_macrophyte[i],"\n", sep="" ))
       }
@@ -1478,7 +1493,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
                   species_input$starve[i],"\n", sep="" ))
       }
 
-      if(species_input$atlantis_type[i] %!in% C("fish", "mammal", "bird", "shark",
+      if(species_input$atlantis_type[i] %!in% c("fish", "mammal", "bird", "shark",
            "microphytobenthos", "phytoben", "sm_phy", "lg_phy", "dinoflag",
            "seagrass")){
         cat(paste("mD_", as.character(species_input$group_code[i]), " ",
@@ -1617,6 +1632,18 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
                 species_input$KS[i], "\n", sep=""))
       cat(paste("KLYS_", as.character(species_input$group_code[i]), " ",
                 species_input$lysis_rate[i], "\n", sep=""))
+    }
+
+    #for all fish
+    if(species_input$atlantis_type[i] %in% c("fish")){
+      cat(paste("mS_FD", as.character(species_input$group_code[i]), " 4",
+                "\n", sep=""))
+      cat(as.character(species_input$other_fish_mortality[i]))
+      cat("\n")
+      cat(paste("mS_SB", as.character(species_input$group_code[i]), " 4",
+                "\n", sep=""))
+      cat(as.character(species_input$mammal_bird_mortality[i]))
+      cat("\n")
     }
 
     #all except primary producers
@@ -1851,26 +1878,27 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     cat(paste("pR_", as.character(species_input$group_code[i]), " ",
               species_input$prefer_allocate_reserves[i],"\n", sep=""))
 
-    cat(paste("li_a ", as.character(species_input$group_code[i]), " ",
+    cat(paste("li_a_", as.character(species_input$group_code[i]), " ",
               species_input$mean_a[i],"\n", sep=""))
-    cat(paste("li_b ", as.character(species_input$group_code[i]), " ",
+    cat(paste("li_b_", as.character(species_input$group_code[i]), " ",
               species_input$mean_b[i],"\n", sep=""))
 
     if("min_length_reproduction" %!in% names(species_input)){
-      cat(paste("min_li_mat ", as.character(species_input$group_code[i]), " ",
+      cat(paste("min_li_mat_", as.character(species_input$group_code[i]), " ",
                 minnona(mean_individual_morphology[mean_individual_morphology$group_code
                                                    == species_input$group_code[i] &
                                                      mean_individual_morphology$Prop_Adult > 0,
                                                    "length"]),"\n", sep=""))
-    }else {cat(paste("min_li_mat ", as.character(species_input$group_code[i]), " ",
+    }else {cat(paste("min_li_mat_", as.character(species_input$group_code[i]), " ",
                      species_input$min_length_reproduction[i]), "\n", sep="")
     }
 
     cat(paste("KA_", as.character(species_input$group_code[i]), " ",
-              species_input$fish_respiration_scaling_coefficient[i]), "\n", sep="")
+              species_input$fish_respiration_scaling_coefficient[i], "\n", sep=""))
     cat(paste("KB_", as.character(species_input$group_code[i]), " ",
-              species_input$fish_respiration_scaling_exponent[i]), "\n", sep="")
-
+              species_input$fish_respiration_scaling_exponent[i], "\n", sep=""))
+    cat(paste(as.character(species_input$group_code[i]), "_min_O2 ",
+              species_input$minimim_oxygen_vertebrates[i], "\n", sep = ""))
        }
 
     cat("\n")

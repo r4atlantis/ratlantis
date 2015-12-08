@@ -4016,3 +4016,43 @@ need to add reef switch for vla, switch to 1
 
 for vlb #Cam: basic rules are pelagic or mobile piscivore and planktivores: 0.4
 #          sedentary or demersal 0.2; mid 0.3; birds and oceanic turtles 0.5
+
+
+# Seabird sloppy feeding
+#needs to be set after we make food web                       
+FSBDR_FPS  0.2  Proportion of seabird catch of small planktivores lost 0.2                
+FSBDR_FPL  0.2  Proportion of seabird catch of large planktivores lost 0.2                
+FSBDR_FPO  0.05  Proportion of seabird catch of other planktivores lost 0.2                
+FSBDR_FVS  0.05  Proportion of seabird catch of shallow piscivores lost 0.05                
+FSBDR_FVT  0.05  Proportion of seabird catch of tropical piscivores lost 0.05                
+FSBDR_FVB  0.05  Proportion of seabird catch of other piscivores lost 0.05                
+FSBDR_FDS  0.05  Proportion of seabird catch of shallow demersals lost 0.05                
+FSBDR_FDB  0.05  Proportion of seabird catch of other shallow demersal lost 0.15               
+FSBDR_FDE  0.15  Proportion of seabird catch of herbivorous demersal lost 0.15                
+FSBDR_FVD 0
+FSBDR_FVV 0
+FSBDR_FVO 0
+FSBDR_FMM 0
+FSBDR_FMN 0
+FSBDR_FBP 0
+FSBDR_FDD 0
+FSBDR_FDM 0
+FSBDR_FDB 0
+FSBDR_FDP 0
+FSBDR_FDC 0
+FSBDR_FDO 0
+FSBDR_FDF 0
+FSBDR_SB  0
+FSBDR_SP 0
+FSBDR_SHB 0
+FSBDR_SHP 0
+FSBDR_SHD 0
+FSBDR_SHC 0
+FSBDR_SHR 0
+FSBDR_SSK 0
+FSBDR_REP 0
+FSBDR_WDG 0
+FSBDR_PIN 0
+FSBDR_WHT 0
+FSBDR_WHS 0
+FSBDR_WHB 0
