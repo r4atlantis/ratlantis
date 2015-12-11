@@ -42,20 +42,10 @@
 #'  \item{cb}
 #'  \item{juv_eff}
 #'  \item{adult_eff}
-#'  \item{recruit_group_code} {flag recruit, needed for verts and stage structured invertebrates,
-#' Vertebrate reproduction related flags. The flagrecruit entries refer to the recruitment function used.
-#' 1=const, 2=dependent on prim producers (Chla), 3=Beverton-Holt, 4=lognormal, 5=dependent on all plankton
-#' groups not just Chla, 6=Bev-Holt with lognormal variation added, 7=Bev-Holt with encourage recovery
-#' 8=Bev-Holt with perscribed recovery, 9=Ricker, 10=Standard Bev-Holt (no explict use of spawn included)
-#' 11=pupping/calving linearly dependent on maternal condition, 12=pupping/calving a fixed number per adult
-#' spawning, 13=forced timeseries of recruitment, defaults to  }
 #'  \item{predator} {1 = yes, 0 = no, defaults based trophic level, needed for all
 #'  groups}
 #'  \item{jack_a}
 #'  \item{jack_b}
-#'  \item{recover_mult}
-#'  \item{recover_start}
-#'  \item{PP}
 #'  \item{optional for all living:
 #'  \itemize{
 #'  \item{flag_dem}{Preferred location trend (0 is top, 1 is demersal (?)));
@@ -200,6 +190,14 @@
 #'  \item{ fish_respiration_scaling_exponent} {exponent of respiration vs weight, defaults to .8}
 #'  \item{minimim_oxygen_vertebrates}{minimum tolerated oxygen level for age
 #'  structured groups (typically vertebrates)}
+#'  \item{spawning_formulation_constant} {constant in spawning formulation, defaults to guild values}
+#'  \item{spawning_formulation_fraction} {defaults to guild values}
+#'  \item{stock_recruitment_scalar} {recruitment parameter for diffferent stocks of verts, defaults to 1
+#'  for all stocks}
+#'  \item{recovery_multiplier}{Recruitment modifiers to encourage recovery of
+#'  stocks, defaults to 1}
+#'  \item{recover_start_date}{day when recovery will start, only used when recruit_group_code
+#'  is set to 8, defaults to 999 for dummy value}
 #'  }
 #'  }
 #'  \item{optional for all vertebrates and stage structured inverts:
@@ -209,6 +207,27 @@
 #'  \item{local_recruit} {defaults to 0,
 #'  1 = demersal and piscivorous fish recruit at parental locations, 0 = independent distribution}
 #'  item{flag_temp_sensitive}{Temperature sensitivty; defaults to 0 = no, 1 = yes}
+#'  \item{recruit_group_code} {flag recruit, needed for verts and stage structured invertebrates,
+#' Vertebrate reproduction related flags. The flagrecruit entries refer to the recruitment function used.
+#' 1=const, 2=dependent on prim producers (Chla), 3=Beverton-Holt, 4=lognormal, 5=dependent on all plankton
+#' groups not just Chla, 6=Bev-Holt with lognormal variation added, 7=Bev-Holt with encourage recovery
+#' 8=Bev-Holt with perscribed recovery, 9=Ricker, 10=Standard Bev-Holt (no explict use of spawn included)
+#' 11=pupping/calving linearly dependent on maternal condition, 12=pupping/calving a fixed number per adult
+#' spawning, 13=forced timeseries of recruitment, defaults to  12 for birds and mammal, 10 for fish and sharks}
+#' \item{recruits_per_individual_per_year}{needed for vertebrates and stage-structured invertebrates, but only used for
+#' groups with recruit_group_code = 10 or 12; defaults to 1 (stable population) for each stock; represents biomass of new recruit for
+#' stage-structured inverts}
+#' \item{primary_production_impact_recruitment}{Coefficient relating primary
+#'  production to recruitment, linked to recruit_group_code 2, defaults to
+#'  999 for dummy value that is not used}
+#'  \item{ricker_alpha}{parameter needed for recruit_group_code 9, defaults to
+#'  999 here for dummy value}
+#'  \item{ricker_beta}{parameter needed for recruit_group_code 9, defaults to
+#'  999 here for dummy value}
+#'  \item{beverton_holt_alpha}{parameter needed for recruit_group_code 3, defaults to
+#'  999 here for dummy value}
+#'  \item{beverton_holt_beta}{parameter needed for recruit_group_code 3, defaults to
+#'  999 here for dummy value}
 #'  }
 #'  }
 #'  \item{optional for all fish:
@@ -261,6 +280,13 @@
 #'  .2 for filter feeders, and .1 for everything else}
 #'  \item {assimilation_efficiency_on_refractory_detritus}{defaults to .5 for bacteria,
 #'  .3 for filter feeders, and .1 for everything else}
+#'  \item{food_lost_to_detritus}{Fraction of non-assimilated lost to detritus, defaults to 0}
+#'  \item{labile_detritus_lost_to_detritus}{Fraction of non-assimilate from
+#'  labile detrital food lost to detritu, defaults to 0}
+#'  \item{refractory_detritus_lost_to_detritus}{Fraction of non-assimilate from
+#'   refractory detrital food lost to detritus, defaults to 0}
+#'  \item{mortality_contribution_to_detritus}{Fraction of mortality that goes to
+#'  detritus, defaults to .3}
 #'  }
 #'  }
 #'  \item{k_tur} {defaults to .1}{needed for epibenthic groups that are mobile or infaunal (SM_INF, LG_INF, MOB_EP_OTHER)}
@@ -305,11 +331,7 @@
 #'  in model), value for each season, separated by a space (defaults to 0)}
 #'  \item{mS_SB} {verts only, defaults to 0 (mortatlity due to birds and mammals
 #'  not included in model), value for each season, separated by a space}
-#'  \item{KSPA} {defaults to guild values, verts only}
-#'  \item{FSM} {ddefaults to guild values, verts only}
-#'  \item{FSP} {ddefaults to guild values, verts only}
-#'  \item{rec_stock} {recruitment param for diffferent stocks of verts, defaults to 1
-#'  (no stocks)}
+#'  \item{FSP} {defaults to guild values, verts only}
 #'  \item{min_spawn_temp} {defaults to minimum temp in model}
 #'  \item{max_spawn_temp} {defaults to maximum temp in model}
 #'  \item{stock_struct} {verts only, defaults to 1, input as number for each box
@@ -437,7 +459,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   #for vertebrates, determine age class where maturity starts
   for (i in 1:nrow(species_input)){
     if(species_input$atlantis_type[i] %in% c("bird", "fish", "mammal", "shark")){
-      species_input$mat_FUNC[i]=ceiling(species_input$min_age_reprod[i]/species_input$ypa_FUNC[i])
+      species_input$mat_FUNC[i]=min(ceiling(species_input$min_age_reprod[i]/species_input$ypa_FUNC[i]), species_input$num_of_age_classes[i])
     }
     #set maturity at 0 for inverts, other that are just pools
     else{species_input$mat_FUNC[i]=0}
@@ -692,17 +714,20 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     species_input$jack_b <- 0
   }
 
-  if( "recover_mult" %!in% names(species_input)){
-    species_input$recover_mult <- 1
+  if( "recovery_multiplier" %!in% names(species_input)){
+    species_input$recovery_multiplier <- NA
+    species_input$recovery_multiplier[species_input$atlantis_type %in% c("fish",
+                                                                         "mammal",
+                                                                         "bird", "shark")] <- 999
   }
 
-  if( "recover_start" %!in% names(species_input)){
-    species_input$recover_mult <- 10000000
+  if( "recover_start_date" %!in% names(species_input)){
+    species_input$recover_start_date <- NA
+    species_input$recover_start_date[species_input$atlantis_type %in% c("fish",
+                                                                         "mammal",
+                                                                         "bird", "shark")] <- 999
   }
 
-  if( "PP" %!in% names(species_input)){
-    species_input$PP <-2000
-  }
 
   if( "flag_dem" %!in% names(species_input)){
     species_input$flag_dem <-1
@@ -1040,14 +1065,30 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("mS_SB" %!in% names(species_input)){
     species_input$mS_SB <-  c("0, 0, 0, 0")
   }
-  if("KSPA" %!in% names(species_input)){
-    species_input$KSPA <- 0
+  if("spawning_formulation_constant" %!in% names(species_input)){
+    species_input$spawning_formulation_constant <- NA
+    species_input$spawning_formulation_constant[species_input$atlantis_type == "shark"] <- 2763.3
+    species_input$spawning_formulation_constant[species_input$atlantis_type == "fish"  &
+                                                  species_input$TL_final <= 2.5] <- 31.93
+    species_input$spawning_formulation_constant[species_input$atlantis_type == "fish"  &
+                                                  species_input$TL_final > 2.5] <- 569.65
+    species_input$spawning_formulation_constant[species_input$atlantis_type == "bird"] <- 193.9
+    species_input$spawning_formulation_constant[species_input$atlantis_type == "mammal"] <- 38376.9
   }
+
+  if("spawning_formulation_fraction" %!in% names(species_input)){
+    species_input$spawning_formulation_fraction <- NA
+    species_input$spawning_formulation_fraction[species_input$atlantis_type == "shark"] <- .27
+    species_input$spawning_formulation_fraction[species_input$atlantis_type == "fish"  &
+                                                  species_input$TL_final <= 2.5] <- .246
+    species_input$spawning_formulation_fraction[species_input$atlantis_type == "fish"  &
+                                                  species_input$TL_final > 2.5] <- .425
+    species_input$spawning_formulation_fraction[species_input$atlantis_type == "bird"] <- .2
+    species_input$spawning_formulation_fraction[species_input$atlantis_type == "mammal"] <- .16
+  }
+
   if("FSP" %!in% names(species_input)){
     species_input$FSP <- 0
-  }
-  if("rec_stock" %!in% names(species_input)){
-    species_input$rec_stock <- 1
   }
   if("min_spawn_temp" %!in% names(species_input)){
     species_input$min_spawn_temp <- MinTemp
@@ -1165,6 +1206,48 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
   if("num_of_stocks" %!in% names(species_input)){
     species_input$num_of_stocks <- 1
   }
+
+  if("stock_recruitment_scalar" %!in% names(species_input)){
+    species_input$stock_recruitment_scalar <- NA
+    for (i in 1:nrow(species_input)){
+      if(species_input$atlantis_type[i] %in% c("fish",
+                                               "mammal", "bird", "shark")){
+        species_input$stock_recruitment_scalar[i] <- toString(rep(1, species_input$num_of_stocks[i]))
+      }
+    }
+  }
+
+  if("recruits_per_individual_per_year" %!in% names(species_input)){
+    species_input$recruits_per_individual_per_year <- NA
+    for(i in 1:nrow(species_input)){
+      if(is.na(species_input$recruit_group_code[i]) == F){
+    species_input$recruits_per_individual_per_year[i] <- toString(rep(1, species_input$num_of_stocks[i]))
+      }
+    }
+  }
+
+  if("primary_production_impact_recruitment" %!in% names(species_input)){
+    species_input$primary_production_impact_recruitment <- NA
+    species_input$primary_production_impact_recruitment[species_input$num_of_stages > 1] <- 999
+  }
+
+  if("ricker_alpha" %!in% names(species_input)){
+    species_input$ricker_alpha <- NA
+    species_input$ricker_alpha[species_input$num_of_stages > 1] <- 999
+  }
+  if("ricker_beta" %!in% names(species_input)){
+    species_input$ricker_beta <- NA
+    species_input$ricker_beta[species_input$num_of_stages > 1] <- 999
+  }
+  if("beverton_holt_alpha" %!in% names(species_input)){
+    species_input$beverton_holt_alpha <- NA
+    species_input$beverton_holt_alpha[species_input$num_of_stages > 1] <- 999
+  }
+  if("beverton_holt_beta" %!in% names(species_input)){
+    species_input$beverton_holt_beta <- NA
+    species_input$beverton_holt_beta[species_input$num_of_stages > 1] <- 999
+  }
+
   if("num_of_spawns" %!in% names(species_input)){
     species_input$num_of_spawns <- 1
   }
@@ -1291,6 +1374,33 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
                                                                c("sed_ep_ff")] <- .3
     species_input$assimilation_efficiency_on_refractory_detritus[species_input$atlantis_type %in%
                                                                c("pl_bact", "sed_bact")] <- .5
+  }
+
+  if("food_lost_to_detritus" %!in% names(species_input)){
+    species_input$food_lost_to_detritus <- NA
+    species_input$food_lost_to_detritus[species_input$atlantis_type %!in%
+                                                                   c("phytoben", "microphytobenthos",
+                                                                     "seagrass", "lg_phy", "sm_phy")] <- 0
+  }
+  if("labile_detritus_lost_to_detritus" %!in% names(species_input)){
+    species_input$labile_detritus_lost_to_detritus <- NA
+    species_input$labile_detritus_lost_to_detritus[species_input$atlantis_type %!in%
+                                          c("phytoben", "microphytobenthos",
+                                            "seagrass", "lg_phy", "sm_phy")] <- 0
+  }
+  if("refractory_detritus_lost_to_detritus" %!in% names(species_input)){
+    species_input$refractory_detritus_lost_to_detritus <- NA
+    species_input$refractory_detritus_lost_to_detritus[species_input$atlantis_type %!in%
+                                                     c("phytoben", "microphytobenthos",
+                                                       "seagrass", "lg_phy", "sm_phy")] <- 0
+  }
+
+
+  if("mortality_contribution_to_detritus" %!in% names(species_input)){
+    species_input$mortality_contribution_to_detritus <- NA
+    species_input$mortality_contribution_to_detritus[species_input$atlantis_type %!in%
+                                                         c("phytoben", "microphytobenthos",
+                                                           "seagrass", "lg_phy", "sm_phy")] <- .3
   }
 
   #add index
@@ -1598,6 +1708,15 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
                 species_input$assimilation_efficiency_on_labile_detritus[i],"\n", sep=""))
       cat(paste("EDR_", as.character(species_input$group_code[i]), " ",
                 species_input$assimilation_efficiency_on_refractory_detritus[i],"\n", sep=""))
+      cat(paste("FDG_", as.character(species_input$group_code[i]), " ",
+                species_input$food_lost_to_detritus[i],"\n", sep=""))
+      cat(paste("FDGDL_", as.character(species_input$group_code[i]), " ",
+                species_input$labile_detritus_lost_to_detritus[i],"\n", sep=""))
+      cat(paste("FDGDR_", as.character(species_input$group_code[i]), " ",
+                species_input$refractory_detritus_lost_to_detritus[i],"\n", sep=""))
+      cat(paste("FDM_", as.character(species_input$group_code[i]), " ",
+                species_input$mortality_contribution_to_detritus[i],"\n", sep=""))
+
     }
 
     #for all catch grazers
@@ -1799,20 +1918,33 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
           }
       }
 
-    #for all vertebrates and stage structured inverts
+    #for all vertebrates and stage-structured inverts
     if (species_input$atlantis_type[i] %in% c("fish", "mammal", "bird", "shark") |
         species_input$num_of_stages[i] > 1){
 
       #flagrecruit <- flag_recruit
       if (species_input$atlantis_type[i] %in% c("fish", "mammal", "bird", "shark")){
       cat(paste("flagrecruit",as.character(species_input$group_code[i]), " ",
-        species_input$Recruitgroup_code[i], "\n", sep=""))
+        species_input$recruit_group_code[i], "\n", sep=""))
       } else{
         cat(paste("flagrecruit",as.character(species_input$group_code[i]), " ",
-          species_input$Recruitgroup_code[i], "\n", sep=""))
+          species_input$recruit_group_code[i], "\n", sep=""))
         cat(paste("flagseperate",as.character(species_input$group_code[i]), " ",
           species_input$seperate[i], "\n", sep=""))
       }
+      cat(paste("KDENR_",as.character(species_input$group_code[i]), " ",species_input$num_of_stocks[i],
+                "\n", sep=""))
+      cat(paste(species_input$recruits_per_individual_per_year[i], "\n", sep=""))
+      cat(paste("PP_", as.character(species_input$group_code[i]), " ",
+                species_input$primary_production_impact_recruitment[i], "\n", sep=""))
+      cat(paste("Ralpha_", as.character(species_input$group_code[i]), " ",
+                species_input$ricker_alpha[i], "\n", sep=""))
+      cat(paste("Rbeta_", as.character(species_input$group_code[i]), " ",
+                species_input$ricker_beta[i], "\n", sep=""))
+      cat(paste("BHalpha_", as.character(species_input$group_code[i]), " ",
+                species_input$beverton_holt_alpha[i], "\n", sep=""))
+      cat(paste("BHbeta_", as.character(species_input$group_code[i]), " ",
+                species_input$beverton_holt_beta[i], "\n", sep=""))
 
       #external reproduction
       cat(paste("flagext_reprod",as.character(species_input$group_code[i]), " ",
@@ -1825,6 +1957,14 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
 
       cat(paste("flagtempsensitive",as.character(species_input$group_code[i]),
         " ",species_input$flag_temp_sensitive[i],"\n", sep=""))
+
+      cat(paste(as.character(species_input$group_code[i]), "_AgeClassSize",  " ", max(1, round(species_input$ypa_FUNC[i])), "\n", sep=""))
+      cat(paste(as.character(species_input$group_code[i]), "_age_mat",  " ", species_input$mat_FUNC[i], "\n", sep=""))
+
+      cat(paste("FSPB_", as.character(species_input$group_code[i]), " ", species_input$NumofAgeClasses[i], "\n", sep=""))
+      cat(mean_individual_morphology[mean_individual_morphology$group_code==species_input$group_code[i] & mean_individual_morphology$AgeClass>0,
+                                      "PropSpawning"])
+      cat("\n")
       }
 
 
@@ -1899,7 +2039,18 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
               species_input$fish_respiration_scaling_exponent[i], "\n", sep=""))
     cat(paste(as.character(species_input$group_code[i]), "_min_O2 ",
               species_input$minimim_oxygen_vertebrates[i], "\n", sep = ""))
-       }
+    cat(paste("KSPA_", as.character(species_input$group_code[i]), " ",
+              species_input$spawning_formulation_constant[i], "\n", sep = ""))
+    cat(paste("FSP_", as.character(species_input$group_code[i]), " ",
+              species_input$spawning_formulation_fraction[i], "\n", sep = ""))
+    cat(paste("recSTOCK_"), as.character(species_input$group_code[i]), " ",
+        species_input$num_of_stocks[i], "\n", sep = "")
+    cat(paste(species_input$stock_recruitment_scalar[i], "\n", sep="" ))
+    cat(paste("recover_mult_", as.character(species_input$group_code[i]), " ",
+              species_input$recovery_multiplier[i], "\n", sep = ""))
+    cat(paste("recover_start_", as.character(species_input$group_code[i]), " ",
+              species_input$recover_start_date[i], "\n", sep = ""))
+     }
 
     cat("\n")
   }
