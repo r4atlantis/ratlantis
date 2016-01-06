@@ -54,6 +54,6 @@ execute_atlantis <- function (atlantis_location, atlantis_exe, biology_nc, outpu
     command_argument <- paste(command_argument, " -e ", econ_prm, sep = "")
   }
 
-  shell(command_argument, wait = wait_for_response, intern = wait_for_response)
+  system(command_argument, wait = wait_for_response)
 
 }
