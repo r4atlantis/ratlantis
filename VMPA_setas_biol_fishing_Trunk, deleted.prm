@@ -1,6 +1,5 @@
 # Log-normal random recruitment CHECK WITH BETH                    
-lognorm_mu  0.5   Centre for lognormal distribution of the number of recruits                
-lognorm_sigma  0.3   Variation of lognormal distribution of the number of recruits                
+               
 FPL_log_mult  10900000000  Multipler converting distribution to number of large planktivore recruits                
 FPS_log_mult  8230000000  Multipler converting distribution to number of small planktivore recruits                
 FPO_log_mult  58300000000  Multipler converting distribution to number of other planktivore recruits                

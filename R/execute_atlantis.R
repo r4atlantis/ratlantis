@@ -54,6 +54,11 @@ execute_atlantis <- function (atlantis_location, atlantis_exe, biology_nc, outpu
     command_argument <- paste(command_argument, " -e ", econ_prm, sep = "")
   }
 
+  #have to use different commands from various operating systems (not sure why)
+  if(Sys.info()["sysname"] %in% c( "Linux")){
   system(command_argument, wait = wait_for_response)
+  }else if(Sys.info()["sysname"] %in% c( "Windows")){
+    shell(command_argument, wait = wait_for_response)
+  }
 
 }

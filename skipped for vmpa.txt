@@ -39,6 +39,46 @@ SG_habdepend  0
 BC_habdepend  0
 BO_habdepend  0
 
+            
+FPL_log_mult  10900000000  Multipler converting distribution to number of large planktivore recruits                
+FPS_log_mult  8230000000  Multipler converting distribution to number of small planktivore recruits                
+FPO_log_mult  58300000000  Multipler converting distribution to number of other planktivore recruits                
+FVD_log_mult  2260000000  Multipler converting distribution to number of deep piscivore recruits                
+FVV_log_mult  58300000000  Multipler converting distribution to number of vulnerable piscivore recruits                
+FVS_log_mult  5530000000  Multipler converting distribution to number of shallow piscivore recruits                
+FVT_log_mult  4030000  Multipler converting distribution to number of tropical piscivore recruits                
+FVB_log_mult  5570000000  Multipler converting distribution to number of other piscivore recruits                
+FVO_log_mult  58300000000  Multipler converting distribution to number of other tuna recruits                
+FMM_log_mult  64400000000  Multipler converting distribution to number of migratory mesopelagic recruits                
+FMN_log_mult  83400000000  Multipler converting distribution to number of non-migratory mesopelagic recruits                
+FBP_log_mult  58300000000  Multipler converting distribution to number of benthopelagics recruits                 
+FDD_log_mult  5570000000  Multipler converting distribution to number of deep demersal recruits                
+FDS_log_mult  58300000000  Multipler converting distribution to number of shallow demersal recruits                
+FDB_log_mult  58300000000  Multipler converting distribution to number of other shallow demersal recruits               
+FDC_log_mult  58300000000  Multipler converting distribution to number of other deep demersal recruits               
+FDO_log_mult  58300000000  Multipler converting distribution to number of longlived demersal recruits                
+FDE_log_mult  5570000000  Multipler converting distribution to number of estuarine demersal recruits                
+FDF_log_mult  2260000000  Multipler converting distribution to number of flat deep demersals recruits               
+FDM_log_mult  58300000000  Multipler converting distribution to number of miscellaneous demersal recruits                
+FDP_log_mult  5570000000  Multipler converting distribution to number of protected demersal recruits                
+SHD_log_mult  18200000000  Multipler converting distribution to number of demersal shark recruits                
+SHB_log_mult  18200000000  Multipler converting distribution to number of other shark recruits                
+SHC_log_mult  18200000000  Multipler converting distribution to number of dogfish recruits                 
+SHP_log_mult  11100000  Multipler converting distribution to number of pelagic shark recruits                
+SHR_log_mult  18200000000  Multipler converting distribution to number of reef shark recruits                
+SSK_log_mult  18200000000  Multipler converting distribution to number of skates and rays recruits               
+SB_log_mult  4920   Multipler converting distribution to number of seabird fledgother deep demersals               
+SP_log_mult  10900000000  Multipler converting distribution to number of penguin recruits                 
+REP_log_mult  18200000000  Multipler converting distribution to number of reptile recruits                 
+WDG_log_mult  192000   Multipler converting distribution to number of dugong young                 
+PIN_log_mult  192000   Multipler converting distribution to number of pinniped young                 
+WHB_log_mult  5940   Multipler converting distribution to number of baleen whale young                
+WHS_log_mult  977   Multipler converting distribution to number of small toothed whale young               
+WHT_log_mult  977   Multipler converting distribution to number of toothed whale young                
+
+CEP_log_mult  18200000000  Multipler converting distribution to number of cephalopod recruits                 
+PWN_log_mult  18200000000  Multipler converting distribution to number of prawn recruits       
+
 MA_mindepth      0
 MB_mindepth      0
 SG_mindepth      0
@@ -4017,6 +4057,9 @@ need to add reef switch for vla, switch to 1
 for vlb #Cam: basic rules are pelagic or mobile piscivore and planktivores: 0.4
 #          sedentary or demersal 0.2; mid 0.3; birds and oceanic turtles 0.5
 
+# Terminal (senescence mortality) for biomass pools (proportion of terminal age group dying)
+mT_CEP            1.0                                                                    0.0  
+
 
 # Seabird sloppy feeding
 #needs to be set after we make food web                       
@@ -4056,3 +4099,406 @@ FSBDR_PIN 0
 FSBDR_WHT 0
 FSBDR_WHS 0
 FSBDR_WHB 0
+
+
+# Demersal fish sloppy feeding                      
+FFDDR   0.95  Proportion of static demersal fish's planktivore prey that's lost                
+
+#interpreted as the time of year that each cohort becomes mature (this is 226 + 'Time_Spawn')
+
+#Time_Age_CEP     2
+#90 231
+
+Time_Age_CEP     2
+90 366
+
+# Spawning season                        
+FPL_Time_Spawn  210  Time of year large planktivores spawn d 210 - 330               
+FPS_Time_Spawn  150  Time of year small planktivores spawn d 240 - 150               
+FPO_Time_Spawn  240  Time of year other planktivores spawn d 240 - 120               
+FVD_Time_Spawn  10  Time of year deep piscivores spawn d 40 - 270               
+FVV_Time_Spawn  58  Time of year vulnerable piscivores spawn d 40 - 270               
+FVS_Time_Spawn  10  Time of year shallow piscivores spawn d 180 - 60               
+FVT_Time_Spawn  10  Time of year tropical piscivores spawn d 270 - 90               
+FVB_Time_Spawn  243  Time of year other piscivores spawn d 210 - 330               
+FVO_Time_Spawn  180  Time of year other tuna spawn d 240 - 60               
+FMM_Time_Spawn  180  Time of year migratory mesopelagics spawn d 0 - 360               
+FMN_Time_Spawn  180  Time of year non-migratory mesopelagics spawn d 90 - 330               
+FBP_Time_Spawn  212  Time of year benthopelagics spawn d 210 - 330                
+FDD_Time_Spawn  212  Time of year deep demersals spawn d 180 - 360               
+FDS_Time_Spawn  95  Time of year shallow demersals spawn d 240 - 120               
+FDB_Time_Spawn  212  Time of year other shallow demersal spawn d 240 - 120              
+FDC_Time_Spawn  212  Time of year other deep demersal spawn d 120 - 270              
+FDO_Time_Spawn  300  Time of year longlived demersal spawn d 120 - 240               
+FDE_Time_Spawn  133  Time of year herbivorous demersals spawn d 180 - 360               
+FDF_Time_Spawn  250  Time of year flat deep demersals spawn d 40 - 270              
+FDM_Time_Spawn  58  Time of year miscellaneous demersals spawn d 180 - 360               
+FDP_Time_Spawn  363  Time of year protected demersals spawn d 180 - 360               
+SHD_Time_Spawn  227  Time of year demersal sharks spawn d 180 - 240               
+SHC_Time_Spawn  182  Time of year dogfish spawn d 180 - 240                
+SHB_Time_Spawn  182  Time of year other sharks spawn d 300 - 60               
+SHP_Time_Spawn  45  Time of year pelagic sharks spawn d 240 - 360               
+SHR_Time_Spawn  182  Time of year reef sharks spawn d 300 - 60               
+SSK_Time_Spawn  210  Time of year skates and rays spawn d 180 - 240              
+SB_Time_Spawn  290  Time of year seabirds nest d 280 - 300                
+SP_Time_Spawn  250  Time of year penguins nest d 210 - 330                
+REP_Time_Spawn  210  Time of year reptiles spawn d 180 - 240                
+WDG_Time_Spawn  300  Time of year dugongs mate d 290 - 350                
+PIN_Time_Spawn  300  Time of year pinnipeds mate d 290 - 350                
+WHB_Time_Spawn  220  Time of year baleen whales mate d 180 - 270               
+WHS_Time_Spawn  280  Time of year small toothed whales mate d 0 - 360              
+WHT_Time_Spawn  280  Time of year toothed whales mate d 0 - 360               
+
+#date of spawning, first entry is the autumn cohort, second is the spring
+
+CEP_Time_Spawn 90
+
+#CEP_Time_Spawn 2
+#90 231
+              
+			  
+			  PL_spawn_period  14  Period of spawning for large planktivores d 1 - 365               
+FPS_spawn_period  14  Period of spawning for small planktivores d 1 - 365               
+FPO_spawn_period  180  Period of spawning for other planktivores d 1 - 365               
+FVD_spawn_period  30  Period of spawning for deep piscivores d 1 - 365               
+FVV_spawn_period  90  Period of spawning for vulnerable piscivores d 1 - 365               
+FVS_spawn_period  30  Period of spawning for shallow piscivores d 1 - 365               
+FVT_spawn_period  14  Period of spawning for tropical piscivores d 1 - 365               
+FVB_spawn_period  120  Period of spawning for other piscivores d 1 - 365               
+FVO_spawn_period  120  Period of spawning for other tuna d 1 - 365               
+FMM_spawn_period  30  Period of spawning for migratory mesopelagics d 1 - 365               
+FMN_spawn_period  30  Period of spawning for non-migratory mesopelagics d 1 - 365               
+FBP_spawn_period  120  Period of spawning for benthopelagics d 1 - 365                
+FDD_spawn_period  30  Period of spawning for deep demersals d 1 - 365               
+FDS_spawn_period  20  Period of spawning for shallow demersals d 1 - 365               
+FDB_spawn_period  120  Period of spawning for other shallow demersal d 1 - 365              
+FDC_spawn_period  120  Period of spawning for other deep demersal d 1 - 365              
+FDO_spawn_period  150  Period of spawning for longlived demersal d 1 - 365               
+FDE_spawn_period  120  Period of spawning for herbivorous demersals d 1 - 365               
+FDF_spawn_period  25  Period of spawning for flat deep demersals d 1 - 365              
+FDM_spawn_period  90  Period of spawning for miscellaneous demersals d 1 - 365               
+FDP_spawn_period  27  Period of spawning for protected demersals d 1 - 365               
+SHD_spawn_period  18  Period of spawning for demersal sharks d 1 - 365               
+SHC_spawn_period  31  Period of spawning for piked dogfish d 1 - 365               
+SHB_spawn_period  365  Period of spawning for other sharks d 1 - 365               
+SHP_spawn_period  14  Period of spawning for pelagic sharks d 1 - 365               
+SHR_spawn_period  365  Period of spawning for reef sharks d 1 - 365               
+SSK_spawn_period  21  Period of spawning for skates and rays d 1 - 365              
+SB_spawn_period  29  Period of nesting for seabirds d 1 - 365                
+SP_spawn_period  25  Period of nesting for penguins d 1 - 365                
+REP_spawn_period 21  Period of nesting for reptiles d 1 - 365                
+WDG_spawn_period  33  Period of mating for dugongs d 1 - 365                
+PIN_spawn_period  33  Period of mating for pinnipeds d 1 - 365                
+WHB_spawn_period  22  Period of mating for baleen whales d 1 - 365               
+WHS_spawn_period  28  Period of mating for small toothed whales d 1 - 365              
+WHT_spawn_period  28  Period of mating for toothed whales d 1 - 365               
+CEP_spawn_period  70  Period of mating for cephalopods d 1 - 365               
+PWN_spawn_period  7  Period of mating for prawns d 1 - 365    
+
+
+# Age of recruitment recalculated as a weighted average as usual                
+FPL_Recruit_Time  35  Length of larval period for large planktivores d 20 - 70              
+FPS_Recruit_Time  35  Length of larval period for small planktivores d 20 - 70              
+FPO_Recruit_Time  30  Length of larval period for other planktivores d 70 - 720              
+FVD_Recruit_Time  30  Length of larval period for deep piscivores d 20 - 70              
+FVV_Recruit_Time  30  Length of larval period for vulnerable piscivores d 20 - 70              
+FVS_Recruit_Time  30  Length of larval period for shallow piscivores d 60 - 720              
+FVT_Recruit_Time  30  Length of larval period for tropical piscivores d 120 - 360              
+FVB_Recruit_Time  40  Length of larval period for other piscivores d 20 - 70              
+FVO_Recruit_Time  30  Length of larval period for other tuna d 300 - 400              
+FMM_Recruit_Time  35  Length of larval period for migratory mesopelagic d 20 - 70              
+FMN_Recruit_Time  35  Length of larval period for non-mig. mesopelagics d 20 - 70              
+FBP_Recruit_Time  45  Length of larval period for benthopelagics d 20 - 70               
+FDD_Recruit_Time  37  Length of larval period for deep demersals d 20 - 70              
+FDS_Recruit_Time  30  Length of larval period for shallow demersals d 70 - 720              
+FDB_Recruit_Time  60  Length of larval period for other shallow dem. d 20 - 70             
+FDC_Recruit_Time  45  Length of larval period for other deep demersal d 20 - 70             
+FDO_Recruit_Time  30  Length of larval period for longlived demersal d 210 - 300              
+FDE_Recruit_Time  40  Length of larval period for herbivorous demersals d 20 - 70              
+FDF_Recruit_Time  35  Length of larval period for flat deep demersals d 20 - 70             
+FDM_Recruit_Time  30  Length of larval period for miscellaneous dem. d 20 - 70              
+FDP_Recruit_Time  25  Length of larval period for protected dem. d 20 - 70              
+SHD_Recruit_Time  350  Length of period until hatching for dem. sharks d 360 - 720             
+SHC_Recruit_Time  350  Length of period until hatching for piked dogfish d 360 - 720             
+SHP_Recruit_Time  318  Length of period until birth for pelagic sharks d 360 - 720             
+SHB_Recruit_Time  350  Length of period until birth for other sharks d 340 - 380             
+SHR_Recruit_Time  350  Length of period until birth for reef sharks d 340 - 380             
+SSK_Recruit_Time  180  Length of period until hatching for skates & rays d 360 - 720            
+SB_Recruit_Time  200  Length of nestling period for seabirds d 180 - 230               
+SP_Recruit_Time  35  Length of larval period for penguins d 20 - 70               
+REP_Recruit_Time  350  Length of period until hatching for reptiles d 360 - 720              
+WDG_Recruit_Time  330  Length of gestation period for dugongs d 300 - 360               
+PIN_Recruit_Time  330  Length of gestation period for pinnipeds d 300 - 360               
+WHB_Recruit_Time  300  Length of gestation period for baleen whales d 290 - 330              
+WHS_Recruit_Time  350  Length of gestation period for sm toothed whales d 360 - 390             
+WHT_Recruit_Time  350  Length of gestation period for toothed whales d 360 - 390              
+
+CEP_Recruit_Time 0         Length of gestation period for cephalopods        d                0 - 30   (At present use 30 so instantaneous like in old code)
+
+# Recruitment window                        
+Recruit_Period_FPL  30  Length of time recruits arrive over for large planktiv d 15 - 90            
+Recruit_Period_FPS  30  Length of time recruits arrive over for small planktiv d 15 - 90            
+Recruit_Period_FPO  30 Length of time recruits arrive over for other planktiv d 15 - 90            
+Recruit_Period_FVD  60  Length of time recruits arrive over for deep piscivore d 15 - 90            
+Recruit_Period_FVV  30  Length of time recruits arrive over for vul. piscivore d 15 - 90            
+Recruit_Period_FVS  30  Length of time recruits arrive over for shallow pisciv d 15 - 90            
+Recruit_Period_FVT  30  Length of time recruits arrive over for tropical pisciv d 15 - 90            
+Recruit_Period_FVB  30  Length of time recruits arrive over for other piscivore d 15 - 90            
+Recruit_Period_FVO  30  Length of time recruits arrive over for other tuna d 15 - 90            
+Recruit_Period_FMM  30  Length of time recruits arrive over for mig mesopelagic d 15 - 90            
+Recruit_Period_FMN  30  Length of time recruits arrive over for nonmig mesopel d 15 - 90            
+Recruit_Period_FBP  30  Length of time recruits arrive over for benthopelagics d 15 - 90             
+Recruit_Period_FDD  30  Length of time recruits arrive over for deep demersals d 15 - 90            
+Recruit_Period_FDS  40  Length of time recruits arrive over for shallow dem. d 15 - 90            
+Recruit_Period_FDB  30  Length of time recruits arrive over for other shall dem d 15 - 90           
+Recruit_Period_FDC  30  Length of time recruits arrive over for other deep dem d 15 - 90           
+Recruit_Period_FDO  30  Length of time recruits arrive over for longlived dem d 15 - 90            
+Recruit_Period_FDE  30  Length of time recruits arrive over for herbiv demersal d 15 - 90            
+Recruit_Period_FDF  30  Length of time recruits arrive over for flat deep dem. d 15 - 90           
+Recruit_Period_FDM  90  Length of time recruits arrive over for misc demersals d 15 - 90            
+Recruit_Period_FDP  60  Length of time recruits arrive over for protected dem. d 15 - 90            
+Recruit_Period_SHD  105  Length of time recruits arrive over for demersal sharks d 15 - 90            
+Recruit_Period_SHP  90  Length of time recruits arrive over for pelagic sharks d 15 - 90            
+Recruit_Period_SHB  5 Length of time recruits arrive over for other sharks d 15 - 90            
+Recruit_Period_SHC  2  Length of time recruits arrive over for dogfish d 15 - 90             
+Recruit_Period_SHR  100  Length of time recruits arrive over for reef sharks d 15 - 90            
+Recruit_Period_SSK  90  Length of time recruits arrive over for skates and rays d 15 - 90           
+Recruit_Period_SB  30  Length of time recruits arrive over for seabirds d 15 - 90             
+Recruit_Period_SP  30  Length of time recruits arrive over for penguins d 15 - 90             
+Recruit_Period_REP  40  Length of time recruits arrive over for reptiles d 15 - 90             
+Recruit_Period_WDG  10  Length of time recruits arrive over for dugongs d 15 - 90             
+Recruit_Period_PIN  10  Length of time recruits arrive over for pinnipeds d 15 - 90             
+Recruit_Period_WHB  30  Length of time recruits arrive over for baleen whales d 15 - 90            
+Recruit_Period_WHS  10  Length of time recruits arrive over for sm tooth whales d 15 - 90           
+Recruit_Period_WHT  10  Length of time recruits arrive over for toothed whales d 15 - 90            
+
+Recruit_Period_CEP 0       Length of time recruits arrive over for cephalopods     d          0 - 1     (At present use 30 so instantaneous like in old code)
+
+FSP_CEP          1.0       Fraction of biomass contributing to spawn for cephalopods          1.0
+
+
+## Proportion of the biomass of age structured biomass pool lost to spawning (i.e. what proportion of the spawning adult biomass is lost via gamete release)
+## Simplest case is to set to 0.0, this is effectively what it was in the original Atlantis code
+prop_spawn_lost_CEP  0.0
+
+                     
+# Recruit location spatial distibutions.                       
+FPL_recruit_hdistrib  11        
+0 0.303466913 0.183153627 0.261906146 0.135934791 0.115538523 0 0 0 0 0
+          
+FPS_recruit_hdistrib  11        
+0 0.203422447 0.168969666 0.234863274 0.050218888 0.342525726 0 0 0 0 0
+          
+FPO_recruit_hdistrib  11        
+0 0.302862519 0.40283911 0.294298371 0 0 0 0 0 0 0
+          
+FVD_recruit_hdistrib  11        
+0 0.028208604 0.032057644 0.037068169 0.42520304 0.477462543 0 0 0 0 0
+          
+FVV_recruit_hdistrib  11        
+0 0.302862515 0.40283912 0.294298365 0 0 0 0 0 0 0
+          
+FVS_recruit_hdistrib  11        
+0 0.505093536 0.199699394 0.29520707 0 0 0 0 0 0 0
+          
+FVT_recruit_hdistrib  11        
+0 0.322859708 0.163982866 0.236402912 0.144609159 0.132145355 0 0 0 0 0
+          
+FVB_recruit_hdistrib  11        
+0 0.302862519 0.40283911 0.294298371 0 0 0 0 0 0 0
+          
+FVO_recruit_hdistrib  11        
+0 0.302862519 0.40283911 0.294298371 0 0 0 0 0 0 0
+          
+FMM_recruit_hdistrib  11        
+0 0.195740422 0.169552421 0.239796625 0.209852515 0.185058017 0 0 0 0 0
+          
+FMN_recruit_hdistrib  11        
+0 0.35460755 0.103411334 0.142564179 0.380852566 0.018564372 0 0 0 0 0
+          
+FBP_recruit_hdistrib  11        
+0 0.302862519 0.40283911 0.294298371 0 0 0 0 0 0 0
+          
+FDD_recruit_hdistrib  11        
+0 0.35850819 0.174362137 0.249628868 0.190497777 0.027003029 0 0 0 0 0
+          
+FDS_recruit_hdistrib  11        
+0 0.348388584 0.185107237 0.268761383 0.119082841 0.078659954 0 0 0 0 0
+          
+FDB_recruit_hdistrib  11        
+0 0.302862517 0.402839115 0.294298369 0 0 0 0 0 0 0
+          
+FDC_recruit_hdistrib  11        
+0 0.302862519 0.40283911 0.294298371 0 0 0 0 0 0 0
+          
+FDO_recruit_hdistrib  11        
+0 1 0 0 0 0 0 0 0 0 0
+          
+FDE_recruit_hdistrib  11        
+0 0.339684321 0.343556396 0.316759283 0 0 0 0 0 0 0
+          
+FDF_recruit_hdistrib  11        
+0 0.36217994 0.195040863 0.281352198 0.088958503 0.072468496 0 0 0 0 0
+          
+FDM_recruit_hdistrib  11        
+0 0.302862519 0.40283911 0.294298371 0 0 0 0 0 0 0
+          
+FDP_recruit_hdistrib  11        
+0 0.339684321 0.343556396 0.316759283 0 0 0 0 0 0 0
+        
+SHD_recruit_hdistrib  11        
+0 0.322228866 0.179138732 0.258655498 0.225789667 0.014187237 0 0 0 0 0
+          
+SHP_recruit_hdistrib  11        
+0 0.443542294 0.204799511 0.299051675 0.030876154 0.021730365 0 0 0 0 0
+          
+SHB_recruit_hdistrib  11        
+0 0.306762133 0.317606888 0.375630979 0 0 0 0 0 0 0
+          
+SHC_recruit_hdistrib  11        
+0 0.038297495 0.153395954 0.203583433 0.078444099 0.526279019 0 0 0 0 0
+          
+SHR_recruit_hdistrib  11        
+0 0.038433666 0.15390601 0.204307307 0.078714757 0.52463826 0 0 0 0 0
+          
+SSK_recruit_hdistrib  11        
+0 0.505093541 0.199699399 0.29520706 0 0 0 0 0 0 0
+    
+SB_recruit_hdistrib  11        
+0 0.505093539 0.199699398 0.295207063 0 0 0 0 0 0 0
+          
+SP_recruit_hdistrib  11        
+0 1 0 0 0 0 0 0 0 0 0
+          
+REP_recruit_hdistrib  11        
+0 1 0 0 0 0 0 0 0 0 0
+          
+WDG_recruit_hdistrib  11        
+0 0.5 0.5 0 0 0 0 0 0 0 0
+          
+#           
+PIN_recruit_hdistrib  11        
+0 0.398316791 0.223277008 0.32222161 0.038143258 0.018041333 0 0 0 0 0
+          
+WHB_recruit_hdistrib  11        
+0 0.469883045 0.191304342 0.280788325 0.031097302 0.026926986 0 0 0 0 0
+          
+WHS_recruit_hdistrib  11        
+0 0.322013468 0.2263127 0.322556083 0.087238726 0.041879023 0 0 0 0 0
+          
+WHT_recruit_hdistrib  11        
+0 0.229334806 0.162132273 0.229721258 0.254190521 0.124621143 0 0 0 0 0
+
+CEP_recruit_hdistrib  11        
+0 0.303466913 0.183153627 0.261906146 0.135934791 0.115538523 0 0 0 0 0
+
+PWN_recruit_hdistrib  11        
+0 0.303466913 0.183153627 0.261906146 0.135934791 0.115538523 0 0 0 0 0                     
+
+# Recruit location vertical distibutions. First entry for each vector refers to water              
+# column layer closest to the sediment and then up through the watercolumn to             
+# surface most layer on the extreme right (regardless of how many water layers are present)                   
+FPL_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+FPS_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+FPO_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+FVD_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+FVV_recruit_vdistrib 6                         
+0 0 0 0 0.2 0.8                     
+
+FVS_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+FVT_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+FVB_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+FVO_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+FMM_recruit_vdistrib 6 
+ 0 0 0 0.5 0.3 0.2 
+
+FMN_recruit_vdistrib 6                         
+0 0 0.4 0.3 0.2 0.1                     
+
+FBP_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+FDD_recruit_vdistrib 6                         
+0.7 0.3 0 0 0 0                     
+
+FDS_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+FDB_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+FDC_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+FDO_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+FDE_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+FDF_recruit_vdistrib 6                         
+0 0 0 0 0 1                    
+
+FDM_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+FDP_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+SHD_recruit_vdistrib 6                         
+0 0 0.2 0.2 0.3 0.3                     
+
+SHP_recruit_vdistrib 6                         
+0 0 0.1 0.1 0.4 0.4                     
+
+SHB_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+SHC_recruit_vdistrib 6                         
+0.5 0.5 0 0 0 0                     
+
+SHR_recruit_vdistrib 6                         
+0 0.5 0.5 0 0 0                     
+
+SSK_recruit_vdistrib 6                         
+1 0 0 0 0 0                     
+
+SB_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+SP_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+REP_recruit_vdistrib 6                         
+0 0.5 0.5 0 0 0                     
+
+WDG_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+PIN_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+WHB_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+WHS_recruit_vdistrib 6                         
+0 0 0 0 0 1                     
+
+WHT_recruit_vdistrib 6                         
+0 0 0 0 0 1     

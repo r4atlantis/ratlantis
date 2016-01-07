@@ -198,6 +198,12 @@
 #'  stocks, defaults to 1}
 #'  \item{recover_start_date}{day when recovery will start, only used when recruit_group_code
 #'  is set to 8, defaults to 999 for dummy value}
+#'  \item{min_spawn_temp} {defaults to minimum temp in model}
+#'  \item{max_spawn_temp} {defaults to maximum temp in model}
+#'  \item{min_spawn_salinity} {defaults to minimum temp in model}
+#'  \item{max_spawn_salinity} {defaults to maximum temp in model}
+#'  \item{stock_structure}{defaults to 1 for each box, not sure what this is, needs to
+#'  be 1 entry for each box separated by space}
 #'  }
 #'  }
 #'  \item{optional for all vertebrates and stage structured inverts:
@@ -228,6 +234,8 @@
 #'  999 here for dummy value}
 #'  \item{beverton_holt_beta}{parameter needed for recruit_group_code 3, defaults to
 #'  999 here for dummy value}
+#'  \item{structural and reserve weight of recruits is calculated internally;
+#'  results are output to "parameters_for_age_classes_of_groups.csv"}
 #'  }
 #'  }
 #'  \item{optional for all fish:
@@ -332,10 +340,6 @@
 #'  \item{mS_SB} {verts only, defaults to 0 (mortatlity due to birds and mammals
 #'  not included in model), value for each season, separated by a space}
 #'  \item{FSP} {defaults to guild values, verts only}
-#'  \item{min_spawn_temp} {defaults to minimum temp in model}
-#'  \item{max_spawn_temp} {defaults to maximum temp in model}
-#'  \item{stock_struct} {verts only, defaults to 1, input as number for each box
-#'  separated by a space}
 #'  \item{vert_stock_struct} {verts only, defaults to 1,input as number for each box
 #'  separated by a space}
 #'  \item{pop_ratio_stock} {defaults to 1}
@@ -1091,7 +1095,18 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     species_input$FSP <- 0
   }
   if("min_spawn_temp" %!in% names(species_input)){
-    species_input$min_spawn_temp <- MinTemp
+    species_input$min_spawn_temp <- NA
+    species_input$min_spawn_temp[species_input$atlantis_type %in% c("fish",
+                                                                        "mammal",
+                                                                        "bird",
+                                                                        "shark")] <- MinTemp
+  }
+  if("min_spawn_salinity" %!in% names(species_input)){
+    species_input$min_spawn_salinity <- NA
+    species_input$min_spawn_salinity[species_input$atlantis_type %in% c("fish",
+                                                                     "mammal",
+                                                                     "bird",
+                                                                     "shark")] <- MinSalt
   }
   if("max_move_temp" %!in% names(species_input)){
     species_input$max_move_temp <- MaxTemp
@@ -1100,10 +1115,23 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     species_input$min_move_temp <- MinTemp
   }
   if("max_spawn_temp" %!in% names(species_input)){
-    species_input$max_spawn_temp <- MaxTemp
+    species_input$max_spawn_temp <- NA
+    species_input$max_spawn_temp [species_input$atlantis_type %in% c("fish",
+                                                                        "mammal",
+                                                                        "bird",
+                                                                        "shark")] <- MaxTemp
   }
-  if("stock_struct" %!in% names(species_input)){
-    species_input$stock_struct <- 1
+  if("max_spawn_salinity" %!in% names(species_input)){
+    species_input$max_spawn_salinity <- NA
+    species_input$max_spawn_salinity[species_input$atlantis_type %in% c("fish",
+                                                                        "mammal",
+                                                                        "bird",
+                                                                        "shark")] <- MaxSalt
+  }
+  if("stock_structure" %!in% names(species_input)){
+    species_input$stock_structure <- NA
+    species_input$stock_structure <-  gsub(",", rep = "", toString(rep(1,NumberofBoxes)))
+
   }
   if("vert_stock_struct" %!in% names(species_input)){
     species_input$vert_stock_struct <- 1
@@ -1181,7 +1209,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
       if(species_input$atlantis_type[i] %!in% c("lab_det",
                                              "ref_det",
                                              "carrion")){
-    species_input$linear_mortality[i] <- toString(rep(0, species_input$num_of_stages[i]))
+    species_input$linear_mortality[i] <-  gsub(",", rep = "", toString(rep(0, species_input$num_of_stages[i])))
       }
     }
   }
@@ -1192,7 +1220,8 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
       if(species_input$atlantis_type[i] %!in% c("lab_det",
                                                 "ref_det",
                                                 "carrion")){
-        species_input$quadratic_mortality[i] <- toString(rep(0, species_input$num_of_stages[i]))
+        species_input$quadratic_mortality[i] <-  gsub(",", rep = "",
+                                                      toString(rep(0, species_input$num_of_stages[i])))
       }
     }
   }
@@ -1212,7 +1241,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     for (i in 1:nrow(species_input)){
       if(species_input$atlantis_type[i] %in% c("fish",
                                                "mammal", "bird", "shark")){
-        species_input$stock_recruitment_scalar[i] <- toString(rep(1, species_input$num_of_stocks[i]))
+        species_input$stock_recruitment_scalar[i] <-  gsub(",", rep = "", toString(rep(1, species_input$num_of_stocks[i])))
       }
     }
   }
@@ -1221,7 +1250,7 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
     species_input$recruits_per_individual_per_year <- NA
     for(i in 1:nrow(species_input)){
       if(is.na(species_input$recruit_group_code[i]) == F){
-    species_input$recruits_per_individual_per_year[i] <- toString(rep(1, species_input$num_of_stocks[i]))
+    species_input$recruits_per_individual_per_year[i] <-  gsub(",", rep = "", toString(rep(1, species_input$num_of_stocks[i])))
       }
     }
   }
@@ -1965,6 +1994,17 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
       cat(mean_individual_morphology[mean_individual_morphology$group_code==species_input$group_code[i] & mean_individual_morphology$AgeClass>0,
                                       "PropSpawning"])
       cat("\n")
+
+      cat(paste("KSWR_", as.character(species_input$group_code[i]),  " ",
+                mean_individual_morphology[mean_individual_morphology$group_code
+                                           ==  species_input$group_code[i] & mean_individual_morphology$AgeClass==1,
+                                            "StructN"], "\n", sep=""))
+
+            cat(paste("KWWR_", as.character(species_input$group_code[i]),  " ",
+                mean_individual_morphology[mean_individual_morphology$group_code
+                                           == species_input$group_code[i] & mean_individual_morphology$AgeClass==1,
+                                            "ResN"], "\n", sep=""))
+      cat("\n")
       }
 
 
@@ -2050,6 +2090,12 @@ create_biology_prm <- function(species_data_location = getwd(),  species_info_gr
               species_input$recovery_multiplier[i], "\n", sep = ""))
     cat(paste("recover_start_", as.character(species_input$group_code[i]), " ",
               species_input$recover_start_date[i], "\n", sep = ""))
+    cat(paste(as.character(species_input$group_code[i]), "_min_spawn_temp ",species_input$min_spawn_temp[i],"\n", sep=""))
+    cat(paste(as.character(species_input$group_code[i]), "_max_spawn_temp ",species_input$max_spawn_temp[i],"\n", sep=""))
+    cat(paste(as.character(species_input$group_code[i]), "_min_spawn_temp ",species_input$min_spawn_salinity[i],"\n", sep=""))
+    cat(paste(as.character(species_input$group_code[i]), "_max_spawn_temp ",species_input$max_spawn_salinity[i],"\n", sep=""))
+    cat (paste (as.character(species_input$group_code[i]), "_stock_struct ", NumberofBoxes,"\n", sep=""))
+    cat(paste(species_input$stock_structure[i]), "\n")
      }
 
     cat("\n")
